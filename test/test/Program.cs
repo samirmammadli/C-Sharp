@@ -28,6 +28,11 @@ namespace test
 
             Console.WriteLine(name);    // Tom
             Console.WriteLine(age);     // 33
+
+
+            var tuple = (name, age);
+            Console.WriteLine(tuple);
         }
+
     }
 }
