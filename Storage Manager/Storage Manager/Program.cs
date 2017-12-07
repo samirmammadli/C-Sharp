@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Storage_Manager
 {
-
     abstract class Storage
     {
-        protected bool _type;
         protected double _usedSpace;
-
         public double WriteSpeed { get; protected set; }
         public double ReadSpeed { get; protected set; }
         public string StorageName { get; protected set; }
@@ -22,7 +19,6 @@ namespace Storage_Manager
         {
             StorageName = name;
             Capacity = capacity;
-            _type = type;
             _usedSpace = 0;
         }
 
@@ -150,7 +146,6 @@ internal static class Program
             Console.WriteLine(ssd.StorageName + " Free space: " + ssd.FreeSpace + " MB");
             Console.WriteLine(dvd.StorageName + " Free space: " + dvd.FreeSpace + " MB");
             Console.WriteLine(flash.StorageName + " Free space: " + flash.FreeSpace + " MB");
-
         }
     }
 }
