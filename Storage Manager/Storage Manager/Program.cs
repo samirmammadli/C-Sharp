@@ -30,7 +30,7 @@ namespace Storage_Manager
 
         public int WriteData(double fileSize, int count)
         {
-            if (count < 1) throw new ArgumentException("Count cannot be less tha 1!");
+            if (count < 1) throw new ArgumentException("Count cannot be less than 1!");
             if (fileSize > FreeSpace) return 0;
             else
             {
@@ -55,7 +55,7 @@ namespace Storage_Manager
         {
             WriteSpeed = 10.56;
             ReadSpeed = WriteSpeed;
-            if (dubleSide) Capacity = 9; else Capacity = 4.7;
+            if (dubleSide) Capacity = 9000; else Capacity = 4700;
         }
     }
 
@@ -98,8 +98,10 @@ namespace Storage_Manager
     class StorageMass
     {
         private List<Storage> devices;
+        private List<string> report;
         public StorageMass()
         {
+            report = new List<string>();
             devices = new List<Storage>();
         }
         public void AddDevice(Storage device)
@@ -108,13 +110,22 @@ namespace Storage_Manager
                 throw new NullReferenceException();
             devices.Add(device);
         }
+        private void Report(string name, int count, float speed, double totalMB)
+        {
+            report.Add($"{name}: {count} files writed! With {speed} seconds!\nTotal size: {totalMB} MB.");
+        }
+        public List<string> GetReport() { return report; }
         public void WriteData (double filesize, int count)
         {
-            if (count < 1) throw new ArgumentException("Count cannot be less tha 1!");
+            report.Clear();
+            if (count < 1) throw new ArgumentException("Count cannot be less than 1!");
             int writtenCount = 0;
-            for (int i = 0; i < devices.Count && writtenCount != count; i++)
+            int i = 0;
+            for (; i < devices.Count && writtenCount != count; i++)
             {
-                writtenCount += devices[i].WriteData(filesize, count - writtenCount);
+                int temp = devices[i].WriteData(filesize, count - writtenCount);
+                writtenCount += temp;
+                Report(devices[i].StorageName, temp, (float)(filesize * temp / devices[i].WriteSpeed), filesize * temp);
             }
         }
     }
@@ -123,8 +134,23 @@ internal static class Program
     {
         static void Main(string[] args)
         {
-            
-            
+            var Massiv = new StorageMass();
+            var ssd = new HardDisk("SSD", 250000, true);
+            var dvd = new DVD("DVD", true);
+            var flash = new Flash("Flash", 16000, false);
+            Massiv.AddDevice(flash);
+            Massiv.AddDevice(dvd);
+            Massiv.AddDevice(ssd);
+            Massiv.WriteData(780, 115);
+            foreach (var item in Massiv.GetReport())
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine(ssd.StorageName + " Free space: " + ssd.FreeSpace + " MB");
+            Console.WriteLine(dvd.StorageName + " Free space: " + dvd.FreeSpace + " MB");
+            Console.WriteLine(flash.StorageName + " Free space: " + flash.FreeSpace + " MB");
+
         }
     }
 }
