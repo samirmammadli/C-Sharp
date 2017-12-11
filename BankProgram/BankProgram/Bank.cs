@@ -18,18 +18,18 @@ namespace BankProgram
 
      class AznRate
     {
-        public decimal USD { get; set; }
-        public decimal EUR { get; set; }
+        static public decimal USD { get; set; }
+        static public decimal EUR { get; set; }
 
-        public AznRate(decimal usd, decimal eur)
+        static AznRate()
         {
-            USD = usd;
-            EUR = eur;
+            USD = 1.70m;
+            EUR = 2.0024m;
         }
 
-        public decimal Convert(decimal sum, CURRENCY current, CURRENCY destination)
+        static public decimal Convert(decimal sum, CURRENCY current, CURRENCY finalCurrency)
         {
-            if (current == destination)
+            if (current == finalCurrency)
                 return sum;
 
             if (current == CURRENCY.EUR)
@@ -37,9 +37,9 @@ namespace BankProgram
             else if (current == CURRENCY.USD)
                 sum *= USD;
 
-            if (destination == CURRENCY.EUR)
+            if (finalCurrency == CURRENCY.EUR)
                 return sum / EUR;
-            if (destination == CURRENCY.USD)
+            if (finalCurrency == CURRENCY.USD)
                 return sum / USD;
 
             return sum;
@@ -52,34 +52,39 @@ namespace BankProgram
         decimal Balance { get; }
         long Account { get; }
         long Id { get; }
-        void CashIn();
-        void Withdraw();
-        void Transfer();
+        decimal Charge { get; }
+        void CashIn(decimal sum, CURRENCY cur);
+        void Withdraw(decimal sum, CURRENCY cur);
+        void Transfer(long destAccount, decimal sum, CURRENCY cur);
     }
 
     interface ITransaction
     {
-        long Amount { get; }
+        decimal Amount { get; }
+        CURRENCY Currency { get; }
         DateTime Time { get; }
     }
 
     class CashInTran : ITransaction
     {
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
+        public CURRENCY Currency { get; set; }
         public DateTime Time { get; set; }
         public void To(BaseClient client) { }
     }
 
     class TransferTran : ITransaction
     {
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
+        public CURRENCY Currency { get; set; }
         public DateTime Time { get; set; }
-        public void From(BaseClient client) { }
+        public void FromTo(BaseClient client) { }
     }
 
     class WithdrawTran : ITransaction
     {
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
+        public CURRENCY Currency { get; set; }
         public DateTime Time { get; set; }
         public void From(BaseClient client) { }
     }
@@ -117,25 +122,56 @@ namespace BankProgram
         public CURRENCY Currency { get; set; }
         public decimal Balance { get; set; }
         public long Account { get; set; }
+        public decimal Charge { get; set; }
         public long Id { get; set; }
-        public void CashIn() { }
-        public void Withdraw() { }
-        public void Transfer() { }
+        public void CashIn(decimal sum, CURRENCY cur)
+        {
+            if (this.Currency != cur)
+               sum = AznRate.Convert(sum, this.Currency, cur);
+            this.Balance += sum;
+        }
+        public void Withdraw(decimal sum, CURRENCY cur)
+        {
+            if (this.Currency != cur)
+               sum = AznRate.Convert(sum, cur, this.Currency);
+
+            sum +=  sum * Charge;
+
+            if (Balance >= sum)
+                this.Balance -= sum;
+            else
+                throw new ArgumentException("Insufficient funds!");
+        }
+        public void Transfer(long destAccount, decimal sum, CURRENCY cur)
+        {
+            if (this.Currency != cur)
+                sum = AznRate.Convert(sum, cur, this.Currency);
+
+            sum += sum * Charge;
+
+            if (Balance >= sum)
+                this.Balance -= sum;
+            else
+                throw new ArgumentException("Insufficient funds!");
+        }
     }
 
     class Client : BaseClient
     {
-        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency) { }
+        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency)
+        { Charge = 0.3m; }
     }
 
     class GoldenClient : BaseClient
     {
-        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency) { }
-    }
+        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency)
+        { Charge = 0.2m; }
+}
 
     class PlatinumClient : BaseClient
     {
-        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency) { }
+        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency)
+        { Charge = 0; }
     }
 
 
