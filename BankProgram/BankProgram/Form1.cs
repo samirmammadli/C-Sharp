@@ -16,5 +16,20 @@ namespace BankProgram
         {
             InitializeComponent();
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Add(DateTime.Now, 12321431, 98436951 , 50000 , CURRENCY.AZN);
+        }
     }
 }

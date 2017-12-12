@@ -48,29 +48,42 @@ namespace BankProgram
 
     interface IAccount
     {
+        bool Enabled { get; }
         CURRENCY Currency { get; }
         decimal Balance { get; }
         long Account { get; }
         long Id { get; }
         decimal Charge { get; }
-        void CashIn(decimal sum, CURRENCY cur);
+        void Deposit(BaseClient sender, decimal sum, CURRENCY cur);
         void Withdraw(decimal sum, CURRENCY cur);
-        void Transfer(long destAccount, decimal sum, CURRENCY cur);
+        void Transfer(BaseClient destAccount, decimal sum, CURRENCY cur);
     }
 
     interface ITransaction
     {
         decimal Amount { get; }
+        long ToAccount { get; }
         CURRENCY Currency { get; }
         DateTime Time { get; }
     }
 
-    class CashInTran : ITransaction
+    class DepositTrans : ITransaction
     {
         public decimal Amount { get; set; }
         public CURRENCY Currency { get; set; }
         public DateTime Time { get; set; }
-        public void To(BaseClient client) { }
+
+        public long FromAccount { get; set; }
+        public long ToAccount { get; set; }
+
+        public DepositTrans(decimal amount, CURRENCY currency, DateTime time, BaseClient from, BaseClient to)
+        {
+            Amount = amount;
+            Currency = currency;
+            Time = time;
+            FromAccount = from.Account;
+            ToAccount = to.Account;
+        }
     }
 
     class TransferTran : ITransaction
@@ -78,7 +91,17 @@ namespace BankProgram
         public decimal Amount { get; set; }
         public CURRENCY Currency { get; set; }
         public DateTime Time { get; set; }
-        public void FromTo(BaseClient client) { }
+        public long FromAccount { get; set; }
+        public long ToAccount { get; set; }
+
+        public TransferTran(decimal amount, CURRENCY currency, DateTime time, BaseClient from, BaseClient to)
+        {
+            Amount = amount;
+            Currency = currency;
+            Time = time;
+            FromAccount = from.Account;
+            ToAccount = to.Account;
+        }
     }
 
     class WithdrawTran : ITransaction
@@ -86,7 +109,15 @@ namespace BankProgram
         public decimal Amount { get; set; }
         public CURRENCY Currency { get; set; }
         public DateTime Time { get; set; }
-        public void From(BaseClient client) { }
+        public long ToAccount { get; set; }
+
+        public WithdrawTran(decimal amount, CURRENCY currency, DateTime time, BaseClient to)
+        {
+            Amount = amount;
+            Currency = currency;
+            Time = time;
+            ToAccount = to.Account;
+        }
     }
 
     abstract class Person
@@ -110,7 +141,8 @@ namespace BankProgram
 
     abstract class BaseClient : Person, IAccount
     {
-        public BaseClient(string name, string surname, int age, string phone, string address, CURRENCY currency)
+        List<ITransaction> Transactions { get; set; }
+        public BaseClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
         {
             Name = name;
             Surname = surname;
@@ -118,59 +150,75 @@ namespace BankProgram
             Phone = phone;
             Address = address;
             Currency = currency;
+            Enabled = enabled;
+            Transactions = new List<ITransaction>();
         }
+
+        public bool Enabled { get; set; }
         public CURRENCY Currency { get; set; }
         public decimal Balance { get; set; }
         public long Account { get; set; }
         public decimal Charge { get; set; }
         public long Id { get; set; }
-        public void CashIn(decimal sum, CURRENCY cur)
+        public void Deposit(BaseClient sender, decimal sum, CURRENCY cur)
         {
+            var temp = sum;
             if (this.Currency != cur)
                sum = AznRate.Convert(sum, this.Currency, cur);
             this.Balance += sum;
+            Transactions.Add(new DepositTrans(temp, cur, DateTime.Now, sender, this));
         }
         public void Withdraw(decimal sum, CURRENCY cur)
         {
+            var temp = sum;
             if (this.Currency != cur)
                sum = AznRate.Convert(sum, cur, this.Currency);
 
             sum +=  sum * Charge;
 
             if (Balance >= sum)
+            {
                 this.Balance -= sum;
+                Transactions.Add(new WithdrawTran(temp, cur, DateTime.Now, this));
+            }
             else
                 throw new ArgumentException("Insufficient funds!");
         }
-        public void Transfer(long destAccount, decimal sum, CURRENCY cur)
+
+        public void Transfer(BaseClient destAccount, decimal sum, CURRENCY cur)
         {
+            var temp = sum;
             if (this.Currency != cur)
                 sum = AznRate.Convert(sum, cur, this.Currency);
 
             sum += sum * Charge;
 
-            if (Balance >= sum)
+            if (this.Balance >= sum)
                 this.Balance -= sum;
             else
                 throw new ArgumentException("Insufficient funds!");
+
+            destAccount.Deposit(this, sum, cur);
+            Transactions.Add(new TransferTran(temp, cur, DateTime.Now, this, destAccount));
         }
     }
 
     class Client : BaseClient
     {
-        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency)
+        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled) : 
+            base(name,  surname,  age,  phone,  address,  currency, enabled)
         { Charge = 0.3m; }
     }
 
     class GoldenClient : BaseClient
     {
-        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency)
+        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled) : base(name, surname, age, phone, address, currency, enabled)
         { Charge = 0.2m; }
 }
 
     class PlatinumClient : BaseClient
     {
-        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency) : base(name,  surname,  age,  phone,  address,  currency)
+        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled) : base(name, surname, age, phone, address, currency, enabled)
         { Charge = 0; }
     }
 
@@ -178,24 +226,22 @@ namespace BankProgram
      class Bank
     {
         private List<BaseClient> _clients;
-        private AznRate _rate;
         public int ClientsCount { get; }
 
-        public Bank(AznRate rate)
+        public Bank()
         {
-            _rate = rate;
             _clients = new List<BaseClient>();
             ClientsCount = 0;
         }
 
-        public void AddNewClient (string name, string surname, int age, string phone, string address, CURRENCY currency, ClientMembership membership)
-        {   
+        public void AddNewClient (string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled, ClientMembership membership)
+        { 
             if (membership == ClientMembership.Normal)
-                _clients.Add(new Client(name, surname, age, phone, address, currency));
+                _clients.Add(new Client(name, surname, age, phone, address, currency, enabled));
             else if (membership == ClientMembership.Gold)
-                _clients.Add(new GoldenClient(name, surname, age, phone, address, currency));
+                _clients.Add(new GoldenClient(name, surname, age, phone, address, currency, enabled));
             else
-                _clients.Add(new PlatinumClient(name, surname, age, phone, address, currency));
+                _clients.Add(new PlatinumClient(name, surname, age, phone, address, currency, enabled));
         }
     }
 
