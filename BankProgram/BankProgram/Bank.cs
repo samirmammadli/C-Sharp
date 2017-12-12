@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.PerformanceData;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 // ReSharper disable PublicConstructorInAbstractClass
@@ -119,7 +121,7 @@ namespace BankProgram
             ToAccount = to.Account;
         }
     }
-
+    [Serializable]
     abstract class Person
     {
         protected Person()
@@ -138,7 +140,7 @@ namespace BankProgram
         public int Age { get; set; }
     }
 
-
+    [Serializable]
     abstract class BaseClient : Person, IAccount
     {
         List<ITransaction> Transactions { get; set; }
@@ -205,20 +207,22 @@ namespace BankProgram
 
     class Client : BaseClient
     {
-        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled) : 
-            base(name,  surname,  age,  phone,  address,  currency, enabled)
+        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
+            : base(name,  surname,  age,  phone,  address,  currency, enabled)
         { Charge = 0.3m; }
     }
 
     class GoldenClient : BaseClient
     {
-        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled) : base(name, surname, age, phone, address, currency, enabled)
+        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
+            : base(name, surname, age, phone, address, currency, enabled)
         { Charge = 0.2m; }
 }
 
     class PlatinumClient : BaseClient
     {
-        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled) : base(name, surname, age, phone, address, currency, enabled)
+        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
+            : base(name, surname, age, phone, address, currency, enabled)
         { Charge = 0; }
     }
 
@@ -230,9 +234,34 @@ namespace BankProgram
 
         public Bank()
         {
-            _clients = new List<BaseClient>();
+            LoadData();
             ClientsCount = 0;
         }
+
+        public void LoadData()
+        {
+            if (File.Exists("clients.dat"))
+            {
+                var formatter = new BinaryFormatter();
+                using (FileStream fs = new FileStream("clients.dat", FileMode.OpenOrCreate))
+                {
+                     if (fs.Length > 0)
+                    _clients = (List<BaseClient>)formatter.Deserialize(fs);
+                }
+            }
+            else
+               _clients = new List<BaseClient>();
+        }
+
+        public void SaveData()
+        {
+            var formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream("clients.dat", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, _clients);
+            }
+        }
+
 
         public void AddNewClient (string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled, ClientMembership membership)
         { 

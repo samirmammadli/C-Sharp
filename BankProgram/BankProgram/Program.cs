@@ -14,7 +14,7 @@ namespace BankProgram
         [STAThread]
         static void Main()
         {
-            //Client client = new Client("Samir", "Samir",32, "Samir", "Samir",CURRENCY.AZN);
+            Client client = new Client("Samir", "Samir",32, "Samir", "Samir",CURRENCY.AZN, true);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

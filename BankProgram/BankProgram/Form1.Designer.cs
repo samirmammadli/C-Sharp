@@ -38,22 +38,34 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.iTransactionBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.baseClientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iTransactionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iTransactionBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.From = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cbCurrency = new System.Windows.Forms.ComboBox();
+            this.lbCurrency = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.tbPhone = new System.Windows.Forms.TextBox();
+            this.lbPhone = new System.Windows.Forms.Label();
+            this.tbMail = new System.Windows.Forms.TextBox();
+            this.lbMail = new System.Windows.Forms.Label();
+            this.tbAge = new System.Windows.Forms.TextBox();
+            this.lbAge = new System.Windows.Forms.Label();
+            this.tbSurname = new System.Windows.Forms.TextBox();
+            this.lbSurname = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.lbName = new System.Windows.Forms.Label();
+            this.lbMember = new System.Windows.Forms.Label();
+            this.cbMember = new System.Windows.Forms.ComboBox();
+            this.chkbEnabled = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTransactionBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.baseClientBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTransactionBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTransactionBindingSource2)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem1
@@ -67,7 +79,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -100,7 +112,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -130,25 +142,9 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 27);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(836, 219);
+            this.dataGridView1.Size = new System.Drawing.Size(312, 219);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // iTransactionBindingSource1
-            // 
-            this.iTransactionBindingSource1.DataSource = typeof(BankProgram.ITransaction);
-            // 
-            // baseClientBindingSource
-            // 
-            this.baseClientBindingSource.DataSource = typeof(BankProgram.BaseClient);
-            // 
-            // iTransactionBindingSource
-            // 
-            this.iTransactionBindingSource.DataSource = typeof(BankProgram.ITransaction);
-            // 
-            // iTransactionBindingSource2
-            // 
-            this.iTransactionBindingSource2.DataSource = typeof(BankProgram.ITransaction);
             // 
             // Date
             // 
@@ -180,11 +176,213 @@
             this.Currency.Name = "Currency";
             this.Currency.ReadOnly = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(13, 253);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Add new client";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.chkbEnabled);
+            this.panel1.Controls.Add(this.cbMember);
+            this.panel1.Controls.Add(this.lbMember);
+            this.panel1.Controls.Add(this.cbCurrency);
+            this.panel1.Controls.Add(this.lbCurrency);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Controls.Add(this.tbPhone);
+            this.panel1.Controls.Add(this.lbPhone);
+            this.panel1.Controls.Add(this.tbMail);
+            this.panel1.Controls.Add(this.lbMail);
+            this.panel1.Controls.Add(this.tbAge);
+            this.panel1.Controls.Add(this.lbAge);
+            this.panel1.Controls.Add(this.tbSurname);
+            this.panel1.Controls.Add(this.lbSurname);
+            this.panel1.Controls.Add(this.tbName);
+            this.panel1.Controls.Add(this.lbName);
+            this.panel1.Location = new System.Drawing.Point(406, 28);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(349, 309);
+            this.panel1.TabIndex = 5;
+            // 
+            // cbCurrency
+            // 
+            this.cbCurrency.FormattingEnabled = true;
+            this.cbCurrency.Items.AddRange(new object[] {
+            "AZN",
+            "USD",
+            "EUR"});
+            this.cbCurrency.Location = new System.Drawing.Point(76, 201);
+            this.cbCurrency.Name = "cbCurrency";
+            this.cbCurrency.Size = new System.Drawing.Size(121, 21);
+            this.cbCurrency.TabIndex = 13;
+            this.cbCurrency.SelectedIndexChanged += new System.EventHandler(this.cbCurrency_SelectedIndexChanged);
+            // 
+            // lbCurrency
+            // 
+            this.lbCurrency.AutoSize = true;
+            this.lbCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbCurrency.Location = new System.Drawing.Point(3, 202);
+            this.lbCurrency.Name = "lbCurrency";
+            this.lbCurrency.Size = new System.Drawing.Size(64, 16);
+            this.lbCurrency.TabIndex = 12;
+            this.lbCurrency.Text = "Currency:";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(87, 272);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(6, 272);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 10;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // tbPhone
+            // 
+            this.tbPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbPhone.Location = new System.Drawing.Point(76, 137);
+            this.tbPhone.Name = "tbPhone";
+            this.tbPhone.Size = new System.Drawing.Size(243, 22);
+            this.tbPhone.TabIndex = 9;
+            // 
+            // lbPhone
+            // 
+            this.lbPhone.AutoSize = true;
+            this.lbPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbPhone.Location = new System.Drawing.Point(3, 137);
+            this.lbPhone.Name = "lbPhone";
+            this.lbPhone.Size = new System.Drawing.Size(50, 16);
+            this.lbPhone.TabIndex = 8;
+            this.lbPhone.Text = "Phone:";
+            // 
+            // tbMail
+            // 
+            this.tbMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbMail.Location = new System.Drawing.Point(76, 109);
+            this.tbMail.Name = "tbMail";
+            this.tbMail.Size = new System.Drawing.Size(243, 22);
+            this.tbMail.TabIndex = 7;
+            // 
+            // lbMail
+            // 
+            this.lbMail.AutoSize = true;
+            this.lbMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbMail.Location = new System.Drawing.Point(3, 109);
+            this.lbMail.Name = "lbMail";
+            this.lbMail.Size = new System.Drawing.Size(36, 16);
+            this.lbMail.TabIndex = 6;
+            this.lbMail.Text = "Mail:";
+            // 
+            // tbAge
+            // 
+            this.tbAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbAge.Location = new System.Drawing.Point(76, 81);
+            this.tbAge.Name = "tbAge";
+            this.tbAge.Size = new System.Drawing.Size(38, 22);
+            this.tbAge.TabIndex = 5;
+            // 
+            // lbAge
+            // 
+            this.lbAge.AutoSize = true;
+            this.lbAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAge.Location = new System.Drawing.Point(3, 81);
+            this.lbAge.Name = "lbAge";
+            this.lbAge.Size = new System.Drawing.Size(36, 16);
+            this.lbAge.TabIndex = 4;
+            this.lbAge.Text = "Age:";
+            // 
+            // tbSurname
+            // 
+            this.tbSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSurname.Location = new System.Drawing.Point(76, 53);
+            this.tbSurname.Name = "tbSurname";
+            this.tbSurname.Size = new System.Drawing.Size(243, 22);
+            this.tbSurname.TabIndex = 3;
+            // 
+            // lbSurname
+            // 
+            this.lbSurname.AutoSize = true;
+            this.lbSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSurname.Location = new System.Drawing.Point(3, 53);
+            this.lbSurname.Name = "lbSurname";
+            this.lbSurname.Size = new System.Drawing.Size(58, 16);
+            this.lbSurname.TabIndex = 2;
+            this.lbSurname.Text = "Surame:";
+            // 
+            // tbName
+            // 
+            this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbName.Location = new System.Drawing.Point(76, 25);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(243, 22);
+            this.tbName.TabIndex = 1;
+            // 
+            // lbName
+            // 
+            this.lbName.AutoSize = true;
+            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbName.Location = new System.Drawing.Point(3, 25);
+            this.lbName.Name = "lbName";
+            this.lbName.Size = new System.Drawing.Size(48, 16);
+            this.lbName.TabIndex = 0;
+            this.lbName.Text = "Name:";
+            // 
+            // lbMember
+            // 
+            this.lbMember.AutoSize = true;
+            this.lbMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbMember.Location = new System.Drawing.Point(3, 167);
+            this.lbMember.Name = "lbMember";
+            this.lbMember.Size = new System.Drawing.Size(61, 16);
+            this.lbMember.TabIndex = 14;
+            this.lbMember.Text = "Member:";
+            // 
+            // cbMember
+            // 
+            this.cbMember.FormattingEnabled = true;
+            this.cbMember.Items.AddRange(new object[] {
+            "Normal",
+            "Gold",
+            "Platinum"});
+            this.cbMember.Location = new System.Drawing.Point(76, 166);
+            this.cbMember.Name = "cbMember";
+            this.cbMember.Size = new System.Drawing.Size(121, 21);
+            this.cbMember.TabIndex = 15;
+            // 
+            // chkbEnabled
+            // 
+            this.chkbEnabled.AutoSize = true;
+            this.chkbEnabled.Checked = true;
+            this.chkbEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkbEnabled.Location = new System.Drawing.Point(76, 228);
+            this.chkbEnabled.Name = "chkbEnabled";
+            this.chkbEnabled.Size = new System.Drawing.Size(78, 20);
+            this.chkbEnabled.TabIndex = 17;
+            this.chkbEnabled.Text = "Enabled";
+            this.chkbEnabled.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 244);
+            this.ClientSize = new System.Drawing.Size(839, 349);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -196,10 +394,8 @@
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTransactionBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.baseClientBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTransactionBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iTransactionBindingSource2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,15 +412,30 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.BindingSource iTransactionBindingSource;
-        private System.Windows.Forms.BindingSource baseClientBindingSource;
-        private System.Windows.Forms.BindingSource iTransactionBindingSource1;
-        private System.Windows.Forms.BindingSource iTransactionBindingSource2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn From;
         private System.Windows.Forms.DataGridViewTextBoxColumn To;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox tbPhone;
+        private System.Windows.Forms.Label lbPhone;
+        private System.Windows.Forms.TextBox tbMail;
+        private System.Windows.Forms.Label lbMail;
+        private System.Windows.Forms.TextBox tbAge;
+        private System.Windows.Forms.Label lbAge;
+        private System.Windows.Forms.TextBox tbSurname;
+        private System.Windows.Forms.Label lbSurname;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Label lbName;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.ComboBox cbCurrency;
+        private System.Windows.Forms.Label lbCurrency;
+        private System.Windows.Forms.CheckBox chkbEnabled;
+        private System.Windows.Forms.ComboBox cbMember;
+        private System.Windows.Forms.Label lbMember;
     }
 }
 
