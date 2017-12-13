@@ -1,6 +1,6 @@
 ﻿namespace BankProgram
 {
-    partial class Form1
+    partial class BankApplication
     {
         /// <summary>
         /// Required designer variable.
@@ -38,13 +38,20 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.From = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkbEnabled = new System.Windows.Forms.CheckBox();
+            this.cbMember = new System.Windows.Forms.ComboBox();
+            this.lbMember = new System.Windows.Forms.Label();
             this.cbCurrency = new System.Windows.Forms.ComboBox();
             this.lbCurrency = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -59,9 +66,7 @@
             this.lbSurname = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lbName = new System.Windows.Forms.Label();
-            this.lbMember = new System.Windows.Forms.Label();
-            this.cbMember = new System.Windows.Forms.ComboBox();
-            this.chkbEnabled = new System.Windows.Forms.CheckBox();
+            this.btnLoad = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -134,47 +139,75 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Date,
-            this.From,
-            this.To,
-            this.Amount,
-            this.Currency});
+            this.Currency,
+            this.ID,
+            this.Name,
+            this.Surname,
+            this.Mail,
+            this.Address,
+            this.Account,
+            this.Balance,
+            this.Enabled});
             this.dataGridView1.Location = new System.Drawing.Point(3, 27);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(312, 219);
+            this.dataGridView1.Size = new System.Drawing.Size(373, 219);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // From
-            // 
-            this.From.HeaderText = "From Account";
-            this.From.Name = "From";
-            this.From.ReadOnly = true;
-            // 
-            // To
-            // 
-            this.To.HeaderText = "To Account";
-            this.To.Name = "To";
-            this.To.ReadOnly = true;
-            // 
-            // Amount
-            // 
-            this.Amount.HeaderText = "Amount";
-            this.Amount.Name = "Amount";
-            this.Amount.ReadOnly = true;
             // 
             // Currency
             // 
             this.Currency.HeaderText = "Currency";
             this.Currency.Name = "Currency";
             this.Currency.ReadOnly = true;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            // 
+            // Name
+            // 
+            this.Name.HeaderText = "Name";
+            this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
+            // 
+            // Surname
+            // 
+            this.Surname.HeaderText = "Surname";
+            this.Surname.Name = "Surname";
+            this.Surname.ReadOnly = true;
+            // 
+            // Mail
+            // 
+            this.Mail.HeaderText = "Mail";
+            this.Mail.Name = "Mail";
+            this.Mail.ReadOnly = true;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // Account
+            // 
+            this.Account.HeaderText = "Account";
+            this.Account.Name = "Account";
+            this.Account.ReadOnly = true;
+            // 
+            // Balance
+            // 
+            this.Balance.HeaderText = "Balance";
+            this.Balance.Name = "Balance";
+            this.Balance.ReadOnly = true;
+            // 
+            // Enabled
+            // 
+            this.Enabled.HeaderText = "Enabled";
+            this.Enabled.Name = "Enabled";
+            this.Enabled.ReadOnly = true;
             // 
             // button1
             // 
@@ -209,6 +242,41 @@
             this.panel1.Size = new System.Drawing.Size(349, 309);
             this.panel1.TabIndex = 5;
             // 
+            // chkbEnabled
+            // 
+            this.chkbEnabled.AutoSize = true;
+            this.chkbEnabled.Checked = true;
+            this.chkbEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkbEnabled.Location = new System.Drawing.Point(76, 228);
+            this.chkbEnabled.Name = "chkbEnabled";
+            this.chkbEnabled.Size = new System.Drawing.Size(78, 20);
+            this.chkbEnabled.TabIndex = 17;
+            this.chkbEnabled.Text = "Enabled";
+            this.chkbEnabled.UseVisualStyleBackColor = true;
+            // 
+            // cbMember
+            // 
+            this.cbMember.FormattingEnabled = true;
+            this.cbMember.Items.AddRange(new object[] {
+            "Normal",
+            "Gold",
+            "Platinum"});
+            this.cbMember.Location = new System.Drawing.Point(76, 166);
+            this.cbMember.Name = "cbMember";
+            this.cbMember.Size = new System.Drawing.Size(121, 21);
+            this.cbMember.TabIndex = 15;
+            // 
+            // lbMember
+            // 
+            this.lbMember.AutoSize = true;
+            this.lbMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbMember.Location = new System.Drawing.Point(3, 167);
+            this.lbMember.Name = "lbMember";
+            this.lbMember.Size = new System.Drawing.Size(61, 16);
+            this.lbMember.TabIndex = 14;
+            this.lbMember.Text = "Member:";
+            // 
             // cbCurrency
             // 
             this.cbCurrency.FormattingEnabled = true;
@@ -220,7 +288,6 @@
             this.cbCurrency.Name = "cbCurrency";
             this.cbCurrency.Size = new System.Drawing.Size(121, 21);
             this.cbCurrency.TabIndex = 13;
-            this.cbCurrency.SelectedIndexChanged += new System.EventHandler(this.cbCurrency_SelectedIndexChanged);
             // 
             // lbCurrency
             // 
@@ -341,46 +408,22 @@
             this.lbName.TabIndex = 0;
             this.lbName.Text = "Name:";
             // 
-            // lbMember
+            // btnLoad
             // 
-            this.lbMember.AutoSize = true;
-            this.lbMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbMember.Location = new System.Drawing.Point(3, 167);
-            this.lbMember.Name = "lbMember";
-            this.lbMember.Size = new System.Drawing.Size(61, 16);
-            this.lbMember.TabIndex = 14;
-            this.lbMember.Text = "Member:";
+            this.btnLoad.Location = new System.Drawing.Point(122, 252);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(99, 23);
+            this.btnLoad.TabIndex = 6;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // cbMember
+            // BankApplication
             // 
-            this.cbMember.FormattingEnabled = true;
-            this.cbMember.Items.AddRange(new object[] {
-            "Normal",
-            "Gold",
-            "Platinum"});
-            this.cbMember.Location = new System.Drawing.Point(76, 166);
-            this.cbMember.Name = "cbMember";
-            this.cbMember.Size = new System.Drawing.Size(121, 21);
-            this.cbMember.TabIndex = 15;
-            // 
-            // chkbEnabled
-            // 
-            this.chkbEnabled.AutoSize = true;
-            this.chkbEnabled.Checked = true;
-            this.chkbEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkbEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chkbEnabled.Location = new System.Drawing.Point(76, 228);
-            this.chkbEnabled.Name = "chkbEnabled";
-            this.chkbEnabled.Size = new System.Drawing.Size(78, 20);
-            this.chkbEnabled.TabIndex = 17;
-            this.chkbEnabled.Text = "Enabled";
-            this.chkbEnabled.UseVisualStyleBackColor = true;
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(839, 349);
+            this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
@@ -388,7 +431,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "BankApplication";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -412,11 +455,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn From;
-        private System.Windows.Forms.DataGridViewTextBoxColumn To;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox tbPhone;
@@ -436,6 +474,16 @@
         private System.Windows.Forms.CheckBox chkbEnabled;
         private System.Windows.Forms.ComboBox cbMember;
         private System.Windows.Forms.Label lbMember;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Surname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Account;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Balance;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
     }
 }
 

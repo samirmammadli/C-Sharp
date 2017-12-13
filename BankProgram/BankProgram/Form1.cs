@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace BankProgram
 {
-    public partial class Form1 : Form
+    public partial class BankApplication : Form
     {
         private Bank bank;
-        public Form1()
+        public BankApplication()
         {
             bank = new Bank();
             InitializeComponent();
@@ -55,8 +55,9 @@ namespace BankProgram
             bank.SaveData();
         }
 
-        private void cbCurrency_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnLoad_Click(object sender, EventArgs e)
         {
+
         }
     }
 }
