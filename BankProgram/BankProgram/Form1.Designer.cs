@@ -28,25 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkbEnabled = new System.Windows.Forms.CheckBox();
@@ -67,8 +55,23 @@
             this.tbName = new System.Windows.Forms.TextBox();
             this.lbName = new System.Windows.Forms.Label();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.addClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allTransacionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withdrawTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.depositTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transferTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,27 +87,32 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
             this.toolsToolStripMenuItem,
+            this.transactionsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(839, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(946, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // toolsToolStripMenuItem
             // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addClientToolStripMenuItem,
+            this.searchClientToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.toolsToolStripMenuItem.Text = "Clients";
             // 
             // helpToolStripMenuItem
             // 
@@ -117,106 +125,41 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(93, 26);
-            // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Currency,
-            this.ID,
-            this.Name,
-            this.Surname,
-            this.Mail,
-            this.Address,
-            this.Account,
-            this.Balance,
-            this.Enabled});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 27);
+            this.dgID,
+            this.dgAccount,
+            this.dgName,
+            this.dgSurname,
+            this.dgAddress,
+            this.dgMail,
+            this.dgBalance,
+            this.dgCurrency,
+            this.dgEnabled});
+            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(373, 219);
+            this.dataGridView1.Size = new System.Drawing.Size(920, 219);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // Currency
-            // 
-            this.Currency.HeaderText = "Currency";
-            this.Currency.Name = "Currency";
-            this.Currency.ReadOnly = true;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            // 
-            // Name
-            // 
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            // 
-            // Surname
-            // 
-            this.Surname.HeaderText = "Surname";
-            this.Surname.Name = "Surname";
-            this.Surname.ReadOnly = true;
-            // 
-            // Mail
-            // 
-            this.Mail.HeaderText = "Mail";
-            this.Mail.Name = "Mail";
-            this.Mail.ReadOnly = true;
-            // 
-            // Address
-            // 
-            this.Address.HeaderText = "Address";
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            // 
-            // Account
-            // 
-            this.Account.HeaderText = "Account";
-            this.Account.Name = "Account";
-            this.Account.ReadOnly = true;
-            // 
-            // Balance
-            // 
-            this.Balance.HeaderText = "Balance";
-            this.Balance.Name = "Balance";
-            this.Balance.ReadOnly = true;
-            // 
-            // Enabled
-            // 
-            this.Enabled.HeaderText = "Enabled";
-            this.Enabled.Name = "Enabled";
-            this.Enabled.ReadOnly = true;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 253);
+            this.button1.Location = new System.Drawing.Point(13, 252);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 23);
             this.button1.TabIndex = 4;
             this.button1.Text = "Add new client";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel1
             // 
@@ -237,10 +180,11 @@
             this.panel1.Controls.Add(this.lbSurname);
             this.panel1.Controls.Add(this.tbName);
             this.panel1.Controls.Add(this.lbName);
-            this.panel1.Location = new System.Drawing.Point(406, 28);
+            this.panel1.Location = new System.Drawing.Point(245, 252);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(349, 309);
             this.panel1.TabIndex = 5;
+            this.panel1.Visible = false;
             // 
             // chkbEnabled
             // 
@@ -248,7 +192,7 @@
             this.chkbEnabled.Checked = true;
             this.chkbEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkbEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chkbEnabled.Location = new System.Drawing.Point(76, 228);
+            this.chkbEnabled.Location = new System.Drawing.Point(6, 228);
             this.chkbEnabled.Name = "chkbEnabled";
             this.chkbEnabled.Size = new System.Drawing.Size(78, 20);
             this.chkbEnabled.TabIndex = 17;
@@ -257,6 +201,8 @@
             // 
             // cbMember
             // 
+            this.cbMember.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMember.FormattingEnabled = true;
             this.cbMember.Items.AddRange(new object[] {
             "Normal",
@@ -279,6 +225,8 @@
             // 
             // cbCurrency
             // 
+            this.cbCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCurrency.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbCurrency.FormattingEnabled = true;
             this.cbCurrency.Items.AddRange(new object[] {
             "AZN",
@@ -314,7 +262,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 10;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = "Save";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -418,14 +366,118 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
+            // addClientToolStripMenuItem
+            // 
+            this.addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
+            this.addClientToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addClientToolStripMenuItem.Text = "Add client";
+            // 
+            // searchClientToolStripMenuItem
+            // 
+            this.searchClientToolStripMenuItem.Name = "searchClientToolStripMenuItem";
+            this.searchClientToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.searchClientToolStripMenuItem.Text = "Search client";
+            // 
+            // transactionsToolStripMenuItem
+            // 
+            this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allTransacionsToolStripMenuItem,
+            this.withdrawTransactionsToolStripMenuItem,
+            this.depositTransactionsToolStripMenuItem,
+            this.transferTransactionsToolStripMenuItem});
+            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.transactionsToolStripMenuItem.Text = "Transactions";
+            // 
+            // allTransacionsToolStripMenuItem
+            // 
+            this.allTransacionsToolStripMenuItem.Name = "allTransacionsToolStripMenuItem";
+            this.allTransacionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.allTransacionsToolStripMenuItem.Text = "All transacions";
+            // 
+            // withdrawTransactionsToolStripMenuItem
+            // 
+            this.withdrawTransactionsToolStripMenuItem.Name = "withdrawTransactionsToolStripMenuItem";
+            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.withdrawTransactionsToolStripMenuItem.Text = "Withdraw transactions";
+            // 
+            // depositTransactionsToolStripMenuItem
+            // 
+            this.depositTransactionsToolStripMenuItem.Name = "depositTransactionsToolStripMenuItem";
+            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.depositTransactionsToolStripMenuItem.Text = "Deposit transactions";
+            // 
+            // transferTransactionsToolStripMenuItem
+            // 
+            this.transferTransactionsToolStripMenuItem.Name = "transferTransactionsToolStripMenuItem";
+            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.transferTransactionsToolStripMenuItem.Text = "Transfer transactions";
+            // 
+            // dgID
+            // 
+            this.dgID.HeaderText = "ID";
+            this.dgID.Name = "dgID";
+            this.dgID.ReadOnly = true;
+            this.dgID.Width = 50;
+            // 
+            // dgAccount
+            // 
+            this.dgAccount.HeaderText = "Account";
+            this.dgAccount.Name = "dgAccount";
+            this.dgAccount.ReadOnly = true;
+            this.dgAccount.Width = 120;
+            // 
+            // dgName
+            // 
+            this.dgName.HeaderText = "Name";
+            this.dgName.Name = "dgName";
+            this.dgName.ReadOnly = true;
+            // 
+            // dgSurname
+            // 
+            this.dgSurname.HeaderText = "Surname";
+            this.dgSurname.Name = "dgSurname";
+            this.dgSurname.ReadOnly = true;
+            // 
+            // dgAddress
+            // 
+            this.dgAddress.HeaderText = "Address";
+            this.dgAddress.Name = "dgAddress";
+            this.dgAddress.ReadOnly = true;
+            // 
+            // dgMail
+            // 
+            this.dgMail.HeaderText = "Mail";
+            this.dgMail.Name = "dgMail";
+            this.dgMail.ReadOnly = true;
+            // 
+            // dgBalance
+            // 
+            this.dgBalance.HeaderText = "Balance";
+            this.dgBalance.Name = "dgBalance";
+            this.dgBalance.ReadOnly = true;
+            // 
+            // dgCurrency
+            // 
+            this.dgCurrency.HeaderText = "Currency";
+            this.dgCurrency.Name = "dgCurrency";
+            this.dgCurrency.ReadOnly = true;
+            // 
+            // dgEnabled
+            // 
+            this.dgEnabled.HeaderText = "Enabled";
+            this.dgEnabled.Name = "dgEnabled";
+            this.dgEnabled.ReadOnly = true;
+            // 
             // BankApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(839, 349);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(946, 571);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -435,7 +487,6 @@
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -449,8 +500,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
@@ -475,15 +524,22 @@
         private System.Windows.Forms.ComboBox cbMember;
         private System.Windows.Forms.Label lbMember;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Surname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Account;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Balance;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
+        private System.Windows.Forms.ToolStripMenuItem addClientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchClientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allTransacionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withdrawTransactionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem depositTransactionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem transferTransactionsToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgAccount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgSurname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgMail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgCurrency;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dgEnabled;
     }
 }
 
