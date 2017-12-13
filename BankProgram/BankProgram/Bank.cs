@@ -204,21 +204,21 @@ namespace BankProgram
             Transactions.Add(new TransferTran(temp, cur, DateTime.Now, this, destAccount));
         }
     }
-
+    [Serializable]
     class Client : BaseClient
     {
         public Client(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
             : base(name,  surname,  age,  phone,  address,  currency, enabled)
         { Charge = 0.3m; }
     }
-
+    [Serializable]
     class GoldenClient : BaseClient
     {
         public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
             : base(name, surname, age, phone, address, currency, enabled)
         { Charge = 0.2m; }
 }
-
+    [Serializable]
     class PlatinumClient : BaseClient
     {
         public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
