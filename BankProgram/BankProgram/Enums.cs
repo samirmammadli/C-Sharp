@@ -13,4 +13,11 @@ namespace BankProgram
         Gold,
         Platinum
     }
+
+    enum TransactionType
+    {
+        Deposit,
+        Withdraw,
+        Transfer
+    }
 }

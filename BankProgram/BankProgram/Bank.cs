@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
 
 namespace BankProgram
 {
@@ -17,73 +17,58 @@ namespace BankProgram
         CURRENCY Currency { get; }
         decimal Balance { get; }
         long Account { get; }
-        long Id { get; }
+        long UserID { get; }
         decimal Charge { get; }
-        decimal Deposit(BaseClient sender, decimal sum, CURRENCY cur);
-        decimal Withdraw(decimal sum, CURRENCY cur);
-        decimal Transfer(BaseClient destAccount, decimal sum, CURRENCY cur);
+        Transaction Deposit(decimal sum, CURRENCY cur);
+        Transaction Withdraw(decimal sum, CURRENCY cur);
+        Transaction Transfer(BaseClient destClient, decimal sum, CURRENCY cur);
     }
 
-    interface ITransaction
+    abstract class Transaction
     {
-        decimal Amount { get; }
-        long ToAccount { get; }
-        CURRENCY Currency { get; }
-        DateTime Time { get; }
-    }
+        public readonly decimal _charge;
+        public readonly bool _success;
+        public readonly long _userId;
+        public readonly decimal _amount;
+        public readonly decimal _totalAmount;
+        public readonly long account;
+        public readonly CURRENCY _currency;
+        public readonly CURRENCY _totalCur;
+        public readonly DateTime _time;
 
-    class DepositTrans : ITransaction
-    {
-        public decimal Amount { get; set; }
-        public CURRENCY Currency { get; set; }
-        public DateTime Time { get; set; }
-
-        public long FromAccount { get; set; }
-        public long ToAccount { get; set; }
-
-        public DepositTrans(decimal amount, CURRENCY currency, DateTime time, BaseClient from, BaseClient to)
+        public Transaction(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time,bool success)
         {
-            Amount = amount;
-            Currency = currency;
-            Time = time;
-            FromAccount = from.Account;
-            ToAccount = to.Account;
+            _charge = charge;
+            _success = success;
+            _userId = id;
+            _amount = amount;
+            _totalAmount = totalAmount;
+            this.account = account;
+            _currency = currency;
+            _totalCur = totalCur;
+            _time = time;
         }
     }
 
-    class TransferTran : ITransaction
+    class DepositTrans : Transaction
     {
-        public decimal Amount { get; set; }
-        public CURRENCY Currency { get; set; }
-        public DateTime Time { get; set; }
-        public long FromAccount { get; set; }
-        public long ToAccount { get; set; }
-
-        public TransferTran(decimal amount, CURRENCY currency, DateTime time, BaseClient from, BaseClient to)
-        {
-            Amount = amount;
-            Currency = currency;
-            Time = time;
-            FromAccount = from.Account;
-            ToAccount = to.Account;
-        }
+        public DepositTrans(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
+            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { }
     }
 
-    class WithdrawTran : ITransaction
+    class TransferTran : Transaction
     {
-        public decimal Amount { get; set; }
-        public CURRENCY Currency { get; set; }
-        public DateTime Time { get; set; }
-        public long ToAccount { get; set; }
-
-        public WithdrawTran(decimal amount, CURRENCY currency, DateTime time, BaseClient to)
-        {
-            Amount = amount;
-            Currency = currency;
-            Time = time;
-            ToAccount = to.Account;
-        }
+        long _transferTo;
+        public TransferTran(long id, decimal amount, decimal totalAmount, long account, long transferTo, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
+            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _transferTo = transferTo; }
     }
+
+    class WithdrawTran : Transaction
+    {
+        public WithdrawTran(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
+            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { }
+    }
+
     [Serializable]
     abstract class Person
     {
@@ -115,7 +100,7 @@ namespace BankProgram
             Address = address;
             Currency = currency;
             Enabled = enabled;
-            Id = 0;
+            UserID = 0;
             Account = 0;
         }
 
@@ -124,50 +109,68 @@ namespace BankProgram
         public decimal Balance { get; set; }
         public long Account { get; set; }
         public decimal Charge { get; set; }
-        public long Id { get; set; }
-        public decimal Deposit(BaseClient sender, decimal sum, CURRENCY cur)
+        public long UserID { get; set; }
+        private void Recieve(decimal sum, CURRENCY cur)
         {
-            if (sum <= 0)
-                throw new ArgumentException("Incorrect sum!");
+            if (this.Currency != cur)
+                sum = AznRate.Convert(sum, cur, this.Currency);
+            this.Balance += sum;
+        }
+        public Transaction Deposit(decimal sum, CURRENCY cur)
+        {
+            var originalSum = sum;
+            if (sum <= 0 || !Enabled)
+            {
+                throw new ArgumentException("Incorrect sum or account is disabled!");
+            }
             if (this.Currency != cur)
                sum = AznRate.Convert(sum, cur, this.Currency);
             this.Balance += sum;
-            return sum;
+            return new DepositTrans(this.UserID, sum, originalSum, this.Account, 0, this.Currency, cur, DateTime.Now, true);
         }
-        public decimal Withdraw(decimal sum, CURRENCY cur)
+        public Transaction Withdraw(decimal sum, CURRENCY cur)
         {
-            if (sum <= 0)
-                throw new ArgumentException("Incorrect sum!");
+            var originalSum = sum;
+            if (sum <= 0 || !Enabled)
+            {
+                throw new ArgumentException("Incorrect sum or account is disabled!");
+            }
             if (this.Currency != cur)
                 sum = AznRate.Convert(sum, cur, this.Currency);
 
-            sum +=  sum * this.Charge;
+            var charge = sum * this.Charge;
+            sum +=  Charge;
 
             if (Balance >= sum)
                 this.Balance -= sum;
             else
-                throw new ArgumentException("Insufficient funds!");
+            {
+                return new WithdrawTran(this.UserID, originalSum, originalSum, this.Account, 0, cur, cur, DateTime.Now, false);
+            }
 
-            return sum;
+            return new WithdrawTran(this.UserID, sum, originalSum, this.Account, charge, this.Currency, cur, DateTime.Now, true);
         }
-
-        public decimal Transfer(BaseClient destAccount, decimal sum, CURRENCY cur)
+        public Transaction Transfer(BaseClient destClient, decimal sum, CURRENCY cur)
         {
-            var sumInOriginalCurrency = sum;
-            if (sum <= 0)
-                throw new ArgumentException("Incorrect sum!");
+            var originalSum = sum;
+            if (sum <= 0 || !Enabled || !destClient.Enabled)
+            {
+                throw new ArgumentException("Incorrect sum or account is disabled!");
+            }
             if (this.Currency != cur)
                 sum = AznRate.Convert(sum, cur, this.Currency);
 
-            sum += sum * Charge;
+            var charge = sum * this.Charge;
+            sum += Charge;
 
-            if (this.Balance >= sum)
+            if (Balance >= sum)
                 this.Balance -= sum;
             else
-                throw new ArgumentException("Insufficient funds!");
-
-            destAccount.Deposit(this, sumInOriginalCurrency, cur);
-            return sum;
+            {
+                return new TransferTran(this.UserID, originalSum, originalSum, this.Account, destClient.Account, 0, cur, cur, DateTime.Now, false);
+            }
+            destClient.Recieve(originalSum, cur);
+            return new TransferTran(this.UserID, sum, originalSum, this.Account, destClient.Account, charge, this.Currency, cur, DateTime.Now, true);
         }
     }
 
@@ -198,17 +201,6 @@ namespace BankProgram
 
     static class EnumConverter
     {
-        static public string CurrencyToString(CURRENCY cur)
-        {
-            string Cur = "AZN";
-            if (cur == CURRENCY.EUR)
-                Cur = "EUR";
-            else if (cur == CURRENCY.USD)
-                Cur = "USD";
-
-            return Cur;
-        }
-
         static public CURRENCY StringToCurrency(string cur)
         {
             CURRENCY Cur = CURRENCY.AZN;
@@ -221,48 +213,74 @@ namespace BankProgram
         }
     }
 
+
+    static class SaveLoadData
+    {
+        static public List<T> LoadData<T>(string path)
+        {
+            if (File.Exists(path))
+            {
+                var formatter = new BinaryFormatter();
+                using (FileStream fs = new FileStream(path, FileMode.Open))
+                {
+                    if (fs.Length > 0)
+                    {
+                        return (List<T>)formatter.Deserialize(fs);
+                    }
+                }
+                return new List<T>();
+            }
+            else
+                return new List<T>();
+        }
+
+        static public void SaveData<T>(List<T> list, string path)
+        {
+            var formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, list);
+            }
+        }
+    }
+
     class Bank
     {
-        private long IdCounter = 0;
-        private long AccountNumber = 8713154200000001;
-        private SortedList<long, ITransaction> _transactions;
+        private long IdCounter;
+        private long AccountNumber;
+        private List<Transaction> _transactions;
         private List<BaseClient> _clients;
-        public int ClientsCount { get; }
 
         public Bank()
         {
-            _transactions = new SortedList<long, ITransaction>();
+            _transactions = new List<Transaction>();
             LoadData();
-            ClientsCount = 0;
+            if (_clients.Count > 0 )
+            {
+                IdCounter = _clients[_clients.Count - 1].UserID;
+                AccountNumber = _clients[_clients.Count - 1].Account + 1;
+            }
+            else
+            {
+                IdCounter = 0;
+                AccountNumber = 8713154200000001;
+            }
         }
         public void LoadData()
         {
-            if (File.Exists("clients.dat"))
-            {
-                var formatter = new BinaryFormatter();
-                using (FileStream fs = new FileStream("clients.dat", FileMode.OpenOrCreate))
-                {
-                     if (fs.Length > 0)
-                    _clients = (List<BaseClient>)formatter.Deserialize(fs);
-                }
-            }
-            else
-               _clients = new List<BaseClient>();
+            _clients = SaveLoadData.LoadData<BaseClient>("clients.dat");
         }
 
         public void SaveData()
         {
-            var formatter = new BinaryFormatter();
-            using (FileStream fs = new FileStream("clients.dat", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, _clients);
-            }
+            SaveLoadData.SaveData(_clients, "clients.dat");
+
         }
 
         private void SetID(BaseClient client)
         {
-            if (client.Id == 0)
-                client.Id = ++IdCounter;
+            if (client.UserID == 0)
+                client.UserID = ++IdCounter;
             else
                 throw new ArgumentException("Client alrady have an ID!");
         }
@@ -291,8 +309,7 @@ namespace BankProgram
         {
             try
             {
-                client.Deposit(client, sum, cur);
-                _transactions.Add(client.Id, new DepositTrans(sum, cur, DateTime.Now, client, client));
+                _transactions.Add(client.Deposit(sum, cur));
             }
             catch (Exception e) { throw e; } 
         }
@@ -301,8 +318,7 @@ namespace BankProgram
         {
             try
             {
-                client.Withdraw(sum, cur);
-                _transactions.Add(client.Id, new WithdrawTran(sum, cur, DateTime.Now, client));
+                _transactions.Add(client.Withdraw(sum, cur));
             }
             catch (Exception e) { throw e; }
         }
@@ -311,8 +327,7 @@ namespace BankProgram
         {
             try
             {
-                from.Withdraw(sum, cur);
-                //_transactions.Add(client.Id, new WithdrawTran(sum, cur, DateTime.Now, client));
+                _transactions.Add(from.Withdraw(sum, cur));
             }
             catch (Exception e) { throw e; }
         }
@@ -322,16 +337,18 @@ namespace BankProgram
             ArrayList[] list = new ArrayList[_clients.Count];
             for (int i = 0; i < _clients.Count; i++)
             {
-                list[i] = new ArrayList();
-                list[i].Add(_clients[i].Id);
-                list[i].Add(_clients[i].Account);
-                list[i].Add(_clients[i].Name);
-                list[i].Add(_clients[i].Surname);
-                list[i].Add(_clients[i].Phone);
-                list[i].Add(_clients[i].Address);
-                list[i].Add(_clients[i].Balance);
-                list[i].Add(EnumConverter.CurrencyToString(_clients[i].Currency));
-                list[i].Add(_clients[i].Enabled);
+                list[i] = new ArrayList
+                {
+                    _clients[i].UserID,
+                    _clients[i].Account,
+                    _clients[i].Name,
+                    _clients[i].Surname,
+                    _clients[i].Phone,
+                    _clients[i].Address,
+                    _clients[i].Balance,
+                    _clients[i].Currency,
+                    _clients[i].Enabled
+                };
             }
             return list;
         }

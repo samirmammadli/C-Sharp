@@ -32,9 +32,25 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allTransacionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withdrawTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.depositTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transferTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkbEnabled = new System.Windows.Forms.CheckBox();
@@ -55,22 +71,6 @@
             this.tbName = new System.Windows.Forms.TextBox();
             this.lbName = new System.Windows.Forms.Label();
             this.btnLoad = new System.Windows.Forms.Button();
-            this.addClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allTransacionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withdrawTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.depositTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transferTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dgID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -87,7 +87,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -114,6 +114,53 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.toolsToolStripMenuItem.Text = "Clients";
             // 
+            // addClientToolStripMenuItem
+            // 
+            this.addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
+            this.addClientToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.addClientToolStripMenuItem.Text = "Add client";
+            // 
+            // searchClientToolStripMenuItem
+            // 
+            this.searchClientToolStripMenuItem.Name = "searchClientToolStripMenuItem";
+            this.searchClientToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.searchClientToolStripMenuItem.Text = "Search client";
+            // 
+            // transactionsToolStripMenuItem
+            // 
+            this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allTransacionsToolStripMenuItem,
+            this.withdrawTransactionsToolStripMenuItem,
+            this.depositTransactionsToolStripMenuItem,
+            this.transferTransactionsToolStripMenuItem});
+            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.transactionsToolStripMenuItem.Text = "Transactions";
+            // 
+            // allTransacionsToolStripMenuItem
+            // 
+            this.allTransacionsToolStripMenuItem.Name = "allTransacionsToolStripMenuItem";
+            this.allTransacionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.allTransacionsToolStripMenuItem.Text = "All transacions";
+            // 
+            // withdrawTransactionsToolStripMenuItem
+            // 
+            this.withdrawTransactionsToolStripMenuItem.Name = "withdrawTransactionsToolStripMenuItem";
+            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.withdrawTransactionsToolStripMenuItem.Text = "Withdraw transactions";
+            // 
+            // depositTransactionsToolStripMenuItem
+            // 
+            this.depositTransactionsToolStripMenuItem.Name = "depositTransactionsToolStripMenuItem";
+            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.depositTransactionsToolStripMenuItem.Text = "Deposit transactions";
+            // 
+            // transferTransactionsToolStripMenuItem
+            // 
+            this.transferTransactionsToolStripMenuItem.Name = "transferTransactionsToolStripMenuItem";
+            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.transferTransactionsToolStripMenuItem.Text = "Transfer transactions";
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -125,9 +172,8 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // dataGridView1
             // 
@@ -149,7 +195,63 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(920, 219);
             this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // dgID
+            // 
+            this.dgID.HeaderText = "ID";
+            this.dgID.Name = "dgID";
+            this.dgID.ReadOnly = true;
+            this.dgID.Width = 50;
+            // 
+            // dgAccount
+            // 
+            this.dgAccount.HeaderText = "Account";
+            this.dgAccount.Name = "dgAccount";
+            this.dgAccount.ReadOnly = true;
+            this.dgAccount.Width = 120;
+            // 
+            // dgName
+            // 
+            this.dgName.HeaderText = "Name";
+            this.dgName.Name = "dgName";
+            this.dgName.ReadOnly = true;
+            // 
+            // dgSurname
+            // 
+            this.dgSurname.HeaderText = "Surname";
+            this.dgSurname.Name = "dgSurname";
+            this.dgSurname.ReadOnly = true;
+            // 
+            // dgAddress
+            // 
+            this.dgAddress.HeaderText = "Address";
+            this.dgAddress.Name = "dgAddress";
+            this.dgAddress.ReadOnly = true;
+            // 
+            // dgMail
+            // 
+            this.dgMail.HeaderText = "Mail";
+            this.dgMail.Name = "dgMail";
+            this.dgMail.ReadOnly = true;
+            // 
+            // dgBalance
+            // 
+            this.dgBalance.HeaderText = "Balance";
+            this.dgBalance.Name = "dgBalance";
+            this.dgBalance.ReadOnly = true;
+            // 
+            // dgCurrency
+            // 
+            this.dgCurrency.HeaderText = "Currency";
+            this.dgCurrency.Name = "dgCurrency";
+            this.dgCurrency.ReadOnly = true;
+            // 
+            // dgEnabled
+            // 
+            this.dgEnabled.HeaderText = "Enabled";
+            this.dgEnabled.Name = "dgEnabled";
+            this.dgEnabled.ReadOnly = true;
+            this.dgEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // button1
             // 
@@ -365,109 +467,6 @@
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
-            // addClientToolStripMenuItem
-            // 
-            this.addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
-            this.addClientToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.addClientToolStripMenuItem.Text = "Add client";
-            // 
-            // searchClientToolStripMenuItem
-            // 
-            this.searchClientToolStripMenuItem.Name = "searchClientToolStripMenuItem";
-            this.searchClientToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.searchClientToolStripMenuItem.Text = "Search client";
-            // 
-            // transactionsToolStripMenuItem
-            // 
-            this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allTransacionsToolStripMenuItem,
-            this.withdrawTransactionsToolStripMenuItem,
-            this.depositTransactionsToolStripMenuItem,
-            this.transferTransactionsToolStripMenuItem});
-            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
-            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.transactionsToolStripMenuItem.Text = "Transactions";
-            // 
-            // allTransacionsToolStripMenuItem
-            // 
-            this.allTransacionsToolStripMenuItem.Name = "allTransacionsToolStripMenuItem";
-            this.allTransacionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.allTransacionsToolStripMenuItem.Text = "All transacions";
-            // 
-            // withdrawTransactionsToolStripMenuItem
-            // 
-            this.withdrawTransactionsToolStripMenuItem.Name = "withdrawTransactionsToolStripMenuItem";
-            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.withdrawTransactionsToolStripMenuItem.Text = "Withdraw transactions";
-            // 
-            // depositTransactionsToolStripMenuItem
-            // 
-            this.depositTransactionsToolStripMenuItem.Name = "depositTransactionsToolStripMenuItem";
-            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.depositTransactionsToolStripMenuItem.Text = "Deposit transactions";
-            // 
-            // transferTransactionsToolStripMenuItem
-            // 
-            this.transferTransactionsToolStripMenuItem.Name = "transferTransactionsToolStripMenuItem";
-            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.transferTransactionsToolStripMenuItem.Text = "Transfer transactions";
-            // 
-            // dgID
-            // 
-            this.dgID.HeaderText = "ID";
-            this.dgID.Name = "dgID";
-            this.dgID.ReadOnly = true;
-            this.dgID.Width = 50;
-            // 
-            // dgAccount
-            // 
-            this.dgAccount.HeaderText = "Account";
-            this.dgAccount.Name = "dgAccount";
-            this.dgAccount.ReadOnly = true;
-            this.dgAccount.Width = 120;
-            // 
-            // dgName
-            // 
-            this.dgName.HeaderText = "Name";
-            this.dgName.Name = "dgName";
-            this.dgName.ReadOnly = true;
-            // 
-            // dgSurname
-            // 
-            this.dgSurname.HeaderText = "Surname";
-            this.dgSurname.Name = "dgSurname";
-            this.dgSurname.ReadOnly = true;
-            // 
-            // dgAddress
-            // 
-            this.dgAddress.HeaderText = "Address";
-            this.dgAddress.Name = "dgAddress";
-            this.dgAddress.ReadOnly = true;
-            // 
-            // dgMail
-            // 
-            this.dgMail.HeaderText = "Mail";
-            this.dgMail.Name = "dgMail";
-            this.dgMail.ReadOnly = true;
-            // 
-            // dgBalance
-            // 
-            this.dgBalance.HeaderText = "Balance";
-            this.dgBalance.Name = "dgBalance";
-            this.dgBalance.ReadOnly = true;
-            // 
-            // dgCurrency
-            // 
-            this.dgCurrency.HeaderText = "Currency";
-            this.dgCurrency.Name = "dgCurrency";
-            this.dgCurrency.ReadOnly = true;
-            // 
-            // dgEnabled
-            // 
-            this.dgEnabled.HeaderText = "Enabled";
-            this.dgEnabled.Name = "dgEnabled";
-            this.dgEnabled.ReadOnly = true;
             // 
             // BankApplication
             // 
