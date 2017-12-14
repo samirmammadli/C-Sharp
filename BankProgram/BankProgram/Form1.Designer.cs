@@ -1,4 +1,6 @@
-﻿namespace BankProgram
+﻿using System.Runtime.InteropServices;
+
+namespace BankProgram
 {
     partial class BankApplication
     {
@@ -51,8 +53,8 @@
             this.dgBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlRegEdit = new System.Windows.Forms.Panel();
+            this.btnAccountProp = new System.Windows.Forms.Button();
             this.chkbEnabled = new System.Windows.Forms.CheckBox();
             this.cbMember = new System.Windows.Forms.ComboBox();
             this.lbMember = new System.Windows.Forms.Label();
@@ -70,10 +72,32 @@
             this.lbSurname = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lbName = new System.Windows.Forms.Label();
-            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.pnlAccountProp = new System.Windows.Forms.Panel();
+            this.tbSetBalance = new System.Windows.Forms.TextBox();
+            this.lbBalance = new System.Windows.Forms.Label();
+            this.tbEditAccount = new System.Windows.Forms.TextBox();
+            this.lbAccount = new System.Windows.Forms.Label();
+            this.tbEditID = new System.Windows.Forms.TextBox();
+            this.lbID = new System.Windows.Forms.Label();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.lbSearchEnabled = new System.Windows.Forms.Label();
+            this.cbSearchEnabled = new System.Windows.Forms.ComboBox();
+            this.lbSearchBalance = new System.Windows.Forms.Label();
+            this.lbSearchSurname = new System.Windows.Forms.Label();
+            this.lbSearchName = new System.Windows.Forms.Label();
+            this.lbSearchAcc = new System.Windows.Forms.Label();
+            this.lbSearchID = new System.Windows.Forms.Label();
+            this.tbSearchBalance = new System.Windows.Forms.TextBox();
+            this.tbSearchSurname = new System.Windows.Forms.TextBox();
+            this.tbSearchName = new System.Windows.Forms.TextBox();
+            this.tbSearchAcc = new System.Windows.Forms.TextBox();
+            this.tbSearchID = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlRegEdit.SuspendLayout();
+            this.pnlAccountProp.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem1
@@ -101,7 +125,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(946, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(951, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -119,12 +143,14 @@
             this.addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
             this.addClientToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.addClientToolStripMenuItem.Text = "Add client";
+            this.addClientToolStripMenuItem.Click += new System.EventHandler(this.addClientToolStripMenuItem_Click);
             // 
             // searchClientToolStripMenuItem
             // 
             this.searchClientToolStripMenuItem.Name = "searchClientToolStripMenuItem";
             this.searchClientToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.searchClientToolStripMenuItem.Text = "Search client";
+            this.searchClientToolStripMenuItem.Click += new System.EventHandler(this.searchClientToolStripMenuItem_Click);
             // 
             // transactionsToolStripMenuItem
             // 
@@ -190,7 +216,7 @@
             this.dgBalance,
             this.dgCurrency,
             this.dgEnabled});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 55);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(920, 219);
@@ -253,40 +279,41 @@
             this.dgEnabled.ReadOnly = true;
             this.dgEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // button1
+            // pnlRegEdit
             // 
-            this.button1.Location = new System.Drawing.Point(13, 252);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Add new client";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.pnlRegEdit.Controls.Add(this.btnAccountProp);
+            this.pnlRegEdit.Controls.Add(this.chkbEnabled);
+            this.pnlRegEdit.Controls.Add(this.cbMember);
+            this.pnlRegEdit.Controls.Add(this.lbMember);
+            this.pnlRegEdit.Controls.Add(this.cbCurrency);
+            this.pnlRegEdit.Controls.Add(this.lbCurrency);
+            this.pnlRegEdit.Controls.Add(this.btnCancel);
+            this.pnlRegEdit.Controls.Add(this.btnAdd);
+            this.pnlRegEdit.Controls.Add(this.tbPhone);
+            this.pnlRegEdit.Controls.Add(this.lbPhone);
+            this.pnlRegEdit.Controls.Add(this.tbMail);
+            this.pnlRegEdit.Controls.Add(this.lbMail);
+            this.pnlRegEdit.Controls.Add(this.tbAge);
+            this.pnlRegEdit.Controls.Add(this.lbAge);
+            this.pnlRegEdit.Controls.Add(this.tbSurname);
+            this.pnlRegEdit.Controls.Add(this.lbSurname);
+            this.pnlRegEdit.Controls.Add(this.tbName);
+            this.pnlRegEdit.Controls.Add(this.lbName);
+            this.pnlRegEdit.Location = new System.Drawing.Point(12, 369);
+            this.pnlRegEdit.Name = "pnlRegEdit";
+            this.pnlRegEdit.Size = new System.Drawing.Size(349, 309);
+            this.pnlRegEdit.TabIndex = 5;
+            this.pnlRegEdit.Visible = false;
             // 
-            // panel1
+            // btnAccountProp
             // 
-            this.panel1.Controls.Add(this.chkbEnabled);
-            this.panel1.Controls.Add(this.cbMember);
-            this.panel1.Controls.Add(this.lbMember);
-            this.panel1.Controls.Add(this.cbCurrency);
-            this.panel1.Controls.Add(this.lbCurrency);
-            this.panel1.Controls.Add(this.btnCancel);
-            this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Controls.Add(this.tbPhone);
-            this.panel1.Controls.Add(this.lbPhone);
-            this.panel1.Controls.Add(this.tbMail);
-            this.panel1.Controls.Add(this.lbMail);
-            this.panel1.Controls.Add(this.tbAge);
-            this.panel1.Controls.Add(this.lbAge);
-            this.panel1.Controls.Add(this.tbSurname);
-            this.panel1.Controls.Add(this.lbSurname);
-            this.panel1.Controls.Add(this.tbName);
-            this.panel1.Controls.Add(this.lbName);
-            this.panel1.Location = new System.Drawing.Point(245, 252);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(349, 309);
-            this.panel1.TabIndex = 5;
-            this.panel1.Visible = false;
+            this.btnAccountProp.Location = new System.Drawing.Point(206, 272);
+            this.btnAccountProp.Name = "btnAccountProp";
+            this.btnAccountProp.Size = new System.Drawing.Size(113, 23);
+            this.btnAccountProp.TabIndex = 18;
+            this.btnAccountProp.Text = "Account Properties";
+            this.btnAccountProp.UseVisualStyleBackColor = true;
+            this.btnAccountProp.Click += new System.EventHandler(this.btnAccountProp_Click);
             // 
             // chkbEnabled
             // 
@@ -357,6 +384,7 @@
             this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnAdd
             // 
@@ -458,26 +486,231 @@
             this.lbName.TabIndex = 0;
             this.lbName.Text = "Name:";
             // 
-            // btnLoad
+            // btnSearch
             // 
-            this.btnLoad.Location = new System.Drawing.Point(122, 252);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(99, 23);
-            this.btnLoad.TabIndex = 6;
-            this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            this.btnSearch.Location = new System.Drawing.Point(6, 280);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(99, 23);
+            this.btnSearch.TabIndex = 6;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // pnlAccountProp
+            // 
+            this.pnlAccountProp.Controls.Add(this.tbSetBalance);
+            this.pnlAccountProp.Controls.Add(this.lbBalance);
+            this.pnlAccountProp.Controls.Add(this.tbEditAccount);
+            this.pnlAccountProp.Controls.Add(this.lbAccount);
+            this.pnlAccountProp.Controls.Add(this.tbEditID);
+            this.pnlAccountProp.Controls.Add(this.lbID);
+            this.pnlAccountProp.Location = new System.Drawing.Point(367, 553);
+            this.pnlAccountProp.Name = "pnlAccountProp";
+            this.pnlAccountProp.Size = new System.Drawing.Size(336, 125);
+            this.pnlAccountProp.TabIndex = 7;
+            this.pnlAccountProp.Visible = false;
+            // 
+            // tbSetBalance
+            // 
+            this.tbSetBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSetBalance.Location = new System.Drawing.Point(76, 81);
+            this.tbSetBalance.Name = "tbSetBalance";
+            this.tbSetBalance.Size = new System.Drawing.Size(243, 22);
+            this.tbSetBalance.TabIndex = 24;
+            // 
+            // lbBalance
+            // 
+            this.lbBalance.AutoSize = true;
+            this.lbBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbBalance.Location = new System.Drawing.Point(3, 81);
+            this.lbBalance.Name = "lbBalance";
+            this.lbBalance.Size = new System.Drawing.Size(61, 16);
+            this.lbBalance.TabIndex = 23;
+            this.lbBalance.Text = "Balance:";
+            // 
+            // tbEditAccount
+            // 
+            this.tbEditAccount.Enabled = false;
+            this.tbEditAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditAccount.Location = new System.Drawing.Point(76, 53);
+            this.tbEditAccount.Name = "tbEditAccount";
+            this.tbEditAccount.Size = new System.Drawing.Size(243, 22);
+            this.tbEditAccount.TabIndex = 22;
+            // 
+            // lbAccount
+            // 
+            this.lbAccount.AutoSize = true;
+            this.lbAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAccount.Location = new System.Drawing.Point(3, 53);
+            this.lbAccount.Name = "lbAccount";
+            this.lbAccount.Size = new System.Drawing.Size(59, 16);
+            this.lbAccount.TabIndex = 21;
+            this.lbAccount.Text = "Account:";
+            // 
+            // tbEditID
+            // 
+            this.tbEditID.Enabled = false;
+            this.tbEditID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditID.Location = new System.Drawing.Point(76, 25);
+            this.tbEditID.Name = "tbEditID";
+            this.tbEditID.Size = new System.Drawing.Size(243, 22);
+            this.tbEditID.TabIndex = 20;
+            // 
+            // lbID
+            // 
+            this.lbID.AutoSize = true;
+            this.lbID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbID.Location = new System.Drawing.Point(3, 25);
+            this.lbID.Name = "lbID";
+            this.lbID.Size = new System.Drawing.Size(24, 16);
+            this.lbID.TabIndex = 19;
+            this.lbID.Text = "ID:";
+            // 
+            // pnlSearch
+            // 
+            this.pnlSearch.Controls.Add(this.lbSearchEnabled);
+            this.pnlSearch.Controls.Add(this.cbSearchEnabled);
+            this.pnlSearch.Controls.Add(this.lbSearchBalance);
+            this.pnlSearch.Controls.Add(this.lbSearchSurname);
+            this.pnlSearch.Controls.Add(this.lbSearchName);
+            this.pnlSearch.Controls.Add(this.lbSearchAcc);
+            this.pnlSearch.Controls.Add(this.lbSearchID);
+            this.pnlSearch.Controls.Add(this.tbSearchBalance);
+            this.pnlSearch.Controls.Add(this.tbSearchSurname);
+            this.pnlSearch.Controls.Add(this.tbSearchName);
+            this.pnlSearch.Controls.Add(this.tbSearchAcc);
+            this.pnlSearch.Controls.Add(this.tbSearchID);
+            this.pnlSearch.Controls.Add(this.dataGridView1);
+            this.pnlSearch.Controls.Add(this.btnSearch);
+            this.pnlSearch.Location = new System.Drawing.Point(12, 27);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new System.Drawing.Size(934, 336);
+            this.pnlSearch.TabIndex = 8;
+            this.pnlSearch.Visible = false;
+            // 
+            // lbSearchEnabled
+            // 
+            this.lbSearchEnabled.AutoSize = true;
+            this.lbSearchEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSearchEnabled.Location = new System.Drawing.Point(762, 8);
+            this.lbSearchEnabled.Name = "lbSearchEnabled";
+            this.lbSearchEnabled.Size = new System.Drawing.Size(62, 16);
+            this.lbSearchEnabled.TabIndex = 30;
+            this.lbSearchEnabled.Text = "Enabled:";
+            // 
+            // cbSearchEnabled
+            // 
+            this.cbSearchEnabled.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSearchEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbSearchEnabled.FormattingEnabled = true;
+            this.cbSearchEnabled.Items.AddRange(new object[] {
+            "All",
+            "Enabled",
+            "Disabled"});
+            this.cbSearchEnabled.Location = new System.Drawing.Point(765, 29);
+            this.cbSearchEnabled.Name = "cbSearchEnabled";
+            this.cbSearchEnabled.Size = new System.Drawing.Size(121, 21);
+            this.cbSearchEnabled.TabIndex = 19;
+            // 
+            // lbSearchBalance
+            // 
+            this.lbSearchBalance.AutoSize = true;
+            this.lbSearchBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSearchBalance.Location = new System.Drawing.Point(613, 8);
+            this.lbSearchBalance.Name = "lbSearchBalance";
+            this.lbSearchBalance.Size = new System.Drawing.Size(61, 16);
+            this.lbSearchBalance.TabIndex = 29;
+            this.lbSearchBalance.Text = "Balance:";
+            // 
+            // lbSearchSurname
+            // 
+            this.lbSearchSurname.AutoSize = true;
+            this.lbSearchSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSearchSurname.Location = new System.Drawing.Point(445, 8);
+            this.lbSearchSurname.Name = "lbSearchSurname";
+            this.lbSearchSurname.Size = new System.Drawing.Size(65, 16);
+            this.lbSearchSurname.TabIndex = 28;
+            this.lbSearchSurname.Text = "Surname:";
+            // 
+            // lbSearchName
+            // 
+            this.lbSearchName.AutoSize = true;
+            this.lbSearchName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSearchName.Location = new System.Drawing.Point(286, 8);
+            this.lbSearchName.Name = "lbSearchName";
+            this.lbSearchName.Size = new System.Drawing.Size(48, 16);
+            this.lbSearchName.TabIndex = 27;
+            this.lbSearchName.Text = "Name:";
+            // 
+            // lbSearchAcc
+            // 
+            this.lbSearchAcc.AutoSize = true;
+            this.lbSearchAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSearchAcc.Location = new System.Drawing.Point(143, 8);
+            this.lbSearchAcc.Name = "lbSearchAcc";
+            this.lbSearchAcc.Size = new System.Drawing.Size(59, 16);
+            this.lbSearchAcc.TabIndex = 26;
+            this.lbSearchAcc.Text = "Account:";
+            // 
+            // lbSearchID
+            // 
+            this.lbSearchID.AutoSize = true;
+            this.lbSearchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSearchID.Location = new System.Drawing.Point(5, 8);
+            this.lbSearchID.Name = "lbSearchID";
+            this.lbSearchID.Size = new System.Drawing.Size(24, 16);
+            this.lbSearchID.TabIndex = 19;
+            this.lbSearchID.Text = "ID:";
+            // 
+            // tbSearchBalance
+            // 
+            this.tbSearchBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSearchBalance.Location = new System.Drawing.Point(616, 27);
+            this.tbSearchBalance.Name = "tbSearchBalance";
+            this.tbSearchBalance.Size = new System.Drawing.Size(143, 22);
+            this.tbSearchBalance.TabIndex = 24;
+            // 
+            // tbSearchSurname
+            // 
+            this.tbSearchSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSearchSurname.Location = new System.Drawing.Point(448, 27);
+            this.tbSearchSurname.Name = "tbSearchSurname";
+            this.tbSearchSurname.Size = new System.Drawing.Size(162, 22);
+            this.tbSearchSurname.TabIndex = 22;
+            // 
+            // tbSearchName
+            // 
+            this.tbSearchName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSearchName.Location = new System.Drawing.Point(289, 27);
+            this.tbSearchName.Name = "tbSearchName";
+            this.tbSearchName.Size = new System.Drawing.Size(149, 22);
+            this.tbSearchName.TabIndex = 21;
+            // 
+            // tbSearchAcc
+            // 
+            this.tbSearchAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSearchAcc.Location = new System.Drawing.Point(146, 27);
+            this.tbSearchAcc.Name = "tbSearchAcc";
+            this.tbSearchAcc.Size = new System.Drawing.Size(137, 22);
+            this.tbSearchAcc.TabIndex = 20;
+            // 
+            // tbSearchID
+            // 
+            this.tbSearchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSearchID.Location = new System.Drawing.Point(6, 27);
+            this.tbSearchID.Name = "tbSearchID";
+            this.tbSearchID.Size = new System.Drawing.Size(134, 22);
+            this.tbSearchID.TabIndex = 19;
             // 
             // BankApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(946, 571);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnLoad);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(951, 690);
+            this.Controls.Add(this.pnlSearch);
+            this.Controls.Add(this.pnlAccountProp);
+            this.Controls.Add(this.pnlRegEdit);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
@@ -487,8 +720,12 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlRegEdit.ResumeLayout(false);
+            this.pnlRegEdit.PerformLayout();
+            this.pnlAccountProp.ResumeLayout(false);
+            this.pnlAccountProp.PerformLayout();
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,8 +740,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlRegEdit;
         private System.Windows.Forms.TextBox tbPhone;
         private System.Windows.Forms.Label lbPhone;
         private System.Windows.Forms.TextBox tbMail;
@@ -522,7 +758,7 @@
         private System.Windows.Forms.CheckBox chkbEnabled;
         private System.Windows.Forms.ComboBox cbMember;
         private System.Windows.Forms.Label lbMember;
-        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ToolStripMenuItem addClientToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchClientToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
@@ -539,6 +775,27 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgBalance;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCurrency;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dgEnabled;
+        private System.Windows.Forms.Button btnAccountProp;
+        private System.Windows.Forms.Panel pnlAccountProp;
+        private System.Windows.Forms.TextBox tbSetBalance;
+        private System.Windows.Forms.Label lbBalance;
+        private System.Windows.Forms.TextBox tbEditAccount;
+        private System.Windows.Forms.Label lbAccount;
+        private System.Windows.Forms.TextBox tbEditID;
+        private System.Windows.Forms.Label lbID;
+        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.TextBox tbSearchBalance;
+        private System.Windows.Forms.TextBox tbSearchSurname;
+        private System.Windows.Forms.TextBox tbSearchName;
+        private System.Windows.Forms.TextBox tbSearchAcc;
+        private System.Windows.Forms.TextBox tbSearchID;
+        private System.Windows.Forms.Label lbSearchBalance;
+        private System.Windows.Forms.Label lbSearchSurname;
+        private System.Windows.Forms.Label lbSearchName;
+        private System.Windows.Forms.Label lbSearchAcc;
+        private System.Windows.Forms.Label lbSearchID;
+        private System.Windows.Forms.Label lbSearchEnabled;
+        private System.Windows.Forms.ComboBox cbSearchEnabled;
     }
 }
 

@@ -17,6 +17,7 @@ namespace BankProgram
         {
             bank = new Bank();
             InitializeComponent();
+            cbSearchEnabled.SelectedIndex = cbSearchEnabled.Items.IndexOf("All");
         }
 
 
@@ -41,28 +42,52 @@ namespace BankProgram
             int.TryParse(tbAge.Text, out age);
             bank.AddNewClient(tbName.Text, tbSurname.Text, age, tbPhone.Text, tbMail.Text, cur, chkbEnabled.Checked, member);
             bank.SaveData();
-            panel1.Visible = false;
+            pnlRegEdit.Visible = false;
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            List<BaseClient> clients = bank.SearchClients(tbSearchID.Text,tbSearchAcc.Text, tbSearchName.Text,tbSearchSurname.Text, tbSearchBalance.Text);
+
             dataGridView1.Rows.Clear();
             dataGridView1.Visible = true;
-            for (int i = 0; i < bank.GetUsersData().Length; i++)
+            for (int i = 0; i < bank.GetUsersData(clients).Length; i++)
             {
                 dataGridView1.Rows.Add();
-                for (int j = 0; j < bank.GetUsersData()[i].Count; j++)
+                for (int j = 0; j < bank.GetUsersData(clients)[i].Count; j++)
                 {
-                    dataGridView1.Rows[i].Cells[j].Value = bank.GetUsersData()[i][j];
+                    dataGridView1.Rows[i].Cells[j].Value = bank.GetUsersData(clients)[i][j];
                 }
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void PanelsVisibility(bool visible)
         {
-            dataGridView1.Visible = false;
-            panel1.Visible = true;
+            pnlAccountProp.Visible = visible;
+            pnlRegEdit.Visible = visible;
+            pnlSearch.Visible = visible;
         }
 
+        private void btnAccountProp_Click(object sender, EventArgs e)
+        {
+            pnlAccountProp.Visible = !pnlAccountProp.Visible;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            PanelsVisibility(false);
+        }
+
+        private void addClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PanelsVisibility(false);
+            pnlRegEdit.Visible = true;
+        }
+
+        private void searchClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PanelsVisibility(false);
+            pnlSearch.Visible = !pnlSearch.Visible;
+        }
     }
 }

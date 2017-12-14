@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BankProgram
 {
@@ -225,12 +226,22 @@ namespace BankProgram
                 {
                     if (fs.Length > 0)
                     {
-                        return (List<T>)formatter.Deserialize(fs);
+                        var list = new List<T>();
+                        try
+                        {
+                            list = formatter.Deserialize(fs) as List<T>;
+                        }
+                        catch (Exception e)
+                        {
+                            list = new List<T>();
+                            throw e;
+                        } 
+                        return list;
                     }
                 }
                 return new List<T>();
             }
-            else
+            
                 return new List<T>();
         }
 
@@ -268,13 +279,27 @@ namespace BankProgram
         }
         public void LoadData()
         {
-            _clients = SaveLoadData.LoadData<BaseClient>("clients.dat");
+            try
+            {
+                _clients = SaveLoadData.LoadData<BaseClient>("clients.dat");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public void SaveData()
         {
-            SaveLoadData.SaveData(_clients, "clients.dat");
-
+            try
+            {
+                SaveLoadData.SaveData(_clients, "clients.dat");
+            }
+            catch (Exception e)
+            {
+                _clients = new List<BaseClient>();
+            }
+            
         }
 
         private void SetID(BaseClient client)
@@ -291,6 +316,8 @@ namespace BankProgram
             else
                 throw new ArgumentException("Client alrady have and account!");
         }
+
+        //public 
 
         public void AddNewClient (string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled, ClientMembership membership)
         { 
@@ -332,22 +359,36 @@ namespace BankProgram
             catch (Exception e) { throw e; }
         }
 
-        public ArrayList[] GetUsersData()
+        public List<BaseClient> SearchClients(string id, string account, string name, string surname, string balance)
         {
-            ArrayList[] list = new ArrayList[_clients.Count];
-            for (int i = 0; i < _clients.Count; i++)
+            var users = (from client in _clients
+                         where client.UserID.ToString().Contains(id)
+                         where client.Account.ToString().Contains(account)
+                         where client.Name.Contains(name)
+                         where client.Surname.Contains(surname)
+                         where client.Balance.ToString().Contains(balance)
+                         select client).ToList();
+
+
+            return users;
+        }
+
+        public ArrayList[] GetUsersData(List<BaseClient> clients)
+        {
+            ArrayList[] list = new ArrayList[clients.Count];
+            for (int i = 0; i < clients.Count; i++)
             {
                 list[i] = new ArrayList
                 {
-                    _clients[i].UserID,
-                    _clients[i].Account,
-                    _clients[i].Name,
-                    _clients[i].Surname,
-                    _clients[i].Phone,
-                    _clients[i].Address,
-                    _clients[i].Balance,
-                    _clients[i].Currency,
-                    _clients[i].Enabled
+                    clients[i].UserID,
+                    clients[i].Account,
+                    clients[i].Name,
+                    clients[i].Surname,
+                    clients[i].Phone,
+                    clients[i].Address,
+                    clients[i].Balance,
+                    clients[i].Currency,
+                    clients[i].Enabled
                 };
             }
             return list;
