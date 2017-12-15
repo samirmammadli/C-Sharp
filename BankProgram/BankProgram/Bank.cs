@@ -77,14 +77,14 @@ namespace BankProgram
         {
             Name = "";
             Surname = "";
-            Address = "";
+            Mail = "";
             Phone = "";
             Age = 0;
         }
         
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Address { get; set; }
+        public string Mail { get; set; }
         public string Phone { get; set; }
         public int Age { get; set; }
     }
@@ -92,17 +92,18 @@ namespace BankProgram
     [Serializable]
     abstract class BaseClient : Person, IAccount
     {
-        public BaseClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
+        public BaseClient(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
         {
             Name = name;
             Surname = surname;
             Age = age;
             Phone = phone;
-            Address = address;
+            Mail = mail;
             Currency = currency;
             Enabled = enabled;
             UserID = 0;
             Account = 0;
+            if (balance > 0) Deposit(balance, currency);
         }
 
         public bool Enabled { get; set; }
@@ -178,24 +179,24 @@ namespace BankProgram
     [Serializable]
     class Client : BaseClient
     {
-        public Client(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
-            : base(name,  surname,  age,  phone,  address,  currency, enabled)
+        public Client(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
+            : base(name,  surname,  age,  phone,  mail,  currency, enabled, balance)
         { Charge = 0.3m; }
     }
 
     [Serializable]
     class GoldenClient : BaseClient
     {
-        public GoldenClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
-            : base(name, surname, age, phone, address, currency, enabled)
+        public GoldenClient(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
+            : base(name,  surname,  age,  phone,  mail,  currency, enabled, balance)
         { Charge = 0.2m; }
     }
 
     [Serializable]
     class PlatinumClient : BaseClient
     {
-        public PlatinumClient(string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled)
-            : base(name, surname, age, phone, address, currency, enabled)
+        public PlatinumClient(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
+            : base(name,  surname,  age,  phone,  mail,  currency, enabled, balance)
         { Charge = 0; }
     }
 
@@ -226,17 +227,14 @@ namespace BankProgram
                 {
                     if (fs.Length > 0)
                     {
-                        var list = new List<T>();
                         try
                         {
-                            list = formatter.Deserialize(fs) as List<T>;
+                            return formatter.Deserialize(fs) as List<T>;
                         }
                         catch (Exception e)
                         {
-                            list = new List<T>();
                             throw e;
-                        } 
-                        return list;
+                        }
                     }
                 }
                 return new List<T>();
@@ -285,6 +283,7 @@ namespace BankProgram
             }
             catch (Exception e)
             {
+                _clients = new List<BaseClient>();
                 MessageBox.Show(e.Message);
             }
         }
@@ -317,16 +316,41 @@ namespace BankProgram
                 throw new ArgumentException("Client alrady have and account!");
         }
 
-        //public 
+        public void CheckUserRegData(string name, string surname, int age, string phone, string mail, CURRENCY currency,  ClientMembership membership)
+        {
+            Regex[] regex = new Regex[6];
+            regex[0] = new Regex(@"^[A-z]{1,30}$");
+            regex[1] = new Regex(@"^[+]994[55|50|51|70|77]{2}[0-9]{7}$");
+            regex[2] = new Regex(@"^[a-z,0-9,_,-]{1,30}@[a-z,0-9,_,-,.]{1,20}[a-z,0-9,_,-,.]{1,20}.[a-z]{2,5}$", RegexOptions.IgnoreCase);
+            regex[3] = new Regex(@"^[AZN|USD|EUR]{3}$");
+            regex[4] = new Regex(@"^[Gold|Normal|Platinum]{4,8}$");
 
-        public void AddNewClient (string name, string surname, int age, string phone, string address, CURRENCY currency, bool enabled, ClientMembership membership)
-        { 
-            if (membership == ClientMembership.Normal)
-                _clients.Add(new Client(name, surname, age, phone, address, currency, enabled));
+            if (!regex[0].IsMatch(name)) throw new ArgumentException("Wrong name!");
+            if (!regex[0].IsMatch(surname)) throw new ArgumentException("Wrong surname!");
+            if (!(Convert.ToInt32(age) > 18 && Convert.ToInt32(age) < 100)) throw new ArgumentException("Wrong age!");
+            if (!regex[2].IsMatch(mail)) throw new ArgumentException("Wrong mail!");
+            if (!regex[1].IsMatch(phone)) throw new ArgumentException("Wrong phone!");
+            if (!regex[3].IsMatch(currency.ToString())) throw new ArgumentException("Wrong currency!");
+            if (!regex[4].IsMatch(membership.ToString())) throw new ArgumentException("Wrong membership!");
+        }
+
+        public void AddNewClient (string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, ClientMembership membership, decimal balance = 0)
+        {
+            try
+            {
+                CheckUserRegData(name, surname, age, phone, mail, currency, membership);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            if (membership == ClientMembership.Platinum)
+                _clients.Add(new PlatinumClient(name, surname, age, phone, mail, currency, enabled, balance));
             else if (membership == ClientMembership.Gold)
-                _clients.Add(new GoldenClient(name, surname, age, phone, address, currency, enabled));
+                _clients.Add(new GoldenClient(name, surname, age, phone, mail, currency, enabled, balance));
             else
-                _clients.Add(new PlatinumClient(name, surname, age, phone, address, currency, enabled));
+                _clients.Add(new Client(name, surname, age, phone, mail, currency, enabled, balance));
 
             SetID(_clients[_clients.Count - 1]);
             SetAccount(_clients[_clients.Count - 1]);
@@ -364,34 +388,12 @@ namespace BankProgram
             var users = (from client in _clients
                          where client.UserID.ToString().Contains(id)
                          where client.Account.ToString().Contains(account)
-                         where client.Name.Contains(name)
+                         where new Regex(name, RegexOptions.IgnoreCase).IsMatch(client.Name)
+                         where new Regex(surname, RegexOptions.IgnoreCase).IsMatch(client.Surname)
                          where client.Surname.Contains(surname)
                          where client.Balance.ToString().Contains(balance)
                          select client).ToList();
-
-
             return users;
-        }
-
-        public ArrayList[] GetUsersData(List<BaseClient> clients)
-        {
-            ArrayList[] list = new ArrayList[clients.Count];
-            for (int i = 0; i < clients.Count; i++)
-            {
-                list[i] = new ArrayList
-                {
-                    clients[i].UserID,
-                    clients[i].Account,
-                    clients[i].Name,
-                    clients[i].Surname,
-                    clients[i].Phone,
-                    clients[i].Address,
-                    clients[i].Balance,
-                    clients[i].Currency,
-                    clients[i].Enabled
-                };
-            }
-            return list;
         }
     }
 

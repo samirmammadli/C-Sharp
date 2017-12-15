@@ -44,15 +44,6 @@ namespace BankProgram
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dgID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlRegEdit = new System.Windows.Forms.Panel();
             this.btnAccountProp = new System.Windows.Forms.Button();
             this.chkbEnabled = new System.Windows.Forms.CheckBox();
@@ -81,8 +72,6 @@ namespace BankProgram
             this.tbEditID = new System.Windows.Forms.TextBox();
             this.lbID = new System.Windows.Forms.Label();
             this.pnlSearch = new System.Windows.Forms.Panel();
-            this.lbSearchEnabled = new System.Windows.Forms.Label();
-            this.cbSearchEnabled = new System.Windows.Forms.ComboBox();
             this.lbSearchBalance = new System.Windows.Forms.Label();
             this.lbSearchSurname = new System.Windows.Forms.Label();
             this.lbSearchName = new System.Windows.Forms.Label();
@@ -93,11 +82,35 @@ namespace BankProgram
             this.tbSearchName = new System.Windows.Forms.TextBox();
             this.tbSearchAcc = new System.Windows.Forms.TextBox();
             this.tbSearchID = new System.Windows.Forms.TextBox();
+            this.dgID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dgvTransDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransDeposti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransWithdraw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransTransfer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransCharge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTransTotalCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnlRegEdit.SuspendLayout();
             this.pnlAccountProp.SuspendLayout();
             this.pnlSearch.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem1
@@ -211,7 +224,7 @@ namespace BankProgram
             this.dgAccount,
             this.dgName,
             this.dgSurname,
-            this.dgAddress,
+            this.dgPhone,
             this.dgMail,
             this.dgBalance,
             this.dgCurrency,
@@ -221,63 +234,6 @@ namespace BankProgram
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(920, 219);
             this.dataGridView1.TabIndex = 3;
-            // 
-            // dgID
-            // 
-            this.dgID.HeaderText = "ID";
-            this.dgID.Name = "dgID";
-            this.dgID.ReadOnly = true;
-            this.dgID.Width = 50;
-            // 
-            // dgAccount
-            // 
-            this.dgAccount.HeaderText = "Account";
-            this.dgAccount.Name = "dgAccount";
-            this.dgAccount.ReadOnly = true;
-            this.dgAccount.Width = 120;
-            // 
-            // dgName
-            // 
-            this.dgName.HeaderText = "Name";
-            this.dgName.Name = "dgName";
-            this.dgName.ReadOnly = true;
-            // 
-            // dgSurname
-            // 
-            this.dgSurname.HeaderText = "Surname";
-            this.dgSurname.Name = "dgSurname";
-            this.dgSurname.ReadOnly = true;
-            // 
-            // dgAddress
-            // 
-            this.dgAddress.HeaderText = "Address";
-            this.dgAddress.Name = "dgAddress";
-            this.dgAddress.ReadOnly = true;
-            // 
-            // dgMail
-            // 
-            this.dgMail.HeaderText = "Mail";
-            this.dgMail.Name = "dgMail";
-            this.dgMail.ReadOnly = true;
-            // 
-            // dgBalance
-            // 
-            this.dgBalance.HeaderText = "Balance";
-            this.dgBalance.Name = "dgBalance";
-            this.dgBalance.ReadOnly = true;
-            // 
-            // dgCurrency
-            // 
-            this.dgCurrency.HeaderText = "Currency";
-            this.dgCurrency.Name = "dgCurrency";
-            this.dgCurrency.ReadOnly = true;
-            // 
-            // dgEnabled
-            // 
-            this.dgEnabled.HeaderText = "Enabled";
-            this.dgEnabled.Name = "dgEnabled";
-            this.dgEnabled.ReadOnly = true;
-            this.dgEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // pnlRegEdit
             // 
@@ -299,11 +255,12 @@ namespace BankProgram
             this.pnlRegEdit.Controls.Add(this.lbSurname);
             this.pnlRegEdit.Controls.Add(this.tbName);
             this.pnlRegEdit.Controls.Add(this.lbName);
-            this.pnlRegEdit.Location = new System.Drawing.Point(12, 369);
+            this.pnlRegEdit.Location = new System.Drawing.Point(12, 381);
             this.pnlRegEdit.Name = "pnlRegEdit";
             this.pnlRegEdit.Size = new System.Drawing.Size(349, 309);
             this.pnlRegEdit.TabIndex = 5;
             this.pnlRegEdit.Visible = false;
+            this.pnlRegEdit.VisibleChanged += new System.EventHandler(this.pnlRegEdit_VisibleChanged);
             // 
             // btnAccountProp
             // 
@@ -504,7 +461,7 @@ namespace BankProgram
             this.pnlAccountProp.Controls.Add(this.lbAccount);
             this.pnlAccountProp.Controls.Add(this.tbEditID);
             this.pnlAccountProp.Controls.Add(this.lbID);
-            this.pnlAccountProp.Location = new System.Drawing.Point(367, 553);
+            this.pnlAccountProp.Location = new System.Drawing.Point(595, 113);
             this.pnlAccountProp.Name = "pnlAccountProp";
             this.pnlAccountProp.Size = new System.Drawing.Size(336, 125);
             this.pnlAccountProp.TabIndex = 7;
@@ -568,9 +525,8 @@ namespace BankProgram
             // 
             // pnlSearch
             // 
-            this.pnlSearch.Controls.Add(this.lbSearchEnabled);
-            this.pnlSearch.Controls.Add(this.cbSearchEnabled);
             this.pnlSearch.Controls.Add(this.lbSearchBalance);
+            this.pnlSearch.Controls.Add(this.pnlAccountProp);
             this.pnlSearch.Controls.Add(this.lbSearchSurname);
             this.pnlSearch.Controls.Add(this.lbSearchName);
             this.pnlSearch.Controls.Add(this.lbSearchAcc);
@@ -587,30 +543,7 @@ namespace BankProgram
             this.pnlSearch.Size = new System.Drawing.Size(934, 336);
             this.pnlSearch.TabIndex = 8;
             this.pnlSearch.Visible = false;
-            // 
-            // lbSearchEnabled
-            // 
-            this.lbSearchEnabled.AutoSize = true;
-            this.lbSearchEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbSearchEnabled.Location = new System.Drawing.Point(762, 8);
-            this.lbSearchEnabled.Name = "lbSearchEnabled";
-            this.lbSearchEnabled.Size = new System.Drawing.Size(62, 16);
-            this.lbSearchEnabled.TabIndex = 30;
-            this.lbSearchEnabled.Text = "Enabled:";
-            // 
-            // cbSearchEnabled
-            // 
-            this.cbSearchEnabled.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSearchEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbSearchEnabled.FormattingEnabled = true;
-            this.cbSearchEnabled.Items.AddRange(new object[] {
-            "All",
-            "Enabled",
-            "Disabled"});
-            this.cbSearchEnabled.Location = new System.Drawing.Point(765, 29);
-            this.cbSearchEnabled.Name = "cbSearchEnabled";
-            this.cbSearchEnabled.Size = new System.Drawing.Size(121, 21);
-            this.cbSearchEnabled.TabIndex = 19;
+            this.pnlSearch.VisibleChanged += new System.EventHandler(this.pnlSearch_VisibleChanged);
             // 
             // lbSearchBalance
             // 
@@ -702,16 +635,170 @@ namespace BankProgram
             this.tbSearchID.Size = new System.Drawing.Size(134, 22);
             this.tbSearchID.TabIndex = 19;
             // 
+            // dgID
+            // 
+            this.dgID.HeaderText = "ID";
+            this.dgID.Name = "dgID";
+            this.dgID.ReadOnly = true;
+            this.dgID.Width = 50;
+            // 
+            // dgAccount
+            // 
+            this.dgAccount.HeaderText = "Account";
+            this.dgAccount.Name = "dgAccount";
+            this.dgAccount.ReadOnly = true;
+            this.dgAccount.Width = 120;
+            // 
+            // dgName
+            // 
+            this.dgName.HeaderText = "Name";
+            this.dgName.Name = "dgName";
+            this.dgName.ReadOnly = true;
+            // 
+            // dgSurname
+            // 
+            this.dgSurname.HeaderText = "Surname";
+            this.dgSurname.Name = "dgSurname";
+            this.dgSurname.ReadOnly = true;
+            // 
+            // dgPhone
+            // 
+            this.dgPhone.HeaderText = "Phone";
+            this.dgPhone.Name = "dgPhone";
+            this.dgPhone.ReadOnly = true;
+            // 
+            // dgMail
+            // 
+            this.dgMail.HeaderText = "Mail";
+            this.dgMail.Name = "dgMail";
+            this.dgMail.ReadOnly = true;
+            // 
+            // dgBalance
+            // 
+            this.dgBalance.HeaderText = "Balance";
+            this.dgBalance.Name = "dgBalance";
+            this.dgBalance.ReadOnly = true;
+            // 
+            // dgCurrency
+            // 
+            this.dgCurrency.HeaderText = "Currency";
+            this.dgCurrency.Name = "dgCurrency";
+            this.dgCurrency.ReadOnly = true;
+            // 
+            // dgEnabled
+            // 
+            this.dgEnabled.HeaderText = "Enabled";
+            this.dgEnabled.Name = "dgEnabled";
+            this.dgEnabled.ReadOnly = true;
+            this.dgEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dataGridView2);
+            this.panel1.Location = new System.Drawing.Point(0, 718);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(934, 232);
+            this.panel1.TabIndex = 9;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTransDate,
+            this.dgvTransId,
+            this.dgvTransAccount,
+            this.dgvTransDeposti,
+            this.dgvTransWithdraw,
+            this.dgvTransTransfer,
+            this.dgvTransAmount,
+            this.dgvTransCurrency,
+            this.dgvTransCharge,
+            this.dgvTransTotalAmount,
+            this.dgvTransTotalCurrency});
+            this.dataGridView2.Location = new System.Drawing.Point(6, 43);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.Size = new System.Drawing.Size(920, 150);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // dgvTransDate
+            // 
+            this.dgvTransDate.HeaderText = "Date";
+            this.dgvTransDate.Name = "dgvTransDate";
+            this.dgvTransDate.ReadOnly = true;
+            // 
+            // dgvTransId
+            // 
+            this.dgvTransId.HeaderText = "ID";
+            this.dgvTransId.Name = "dgvTransId";
+            this.dgvTransId.ReadOnly = true;
+            // 
+            // dgvTransAccount
+            // 
+            this.dgvTransAccount.HeaderText = "Account";
+            this.dgvTransAccount.Name = "dgvTransAccount";
+            this.dgvTransAccount.ReadOnly = true;
+            // 
+            // dgvTransDeposti
+            // 
+            this.dgvTransDeposti.HeaderText = "Deposit";
+            this.dgvTransDeposti.Name = "dgvTransDeposti";
+            this.dgvTransDeposti.ReadOnly = true;
+            // 
+            // dgvTransWithdraw
+            // 
+            this.dgvTransWithdraw.HeaderText = "Withdraw";
+            this.dgvTransWithdraw.Name = "dgvTransWithdraw";
+            this.dgvTransWithdraw.ReadOnly = true;
+            // 
+            // dgvTransTransfer
+            // 
+            this.dgvTransTransfer.HeaderText = "Transfer";
+            this.dgvTransTransfer.Name = "dgvTransTransfer";
+            this.dgvTransTransfer.ReadOnly = true;
+            // 
+            // dgvTransAmount
+            // 
+            this.dgvTransAmount.HeaderText = "Amount";
+            this.dgvTransAmount.Name = "dgvTransAmount";
+            this.dgvTransAmount.ReadOnly = true;
+            // 
+            // dgvTransCurrency
+            // 
+            this.dgvTransCurrency.HeaderText = "Currency";
+            this.dgvTransCurrency.Name = "dgvTransCurrency";
+            this.dgvTransCurrency.ReadOnly = true;
+            // 
+            // dgvTransCharge
+            // 
+            this.dgvTransCharge.HeaderText = "Charge";
+            this.dgvTransCharge.Name = "dgvTransCharge";
+            this.dgvTransCharge.ReadOnly = true;
+            // 
+            // dgvTransTotalAmount
+            // 
+            this.dgvTransTotalAmount.HeaderText = "Total";
+            this.dgvTransTotalAmount.Name = "dgvTransTotalAmount";
+            this.dgvTransTotalAmount.ReadOnly = true;
+            // 
+            // dgvTransTotalCurrency
+            // 
+            this.dgvTransTotalCurrency.HeaderText = "Currency";
+            this.dgvTransTotalCurrency.Name = "dgvTransTotalCurrency";
+            this.dgvTransTotalCurrency.ReadOnly = true;
+            // 
             // BankApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(951, 690);
+            this.ClientSize = new System.Drawing.Size(951, 749);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlSearch);
-            this.Controls.Add(this.pnlAccountProp);
-            this.Controls.Add(this.pnlRegEdit);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.pnlRegEdit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -726,6 +813,8 @@ namespace BankProgram
             this.pnlAccountProp.PerformLayout();
             this.pnlSearch.ResumeLayout(false);
             this.pnlSearch.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,15 +855,6 @@ namespace BankProgram
         private System.Windows.Forms.ToolStripMenuItem withdrawTransactionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem depositTransactionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transferTransactionsToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgAccount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgSurname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgMail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgBalance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgCurrency;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dgEnabled;
         private System.Windows.Forms.Button btnAccountProp;
         private System.Windows.Forms.Panel pnlAccountProp;
         private System.Windows.Forms.TextBox tbSetBalance;
@@ -794,8 +874,28 @@ namespace BankProgram
         private System.Windows.Forms.Label lbSearchName;
         private System.Windows.Forms.Label lbSearchAcc;
         private System.Windows.Forms.Label lbSearchID;
-        private System.Windows.Forms.Label lbSearchEnabled;
-        private System.Windows.Forms.ComboBox cbSearchEnabled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgAccount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgSurname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgPhone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgMail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgCurrency;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dgEnabled;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransAccount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransDeposti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransWithdraw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransTransfer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransCurrency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransCharge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransTotalAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvTransTotalCurrency;
     }
 }
 

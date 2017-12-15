@@ -17,7 +17,6 @@ namespace BankProgram
         {
             bank = new Bank();
             InitializeComponent();
-            cbSearchEnabled.SelectedIndex = cbSearchEnabled.Items.IndexOf("All");
         }
 
 
@@ -40,24 +39,36 @@ namespace BankProgram
                 
             int age;
             int.TryParse(tbAge.Text, out age);
-            bank.AddNewClient(tbName.Text, tbSurname.Text, age, tbPhone.Text, tbMail.Text, cur, chkbEnabled.Checked, member);
-            bank.SaveData();
-            pnlRegEdit.Visible = false;
+            decimal.TryParse(tbSetBalance.Text, out decimal blnc);
+            try
+            {
+                bank.AddNewClient(tbName.Text, tbSurname.Text, age, tbPhone.Text, tbMail.Text, cur, chkbEnabled.Checked, member, blnc);
+                bank.SaveData();
+                pnlRegEdit.Visible = false;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            List<BaseClient> clients = bank.SearchClients(tbSearchID.Text,tbSearchAcc.Text, tbSearchName.Text,tbSearchSurname.Text, tbSearchBalance.Text);
-
             dataGridView1.Rows.Clear();
-            dataGridView1.Visible = true;
-            for (int i = 0; i < bank.GetUsersData(clients).Length; i++)
+            List<BaseClient> clients = bank.SearchClients(tbSearchID.Text, tbSearchAcc.Text, tbSearchName.Text, tbSearchSurname.Text, tbSearchBalance.Text);
+            for (int i = 0; i < clients.Count; i++)
             {
                 dataGridView1.Rows.Add();
-                for (int j = 0; j < bank.GetUsersData(clients)[i].Count; j++)
-                {
-                    dataGridView1.Rows[i].Cells[j].Value = bank.GetUsersData(clients)[i][j];
-                }
+                dataGridView1.Rows[i].Cells[0].Value = clients[i].UserID;
+                dataGridView1.Rows[i].Cells[1].Value = clients[i].Account;
+                dataGridView1.Rows[i].Cells[2].Value = clients[i].Name;
+                dataGridView1.Rows[i].Cells[3].Value = clients[i].Surname;
+                dataGridView1.Rows[i].Cells[4].Value = clients[i].Phone;
+                dataGridView1.Rows[i].Cells[5].Value = clients[i].Mail;
+                dataGridView1.Rows[i].Cells[6].Value = clients[i].Balance;
+                dataGridView1.Rows[i].Cells[7].Value = clients[i].Currency;
+                dataGridView1.Rows[i].Cells[8].Value = clients[i].Enabled;
             }
         }
 
@@ -88,6 +99,26 @@ namespace BankProgram
         {
             PanelsVisibility(false);
             pnlSearch.Visible = !pnlSearch.Visible;
+        }
+
+        private void pnlSearch_VisibleChanged(object sender, EventArgs e)
+        {
+            tbSearchName.Clear();
+            tbSearchSurname.Clear();
+            tbSearchAcc.Clear();
+            tbSearchBalance.Clear();
+            tbSearchID.Clear();
+            tbSearchBalance.Clear();
+        }
+
+        private void pnlRegEdit_VisibleChanged(object sender, EventArgs e)
+        {
+            tbName.Clear();
+            tbSurname.Clear();
+            tbPhone.Clear();
+            tbMail.Clear();
+            tbAge.Clear();
+            tbSetBalance.Clear();
         }
     }
 }
