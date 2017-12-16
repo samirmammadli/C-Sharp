@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.PerformanceData;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -25,6 +26,7 @@ namespace BankProgram
         Transaction Transfer(BaseClient destClient, decimal sum, CURRENCY cur);
     }
 
+    [Serializable]
     abstract class Transaction
     {
         public readonly decimal _charge;
@@ -54,16 +56,16 @@ namespace BankProgram
     class DepositTrans : Transaction
     {
         public DepositTrans(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
-            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { }
+            : base (id, amount, totalAmount, account, charge, currency, totalCur, time, success) { }
     }
-
+    [Serializable]
     class TransferTran : Transaction
     {
-        long _transferTo;
+       public readonly string _transferTo;
         public TransferTran(long id, decimal amount, decimal totalAmount, long account, long transferTo, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
-            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _transferTo = transferTo; }
+            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _transferTo = transferTo.ToString(); }
     }
-
+    [Serializable]
     class WithdrawTran : Transaction
     {
         public WithdrawTran(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
@@ -112,7 +114,7 @@ namespace BankProgram
         public long Account { get; set; }
         public decimal Charge { get; set; }
         public long UserID { get; set; }
-        private void Recieve(decimal sum, CURRENCY cur)
+        public void Recieve(decimal sum, CURRENCY cur)
         {
             if (this.Currency != cur)
                 sum = AznRate.Convert(sum, cur, this.Currency);
@@ -255,40 +257,41 @@ namespace BankProgram
 
     class Bank
     {
-        private long IdCounter;
-        private long AccountNumber;
+        private long _idCounter;
+        private long _accountNumber;
         private List<Transaction> _transactions;
         private List<BaseClient> _clients;
 
         public Bank()
         {
-            _transactions = new List<Transaction>();
             LoadData();
             if (_clients.Count > 0 )
             {
-                IdCounter = _clients[_clients.Count - 1].UserID;
-                AccountNumber = _clients[_clients.Count - 1].Account + 1;
+                _idCounter = _clients[_clients.Count - 1].UserID;
+                _accountNumber = _clients[_clients.Count - 1].Account + 1;
             }
             else
             {
-                IdCounter = 0;
-                AccountNumber = 8713154200000001;
+                _idCounter = 0;
+                _accountNumber = 8713154200000001;
             }
         }
         public void LoadData()
         {
             try
             {
+                _transactions = SaveLoadData.LoadData<Transaction>("transactions.dat");
                 _clients = SaveLoadData.LoadData<BaseClient>("clients.dat");
             }
             catch (Exception e)
             {
+                _transactions = new List<Transaction>();
                 _clients = new List<BaseClient>();
                 MessageBox.Show(e.Message);
             }
         }
 
-        public void SaveData()
+        public void SaveClients()
         {
             try
             {
@@ -296,27 +299,40 @@ namespace BankProgram
             }
             catch (Exception e)
             {
-                _clients = new List<BaseClient>();
+                throw e;
             }
             
+        }
+
+        public void SaveTransactions()
+        {
+            try
+            {
+                SaveLoadData.SaveData(_transactions, "transactions.dat");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
 
         private void SetID(BaseClient client)
         {
             if (client.UserID == 0)
-                client.UserID = ++IdCounter;
+                client.UserID = ++_idCounter;
             else
                 throw new ArgumentException("Client alrady have an ID!");
         }
         private void SetAccount(BaseClient client)
         {
             if (client.Account == 0)
-                client.Account = AccountNumber++;
+                client.Account = _accountNumber++;
             else
                 throw new ArgumentException("Client alrady have and account!");
         }
 
-        public void CheckUserRegData(string name, string surname, int age, string phone, string mail, CURRENCY currency,  ClientMembership membership)
+        private void CheckUserRegData(string name, string surname, int age, string phone, string mail, CURRENCY currency,  ClientMembership membership)
         {
             Regex[] regex = new Regex[6];
             regex[0] = new Regex(@"^[A-z]{1,30}$");
@@ -356,44 +372,73 @@ namespace BankProgram
             SetAccount(_clients[_clients.Count - 1]);
         }
 
-        public void Deposit(BaseClient client, decimal sum, CURRENCY cur)
+        public void Deposit(string acc, decimal sum, CURRENCY cur)
         {
             try
             {
+                var client = FindClient(acc);
                 _transactions.Add(client.Deposit(sum, cur));
             }
             catch (Exception e) { throw e; } 
         }
 
-        public void Withdraw(BaseClient client, decimal sum, CURRENCY cur)
+        public void Withdraw(string acc, decimal sum, CURRENCY cur)
         {
             try
             {
+                var client = FindClient(acc);
                 _transactions.Add(client.Withdraw(sum, cur));
             }
             catch (Exception e) { throw e; }
         }
 
-        public void Transfer(BaseClient from, BaseClient to, decimal sum, CURRENCY cur)
+        public void Transfer(string fromAcc, string toAcc, decimal sum, CURRENCY cur)
         {
+            if (fromAcc == toAcc)
+                throw new ArgumentException("Can not be transferred to the same account!");
             try
             {
-                _transactions.Add(from.Withdraw(sum, cur));
+                var from = FindClient(fromAcc);
+                var to = FindClient(toAcc);
+                _transactions.Add(from.Transfer(to,sum, cur));
+                to.Recieve(sum, cur);
             }
             catch (Exception e) { throw e; }
+        }
+
+
+        private BaseClient FindClient(string account)
+        {
+            for (int i = 0; i < _clients.Count; i++)
+            {
+                if (_clients[i].Account.ToString() == account)
+                    return _clients[i];
+            }
+            throw new ArgumentException("Account not found!");
         }
 
         public List<BaseClient> SearchClients(string id, string account, string name, string surname, string balance)
         {
             var users = (from client in _clients
-                         where client.UserID.ToString().Contains(id)
-                         where client.Account.ToString().Contains(account)
-                         where new Regex(name, RegexOptions.IgnoreCase).IsMatch(client.Name)
-                         where new Regex(surname, RegexOptions.IgnoreCase).IsMatch(client.Surname)
-                         where client.Surname.Contains(surname)
-                         where client.Balance.ToString().Contains(balance)
-                         select client).ToList();
+                where client.UserID.ToString().Contains(id)
+                where client.Account.ToString().Contains(account)
+                where new Regex(name, RegexOptions.IgnoreCase).IsMatch(client.Name)
+                where new Regex(surname, RegexOptions.IgnoreCase).IsMatch(client.Surname)
+                where client.Surname.Contains(surname)
+                where client.Balance.ToString().Contains(balance)
+                select client).ToList();
             return users;
+        }
+
+        public List<Transaction> SearcTransactions(string date, Type type, string account, string id)
+        {
+            var transactions = (from item in _transactions
+                                //where item.GetType() == type
+                                where item._time.ToString(CultureInfo.InvariantCulture).Contains(date)
+                                where item._userId.ToString().Contains(id)
+                                where item.account.ToString().Contains(account)
+                                select item).ToList();
+            return transactions;
         }
     }
 
