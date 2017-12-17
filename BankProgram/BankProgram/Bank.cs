@@ -29,6 +29,7 @@ namespace BankProgram
     [Serializable]
     abstract class Transaction
     {
+        public TransactionType _type;
         public readonly decimal _charge;
         public readonly bool _success;
         public readonly long _userId;
@@ -56,20 +57,20 @@ namespace BankProgram
     class DepositTrans : Transaction
     {
         public DepositTrans(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
-            : base (id, amount, totalAmount, account, charge, currency, totalCur, time, success) { }
+            : base (id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _type = TransactionType.Deposit; }
     }
     [Serializable]
     class TransferTran : Transaction
     {
        public readonly string _transferTo;
         public TransferTran(long id, decimal amount, decimal totalAmount, long account, long transferTo, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
-            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _transferTo = transferTo.ToString(); }
+            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _transferTo = transferTo.ToString(); _type = TransactionType.Transfer; }
     }
     [Serializable]
     class WithdrawTran : Transaction
     {
         public WithdrawTran(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
-            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { }
+            : base(id, amount, totalAmount, account, charge, currency, totalCur, time, success) { _type = TransactionType.Withdraw;}
     }
 
     [Serializable]
@@ -114,12 +115,12 @@ namespace BankProgram
         public long Account { get; set; }
         public decimal Charge { get; set; }
         public long UserID { get; set; }
-        public void Recieve(decimal sum, CURRENCY cur)
-        {
-            if (this.Currency != cur)
-                sum = AznRate.Convert(sum, cur, this.Currency);
-            this.Balance += sum;
-        }
+        //public void Recieve(decimal sum, CURRENCY cur)
+        //{
+        //    if (this.Currency != cur)
+        //        sum = AznRate.Convert(sum, cur, this.Currency);
+        //    this.Balance += sum;
+        //}
         public Transaction Deposit(decimal sum, CURRENCY cur)
         {
             var originalSum = sum;
@@ -130,7 +131,7 @@ namespace BankProgram
             if (this.Currency != cur)
                sum = AznRate.Convert(sum, cur, this.Currency);
             this.Balance += sum;
-            return new DepositTrans(this.UserID, sum, originalSum, this.Account, 0, this.Currency, cur, DateTime.Now, true);
+            return new DepositTrans(this.UserID, originalSum, sum, this.Account, 0, cur, this.Currency, DateTime.Now, true);
         }
         public Transaction Withdraw(decimal sum, CURRENCY cur)
         {
@@ -143,16 +144,16 @@ namespace BankProgram
                 sum = AznRate.Convert(sum, cur, this.Currency);
 
             var charge = sum * this.Charge;
-            sum +=  Charge;
+            sum += charge;
 
             if (Balance >= sum)
                 this.Balance -= sum;
             else
             {
-                return new WithdrawTran(this.UserID, originalSum, originalSum, this.Account, 0, cur, cur, DateTime.Now, false);
+                throw new ArgumentException("Insufficient funds!");
             }
 
-            return new WithdrawTran(this.UserID, sum, originalSum, this.Account, charge, this.Currency, cur, DateTime.Now, true);
+            return new WithdrawTran(this.UserID, originalSum, sum, this.Account, charge, cur, this.Currency, DateTime.Now, true);
         }
         public Transaction Transfer(BaseClient destClient, decimal sum, CURRENCY cur)
         {
@@ -163,43 +164,44 @@ namespace BankProgram
             }
             if (this.Currency != cur)
                 sum = AznRate.Convert(sum, cur, this.Currency);
-
             var charge = sum * this.Charge;
-            sum += Charge;
+            sum += charge;
 
             if (Balance >= sum)
                 this.Balance -= sum;
             else
             {
-                return new TransferTran(this.UserID, originalSum, originalSum, this.Account, destClient.Account, 0, cur, cur, DateTime.Now, false);
+                throw new ArgumentException("Insufficient funds!");
             }
-            destClient.Recieve(originalSum, cur);
-            return new TransferTran(this.UserID, sum, originalSum, this.Account, destClient.Account, charge, this.Currency, cur, DateTime.Now, true);
+            return new TransferTran(this.UserID, originalSum, sum, this.Account, destClient.Account, charge,  cur, this.Currency, DateTime.Now, true);
         }
     }
 
     [Serializable]
     class Client : BaseClient
     {
-        public Client(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
-            : base(name,  surname,  age,  phone,  mail,  currency, enabled, balance)
-        { Charge = 0.3m; }
+        public Client(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled,
+            decimal balance)
+            : base(name, surname, age, phone, mail, currency, enabled, balance)
+        { base.Charge = 0.04m; }
     }
 
     [Serializable]
     class GoldenClient : BaseClient
     {
-        public GoldenClient(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
-            : base(name,  surname,  age,  phone,  mail,  currency, enabled, balance)
-        { Charge = 0.2m; }
+        public GoldenClient(string name, string surname, int age, string phone, string mail, CURRENCY currency,
+            bool enabled, decimal balance)
+            : base(name, surname, age, phone, mail, currency, enabled, balance)
+        {base.Charge = 0.02m; }
     }
 
     [Serializable]
     class PlatinumClient : BaseClient
     {
-        public PlatinumClient(string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, decimal balance)
-            : base(name,  surname,  age,  phone,  mail,  currency, enabled, balance)
-        { Charge = 0; }
+        public PlatinumClient(string name, string surname, int age, string phone, string mail, CURRENCY currency,
+            bool enabled, decimal balance)
+            : base(name, surname, age, phone, mail, currency, enabled, balance)
+        { base.Charge = 0.01m; }
     }
 
 
@@ -276,7 +278,8 @@ namespace BankProgram
                 _accountNumber = 8713154200000001;
             }
         }
-        public void LoadData()
+
+        private void LoadData()
         {
             try
             {
@@ -287,7 +290,6 @@ namespace BankProgram
             {
                 _transactions = new List<Transaction>();
                 _clients = new List<BaseClient>();
-                MessageBox.Show(e.Message);
             }
         }
 
@@ -401,13 +403,14 @@ namespace BankProgram
                 var from = FindClient(fromAcc);
                 var to = FindClient(toAcc);
                 _transactions.Add(from.Transfer(to,sum, cur));
-                to.Recieve(sum, cur);
+                _transactions.Add(to.Deposit(sum, cur));
+                MessageBox.Show(_transactions.Count.ToString());
             }
             catch (Exception e) { throw e; }
         }
 
 
-        private BaseClient FindClient(string account)
+        public BaseClient FindClient(string account)
         {
             for (int i = 0; i < _clients.Count; i++)
             {
@@ -430,11 +433,11 @@ namespace BankProgram
             return users;
         }
 
-        public List<Transaction> SearcTransactions(string date, Type type, string account, string id)
+        public List<Transaction> SearcTransactions(DateTime start, DateTime end, string account, string id, TransactionType? type = null)
         {
             var transactions = (from item in _transactions
-                                //where item.GetType() == type
-                                where item._time.ToString(CultureInfo.InvariantCulture).Contains(date)
+                                where item._type == type || type == null
+                                where item._time.Date >= start && item._time.Date <= end
                                 where item._userId.ToString().Contains(id)
                                 where item.account.ToString().Contains(account)
                                 select item).ToList();

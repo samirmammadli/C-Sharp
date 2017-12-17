@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,8 +62,12 @@ namespace BankProgram
         {
             dataGridClients.Rows.Clear();
             List<BaseClient> clients = bank.SearchClients(tbSearchID.Text, tbSearchAcc.Text, tbSearchName.Text, tbSearchSurname.Text, tbSearchBalance.Text);
+            string membership;
             for (int i = 0; i < clients.Count; i++)
             {
+                if (clients[i] is PlatinumClient) membership = "Platinum";
+                        else if (clients[i] is GoldenClient) membership = "Gold";
+                else membership = "Normal";
                 dataGridClients.Rows.Add();
                 dataGridClients.Rows[i].Cells[0].Value = clients[i].UserID;
                 dataGridClients.Rows[i].Cells[1].Value = clients[i].Account;
@@ -69,9 +75,10 @@ namespace BankProgram
                 dataGridClients.Rows[i].Cells[3].Value = clients[i].Surname;
                 dataGridClients.Rows[i].Cells[4].Value = clients[i].Phone;
                 dataGridClients.Rows[i].Cells[5].Value = clients[i].Mail;
-                dataGridClients.Rows[i].Cells[6].Value = clients[i].Balance;
+                dataGridClients.Rows[i].Cells[6].Value = clients[i].Balance.ToString("F");
                 dataGridClients.Rows[i].Cells[7].Value = clients[i].Currency;
-                dataGridClients.Rows[i].Cells[8].Value = clients[i].Enabled;
+                dataGridClients.Rows[i].Cells[8].Value = membership;
+                dataGridClients.Rows[i].Cells[9].Value = clients[i].Enabled;
             }
         }
 
@@ -126,31 +133,33 @@ namespace BankProgram
             tbSetBalance.Clear();
         }
 
-        private void btnTransSearch_Click(object sender, EventArgs e)
+
+        private void FillTransactionsGrid(DateTime from, DateTime to, string acc, string id, TransactionType? type = null)
         {
             dataGridTrans.Rows.Clear();
-            List<Transaction> transactions = bank.SearcTransactions("", typeof(Transaction), "", "" );
-            int transtype;
+            List<Transaction> transactions = bank.SearcTransactions(from.Date, to.Date, acc, id, type);
             for (int i = 0; i < transactions.Count; i++)
             {
-                if (transactions[i] is DepositTrans) transtype = 3;
-                else if (transactions[i] is WithdrawTran) transtype = 4;
-                else transtype = 5;
                 dataGridTrans.Rows.Add();
                 dataGridTrans.Rows[i].Cells[0].Value = transactions[i]._time;
                 dataGridTrans.Rows[i].Cells[1].Value = transactions[i]._userId;
                 dataGridTrans.Rows[i].Cells[2].Value = transactions[i].account;
-                dataGridTrans.Rows[i].Cells[3].Value = string.Empty; 
-                dataGridTrans.Rows[i].Cells[4].Value = string.Empty; 
-                dataGridTrans.Rows[i].Cells[5].Value = string.Empty;
-                dataGridTrans.Rows[i].Cells[transtype].Value = transactions[i].GetType().ToString();
-                dataGridTrans.Rows[i].Cells[transtype].Value = (transactions[i] as TransferTran)?._transferTo;
-                dataGridTrans.Rows[i].Cells[7].Value = transactions[i]._amount;
-                dataGridTrans.Rows[i].Cells[8].Value = transactions[i]._currency;
-                dataGridTrans.Rows[i].Cells[9].Value = transactions[i]._charge;
-                dataGridTrans.Rows[i].Cells[10].Value = transactions[i]._totalAmount;
-                dataGridTrans.Rows[i].Cells[11].Value = transactions[i]._totalCur;
+                dataGridTrans.Rows[i].Cells[3].Value = transactions[i]._type;
+                dataGridTrans.Rows[i].Cells[4].Value = (transactions[i] as TransferTran)?._transferTo;
+                dataGridTrans.Rows[i].Cells[5].Value = transactions[i]._amount;
+                dataGridTrans.Rows[i].Cells[6].Value = transactions[i]._currency;
+                dataGridTrans.Rows[i].Cells[7].Value = transactions[i]._charge;
+                dataGridTrans.Rows[i].Cells[8].Value = transactions[i]._totalAmount;
+                dataGridTrans.Rows[i].Cells[9].Value = transactions[i]._totalCur;
             }
+        }
+
+        private void btnTransSearch_Click(object sender, EventArgs e)
+        {
+            dataGridTrans.Rows.Clear();
+            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
+
+
         }
 
         private void withdrawToolStripMenuItem_Click(object sender, EventArgs e)
@@ -175,6 +184,8 @@ namespace BankProgram
                     case TransactionType.Transfer:
                         bank.Transfer(tbTransFromAcc.Text, tbTransToAcc.Text, Convert.ToDecimal(tbTransAmount.Text), EnumConverter.StringToCurrency(cbTransCur.Text));
                         break;
+                    default:
+                        throw new ArgumentException("Unknown error!");
                 }
             }
             catch (Exception exception)
@@ -218,6 +229,39 @@ namespace BankProgram
         {
             PanelsVisibility(false);
             pnlTransSearch.Visible = true;
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            //for (int i = 0; i < dataGridClients.SelectedRows.Count; i++)
+            //{
+            //    for (int j = 0; j < dataGridClients.SelectedRows[i].Cells.Count; j++)
+            //    {
+            //        File.AppendAllText("test.csv", dataGridClients.SelectedRows[i].Cells[j].Value.ToString() + ';');
+            //    }
+            //    File.AppendAllText("test.csv", Environment.NewLine);
+            //}
+
+               var client = bank.FindClient(dataGridClients.SelectedRows[0].Cells[1].Value.ToString());
+            pnlRegEdit.Visible = true;
+            tbAge.Text = client.Age.ToString();
+            tbName.Text = client.Name;
+            tbSurname.Text = client.Surname;
+            tbMail.Text = client.Mail;
+            tbPhone.Text = client.Phone;
+            cbCurrency.Enabled = false;
+            
+            
+            
+
+
+                for (int i = 0; i < dataGridClients.SelectedRows[0].Cells.Count; i++)
+                {
+                    File.AppendAllText("test.csv", dataGridClients.SelectedRows[0].Cells[i].Value.ToString() + ';');
+                    
+                }
+       
+
         }
     }
 }
