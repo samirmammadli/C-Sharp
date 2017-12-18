@@ -16,14 +16,13 @@ namespace BankProgram
     {
         private Bank bank;
         private TransactionType? currentTransType;
+        private TransactionType? SearchType = null;
         public BankApplication()
         {
             bank = new Bank();
             currentTransType = null;
             InitializeComponent();
         }
-
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -58,32 +57,15 @@ namespace BankProgram
             }
         }
 
+    
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            dataGridClients.Rows.Clear();
-            List<BaseClient> clients = bank.SearchClients(tbSearchID.Text, tbSearchAcc.Text, tbSearchName.Text, tbSearchSurname.Text, tbSearchBalance.Text);
-            string membership;
-            for (int i = 0; i < clients.Count; i++)
-            {
-                if (clients[i] is PlatinumClient) membership = "Platinum";
-                        else if (clients[i] is GoldenClient) membership = "Gold";
-                else membership = "Normal";
-                dataGridClients.Rows.Add();
-                dataGridClients.Rows[i].Cells[0].Value = clients[i].UserID;
-                dataGridClients.Rows[i].Cells[1].Value = clients[i].Account;
-                dataGridClients.Rows[i].Cells[2].Value = clients[i].Name;
-                dataGridClients.Rows[i].Cells[3].Value = clients[i].Surname;
-                dataGridClients.Rows[i].Cells[4].Value = clients[i].Phone;
-                dataGridClients.Rows[i].Cells[5].Value = clients[i].Mail;
-                dataGridClients.Rows[i].Cells[6].Value = clients[i].Balance.ToString("F");
-                dataGridClients.Rows[i].Cells[7].Value = clients[i].Currency;
-                dataGridClients.Rows[i].Cells[8].Value = membership;
-                dataGridClients.Rows[i].Cells[9].Value = clients[i].Enabled;
-            }
+            DataGridSearchUpdate();
         }
 
         private void PanelsVisibility(bool visible)
         {
+            pnlEdit.Visible = visible;
             pnlTransaction.Visible = visible;
             pnlAccountProp.Visible = visible;
             pnlRegistration.Visible = visible;
@@ -121,6 +103,7 @@ namespace BankProgram
             tbSearchBalance.Clear();
             tbSearchID.Clear();
             tbSearchBalance.Clear();
+            dataGridClients.Rows.Clear();
         }
 
         private void pnlRegEdit_VisibleChanged(object sender, EventArgs e)
@@ -133,10 +116,10 @@ namespace BankProgram
             tbSetBalance.Clear();
         }
 
-        private void FillTransactionsGrid(DateTime from, DateTime to, string acc, string id, TransactionType? type = null)
+        private void FillTransactionsGrid(DateTime from, DateTime to, string acc, string id)
         {
             dataGridTrans.Rows.Clear();
-            List<Transaction> transactions = bank.SearcTransactions(from.Date, to.Date, acc, id, type);
+            List<Transaction> transactions = bank.SearcTransactions(from.Date, to.Date, acc, id, SearchType);
             for (int i = 0; i < transactions.Count; i++)
             {
                 dataGridTrans.Rows.Add();
@@ -153,12 +136,35 @@ namespace BankProgram
             }
         }
 
+        private void DataGridSearchUpdate()
+        {
+            dataGridClients.Rows.Clear();
+            List<BaseClient> clients = bank.SearchClients(tbSearchID.Text, tbSearchAcc.Text, tbSearchName.Text, tbSearchSurname.Text, tbSearchBalance.Text);
+            string membership;
+            for (int i = 0; i < clients.Count; i++)
+            {
+                if (clients[i] is PlatinumClient) membership = "Platinum";
+                else if (clients[i] is GoldenClient) membership = "Gold";
+                else membership = "Normal";
+                dataGridClients.Rows.Add();
+                dataGridClients.Rows[i].Cells[0].Value = clients[i].UserID;
+                dataGridClients.Rows[i].Cells[1].Value = clients[i].Account;
+                dataGridClients.Rows[i].Cells[2].Value = clients[i].Name;
+                dataGridClients.Rows[i].Cells[3].Value = clients[i].Surname;
+                dataGridClients.Rows[i].Cells[4].Value = clients[i].Phone;
+                dataGridClients.Rows[i].Cells[5].Value = clients[i].Mail;
+                dataGridClients.Rows[i].Cells[6].Value = clients[i].Balance.ToString("F");
+                dataGridClients.Rows[i].Cells[7].Value = clients[i].Currency;
+                dataGridClients.Rows[i].Cells[8].Value = membership;
+                dataGridClients.Rows[i].Cells[9].Value = clients[i].Enabled;
+            }
+        }
+
         private void btnTransSearch_Click(object sender, EventArgs e)
         {
+            SearchType = null;
             dataGridTrans.Rows.Clear();
             FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
-
-
         }
 
         private void withdrawToolStripMenuItem_Click(object sender, EventArgs e)
@@ -186,12 +192,15 @@ namespace BankProgram
                     default:
                         throw new ArgumentException("Unknown error!");
                 }
+                MessageBox.Show("Success!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                currentTransType = null;
+                pnlTransaction.Visible = false;
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
-            currentTransType = null;
+            
         }
 
         private void pnlTransaction_VisibleChanged(object sender, EventArgs e)
@@ -230,8 +239,36 @@ namespace BankProgram
             pnlTransSearch.Visible = true;
         }
 
+        private void FillEditForm()
+        {
+            if (dataGridClients.SelectedCells.Count > 0)
+            {
+                BaseClient client = null;
+                try
+                {
+                    client = bank.FindClient(dataGridClients.Rows[dataGridClients.SelectedCells[0].RowIndex].Cells[1].Value.ToString());
+                }
+                catch (Exception ex )
+                {
+
+                    throw ex;
+                }
+                pnlEdit.Visible = true;
+                tbEditViewID.Text = client.UserID.ToString();
+                tbEditAge.Text = client.Age.ToString();
+                tbEditName.Text = client.Name;
+                tbEditSurname.Text = client.Surname;
+                tbEditMail.Text = client.Mail;
+                tbEditPhone.Text = client.Phone;
+                cbEditEnabled.Checked = client.Enabled; 
+            }
+        }
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            FillEditForm();
+            
+
             //for (int i = 0; i < dataGridClients.SelectedRows.Count; i++)
             //{
             //    for (int j = 0; j < dataGridClients.SelectedRows[i].Cells.Count; j++)
@@ -240,22 +277,13 @@ namespace BankProgram
             //    }
             //    File.AppendAllText("test.csv", Environment.NewLine);
             //}
-            var client = bank.FindClient(dataGridClients.SelectedRows[0].Cells[1].Value.ToString());
-            pnlEdit.Visible = true;
-            tbEditViewID.Text = client.UserID.ToString();
-            tbEditAge.Text = client.Age.ToString();
-            tbEditName.Text = client.Name;
-            tbEditSurname.Text = client.Surname;
-            tbEditMail.Text = client.Mail;
-            tbEditPhone.Text = client.Phone;
-            cbEditEnabled.Checked = client.Enabled;
+            //for (int i = 0; i < dataGridClients.SelectedRows[0].Cells.Count; i++)
+            //{
+            //    File.AppendAllText("test.csv", dataGridClients.SelectedRows[0].Cells[i].Value.ToString() + ';');
 
-                for (int i = 0; i < dataGridClients.SelectedRows[0].Cells.Count; i++)
-                {
-                    File.AppendAllText("test.csv", dataGridClients.SelectedRows[0].Cells[i].Value.ToString() + ';');
-                    
-                }
-       
+            //}
+
+
 
         }
 
@@ -279,11 +307,39 @@ namespace BankProgram
                 bank.EditClient(Convert.ToInt64(tbEditViewID.Text), tbEditName.Text, tbEditSurname.Text, tbEditMail.Text, tbEditPhone.Text, Convert.ToInt32(tbEditAge.Text), cbEditEnabled.Checked);
                 MessageBox.Show("Client Saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 pnlEdit.Visible = false;
+                DataGridSearchUpdate();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void BankApplication_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            bank.SaveClients();
+            bank.SaveTransactions();
+        }
+
+        private void withdrawTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchType = TransactionType.Withdraw;
+            dataGridTrans.Rows.Clear();
+            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
+        }
+
+        private void depositTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchType = TransactionType.Deposit;
+            dataGridTrans.Rows.Clear();
+            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
+        }
+
+        private void transferTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchType = TransactionType.Transfer;
+            dataGridTrans.Rows.Clear();
+            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
         }
     }
 }

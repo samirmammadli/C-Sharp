@@ -130,21 +130,21 @@ namespace BankProgram
             this.lbTransFromAcc = new System.Windows.Forms.Label();
             this.lbTransCur = new System.Windows.Forms.Label();
             this.pnlEdit = new System.Windows.Forms.Panel();
-            this.tbEditPhone = new System.Windows.Forms.TextBox();
-            this.lbEditPhone = new System.Windows.Forms.Label();
-            this.tbEditMail = new System.Windows.Forms.TextBox();
-            this.lbEditMail = new System.Windows.Forms.Label();
-            this.tbEditAge = new System.Windows.Forms.TextBox();
-            this.lbEditAge = new System.Windows.Forms.Label();
-            this.tbEditSurname = new System.Windows.Forms.TextBox();
-            this.lbEditSurname = new System.Windows.Forms.Label();
-            this.tbEditName = new System.Windows.Forms.TextBox();
-            this.lbEditName = new System.Windows.Forms.Label();
-            this.btnEditCancel = new System.Windows.Forms.Button();
-            this.btnEditSave = new System.Windows.Forms.Button();
+            this.cbEditEnabled = new System.Windows.Forms.CheckBox();
             this.lbEditID = new System.Windows.Forms.Label();
             this.tbEditViewID = new System.Windows.Forms.TextBox();
-            this.cbEditEnabled = new System.Windows.Forms.CheckBox();
+            this.btnEditCancel = new System.Windows.Forms.Button();
+            this.btnEditSave = new System.Windows.Forms.Button();
+            this.lbEditName = new System.Windows.Forms.Label();
+            this.tbEditName = new System.Windows.Forms.TextBox();
+            this.tbEditPhone = new System.Windows.Forms.TextBox();
+            this.lbEditSurname = new System.Windows.Forms.Label();
+            this.lbEditPhone = new System.Windows.Forms.Label();
+            this.tbEditSurname = new System.Windows.Forms.TextBox();
+            this.tbEditMail = new System.Windows.Forms.TextBox();
+            this.lbEditAge = new System.Windows.Forms.Label();
+            this.lbEditMail = new System.Windows.Forms.Label();
+            this.tbEditAge = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClients)).BeginInit();
             this.pnlRegistration.SuspendLayout();
@@ -230,20 +230,23 @@ namespace BankProgram
             // withdrawTransactionsToolStripMenuItem
             // 
             this.withdrawTransactionsToolStripMenuItem.Name = "withdrawTransactionsToolStripMenuItem";
-            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.withdrawTransactionsToolStripMenuItem.Text = "Withdraw";
+            this.withdrawTransactionsToolStripMenuItem.Click += new System.EventHandler(this.withdrawTransactionsToolStripMenuItem_Click);
             // 
             // depositTransactionsToolStripMenuItem
             // 
             this.depositTransactionsToolStripMenuItem.Name = "depositTransactionsToolStripMenuItem";
-            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.depositTransactionsToolStripMenuItem.Text = "Deposit";
+            this.depositTransactionsToolStripMenuItem.Click += new System.EventHandler(this.depositTransactionsToolStripMenuItem_Click);
             // 
             // transferTransactionsToolStripMenuItem
             // 
             this.transferTransactionsToolStripMenuItem.Name = "transferTransactionsToolStripMenuItem";
-            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.transferTransactionsToolStripMenuItem.Text = "Transfer";
+            this.transferTransactionsToolStripMenuItem.Click += new System.EventHandler(this.transferTransactionsToolStripMenuItem_Click);
             // 
             // makeTransactionToolStripMenuItem
             // 
@@ -396,7 +399,7 @@ namespace BankProgram
             this.pnlRegistration.Controls.Add(this.lbSurname);
             this.pnlRegistration.Controls.Add(this.tbName);
             this.pnlRegistration.Controls.Add(this.lbName);
-            this.pnlRegistration.Location = new System.Drawing.Point(0, 0);
+            this.pnlRegistration.Location = new System.Drawing.Point(170, 21);
             this.pnlRegistration.Name = "pnlRegistration";
             this.pnlRegistration.Size = new System.Drawing.Size(349, 309);
             this.pnlRegistration.TabIndex = 5;
@@ -672,7 +675,6 @@ namespace BankProgram
             this.pnlClientsSearch.Controls.Add(this.lbSearchName);
             this.pnlClientsSearch.Controls.Add(this.lbSearchAcc);
             this.pnlClientsSearch.Controls.Add(this.lbSearchID);
-            this.pnlClientsSearch.Controls.Add(this.pnlRegistration);
             this.pnlClientsSearch.Controls.Add(this.tbSearchBalance);
             this.pnlClientsSearch.Controls.Add(this.tbSearchSurname);
             this.pnlClientsSearch.Controls.Add(this.tbSearchName);
@@ -1103,99 +1105,42 @@ namespace BankProgram
             this.pnlEdit.Controls.Add(this.tbEditAge);
             this.pnlEdit.Location = new System.Drawing.Point(1073, 27);
             this.pnlEdit.Name = "pnlEdit";
-            this.pnlEdit.Size = new System.Drawing.Size(336, 260);
+            this.pnlEdit.Size = new System.Drawing.Size(336, 218);
             this.pnlEdit.TabIndex = 31;
+            this.pnlEdit.Visible = false;
             this.pnlEdit.VisibleChanged += new System.EventHandler(this.pnlEdit_VisibleChanged);
             // 
-            // tbEditPhone
+            // cbEditEnabled
             // 
-            this.tbEditPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEditPhone.Location = new System.Drawing.Point(77, 145);
-            this.tbEditPhone.Name = "tbEditPhone";
-            this.tbEditPhone.Size = new System.Drawing.Size(243, 22);
-            this.tbEditPhone.TabIndex = 28;
+            this.cbEditEnabled.AutoSize = true;
+            this.cbEditEnabled.Checked = true;
+            this.cbEditEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEditEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbEditEnabled.Location = new System.Drawing.Point(183, 181);
+            this.cbEditEnabled.Name = "cbEditEnabled";
+            this.cbEditEnabled.Size = new System.Drawing.Size(78, 20);
+            this.cbEditEnabled.TabIndex = 19;
+            this.cbEditEnabled.Text = "Enabled";
+            this.cbEditEnabled.UseVisualStyleBackColor = true;
             // 
-            // lbEditPhone
+            // lbEditID
             // 
-            this.lbEditPhone.AutoSize = true;
-            this.lbEditPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbEditPhone.Location = new System.Drawing.Point(4, 145);
-            this.lbEditPhone.Name = "lbEditPhone";
-            this.lbEditPhone.Size = new System.Drawing.Size(50, 16);
-            this.lbEditPhone.TabIndex = 27;
-            this.lbEditPhone.Text = "Phone:";
+            this.lbEditID.AutoSize = true;
+            this.lbEditID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditID.Location = new System.Drawing.Point(4, 9);
+            this.lbEditID.Name = "lbEditID";
+            this.lbEditID.Size = new System.Drawing.Size(24, 16);
+            this.lbEditID.TabIndex = 33;
+            this.lbEditID.Text = "ID:";
             // 
-            // tbEditMail
+            // tbEditViewID
             // 
-            this.tbEditMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEditMail.Location = new System.Drawing.Point(77, 117);
-            this.tbEditMail.Name = "tbEditMail";
-            this.tbEditMail.Size = new System.Drawing.Size(243, 22);
-            this.tbEditMail.TabIndex = 26;
-            // 
-            // lbEditMail
-            // 
-            this.lbEditMail.AutoSize = true;
-            this.lbEditMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbEditMail.Location = new System.Drawing.Point(4, 117);
-            this.lbEditMail.Name = "lbEditMail";
-            this.lbEditMail.Size = new System.Drawing.Size(36, 16);
-            this.lbEditMail.TabIndex = 25;
-            this.lbEditMail.Text = "Mail:";
-            // 
-            // tbEditAge
-            // 
-            this.tbEditAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEditAge.Location = new System.Drawing.Point(77, 89);
-            this.tbEditAge.Name = "tbEditAge";
-            this.tbEditAge.Size = new System.Drawing.Size(38, 22);
-            this.tbEditAge.TabIndex = 24;
-            // 
-            // lbEditAge
-            // 
-            this.lbEditAge.AutoSize = true;
-            this.lbEditAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbEditAge.Location = new System.Drawing.Point(4, 89);
-            this.lbEditAge.Name = "lbEditAge";
-            this.lbEditAge.Size = new System.Drawing.Size(36, 16);
-            this.lbEditAge.TabIndex = 23;
-            this.lbEditAge.Text = "Age:";
-            // 
-            // tbEditSurname
-            // 
-            this.tbEditSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEditSurname.Location = new System.Drawing.Point(77, 61);
-            this.tbEditSurname.Name = "tbEditSurname";
-            this.tbEditSurname.Size = new System.Drawing.Size(243, 22);
-            this.tbEditSurname.TabIndex = 22;
-            // 
-            // lbEditSurname
-            // 
-            this.lbEditSurname.AutoSize = true;
-            this.lbEditSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbEditSurname.Location = new System.Drawing.Point(4, 61);
-            this.lbEditSurname.Name = "lbEditSurname";
-            this.lbEditSurname.Size = new System.Drawing.Size(58, 16);
-            this.lbEditSurname.TabIndex = 21;
-            this.lbEditSurname.Text = "Surame:";
-            // 
-            // tbEditName
-            // 
-            this.tbEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEditName.Location = new System.Drawing.Point(77, 33);
-            this.tbEditName.Name = "tbEditName";
-            this.tbEditName.Size = new System.Drawing.Size(243, 22);
-            this.tbEditName.TabIndex = 20;
-            // 
-            // lbEditName
-            // 
-            this.lbEditName.AutoSize = true;
-            this.lbEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbEditName.Location = new System.Drawing.Point(4, 33);
-            this.lbEditName.Name = "lbEditName";
-            this.lbEditName.Size = new System.Drawing.Size(48, 16);
-            this.lbEditName.TabIndex = 19;
-            this.lbEditName.Text = "Name:";
+            this.tbEditViewID.Enabled = false;
+            this.tbEditViewID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditViewID.Location = new System.Drawing.Point(77, 9);
+            this.tbEditViewID.Name = "tbEditViewID";
+            this.tbEditViewID.Size = new System.Drawing.Size(243, 22);
+            this.tbEditViewID.TabIndex = 34;
             // 
             // btnEditCancel
             // 
@@ -1217,37 +1162,95 @@ namespace BankProgram
             this.btnEditSave.UseVisualStyleBackColor = true;
             this.btnEditSave.Click += new System.EventHandler(this.btnEditSave_Click);
             // 
-            // lbEditID
+            // lbEditName
             // 
-            this.lbEditID.AutoSize = true;
-            this.lbEditID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbEditID.Location = new System.Drawing.Point(4, 9);
-            this.lbEditID.Name = "lbEditID";
-            this.lbEditID.Size = new System.Drawing.Size(24, 16);
-            this.lbEditID.TabIndex = 33;
-            this.lbEditID.Text = "ID:";
+            this.lbEditName.AutoSize = true;
+            this.lbEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditName.Location = new System.Drawing.Point(4, 33);
+            this.lbEditName.Name = "lbEditName";
+            this.lbEditName.Size = new System.Drawing.Size(48, 16);
+            this.lbEditName.TabIndex = 19;
+            this.lbEditName.Text = "Name:";
             // 
-            // tbEditViewID
+            // tbEditName
             // 
-            this.tbEditViewID.Enabled = false;
-            this.tbEditViewID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEditViewID.Location = new System.Drawing.Point(77, 9);
-            this.tbEditViewID.Name = "tbEditViewID";
-            this.tbEditViewID.Size = new System.Drawing.Size(243, 22);
-            this.tbEditViewID.TabIndex = 34;
+            this.tbEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditName.Location = new System.Drawing.Point(77, 33);
+            this.tbEditName.Name = "tbEditName";
+            this.tbEditName.Size = new System.Drawing.Size(243, 22);
+            this.tbEditName.TabIndex = 20;
             // 
-            // cbEditEnabled
+            // tbEditPhone
             // 
-            this.cbEditEnabled.AutoSize = true;
-            this.cbEditEnabled.Checked = true;
-            this.cbEditEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbEditEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cbEditEnabled.Location = new System.Drawing.Point(183, 181);
-            this.cbEditEnabled.Name = "cbEditEnabled";
-            this.cbEditEnabled.Size = new System.Drawing.Size(78, 20);
-            this.cbEditEnabled.TabIndex = 19;
-            this.cbEditEnabled.Text = "Enabled";
-            this.cbEditEnabled.UseVisualStyleBackColor = true;
+            this.tbEditPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditPhone.Location = new System.Drawing.Point(77, 145);
+            this.tbEditPhone.Name = "tbEditPhone";
+            this.tbEditPhone.Size = new System.Drawing.Size(243, 22);
+            this.tbEditPhone.TabIndex = 28;
+            // 
+            // lbEditSurname
+            // 
+            this.lbEditSurname.AutoSize = true;
+            this.lbEditSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditSurname.Location = new System.Drawing.Point(4, 61);
+            this.lbEditSurname.Name = "lbEditSurname";
+            this.lbEditSurname.Size = new System.Drawing.Size(58, 16);
+            this.lbEditSurname.TabIndex = 21;
+            this.lbEditSurname.Text = "Surame:";
+            // 
+            // lbEditPhone
+            // 
+            this.lbEditPhone.AutoSize = true;
+            this.lbEditPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditPhone.Location = new System.Drawing.Point(4, 145);
+            this.lbEditPhone.Name = "lbEditPhone";
+            this.lbEditPhone.Size = new System.Drawing.Size(50, 16);
+            this.lbEditPhone.TabIndex = 27;
+            this.lbEditPhone.Text = "Phone:";
+            // 
+            // tbEditSurname
+            // 
+            this.tbEditSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditSurname.Location = new System.Drawing.Point(77, 61);
+            this.tbEditSurname.Name = "tbEditSurname";
+            this.tbEditSurname.Size = new System.Drawing.Size(243, 22);
+            this.tbEditSurname.TabIndex = 22;
+            // 
+            // tbEditMail
+            // 
+            this.tbEditMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditMail.Location = new System.Drawing.Point(77, 117);
+            this.tbEditMail.Name = "tbEditMail";
+            this.tbEditMail.Size = new System.Drawing.Size(243, 22);
+            this.tbEditMail.TabIndex = 26;
+            // 
+            // lbEditAge
+            // 
+            this.lbEditAge.AutoSize = true;
+            this.lbEditAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditAge.Location = new System.Drawing.Point(4, 89);
+            this.lbEditAge.Name = "lbEditAge";
+            this.lbEditAge.Size = new System.Drawing.Size(36, 16);
+            this.lbEditAge.TabIndex = 23;
+            this.lbEditAge.Text = "Age:";
+            // 
+            // lbEditMail
+            // 
+            this.lbEditMail.AutoSize = true;
+            this.lbEditMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditMail.Location = new System.Drawing.Point(4, 117);
+            this.lbEditMail.Name = "lbEditMail";
+            this.lbEditMail.Size = new System.Drawing.Size(36, 16);
+            this.lbEditMail.TabIndex = 25;
+            this.lbEditMail.Text = "Mail:";
+            // 
+            // tbEditAge
+            // 
+            this.tbEditAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditAge.Location = new System.Drawing.Point(77, 89);
+            this.tbEditAge.Name = "tbEditAge";
+            this.tbEditAge.Size = new System.Drawing.Size(38, 22);
+            this.tbEditAge.TabIndex = 24;
             // 
             // BankApplication
             // 
@@ -1261,11 +1264,13 @@ namespace BankProgram
             this.Controls.Add(this.pnlAccountProp);
             this.Controls.Add(this.pnlClientsSearch);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.pnlRegistration);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "BankApplication";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BankApplication_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClients)).EndInit();

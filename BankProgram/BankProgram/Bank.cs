@@ -54,6 +54,7 @@ namespace BankProgram
         }
     }
 
+    [Serializable]
     class DepositTrans : Transaction
     {
         public DepositTrans(long id, decimal amount, decimal totalAmount, long account, decimal charge, CURRENCY currency, CURRENCY totalCur, DateTime time, bool success)
@@ -339,7 +340,7 @@ namespace BankProgram
             Regex[] regex = new Regex[6];
             regex[0] = new Regex(@"^[A-z]{1,30}$");
             regex[1] = new Regex(@"^[+]994[55|50|51|70|77]{2}[0-9]{7}$");
-            regex[2] = new Regex(@"^[a-z,0-9,_,-]{1,30}@[a-z,0-9,_,-,.]{1,20}[a-z,0-9,_,-,.]{1,20}.[a-z]{2,5}$", RegexOptions.IgnoreCase);
+            regex[2] = new Regex(@"^[a-z,0-9,_,-,.]{1,30}@[a-z,0-9,_,-,.]{1,20}[a-z,0-9,_,-,.]{1,20}.[a-z]{2,5}$", RegexOptions.IgnoreCase);
             regex[3] = new Regex(@"^[AZN|USD|EUR]{3}$");
             regex[4] = new Regex(@"^[Gold|Normal|Platinum]{4,8}$");
 
