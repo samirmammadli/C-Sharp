@@ -116,12 +116,6 @@ namespace BankProgram
         public long Account { get; set; }
         public decimal Charge { get; set; }
         public long UserID { get; set; }
-        //public void Recieve(decimal sum, CURRENCY cur)
-        //{
-        //    if (this.Currency != cur)
-        //        sum = AznRate.Convert(sum, cur, this.Currency);
-        //    this.Balance += sum;
-        //}
         public Transaction Deposit(decimal sum, CURRENCY cur)
         {
             var originalSum = sum;
@@ -405,7 +399,6 @@ namespace BankProgram
                 var to = FindClient(toAcc);
                 _transactions.Add(from.Transfer(to,sum, cur));
                 _transactions.Add(to.Deposit(sum, cur));
-                MessageBox.Show(_transactions.Count.ToString());
             }
             catch (Exception e) { throw e; }
         }
