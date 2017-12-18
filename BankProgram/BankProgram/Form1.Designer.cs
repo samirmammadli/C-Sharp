@@ -98,6 +98,7 @@ namespace BankProgram
             this.tbSearchAcc = new System.Windows.Forms.TextBox();
             this.tbSearchID = new System.Windows.Forms.TextBox();
             this.pnlTransSearch = new System.Windows.Forms.Panel();
+            this.btnTransSearchExportToCsv = new System.Windows.Forms.Button();
             this.lbTransSearchTo = new System.Windows.Forms.Label();
             this.lbTransSearchFrom = new System.Windows.Forms.Label();
             this.lbTransSearchAcc = new System.Windows.Forms.Label();
@@ -145,6 +146,7 @@ namespace BankProgram
             this.lbEditAge = new System.Windows.Forms.Label();
             this.lbEditMail = new System.Windows.Forms.Label();
             this.tbEditAge = new System.Windows.Forms.TextBox();
+            this.svdExportToCSV = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClients)).BeginInit();
             this.pnlRegistration.SuspendLayout();
@@ -230,21 +232,21 @@ namespace BankProgram
             // withdrawTransactionsToolStripMenuItem
             // 
             this.withdrawTransactionsToolStripMenuItem.Name = "withdrawTransactionsToolStripMenuItem";
-            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.withdrawTransactionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.withdrawTransactionsToolStripMenuItem.Text = "Withdraw";
             this.withdrawTransactionsToolStripMenuItem.Click += new System.EventHandler(this.withdrawTransactionsToolStripMenuItem_Click);
             // 
             // depositTransactionsToolStripMenuItem
             // 
             this.depositTransactionsToolStripMenuItem.Name = "depositTransactionsToolStripMenuItem";
-            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.depositTransactionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.depositTransactionsToolStripMenuItem.Text = "Deposit";
             this.depositTransactionsToolStripMenuItem.Click += new System.EventHandler(this.depositTransactionsToolStripMenuItem_Click);
             // 
             // transferTransactionsToolStripMenuItem
             // 
             this.transferTransactionsToolStripMenuItem.Name = "transferTransactionsToolStripMenuItem";
-            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transferTransactionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.transferTransactionsToolStripMenuItem.Text = "Transfer";
             this.transferTransactionsToolStripMenuItem.Click += new System.EventHandler(this.transferTransactionsToolStripMenuItem_Click);
             // 
@@ -312,7 +314,7 @@ namespace BankProgram
             this.dataGridClients.Location = new System.Drawing.Point(6, 55);
             this.dataGridClients.Name = "dataGridClients";
             this.dataGridClients.ReadOnly = true;
-            this.dataGridClients.Size = new System.Drawing.Size(1046, 219);
+            this.dataGridClients.Size = new System.Drawing.Size(1046, 307);
             this.dataGridClients.TabIndex = 3;
             // 
             // dgID
@@ -399,7 +401,7 @@ namespace BankProgram
             this.pnlRegistration.Controls.Add(this.lbSurname);
             this.pnlRegistration.Controls.Add(this.tbName);
             this.pnlRegistration.Controls.Add(this.lbName);
-            this.pnlRegistration.Location = new System.Drawing.Point(170, 21);
+            this.pnlRegistration.Location = new System.Drawing.Point(12, 26);
             this.pnlRegistration.Name = "pnlRegistration";
             this.pnlRegistration.Size = new System.Drawing.Size(349, 309);
             this.pnlRegistration.TabIndex = 5;
@@ -589,7 +591,7 @@ namespace BankProgram
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(6, 280);
+            this.btnSearch.Location = new System.Drawing.Point(6, 368);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(99, 23);
             this.btnSearch.TabIndex = 6;
@@ -605,7 +607,7 @@ namespace BankProgram
             this.pnlAccountProp.Controls.Add(this.lbAccount);
             this.pnlAccountProp.Controls.Add(this.tbEditID);
             this.pnlAccountProp.Controls.Add(this.lbID);
-            this.pnlAccountProp.Location = new System.Drawing.Point(367, 381);
+            this.pnlAccountProp.Location = new System.Drawing.Point(364, 26);
             this.pnlAccountProp.Name = "pnlAccountProp";
             this.pnlAccountProp.Size = new System.Drawing.Size(336, 125);
             this.pnlAccountProp.TabIndex = 7;
@@ -682,16 +684,16 @@ namespace BankProgram
             this.pnlClientsSearch.Controls.Add(this.tbSearchID);
             this.pnlClientsSearch.Controls.Add(this.dataGridClients);
             this.pnlClientsSearch.Controls.Add(this.btnSearch);
-            this.pnlClientsSearch.Location = new System.Drawing.Point(12, 27);
+            this.pnlClientsSearch.Location = new System.Drawing.Point(9, 26);
             this.pnlClientsSearch.Name = "pnlClientsSearch";
-            this.pnlClientsSearch.Size = new System.Drawing.Size(1055, 336);
+            this.pnlClientsSearch.Size = new System.Drawing.Size(1055, 399);
             this.pnlClientsSearch.TabIndex = 8;
             this.pnlClientsSearch.Visible = false;
             this.pnlClientsSearch.VisibleChanged += new System.EventHandler(this.pnlSearch_VisibleChanged);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(111, 280);
+            this.btnEdit.Location = new System.Drawing.Point(111, 368);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(99, 23);
             this.btnEdit.TabIndex = 30;
@@ -791,6 +793,7 @@ namespace BankProgram
             // 
             // pnlTransSearch
             // 
+            this.pnlTransSearch.Controls.Add(this.btnTransSearchExportToCsv);
             this.pnlTransSearch.Controls.Add(this.lbTransSearchTo);
             this.pnlTransSearch.Controls.Add(this.lbTransSearchFrom);
             this.pnlTransSearch.Controls.Add(this.lbTransSearchAcc);
@@ -801,17 +804,27 @@ namespace BankProgram
             this.pnlTransSearch.Controls.Add(this.btnTransSearch);
             this.pnlTransSearch.Controls.Add(this.tbTransSearchID);
             this.pnlTransSearch.Controls.Add(this.dataGridTrans);
-            this.pnlTransSearch.Location = new System.Drawing.Point(9, 369);
+            this.pnlTransSearch.Location = new System.Drawing.Point(9, 27);
             this.pnlTransSearch.Name = "pnlTransSearch";
-            this.pnlTransSearch.Size = new System.Drawing.Size(1055, 253);
+            this.pnlTransSearch.Size = new System.Drawing.Size(1055, 384);
             this.pnlTransSearch.TabIndex = 9;
             this.pnlTransSearch.Visible = false;
+            // 
+            // btnTransSearchExportToCsv
+            // 
+            this.btnTransSearchExportToCsv.Location = new System.Drawing.Point(110, 352);
+            this.btnTransSearchExportToCsv.Name = "btnTransSearchExportToCsv";
+            this.btnTransSearchExportToCsv.Size = new System.Drawing.Size(99, 23);
+            this.btnTransSearchExportToCsv.TabIndex = 36;
+            this.btnTransSearchExportToCsv.Text = "Export to csv";
+            this.btnTransSearchExportToCsv.UseVisualStyleBackColor = true;
+            this.btnTransSearchExportToCsv.Click += new System.EventHandler(this.btnTransSearchExportToCsv_Click);
             // 
             // lbTransSearchTo
             // 
             this.lbTransSearchTo.AutoSize = true;
             this.lbTransSearchTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbTransSearchTo.Location = new System.Drawing.Point(400, 1);
+            this.lbTransSearchTo.Location = new System.Drawing.Point(403, 1);
             this.lbTransSearchTo.Name = "lbTransSearchTo";
             this.lbTransSearchTo.Size = new System.Drawing.Size(28, 16);
             this.lbTransSearchTo.TabIndex = 35;
@@ -821,7 +834,7 @@ namespace BankProgram
             // 
             this.lbTransSearchFrom.AutoSize = true;
             this.lbTransSearchFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbTransSearchFrom.Location = new System.Drawing.Point(289, 1);
+            this.lbTransSearchFrom.Location = new System.Drawing.Point(292, 1);
             this.lbTransSearchFrom.Name = "lbTransSearchFrom";
             this.lbTransSearchFrom.Size = new System.Drawing.Size(42, 16);
             this.lbTransSearchFrom.TabIndex = 34;
@@ -831,7 +844,7 @@ namespace BankProgram
             // 
             this.lbTransSearchAcc.AutoSize = true;
             this.lbTransSearchAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbTransSearchAcc.Location = new System.Drawing.Point(146, -1);
+            this.lbTransSearchAcc.Location = new System.Drawing.Point(149, -1);
             this.lbTransSearchAcc.Name = "lbTransSearchAcc";
             this.lbTransSearchAcc.Size = new System.Drawing.Size(59, 16);
             this.lbTransSearchAcc.TabIndex = 33;
@@ -839,7 +852,7 @@ namespace BankProgram
             // 
             // dtpTimeTo
             // 
-            this.dtpTimeTo.Location = new System.Drawing.Point(403, 20);
+            this.dtpTimeTo.Location = new System.Drawing.Point(406, 20);
             this.dtpTimeTo.Name = "dtpTimeTo";
             this.dtpTimeTo.Size = new System.Drawing.Size(107, 20);
             this.dtpTimeTo.TabIndex = 32;
@@ -848,7 +861,7 @@ namespace BankProgram
             // 
             this.lbTransSearchID.AutoSize = true;
             this.lbTransSearchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbTransSearchID.Location = new System.Drawing.Point(3, -1);
+            this.lbTransSearchID.Location = new System.Drawing.Point(6, -1);
             this.lbTransSearchID.Name = "lbTransSearchID";
             this.lbTransSearchID.Size = new System.Drawing.Size(24, 16);
             this.lbTransSearchID.TabIndex = 30;
@@ -856,7 +869,7 @@ namespace BankProgram
             // 
             // dtpTimeFrom
             // 
-            this.dtpTimeFrom.Location = new System.Drawing.Point(289, 20);
+            this.dtpTimeFrom.Location = new System.Drawing.Point(292, 20);
             this.dtpTimeFrom.Name = "dtpTimeFrom";
             this.dtpTimeFrom.Size = new System.Drawing.Size(108, 20);
             this.dtpTimeFrom.TabIndex = 31;
@@ -864,14 +877,14 @@ namespace BankProgram
             // tbTransSearchAcc
             // 
             this.tbTransSearchAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbTransSearchAcc.Location = new System.Drawing.Point(146, 18);
+            this.tbTransSearchAcc.Location = new System.Drawing.Point(149, 18);
             this.tbTransSearchAcc.Name = "tbTransSearchAcc";
             this.tbTransSearchAcc.Size = new System.Drawing.Size(137, 22);
             this.tbTransSearchAcc.TabIndex = 32;
             // 
             // btnTransSearch
             // 
-            this.btnTransSearch.Location = new System.Drawing.Point(0, 218);
+            this.btnTransSearch.Location = new System.Drawing.Point(9, 352);
             this.btnTransSearch.Name = "btnTransSearch";
             this.btnTransSearch.Size = new System.Drawing.Size(99, 23);
             this.btnTransSearch.TabIndex = 30;
@@ -882,7 +895,7 @@ namespace BankProgram
             // tbTransSearchID
             // 
             this.tbTransSearchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbTransSearchID.Location = new System.Drawing.Point(6, 18);
+            this.tbTransSearchID.Location = new System.Drawing.Point(9, 18);
             this.tbTransSearchID.Name = "tbTransSearchID";
             this.tbTransSearchID.Size = new System.Drawing.Size(134, 22);
             this.tbTransSearchID.TabIndex = 31;
@@ -903,10 +916,10 @@ namespace BankProgram
             this.dgvTransCharge,
             this.dgvTransTotalAmount,
             this.dgvTransTotalCurrency});
-            this.dataGridTrans.Location = new System.Drawing.Point(3, 62);
+            this.dataGridTrans.Location = new System.Drawing.Point(9, 62);
             this.dataGridTrans.Name = "dataGridTrans";
             this.dataGridTrans.ReadOnly = true;
-            this.dataGridTrans.Size = new System.Drawing.Size(1046, 150);
+            this.dataGridTrans.Size = new System.Drawing.Size(1046, 284);
             this.dataGridTrans.TabIndex = 0;
             // 
             // dgvTransDate
@@ -981,7 +994,7 @@ namespace BankProgram
             this.pnlTransaction.Controls.Add(this.cbTransCur);
             this.pnlTransaction.Controls.Add(this.lbTransFromAcc);
             this.pnlTransaction.Controls.Add(this.lbTransCur);
-            this.pnlTransaction.Location = new System.Drawing.Point(1073, 427);
+            this.pnlTransaction.Location = new System.Drawing.Point(12, 30);
             this.pnlTransaction.Name = "pnlTransaction";
             this.pnlTransaction.Size = new System.Drawing.Size(336, 163);
             this.pnlTransaction.TabIndex = 10;
@@ -1103,7 +1116,7 @@ namespace BankProgram
             this.pnlEdit.Controls.Add(this.lbEditAge);
             this.pnlEdit.Controls.Add(this.lbEditMail);
             this.pnlEdit.Controls.Add(this.tbEditAge);
-            this.pnlEdit.Location = new System.Drawing.Point(1073, 27);
+            this.pnlEdit.Location = new System.Drawing.Point(9, 423);
             this.pnlEdit.Name = "pnlEdit";
             this.pnlEdit.Size = new System.Drawing.Size(336, 218);
             this.pnlEdit.TabIndex = 31;
@@ -1251,6 +1264,12 @@ namespace BankProgram
             this.tbEditAge.Name = "tbEditAge";
             this.tbEditAge.Size = new System.Drawing.Size(38, 22);
             this.tbEditAge.TabIndex = 24;
+            // 
+            // svdExportToCSV
+            // 
+            this.svdExportToCSV.DefaultExt = "csv";
+            this.svdExportToCSV.FileName = "Transactions";
+            this.svdExportToCSV.Title = "Save CSV File";
             // 
             // BankApplication
             // 
@@ -1409,6 +1428,8 @@ namespace BankProgram
         private System.Windows.Forms.Label lbEditID;
         private System.Windows.Forms.TextBox tbEditViewID;
         private System.Windows.Forms.CheckBox cbEditEnabled;
+        private System.Windows.Forms.Button btnTransSearchExportToCsv;
+        private System.Windows.Forms.SaveFileDialog svdExportToCSV;
     }
 }
 
