@@ -334,7 +334,7 @@ namespace BankProgram
                 throw new ArgumentException("Client alrady have and account!");
         }
 
-        private void CheckUserRegData(string name, string surname, int age, string phone, string mail, CURRENCY currency,  ClientMembership membership)
+        private void CheckUserRegData(string name, string surname, int age, string phone, string mail, ClientMembership membership, CURRENCY currency)
         {
             Regex[] regex = new Regex[6];
             regex[0] = new Regex(@"^[A-z]{1,30}$");
@@ -356,7 +356,7 @@ namespace BankProgram
         {
             try
             {
-                CheckUserRegData(name, surname, age, phone, mail, currency, membership);
+                CheckUserRegData(name, surname, age, phone, mail, membership, currency);
             }
             catch (Exception e)
             {
@@ -443,8 +443,37 @@ namespace BankProgram
                                 select item).ToList();
             return transactions;
         }
-    }
+        public void EditClient(long id, string name, string surname, string mail, string phone,int age, bool enabled)
+        {
+            BaseClient client = null;
+            for (int i = 0; i < _clients.Count; i++)
+            {
+                if (id == _clients[i].UserID)
+                {
+                    client = _clients[i];
+                    break;
+                } 
+            }
+            if (client == null)
+                throw new ArgumentException("Client with this ID not found!");
+            try
+            {
+                CheckUserRegData(name, surname, age, phone, mail, ClientMembership.Normal, CURRENCY.AZN);
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+
+            client.Name = name;
+            client.Surname = surname;
+            client.Age = age;
+            client.Mail = mail;
+            client.Phone = phone;
+            client.Enabled = enabled;
+        }
+    }
 }
 
 

@@ -58,7 +58,7 @@ namespace BankProgram
             this.dgCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgMembership = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.pnlRegEdit = new System.Windows.Forms.Panel();
+            this.pnlRegistration = new System.Windows.Forms.Panel();
             this.btnAccountProp = new System.Windows.Forms.Button();
             this.chkbEnabled = new System.Windows.Forms.CheckBox();
             this.cbMember = new System.Windows.Forms.ComboBox();
@@ -86,6 +86,7 @@ namespace BankProgram
             this.tbEditID = new System.Windows.Forms.TextBox();
             this.lbID = new System.Windows.Forms.Label();
             this.pnlClientsSearch = new System.Windows.Forms.Panel();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.lbSearchBalance = new System.Windows.Forms.Label();
             this.lbSearchSurname = new System.Windows.Forms.Label();
             this.lbSearchName = new System.Windows.Forms.Label();
@@ -128,15 +129,31 @@ namespace BankProgram
             this.cbTransCur = new System.Windows.Forms.ComboBox();
             this.lbTransFromAcc = new System.Windows.Forms.Label();
             this.lbTransCur = new System.Windows.Forms.Label();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.pnlEdit = new System.Windows.Forms.Panel();
+            this.tbEditPhone = new System.Windows.Forms.TextBox();
+            this.lbEditPhone = new System.Windows.Forms.Label();
+            this.tbEditMail = new System.Windows.Forms.TextBox();
+            this.lbEditMail = new System.Windows.Forms.Label();
+            this.tbEditAge = new System.Windows.Forms.TextBox();
+            this.lbEditAge = new System.Windows.Forms.Label();
+            this.tbEditSurname = new System.Windows.Forms.TextBox();
+            this.lbEditSurname = new System.Windows.Forms.Label();
+            this.tbEditName = new System.Windows.Forms.TextBox();
+            this.lbEditName = new System.Windows.Forms.Label();
+            this.btnEditCancel = new System.Windows.Forms.Button();
+            this.btnEditSave = new System.Windows.Forms.Button();
+            this.lbEditID = new System.Windows.Forms.Label();
+            this.tbEditViewID = new System.Windows.Forms.TextBox();
+            this.cbEditEnabled = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClients)).BeginInit();
-            this.pnlRegEdit.SuspendLayout();
+            this.pnlRegistration.SuspendLayout();
             this.pnlAccountProp.SuspendLayout();
             this.pnlClientsSearch.SuspendLayout();
             this.pnlTransSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTrans)).BeginInit();
             this.pnlTransaction.SuspendLayout();
+            this.pnlEdit.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem1
@@ -165,7 +182,7 @@ namespace BankProgram
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1092, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -359,32 +376,32 @@ namespace BankProgram
             this.dgEnabled.ReadOnly = true;
             this.dgEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // pnlRegEdit
+            // pnlRegistration
             // 
-            this.pnlRegEdit.Controls.Add(this.btnAccountProp);
-            this.pnlRegEdit.Controls.Add(this.chkbEnabled);
-            this.pnlRegEdit.Controls.Add(this.cbMember);
-            this.pnlRegEdit.Controls.Add(this.lbMember);
-            this.pnlRegEdit.Controls.Add(this.cbCurrency);
-            this.pnlRegEdit.Controls.Add(this.lbCurrency);
-            this.pnlRegEdit.Controls.Add(this.btnCancel);
-            this.pnlRegEdit.Controls.Add(this.btnAdd);
-            this.pnlRegEdit.Controls.Add(this.tbPhone);
-            this.pnlRegEdit.Controls.Add(this.lbPhone);
-            this.pnlRegEdit.Controls.Add(this.tbMail);
-            this.pnlRegEdit.Controls.Add(this.lbMail);
-            this.pnlRegEdit.Controls.Add(this.tbAge);
-            this.pnlRegEdit.Controls.Add(this.lbAge);
-            this.pnlRegEdit.Controls.Add(this.tbSurname);
-            this.pnlRegEdit.Controls.Add(this.lbSurname);
-            this.pnlRegEdit.Controls.Add(this.tbName);
-            this.pnlRegEdit.Controls.Add(this.lbName);
-            this.pnlRegEdit.Location = new System.Drawing.Point(12, 381);
-            this.pnlRegEdit.Name = "pnlRegEdit";
-            this.pnlRegEdit.Size = new System.Drawing.Size(349, 309);
-            this.pnlRegEdit.TabIndex = 5;
-            this.pnlRegEdit.Visible = false;
-            this.pnlRegEdit.VisibleChanged += new System.EventHandler(this.pnlRegEdit_VisibleChanged);
+            this.pnlRegistration.Controls.Add(this.btnAccountProp);
+            this.pnlRegistration.Controls.Add(this.chkbEnabled);
+            this.pnlRegistration.Controls.Add(this.cbMember);
+            this.pnlRegistration.Controls.Add(this.lbMember);
+            this.pnlRegistration.Controls.Add(this.cbCurrency);
+            this.pnlRegistration.Controls.Add(this.lbCurrency);
+            this.pnlRegistration.Controls.Add(this.btnCancel);
+            this.pnlRegistration.Controls.Add(this.btnAdd);
+            this.pnlRegistration.Controls.Add(this.tbPhone);
+            this.pnlRegistration.Controls.Add(this.lbPhone);
+            this.pnlRegistration.Controls.Add(this.tbMail);
+            this.pnlRegistration.Controls.Add(this.lbMail);
+            this.pnlRegistration.Controls.Add(this.tbAge);
+            this.pnlRegistration.Controls.Add(this.lbAge);
+            this.pnlRegistration.Controls.Add(this.tbSurname);
+            this.pnlRegistration.Controls.Add(this.lbSurname);
+            this.pnlRegistration.Controls.Add(this.tbName);
+            this.pnlRegistration.Controls.Add(this.lbName);
+            this.pnlRegistration.Location = new System.Drawing.Point(0, 0);
+            this.pnlRegistration.Name = "pnlRegistration";
+            this.pnlRegistration.Size = new System.Drawing.Size(349, 309);
+            this.pnlRegistration.TabIndex = 5;
+            this.pnlRegistration.Visible = false;
+            this.pnlRegistration.VisibleChanged += new System.EventHandler(this.pnlRegEdit_VisibleChanged);
             // 
             // btnAccountProp
             // 
@@ -655,6 +672,7 @@ namespace BankProgram
             this.pnlClientsSearch.Controls.Add(this.lbSearchName);
             this.pnlClientsSearch.Controls.Add(this.lbSearchAcc);
             this.pnlClientsSearch.Controls.Add(this.lbSearchID);
+            this.pnlClientsSearch.Controls.Add(this.pnlRegistration);
             this.pnlClientsSearch.Controls.Add(this.tbSearchBalance);
             this.pnlClientsSearch.Controls.Add(this.tbSearchSurname);
             this.pnlClientsSearch.Controls.Add(this.tbSearchName);
@@ -668,6 +686,16 @@ namespace BankProgram
             this.pnlClientsSearch.TabIndex = 8;
             this.pnlClientsSearch.Visible = false;
             this.pnlClientsSearch.VisibleChanged += new System.EventHandler(this.pnlSearch_VisibleChanged);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(111, 280);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(99, 23);
+            this.btnEdit.TabIndex = 30;
+            this.btnEdit.Text = "Edit Selected";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // lbSearchBalance
             // 
@@ -951,7 +979,7 @@ namespace BankProgram
             this.pnlTransaction.Controls.Add(this.cbTransCur);
             this.pnlTransaction.Controls.Add(this.lbTransFromAcc);
             this.pnlTransaction.Controls.Add(this.lbTransCur);
-            this.pnlTransaction.Location = new System.Drawing.Point(435, 604);
+            this.pnlTransaction.Location = new System.Drawing.Point(1073, 427);
             this.pnlTransaction.Name = "pnlTransaction";
             this.pnlTransaction.Size = new System.Drawing.Size(336, 163);
             this.pnlTransaction.TabIndex = 10;
@@ -1056,28 +1084,183 @@ namespace BankProgram
             this.lbTransCur.TabIndex = 14;
             this.lbTransCur.Text = "Currency:";
             // 
-            // btnEdit
+            // pnlEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(111, 280);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(99, 23);
-            this.btnEdit.TabIndex = 30;
-            this.btnEdit.Text = "Edit Selected";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.pnlEdit.Controls.Add(this.cbEditEnabled);
+            this.pnlEdit.Controls.Add(this.lbEditID);
+            this.pnlEdit.Controls.Add(this.tbEditViewID);
+            this.pnlEdit.Controls.Add(this.btnEditCancel);
+            this.pnlEdit.Controls.Add(this.btnEditSave);
+            this.pnlEdit.Controls.Add(this.lbEditName);
+            this.pnlEdit.Controls.Add(this.tbEditName);
+            this.pnlEdit.Controls.Add(this.tbEditPhone);
+            this.pnlEdit.Controls.Add(this.lbEditSurname);
+            this.pnlEdit.Controls.Add(this.lbEditPhone);
+            this.pnlEdit.Controls.Add(this.tbEditSurname);
+            this.pnlEdit.Controls.Add(this.tbEditMail);
+            this.pnlEdit.Controls.Add(this.lbEditAge);
+            this.pnlEdit.Controls.Add(this.lbEditMail);
+            this.pnlEdit.Controls.Add(this.tbEditAge);
+            this.pnlEdit.Location = new System.Drawing.Point(1073, 27);
+            this.pnlEdit.Name = "pnlEdit";
+            this.pnlEdit.Size = new System.Drawing.Size(336, 260);
+            this.pnlEdit.TabIndex = 31;
+            this.pnlEdit.VisibleChanged += new System.EventHandler(this.pnlEdit_VisibleChanged);
+            // 
+            // tbEditPhone
+            // 
+            this.tbEditPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditPhone.Location = new System.Drawing.Point(77, 145);
+            this.tbEditPhone.Name = "tbEditPhone";
+            this.tbEditPhone.Size = new System.Drawing.Size(243, 22);
+            this.tbEditPhone.TabIndex = 28;
+            // 
+            // lbEditPhone
+            // 
+            this.lbEditPhone.AutoSize = true;
+            this.lbEditPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditPhone.Location = new System.Drawing.Point(4, 145);
+            this.lbEditPhone.Name = "lbEditPhone";
+            this.lbEditPhone.Size = new System.Drawing.Size(50, 16);
+            this.lbEditPhone.TabIndex = 27;
+            this.lbEditPhone.Text = "Phone:";
+            // 
+            // tbEditMail
+            // 
+            this.tbEditMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditMail.Location = new System.Drawing.Point(77, 117);
+            this.tbEditMail.Name = "tbEditMail";
+            this.tbEditMail.Size = new System.Drawing.Size(243, 22);
+            this.tbEditMail.TabIndex = 26;
+            // 
+            // lbEditMail
+            // 
+            this.lbEditMail.AutoSize = true;
+            this.lbEditMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditMail.Location = new System.Drawing.Point(4, 117);
+            this.lbEditMail.Name = "lbEditMail";
+            this.lbEditMail.Size = new System.Drawing.Size(36, 16);
+            this.lbEditMail.TabIndex = 25;
+            this.lbEditMail.Text = "Mail:";
+            // 
+            // tbEditAge
+            // 
+            this.tbEditAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditAge.Location = new System.Drawing.Point(77, 89);
+            this.tbEditAge.Name = "tbEditAge";
+            this.tbEditAge.Size = new System.Drawing.Size(38, 22);
+            this.tbEditAge.TabIndex = 24;
+            // 
+            // lbEditAge
+            // 
+            this.lbEditAge.AutoSize = true;
+            this.lbEditAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditAge.Location = new System.Drawing.Point(4, 89);
+            this.lbEditAge.Name = "lbEditAge";
+            this.lbEditAge.Size = new System.Drawing.Size(36, 16);
+            this.lbEditAge.TabIndex = 23;
+            this.lbEditAge.Text = "Age:";
+            // 
+            // tbEditSurname
+            // 
+            this.tbEditSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditSurname.Location = new System.Drawing.Point(77, 61);
+            this.tbEditSurname.Name = "tbEditSurname";
+            this.tbEditSurname.Size = new System.Drawing.Size(243, 22);
+            this.tbEditSurname.TabIndex = 22;
+            // 
+            // lbEditSurname
+            // 
+            this.lbEditSurname.AutoSize = true;
+            this.lbEditSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditSurname.Location = new System.Drawing.Point(4, 61);
+            this.lbEditSurname.Name = "lbEditSurname";
+            this.lbEditSurname.Size = new System.Drawing.Size(58, 16);
+            this.lbEditSurname.TabIndex = 21;
+            this.lbEditSurname.Text = "Surame:";
+            // 
+            // tbEditName
+            // 
+            this.tbEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditName.Location = new System.Drawing.Point(77, 33);
+            this.tbEditName.Name = "tbEditName";
+            this.tbEditName.Size = new System.Drawing.Size(243, 22);
+            this.tbEditName.TabIndex = 20;
+            // 
+            // lbEditName
+            // 
+            this.lbEditName.AutoSize = true;
+            this.lbEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditName.Location = new System.Drawing.Point(4, 33);
+            this.lbEditName.Name = "lbEditName";
+            this.lbEditName.Size = new System.Drawing.Size(48, 16);
+            this.lbEditName.TabIndex = 19;
+            this.lbEditName.Text = "Name:";
+            // 
+            // btnEditCancel
+            // 
+            this.btnEditCancel.Location = new System.Drawing.Point(90, 182);
+            this.btnEditCancel.Name = "btnEditCancel";
+            this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnEditCancel.TabIndex = 32;
+            this.btnEditCancel.Text = "Cancel";
+            this.btnEditCancel.UseVisualStyleBackColor = true;
+            this.btnEditCancel.Click += new System.EventHandler(this.btnEditCancel_Click);
+            // 
+            // btnEditSave
+            // 
+            this.btnEditSave.Location = new System.Drawing.Point(7, 181);
+            this.btnEditSave.Name = "btnEditSave";
+            this.btnEditSave.Size = new System.Drawing.Size(75, 23);
+            this.btnEditSave.TabIndex = 31;
+            this.btnEditSave.Text = "Save";
+            this.btnEditSave.UseVisualStyleBackColor = true;
+            this.btnEditSave.Click += new System.EventHandler(this.btnEditSave_Click);
+            // 
+            // lbEditID
+            // 
+            this.lbEditID.AutoSize = true;
+            this.lbEditID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditID.Location = new System.Drawing.Point(4, 9);
+            this.lbEditID.Name = "lbEditID";
+            this.lbEditID.Size = new System.Drawing.Size(24, 16);
+            this.lbEditID.TabIndex = 33;
+            this.lbEditID.Text = "ID:";
+            // 
+            // tbEditViewID
+            // 
+            this.tbEditViewID.Enabled = false;
+            this.tbEditViewID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEditViewID.Location = new System.Drawing.Point(77, 9);
+            this.tbEditViewID.Name = "tbEditViewID";
+            this.tbEditViewID.Size = new System.Drawing.Size(243, 22);
+            this.tbEditViewID.TabIndex = 34;
+            // 
+            // cbEditEnabled
+            // 
+            this.cbEditEnabled.AutoSize = true;
+            this.cbEditEnabled.Checked = true;
+            this.cbEditEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEditEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbEditEnabled.Location = new System.Drawing.Point(183, 181);
+            this.cbEditEnabled.Name = "cbEditEnabled";
+            this.cbEditEnabled.Size = new System.Drawing.Size(78, 20);
+            this.cbEditEnabled.TabIndex = 19;
+            this.cbEditEnabled.Text = "Enabled";
+            this.cbEditEnabled.UseVisualStyleBackColor = true;
             // 
             // BankApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1092, 749);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.pnlTransaction);
+            this.Controls.Add(this.pnlEdit);
             this.Controls.Add(this.pnlTransSearch);
             this.Controls.Add(this.pnlAccountProp);
             this.Controls.Add(this.pnlClientsSearch);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pnlRegEdit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -1086,8 +1269,8 @@ namespace BankProgram
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClients)).EndInit();
-            this.pnlRegEdit.ResumeLayout(false);
-            this.pnlRegEdit.PerformLayout();
+            this.pnlRegistration.ResumeLayout(false);
+            this.pnlRegistration.PerformLayout();
             this.pnlAccountProp.ResumeLayout(false);
             this.pnlAccountProp.PerformLayout();
             this.pnlClientsSearch.ResumeLayout(false);
@@ -1097,6 +1280,8 @@ namespace BankProgram
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTrans)).EndInit();
             this.pnlTransaction.ResumeLayout(false);
             this.pnlTransaction.PerformLayout();
+            this.pnlEdit.ResumeLayout(false);
+            this.pnlEdit.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1111,7 +1296,7 @@ namespace BankProgram
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridClients;
-        private System.Windows.Forms.Panel pnlRegEdit;
+        private System.Windows.Forms.Panel pnlRegistration;
         private System.Windows.Forms.TextBox tbPhone;
         private System.Windows.Forms.Label lbPhone;
         private System.Windows.Forms.TextBox tbMail;
@@ -1203,6 +1388,22 @@ namespace BankProgram
         private System.Windows.Forms.Label lbTransSearchTo;
         private System.Windows.Forms.Label lbTransSearchFrom;
         private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Panel pnlEdit;
+        private System.Windows.Forms.Button btnEditCancel;
+        private System.Windows.Forms.Button btnEditSave;
+        private System.Windows.Forms.Label lbEditName;
+        private System.Windows.Forms.TextBox tbEditName;
+        private System.Windows.Forms.TextBox tbEditPhone;
+        private System.Windows.Forms.Label lbEditSurname;
+        private System.Windows.Forms.Label lbEditPhone;
+        private System.Windows.Forms.TextBox tbEditSurname;
+        private System.Windows.Forms.TextBox tbEditMail;
+        private System.Windows.Forms.Label lbEditAge;
+        private System.Windows.Forms.Label lbEditMail;
+        private System.Windows.Forms.TextBox tbEditAge;
+        private System.Windows.Forms.Label lbEditID;
+        private System.Windows.Forms.TextBox tbEditViewID;
+        private System.Windows.Forms.CheckBox cbEditEnabled;
     }
 }
 

@@ -48,7 +48,7 @@ namespace BankProgram
             {
                 bank.AddNewClient(tbName.Text, tbSurname.Text, age, tbPhone.Text, tbMail.Text, cur, chkbEnabled.Checked, member, blnc);
                 bank.SaveClients();
-                pnlRegEdit.Visible = false;
+                pnlRegistration.Visible = false;
                 pnlAccountProp.Visible = false;
             }
             catch (Exception ex)
@@ -86,7 +86,7 @@ namespace BankProgram
         {
             pnlTransaction.Visible = visible;
             pnlAccountProp.Visible = visible;
-            pnlRegEdit.Visible = visible;
+            pnlRegistration.Visible = visible;
             pnlClientsSearch.Visible = visible;
             pnlTransSearch.Visible = visible;
         }
@@ -98,13 +98,13 @@ namespace BankProgram
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            PanelsVisibility(false);
+            pnlRegistration.Visible = false;
         }
 
         private void addClientToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PanelsVisibility(false);
-            pnlRegEdit.Visible = true;
+            pnlRegistration.Visible = true;
         }
 
         private void searchClientToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,7 +132,6 @@ namespace BankProgram
             tbAge.Clear();
             tbSetBalance.Clear();
         }
-
 
         private void FillTransactionsGrid(DateTime from, DateTime to, string acc, string id, TransactionType? type = null)
         {
@@ -241,19 +240,15 @@ namespace BankProgram
             //    }
             //    File.AppendAllText("test.csv", Environment.NewLine);
             //}
-
-               var client = bank.FindClient(dataGridClients.SelectedRows[0].Cells[1].Value.ToString());
-            pnlRegEdit.Visible = true;
-            tbAge.Text = client.Age.ToString();
-            tbName.Text = client.Name;
-            tbSurname.Text = client.Surname;
-            tbMail.Text = client.Mail;
-            tbPhone.Text = client.Phone;
-            cbCurrency.Enabled = false;
-            
-            
-            
-
+            var client = bank.FindClient(dataGridClients.SelectedRows[0].Cells[1].Value.ToString());
+            pnlEdit.Visible = true;
+            tbEditViewID.Text = client.UserID.ToString();
+            tbEditAge.Text = client.Age.ToString();
+            tbEditName.Text = client.Name;
+            tbEditSurname.Text = client.Surname;
+            tbEditMail.Text = client.Mail;
+            tbEditPhone.Text = client.Phone;
+            cbEditEnabled.Checked = client.Enabled;
 
                 for (int i = 0; i < dataGridClients.SelectedRows[0].Cells.Count; i++)
                 {
@@ -262,6 +257,33 @@ namespace BankProgram
                 }
        
 
+        }
+
+        private void pnlEdit_VisibleChanged(object sender, EventArgs e)
+        {
+            tbEditName.Clear();
+            tbEditSurname.Clear();
+            tbEditMail.Clear();
+            tbEditPhone.Clear();
+        }
+
+        private void btnEditCancel_Click(object sender, EventArgs e)
+        {
+            pnlEdit.Visible = false;
+        }
+
+        private void btnEditSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bank.EditClient(Convert.ToInt64(tbEditViewID.Text), tbEditName.Text, tbEditSurname.Text, tbEditMail.Text, tbEditPhone.Text, Convert.ToInt32(tbEditAge.Text), cbEditEnabled.Checked);
+                MessageBox.Show("Client Saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                pnlEdit.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
