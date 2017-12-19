@@ -13,24 +13,24 @@ namespace Files
         {
             FileInfo original = new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-           var u = Directory.GetCurrentDirectory();
-            var path = 
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Desktop";
-            DirectoryInfo dir = new DirectoryInfo(u);
-            var dirs = dir.GetDirectories();
-            var files = dir.GetFiles();
+            var u = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);//Directory.GetCurrentDirectory();
+            //var path = 
+            //Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Desktop";
+            //DirectoryInfo dir = new DirectoryInfo(u);
+            //var dirs = dir.GetDirectories();
+            //var files = dir.GetFiles();
 
             Console.WriteLine(u);
 
-            foreach (var item in dirs)
-            {
-                Console.WriteLine(item.Name);
-            }
+            //foreach (var item in dirs)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
 
-            foreach (var item in files)
-            {
-                Console.WriteLine(item.Name);
-            }
+            //foreach (var item in files)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
         }
     }
 }

@@ -1288,7 +1288,7 @@ namespace BankProgram
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "BankApplication";
-            this.Text = "Form1";
+            this.Text = "Bank Program";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BankApplication_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
