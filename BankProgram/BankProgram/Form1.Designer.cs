@@ -816,7 +816,7 @@ namespace BankProgram
             this.btnTransSearchExportToCsv.Name = "btnTransSearchExportToCsv";
             this.btnTransSearchExportToCsv.Size = new System.Drawing.Size(99, 23);
             this.btnTransSearchExportToCsv.TabIndex = 36;
-            this.btnTransSearchExportToCsv.Text = "Export to csv";
+            this.btnTransSearchExportToCsv.Text = "Export selected to csv";
             this.btnTransSearchExportToCsv.UseVisualStyleBackColor = true;
             this.btnTransSearchExportToCsv.Click += new System.EventHandler(this.btnTransSearchExportToCsv_Click);
             // 
