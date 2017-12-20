@@ -14,13 +14,14 @@ namespace BankProgram
 {
     public partial class BankApplication : Form
     {
-        private Bank _bank;
-        private TransactionType? currentTransType;
-        private TransactionType? SearchType = null;
+        private readonly Bank _bank;
+        private TransactionType? _currentTransType;
+        private TransactionType? _searchType;
         public BankApplication()
         {
             _bank = new Bank();
-            currentTransType = null;
+            _searchType = null;
+            _currentTransType = null;
             InitializeComponent();
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -34,10 +35,15 @@ namespace BankProgram
             CURRENCY cur = EnumConverter.StringToCurrency(cbCurrency.Text);
 
             ClientMembership member = ClientMembership.Normal;
-            if (cbMember.Text == "Gold")
-                member = ClientMembership.Gold;
-            else if (cbMember.Text == "Platinum")
-                member = ClientMembership.Platinum;
+            switch (cbMember.Text)
+            {
+                case "Gold":
+                    member = ClientMembership.Gold;
+                    break;
+                case "Platinum":
+                    member = ClientMembership.Platinum;
+                    break;
+            }
 
                 
 
@@ -122,7 +128,7 @@ namespace BankProgram
         private void FillTransactionsGrid(DateTime from, DateTime to, string acc, string id)
         {
             dataGridTrans.Rows.Clear();
-            List<Transaction> transactions = _bank.SearcTransactions(from.Date, to.Date, acc, id, SearchType);
+            var transactions = _bank.SearcTransactions(from.Date, to.Date, acc, id, _searchType);
             
             for (int i = 0; i < transactions.Count; i++)
             {
@@ -144,7 +150,7 @@ namespace BankProgram
         private void DataGridSearchUpdate()
         {
             dataGridClients.Rows.Clear();
-            List<BaseClient> clients = _bank.SearchClients(tbSearchID.Text, tbSearchAcc.Text, tbSearchName.Text, tbSearchSurname.Text, tbSearchBalance.Text);
+            var clients = _bank.SearchClients(tbSearchID.Text, tbSearchAcc.Text, tbSearchName.Text, tbSearchSurname.Text, tbSearchBalance.Text);
             string membership;
             for (int i = 0; i < clients.Count; i++)
             {
@@ -174,7 +180,7 @@ namespace BankProgram
         private void withdrawToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PanelsVisibility(false);
-            currentTransType = TransactionType.Withdraw;
+            _currentTransType = TransactionType.Withdraw;
             pnlTransaction.Visible = true;
         }
 
@@ -182,7 +188,7 @@ namespace BankProgram
         {
             try
             {
-                switch (currentTransType)
+                switch (_currentTransType)
                 {
                     case TransactionType.Withdraw:
                         _bank.Withdraw(tbTransFromAcc.Text, Convert.ToDecimal(tbTransAmount.Text), EnumConverter.StringToCurrency(cbTransCur.Text));
@@ -197,7 +203,7 @@ namespace BankProgram
                         throw new ArgumentException("Unknown error!");
                 }
                 MessageBox.Show("Success!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                currentTransType = null;
+                _currentTransType = null;
                 pnlTransaction.Visible = false;
             }
             catch (Exception exception)
@@ -214,20 +220,20 @@ namespace BankProgram
             tbTransAmount.Enabled = pnlTransaction.Visible;
             cbTransCur.Enabled = pnlTransaction.Visible;
             if (pnlTransaction.Visible)
-                tbTransToAcc.Enabled = currentTransType == TransactionType.Transfer;
+                tbTransToAcc.Enabled = _currentTransType == TransactionType.Transfer;
         }
 
         private void depositToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PanelsVisibility(false);
-            currentTransType = TransactionType.Deposit;
+            _currentTransType = TransactionType.Deposit;
             pnlTransaction.Visible = true;
         }
 
         private void transferToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PanelsVisibility(false);
-            currentTransType = TransactionType.Transfer;
+            _currentTransType = TransactionType.Transfer;
             pnlTransaction.Visible = true;
         }
 
@@ -239,34 +245,32 @@ namespace BankProgram
 
         private void allTransacionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SearchType = null;
+            _searchType = null;
             PanelsVisibility(false);
             pnlTransSearch.Visible = true;
         }
 
         private void FillEditForm()
         {
-            if (dataGridClients.SelectedCells.Count > 0)
+            if (dataGridClients.SelectedCells.Count <= 0) return;
+            BaseClient client = null;
+            try
             {
-                BaseClient client = null;
-                try
-                {
-                    client = _bank.FindClient(dataGridClients.Rows[dataGridClients.SelectedCells[0].RowIndex].Cells[1].Value.ToString());
-                }
-                catch (Exception ex )
-                {
-
-                    throw ex;
-                }
-                pnlEdit.Visible = true;
-                tbEditViewID.Text = client.UserID.ToString();
-                tbEditAge.Text = client.Age.ToString();
-                tbEditName.Text = client.Name;
-                tbEditSurname.Text = client.Surname;
-                tbEditMail.Text = client.Mail;
-                tbEditPhone.Text = client.Phone;
-                cbEditEnabled.Checked = client.Enabled; 
+                client = _bank.FindClient(dataGridClients.Rows[dataGridClients.SelectedCells[0].RowIndex].Cells[1].Value.ToString());
             }
+            catch (Exception ex )
+            {
+
+                throw ex;
+            }
+            pnlEdit.Visible = true;
+            tbEditViewID.Text = client.UserID.ToString();
+            tbEditAge.Text = client.Age.ToString();
+            tbEditName.Text = client.Name;
+            tbEditSurname.Text = client.Surname;
+            tbEditMail.Text = client.Mail;
+            tbEditPhone.Text = client.Phone;
+            cbEditEnabled.Checked = client.Enabled;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -313,7 +317,7 @@ namespace BankProgram
         {
             PanelsVisibility(false);
             pnlTransSearch.Visible = true;
-            SearchType = TransactionType.Withdraw;
+            _searchType = TransactionType.Withdraw;
             dataGridTrans.Rows.Clear();
         }
 
@@ -321,7 +325,7 @@ namespace BankProgram
         {
             PanelsVisibility(false);
             pnlTransSearch.Visible = true;
-            SearchType = TransactionType.Deposit;
+            _searchType = TransactionType.Deposit;
             dataGridTrans.Rows.Clear();
         }
 
@@ -329,50 +333,44 @@ namespace BankProgram
         {
             PanelsVisibility(false);
             pnlTransSearch.Visible = true;
-            SearchType = TransactionType.Transfer;
+            _searchType = TransactionType.Transfer;
             dataGridTrans.Rows.Clear();
         }
 
         private void btnTransSearchExportToCsv_Click(object sender, EventArgs e)
         {
-           
-
-            if (dataGridTrans.SelectedRows.Count > 0)
+            if (dataGridTrans.SelectedRows.Count <= 0) return;
+            svdExportToCSV.ShowDialog();
+            if (svdExportToCSV.FileName == string.Empty) return;
+            var filepath = svdExportToCSV.FileName;
+            try
             {
-                svdExportToCSV.ShowDialog();
-                if (svdExportToCSV.FileName != string.Empty)
+                if (File.Exists(filepath)) File.Delete(filepath);
+                foreach (DataGridViewColumn item in dataGridTrans.Columns)
                 {
-                    string filepath = svdExportToCSV.FileName;
-                    try
-                    {
-                        if (File.Exists(filepath)) File.Delete(filepath);
-                        foreach (DataGridViewColumn item in dataGridTrans.Columns)
-                        {
-                            File.AppendAllText(filepath, item.HeaderText + ';');
-                        }
-
-                        File.AppendAllText(filepath, Environment.NewLine);
-                        for (int i = 0; i < dataGridTrans.SelectedRows.Count; i++)
-                        {
-                            for (int j = 0; j < dataGridTrans.SelectedRows[i].Cells.Count; j++)
-                            {
-                                File.AppendAllText(filepath, dataGridTrans.SelectedRows[i].Cells[j].Value.ToString() + ';');
-                            }
-                            File.AppendAllText(filepath, Environment.NewLine);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    File.AppendAllText(filepath, item.HeaderText + ';');
                 }
+
+                File.AppendAllText(filepath, Environment.NewLine);
+                for (var i = 0; i < dataGridTrans.SelectedRows.Count; i++)
+                {
+                    for (var j = 0; j < dataGridTrans.SelectedRows[i].Cells.Count; j++)
+                    {
+                        File.AppendAllText(filepath, dataGridTrans.SelectedRows[i].Cells[j].Value.ToString() + ';');
+                    }
+                    File.AppendAllText(filepath, Environment.NewLine);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string doubleLine = Environment.NewLine + Environment.NewLine;
-            MessageBox.Show("Bank Application v1.0.0.1" + doubleLine + "Developed by:" + doubleLine + "Samir Mammadli", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var doubleLine = Environment.NewLine + Environment.NewLine;
+            MessageBox.Show(@"Bank Application v1.0.0.1" + doubleLine + @"Developed by:" + doubleLine + @"Samir Mammadli" + doubleLine + @"Mail: mammadli.s86@gmail.com", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
