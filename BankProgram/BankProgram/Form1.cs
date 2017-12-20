@@ -40,6 +40,8 @@ namespace BankProgram
                 member = ClientMembership.Platinum;
 
                 
+
+
             int age;
             int.TryParse(tbAge.Text, out age);
             decimal.TryParse(tbSetBalance.Text, out decimal blnc);
@@ -47,6 +49,7 @@ namespace BankProgram
             {
                 _bank.AddNewClient(tbName.Text, tbSurname.Text, age, tbPhone.Text, tbMail.Text, cur, chkbEnabled.Checked, member, blnc);
                 _bank.SaveClients();
+                MessageBox.Show("Client Added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 pnlRegistration.Visible = false;
                 pnlAccountProp.Visible = false;
             }
@@ -308,23 +311,26 @@ namespace BankProgram
 
         private void withdrawTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PanelsVisibility(false);
+            pnlTransSearch.Visible = true;
             SearchType = TransactionType.Withdraw;
             dataGridTrans.Rows.Clear();
-            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
         }
 
         private void depositTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PanelsVisibility(false);
+            pnlTransSearch.Visible = true;
             SearchType = TransactionType.Deposit;
             dataGridTrans.Rows.Clear();
-            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
         }
 
         private void transferTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PanelsVisibility(false);
+            pnlTransSearch.Visible = true;
             SearchType = TransactionType.Transfer;
             dataGridTrans.Rows.Clear();
-            FillTransactionsGrid(dtpTimeFrom.Value.Date, dtpTimeTo.Value.Date, tbTransSearchAcc.Text, tbTransSearchID.Text);
         }
 
         private void btnTransSearchExportToCsv_Click(object sender, EventArgs e)
@@ -361,6 +367,12 @@ namespace BankProgram
                     }
                 }
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string doubleLine = Environment.NewLine + Environment.NewLine;
+            MessageBox.Show("Bank Application v1.0.0.1" + doubleLine + "Developed by:" + doubleLine + "Samir Mammadli", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

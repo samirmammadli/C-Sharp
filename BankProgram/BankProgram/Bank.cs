@@ -93,7 +93,7 @@ namespace BankProgram
             Regex[] regex = new Regex[6];
             regex[0] = new Regex(@"^[A-z]{1,30}$");
             regex[1] = new Regex(@"^[+]994[55|50|51|70|77]{2}[0-9]{7}$");
-            regex[2] = new Regex(@"^[a-z,0-9,_,-,.]{1,30}@[a-z,0-9,_,-,.]{1,20}[a-z,0-9,_,-,.]{1,20}.[a-z]{2,5}$", RegexOptions.IgnoreCase);
+            regex[2] = new Regex("^[_a-z0-9-]+(.[a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$", RegexOptions.IgnoreCase);
             regex[3] = new Regex(@"^[AZN|USD|EUR]{3}$");
             regex[4] = new Regex(@"^[Gold|Normal|Platinum]{4,8}$");
 
@@ -108,6 +108,7 @@ namespace BankProgram
 
         public void AddNewClient (string name, string surname, int age, string phone, string mail, CURRENCY currency, bool enabled, ClientMembership membership, decimal balance = 0)
         {
+            mail = mail.ToLower();
             try
             {
                 CheckUserRegData(name, surname, age, phone, mail, membership, currency);
@@ -221,7 +222,7 @@ namespace BankProgram
             client.Name = name;
             client.Surname = surname;
             client.Age = age;
-            client.Mail = mail;
+            client.Mail = mail.ToLower();
             client.Phone = phone;
             client.Enabled = enabled;
         }

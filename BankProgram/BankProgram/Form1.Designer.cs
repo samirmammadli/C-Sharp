@@ -292,8 +292,9 @@ namespace BankProgram
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // dataGridClients
             // 
@@ -1288,7 +1289,7 @@ namespace BankProgram
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "BankApplication";
-            this.Text = "Bank Program";
+            this.Text = "Bank Application";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BankApplication_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
