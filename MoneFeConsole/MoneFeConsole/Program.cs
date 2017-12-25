@@ -1,38 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MoneyFeConsole
 {
-    enum InterfaceItems
+    class InterfaceItems
     {
-        //Buttons
-        ok,
-        cancel,
-
-        //Categories
-        bills,
-        car,
-        clothes,
-        communications,
-        eating_out,
-        entertainment,
-        food,
-        gifts,
-        health,
-        house,
-        pets,
-        sports,
-        taxi,
-        toiletry,
-        transport,
-
-        //Account
-        deposits,
-        salary,
-        saving
+        const string _enPath = @"lang\en.txt";
+        const string _ruPath = @"lang\ru.txt";
+        public Dictionary<string, string> _items;
+        public InterfaceItems(string lang)
+        {
+            _items = new Dictionary<string, string>();
+            if (lang == "ru")
+                lang = _ruPath;
+            else
+                lang = _enPath;
+            LoadLang(lang);
+        }
+        void LoadLang(string lang)
+        {
+           _items = File.ReadLines(lang).Where(i => !i.Contains("//")).Select(x => x.Split(';')).ToDictionary(line => line[0], line => line[1] );
+        }
     }
 
 
@@ -105,9 +97,22 @@ namespace MoneyFeConsole
     {
         static void Main(string[] args)
         {
-            List<int> list = new List<int>() { 1,2,3,4,5,6,7,8,9,0};
+            Console.WriteLine("Select Language: \"en\" or \"ru\"");
+            string lang = Console.ReadLine();
 
-            Console.WriteLine(list[(int)SubscriptionType.Yearly]);
+            InterfaceItems itm = new InterfaceItems(lang);
+
+            //foreach (var item in itm._items)
+            //{
+            //    Console.WriteLine($"{item.Key} --> {item.Value}");
+            //}
+
+            Console.WriteLine(itm._items["ok"]);
+            Console.Read();
+
+            //List<int> list = new List<int>() { 1,2,3,4,5,6,7,8,9,0};
+
+            //Console.WriteLine(list[(int)SubscriptionType.Yearly]);
             //Income
             //Outcome
             //Categories
