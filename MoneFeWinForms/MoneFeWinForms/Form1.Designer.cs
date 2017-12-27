@@ -29,247 +29,248 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnCharge = new System.Windows.Forms.Button();
+            this.btnClothes = new System.Windows.Forms.Button();
+            this.btnCommunication = new System.Windows.Forms.Button();
+            this.btnCar = new System.Windows.Forms.Button();
+            this.btnEntertainment = new System.Windows.Forms.Button();
+            this.btnFood = new System.Windows.Forms.Button();
+            this.btnGifts = new System.Windows.Forms.Button();
+            this.btnHealth = new System.Windows.Forms.Button();
+            this.btnEatingOut = new System.Windows.Forms.Button();
+            this.btnHouse = new System.Windows.Forms.Button();
+            this.btnTransport = new System.Windows.Forms.Button();
+            this.btnTaxi = new System.Windows.Forms.Button();
+            this.btnSport = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pnlBalance = new System.Windows.Forms.Panel();
+            this.lbBalanceValue = new System.Windows.Forms.Label();
+            this.lbBalance = new System.Windows.Forms.Label();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.mainPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnlBalance.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnAdd
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(240, 260);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(77, 77);
-            this.button1.TabIndex = 14;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnAdd.BackColor = System.Drawing.Color.Transparent;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.Location = new System.Drawing.Point(240, 258);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(77, 77);
+            this.btnAdd.TabIndex = 14;
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnCharge
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(3, 260);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 77);
-            this.button2.TabIndex = 13;
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnCharge.BackColor = System.Drawing.Color.Transparent;
+            this.btnCharge.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCharge.Image = ((System.Drawing.Image)(resources.GetObject("btnCharge.Image")));
+            this.btnCharge.Location = new System.Drawing.Point(3, 258);
+            this.btnCharge.Name = "btnCharge";
+            this.btnCharge.Size = new System.Drawing.Size(77, 77);
+            this.btnCharge.TabIndex = 13;
+            this.btnCharge.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnClothes
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(83, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(74, 64);
-            this.button3.TabIndex = 2;
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnClothes.BackColor = System.Drawing.Color.Transparent;
+            this.btnClothes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnClothes.Image = ((System.Drawing.Image)(resources.GetObject("btnClothes.Image")));
+            this.btnClothes.Location = new System.Drawing.Point(83, 3);
+            this.btnClothes.Name = "btnClothes";
+            this.btnClothes.Size = new System.Drawing.Size(74, 64);
+            this.btnClothes.TabIndex = 2;
+            this.btnClothes.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // btnCommunication
             // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(163, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(74, 64);
-            this.button4.TabIndex = 3;
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnCommunication.BackColor = System.Drawing.Color.Transparent;
+            this.btnCommunication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCommunication.Image = ((System.Drawing.Image)(resources.GetObject("btnCommunication.Image")));
+            this.btnCommunication.Location = new System.Drawing.Point(163, 3);
+            this.btnCommunication.Name = "btnCommunication";
+            this.btnCommunication.Size = new System.Drawing.Size(74, 64);
+            this.btnCommunication.TabIndex = 3;
+            this.btnCommunication.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // btnCar
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.Location = new System.Drawing.Point(3, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(74, 64);
-            this.button5.TabIndex = 1;
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnCar.BackColor = System.Drawing.Color.Transparent;
+            this.btnCar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCar.Image = ((System.Drawing.Image)(resources.GetObject("btnCar.Image")));
+            this.btnCar.Location = new System.Drawing.Point(3, 3);
+            this.btnCar.Name = "btnCar";
+            this.btnCar.Size = new System.Drawing.Size(74, 64);
+            this.btnCar.TabIndex = 1;
+            this.btnCar.UseVisualStyleBackColor = false;
+            this.btnCar.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button6
+            // btnEntertainment
             // 
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
-            this.button6.Location = new System.Drawing.Point(3, 73);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(74, 64);
-            this.button6.TabIndex = 5;
-            this.button6.UseVisualStyleBackColor = false;
+            this.btnEntertainment.BackColor = System.Drawing.Color.Transparent;
+            this.btnEntertainment.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnEntertainment.Image = ((System.Drawing.Image)(resources.GetObject("btnEntertainment.Image")));
+            this.btnEntertainment.Location = new System.Drawing.Point(3, 73);
+            this.btnEntertainment.Name = "btnEntertainment";
+            this.btnEntertainment.Size = new System.Drawing.Size(74, 64);
+            this.btnEntertainment.TabIndex = 5;
+            this.btnEntertainment.UseVisualStyleBackColor = false;
             // 
-            // button7
+            // btnFood
             // 
-            this.button7.BackColor = System.Drawing.Color.Transparent;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
-            this.button7.Location = new System.Drawing.Point(83, 73);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(74, 64);
-            this.button7.TabIndex = 6;
-            this.button7.UseVisualStyleBackColor = false;
+            this.btnFood.BackColor = System.Drawing.Color.Transparent;
+            this.btnFood.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFood.Image = ((System.Drawing.Image)(resources.GetObject("btnFood.Image")));
+            this.btnFood.Location = new System.Drawing.Point(83, 73);
+            this.btnFood.Name = "btnFood";
+            this.btnFood.Size = new System.Drawing.Size(74, 64);
+            this.btnFood.TabIndex = 6;
+            this.btnFood.UseVisualStyleBackColor = false;
             // 
-            // button8
+            // btnGifts
             // 
-            this.button8.BackColor = System.Drawing.Color.Transparent;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
-            this.button8.Location = new System.Drawing.Point(163, 73);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(74, 64);
-            this.button8.TabIndex = 7;
-            this.button8.UseVisualStyleBackColor = false;
+            this.btnGifts.BackColor = System.Drawing.Color.Transparent;
+            this.btnGifts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnGifts.Image = ((System.Drawing.Image)(resources.GetObject("btnGifts.Image")));
+            this.btnGifts.Location = new System.Drawing.Point(163, 73);
+            this.btnGifts.Name = "btnGifts";
+            this.btnGifts.Size = new System.Drawing.Size(74, 64);
+            this.btnGifts.TabIndex = 7;
+            this.btnGifts.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // btnHealth
             // 
-            this.button9.BackColor = System.Drawing.Color.Transparent;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
-            this.button9.Location = new System.Drawing.Point(243, 73);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(74, 64);
-            this.button9.TabIndex = 8;
-            this.button9.UseVisualStyleBackColor = false;
+            this.btnHealth.BackColor = System.Drawing.Color.Transparent;
+            this.btnHealth.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnHealth.Image = ((System.Drawing.Image)(resources.GetObject("btnHealth.Image")));
+            this.btnHealth.Location = new System.Drawing.Point(243, 73);
+            this.btnHealth.Name = "btnHealth";
+            this.btnHealth.Size = new System.Drawing.Size(74, 64);
+            this.btnHealth.TabIndex = 8;
+            this.btnHealth.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // btnEatingOut
             // 
-            this.button10.BackColor = System.Drawing.Color.Transparent;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button10.Image = ((System.Drawing.Image)(resources.GetObject("button10.Image")));
-            this.button10.Location = new System.Drawing.Point(243, 3);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(74, 64);
-            this.button10.TabIndex = 4;
-            this.button10.UseVisualStyleBackColor = false;
+            this.btnEatingOut.BackColor = System.Drawing.Color.Transparent;
+            this.btnEatingOut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnEatingOut.Image = ((System.Drawing.Image)(resources.GetObject("btnEatingOut.Image")));
+            this.btnEatingOut.Location = new System.Drawing.Point(243, 3);
+            this.btnEatingOut.Name = "btnEatingOut";
+            this.btnEatingOut.Size = new System.Drawing.Size(74, 64);
+            this.btnEatingOut.TabIndex = 4;
+            this.btnEatingOut.UseVisualStyleBackColor = false;
             // 
-            // button11
+            // btnHouse
             // 
-            this.button11.BackColor = System.Drawing.Color.Transparent;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button11.Image = ((System.Drawing.Image)(resources.GetObject("button11.Image")));
-            this.button11.Location = new System.Drawing.Point(3, 143);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(74, 64);
-            this.button11.TabIndex = 9;
-            this.button11.UseVisualStyleBackColor = false;
+            this.btnHouse.BackColor = System.Drawing.Color.Transparent;
+            this.btnHouse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnHouse.Image = ((System.Drawing.Image)(resources.GetObject("btnHouse.Image")));
+            this.btnHouse.Location = new System.Drawing.Point(3, 143);
+            this.btnHouse.Name = "btnHouse";
+            this.btnHouse.Size = new System.Drawing.Size(74, 64);
+            this.btnHouse.TabIndex = 9;
+            this.btnHouse.UseVisualStyleBackColor = false;
             // 
-            // button12
+            // btnTransport
             // 
-            this.button12.BackColor = System.Drawing.Color.Transparent;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button12.Image = ((System.Drawing.Image)(resources.GetObject("button12.Image")));
-            this.button12.Location = new System.Drawing.Point(243, 143);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(74, 64);
-            this.button12.TabIndex = 12;
-            this.button12.UseVisualStyleBackColor = false;
+            this.btnTransport.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnTransport.Image = ((System.Drawing.Image)(resources.GetObject("btnTransport.Image")));
+            this.btnTransport.Location = new System.Drawing.Point(243, 143);
+            this.btnTransport.Name = "btnTransport";
+            this.btnTransport.Size = new System.Drawing.Size(74, 64);
+            this.btnTransport.TabIndex = 12;
+            this.btnTransport.UseVisualStyleBackColor = false;
             // 
-            // button13
+            // btnTaxi
             // 
-            this.button13.BackColor = System.Drawing.Color.Transparent;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button13.Image = ((System.Drawing.Image)(resources.GetObject("button13.Image")));
-            this.button13.Location = new System.Drawing.Point(163, 143);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(74, 64);
-            this.button13.TabIndex = 11;
-            this.button13.UseVisualStyleBackColor = false;
+            this.btnTaxi.BackColor = System.Drawing.Color.Transparent;
+            this.btnTaxi.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnTaxi.Image = ((System.Drawing.Image)(resources.GetObject("btnTaxi.Image")));
+            this.btnTaxi.Location = new System.Drawing.Point(163, 143);
+            this.btnTaxi.Name = "btnTaxi";
+            this.btnTaxi.Size = new System.Drawing.Size(74, 64);
+            this.btnTaxi.TabIndex = 11;
+            this.btnTaxi.UseVisualStyleBackColor = false;
             // 
-            // button14
+            // btnSport
             // 
-            this.button14.BackColor = System.Drawing.Color.Transparent;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button14.Image = ((System.Drawing.Image)(resources.GetObject("button14.Image")));
-            this.button14.Location = new System.Drawing.Point(83, 143);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(74, 64);
-            this.button14.TabIndex = 10;
-            this.button14.UseVisualStyleBackColor = false;
+            this.btnSport.BackColor = System.Drawing.Color.Transparent;
+            this.btnSport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSport.Image = ((System.Drawing.Image)(resources.GetObject("btnSport.Image")));
+            this.btnSport.Location = new System.Drawing.Point(83, 143);
+            this.btnSport.Name = "btnSport";
+            this.btnSport.Size = new System.Drawing.Size(74, 64);
+            this.btnSport.TabIndex = 10;
+            this.btnSport.UseVisualStyleBackColor = false;
             // 
             // mainPanel
             // 
-            this.mainPanel.Controls.Add(this.panel1);
-            this.mainPanel.Controls.Add(this.button5);
-            this.mainPanel.Controls.Add(this.button12);
-            this.mainPanel.Controls.Add(this.button1);
-            this.mainPanel.Controls.Add(this.button13);
-            this.mainPanel.Controls.Add(this.button2);
-            this.mainPanel.Controls.Add(this.button14);
-            this.mainPanel.Controls.Add(this.button3);
-            this.mainPanel.Controls.Add(this.button11);
-            this.mainPanel.Controls.Add(this.button4);
-            this.mainPanel.Controls.Add(this.button10);
-            this.mainPanel.Controls.Add(this.button6);
-            this.mainPanel.Controls.Add(this.button9);
-            this.mainPanel.Controls.Add(this.button7);
-            this.mainPanel.Controls.Add(this.button8);
+            this.mainPanel.Controls.Add(this.pnlBalance);
+            this.mainPanel.Controls.Add(this.btnCar);
+            this.mainPanel.Controls.Add(this.btnTransport);
+            this.mainPanel.Controls.Add(this.btnAdd);
+            this.mainPanel.Controls.Add(this.btnTaxi);
+            this.mainPanel.Controls.Add(this.btnCharge);
+            this.mainPanel.Controls.Add(this.btnSport);
+            this.mainPanel.Controls.Add(this.btnClothes);
+            this.mainPanel.Controls.Add(this.btnHouse);
+            this.mainPanel.Controls.Add(this.btnCommunication);
+            this.mainPanel.Controls.Add(this.btnEatingOut);
+            this.mainPanel.Controls.Add(this.btnEntertainment);
+            this.mainPanel.Controls.Add(this.btnHealth);
+            this.mainPanel.Controls.Add(this.btnFood);
+            this.mainPanel.Controls.Add(this.btnGifts);
             this.mainPanel.Location = new System.Drawing.Point(12, 51);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(322, 342);
             this.mainPanel.TabIndex = 15;
             // 
-            // panel1
+            // pnlBalance
             // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(3, 213);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(314, 39);
-            this.panel1.TabIndex = 17;
+            this.pnlBalance.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlBalance.BackgroundImage")));
+            this.pnlBalance.Controls.Add(this.lbBalanceValue);
+            this.pnlBalance.Controls.Add(this.lbBalance);
+            this.pnlBalance.Location = new System.Drawing.Point(3, 213);
+            this.pnlBalance.Name = "pnlBalance";
+            this.pnlBalance.Size = new System.Drawing.Size(314, 39);
+            this.pnlBalance.TabIndex = 17;
             // 
-            // label2
+            // lbBalanceValue
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(76, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "17000";
+            this.lbBalanceValue.AutoSize = true;
+            this.lbBalanceValue.BackColor = System.Drawing.Color.Transparent;
+            this.lbBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lbBalanceValue.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbBalanceValue.Location = new System.Drawing.Point(76, 9);
+            this.lbBalanceValue.Name = "lbBalanceValue";
+            this.lbBalanceValue.Size = new System.Drawing.Size(59, 20);
+            this.lbBalanceValue.TabIndex = 1;
+            this.lbBalanceValue.Text = "17000";
             // 
-            // label1
+            // lbBalance
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Balance:";
+            this.lbBalance.AutoSize = true;
+            this.lbBalance.BackColor = System.Drawing.Color.Transparent;
+            this.lbBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lbBalance.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbBalance.Location = new System.Drawing.Point(3, 9);
+            this.lbBalance.Name = "lbBalance";
+            this.lbBalance.Size = new System.Drawing.Size(79, 20);
+            this.lbBalance.TabIndex = 0;
+            this.lbBalance.Text = "Balance:";
             // 
             // MenuStrip
             // 
@@ -294,22 +295,26 @@
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
             this.exitToolStripMenuItem1.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(666, 112);
+            this.chart1.BackColor = System.Drawing.Color.Transparent;
+            this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(357, 50);
             this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(300, 300);
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.Legend = "Legend1";
+            series1.Name = "Categories";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(352, 338);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
@@ -322,14 +327,14 @@
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.MenuStrip);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "MoneFy";
             this.Text = "MoneFy";
             this.mainPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlBalance.ResumeLayout(false);
+            this.pnlBalance.PerformLayout();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
@@ -340,27 +345,27 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnCharge;
+        private System.Windows.Forms.Button btnClothes;
+        private System.Windows.Forms.Button btnCommunication;
+        private System.Windows.Forms.Button btnCar;
+        private System.Windows.Forms.Button btnEntertainment;
+        private System.Windows.Forms.Button btnFood;
+        private System.Windows.Forms.Button btnGifts;
+        private System.Windows.Forms.Button btnHealth;
+        private System.Windows.Forms.Button btnEatingOut;
+        private System.Windows.Forms.Button btnHouse;
+        private System.Windows.Forms.Button btnTransport;
+        private System.Windows.Forms.Button btnTaxi;
+        private System.Windows.Forms.Button btnSport;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel pnlBalance;
+        private System.Windows.Forms.Label lbBalanceValue;
+        private System.Windows.Forms.Label lbBalance;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
