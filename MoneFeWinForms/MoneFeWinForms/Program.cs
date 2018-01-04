@@ -17,6 +17,7 @@ namespace MoneFeWinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MoneFy());
+            
         }
     }
 }

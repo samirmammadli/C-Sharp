@@ -12,9 +12,21 @@ namespace MoneFeWinForms
 {
     public partial class MoneFy : Form
     {
+        private MoneFyBuild Monefy;
         public MoneFy()
         {
             InitializeComponent();
+            Monefy = new MoneFyBuild(Languages.EN);
+            //Categories
+            toolTipCategory.ToolTipTitle = Monefy.Categories["category"] +":";
+            toolTipCategory.SetToolTip(this.btnCar, Monefy.Categories["cars"]);
+            toolTipCategory.SetToolTip(this.btnClothes, Monefy.Categories["clothes"]);
+            //Interface
+            this.languageToolStripMenuItem.Text = Monefy.Interface["language"];
+            this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
+            this.русскийToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
+            this.exitToolStripMenuItem.Text = Monefy.Interface["file"];
+            this.exitToolStripMenuItem1.Text = Monefy.Interface["exit"];
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -46,9 +58,20 @@ namespace MoneFeWinForms
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to exit?", "Exit MoneFe", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show(Monefy.Interface["exit_warning"], Monefy.Interface["exit"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
                 Application.Exit();
+        }
+
+        private void русскийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Monefy.LoadLang(Languages.RU);
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Monefy.LoadLang(Languages.EN);
+            
         }
     }
 }

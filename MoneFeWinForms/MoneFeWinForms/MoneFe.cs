@@ -14,74 +14,116 @@ namespace MoneFeWinForms
         RU
     }
 
-    class MoneFyTranslate
+    class MoneFeItemsLanguage
     {
         private const string _ruPath = @"lang\ru\";
         private const string _enPath = @"lang\en\";
-        private static List<string> Categories { get; set; }
-        private static List<string> AppInterface { get; set; }
-        private static List<string> Account { get; set; }
+        static private string _currentPath;
+        static private List<string> Categories { get; set; }
+        static private List<string> AppInterface { get; set; }
+        static private List<string> Account { get; set; }
 
-        private string CheckLang(Languages lang)
+        static private bool CheckLang(Languages lang)
         {
             if (lang == Languages.RU)
-                return _ruPath;
+            {
+                _currentPath = _ruPath;
+                return true;
+            }
             else
-                return _enPath;
+                return false;
         }
 
-        public Dictionary<string, string> LoadCategories(Languages lang)
+        static public Dictionary<string, string> LoadCategories(Languages lang = Languages.EN)
         {
-            
-            Categories = File.ReadLines(CheckLang(lang) + "categories.txt").ToList();
+            if (CheckLang(lang) && File.Exists(_currentPath + "categories.txt") && File.ReadAllLines(_ruPath + "categories.txt").Length == 15)
+                Categories = File.ReadLines(_currentPath + "categories.txt").ToList();
+            else
+                LoadCategoryDefaultValues();
             return getCategories();
-
         }
 
-        private void LoadCategoryDefaultValues()
+        static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
+        {
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 6)
+                AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
+            else
+                LoadAppInterfaceDefaultValues();
+            return getAppInterface();
+        }
+
+        static private void LoadCategoryDefaultValues()
         {
             Categories = new List<string>()
             {
+                "Category",
                 "Car",
-                "clothes",
-                "eating_our",
-                "entertainment",
-                "food",
-                "gifts",
-                "communications",
-                "health",
-                "house",
-                "pets",
-                "sports",
-                "taxi",
-                "toiletry",
-                "transport"
+                "Clothes",
+                "Eating out",
+                "Entertainment",
+                "Food",
+                "Gifts",
+                "Communications",
+                "Health",
+                "House",
+                "Pets",
+                "Sports",
+                "Taxi",
+                "Toiletry",
+                "Transport"
             };
         }
 
-        private Dictionary<string, string> getCategories()
+        static private void LoadAppInterfaceDefaultValues()
         {
+            AppInterface = new List<string>()
+            {
+                "File",
+                "Language",
+                "English",
+                "Russian",
+                "Exit",
+                "Are you sure you want to exit?"
+            };
+        }
+
+        static public Dictionary<string, string> getCategories()
+        {
+            int i = 0;
             return new Dictionary<string, string>()
                 {
-                    { "cars", Categories[0] },
-                    { "clothes", Categories[1] },
-                    { "eating_our", Categories[2] },
-                    { "entertainment", Categories[3] },
-                    { "food", Categories[4] },
-                    { "gifts", Categories[5] },
-                    { "communications", Categories[6] },
-                    { "health", Categories[7] },
-                    { "house", Categories[8] },
-                    { "pets", Categories[9] },
-                    { "sports", Categories[10] },
-                    { "taxi", Categories[11] },
-                    { "toiletry", Categories[12] },
-                    { "transport", Categories[13] }
+                    { "category", Categories[i++] },
+                    { "cars", Categories[i++] },
+                    { "clothes", Categories[i++] },
+                    { "eating_our", Categories[i++] },
+                    { "entertainment", Categories[i++] },
+                    { "food", Categories[i++] },
+                    { "gifts", Categories[i++] },
+                    { "communications", Categories[i++] },
+                    { "health", Categories[i++] },
+                    { "house", Categories[i++] },
+                    { "pets", Categories[i++] },
+                    { "sports", Categories[i++] },
+                    { "taxi", Categories[i++] },
+                    { "toiletry", Categories[i++] },
+                    { "transport", Categories[i++] }
+                };
+        }
+
+        static public Dictionary<string, string> getAppInterface()
+        {
+            int i = 0;
+            return new Dictionary<string, string>()
+                {
+                    { "file", AppInterface[i++] },
+                    { "language", AppInterface[i++] },
+                    { "lang_english", AppInterface[i++] },
+                    { "lang_russian", AppInterface[i++] },
+                    { "exit", AppInterface[i++] },
+                    { "exit_warning", AppInterface[i++] }
                 };
         }
     }
-
-
 
 
     enum Currency
@@ -155,6 +197,19 @@ namespace MoneFeWinForms
     class MoneFyBuild
     {
         public List<Account> Accounts { get; set; }
+        public Dictionary<string, string> Categories { get; set; }
+        public Dictionary<string, string> Interface { get; set; }
+        public MoneFyBuild(Languages lang)
+        {
+            LoadLang(lang);// (Languages.RU);
+            //string sad = Categories["cars"];
+            //Console.WriteLine(sad);
+        }
+        public void LoadLang(Languages lang)
+        {
+            Categories = MoneFeItemsLanguage.LoadCategories(lang);
+            Interface = MoneFeItemsLanguage.LoadAppInterface(lang);
+        }
     }
 }
 
