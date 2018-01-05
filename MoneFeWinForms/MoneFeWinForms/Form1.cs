@@ -13,47 +13,18 @@ namespace MoneFeWinForms
     public partial class MoneFy : Form
     {
         private MoneFyBuild Monefy;
+        private int x;
         public MoneFy()
         {
+            x = 10000;
             InitializeComponent();
             Monefy = new MoneFyBuild(Languages.EN);
-            //Categories
-            toolTipCategory.ToolTipTitle = Monefy.Categories["category"] +":";
-            toolTipCategory.SetToolTip(this.btnCar, Monefy.Categories["cars"]);
-            toolTipCategory.SetToolTip(this.btnClothes, Monefy.Categories["clothes"]);
-            //Interface
-            this.languageToolStripMenuItem.Text = Monefy.Interface["language"];
-            this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
-            this.русскийToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
-            this.exitToolStripMenuItem.Text = Monefy.Interface["file"];
-            this.exitToolStripMenuItem1.Text = Monefy.Interface["exit"];
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
+            LoadLang();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-
-            chart1.Series["Categories"].Points.Add(rnd.Next(1, 150));
-            //chart1.Series["Categories"].Points[0].AxisLabel = 3214.ToString();
-            chart1.Series["Categories"].Points[0].LegendText = "Home";
-            chart1.Series["Categories"].Points[0].IsValueShownAsLabel = true;
-            chart1.Series["Categories"].Points.AddXY("Entertainment", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Sport", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Gift", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Car", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Aptek", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Taxi", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Fun", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Clothes", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Something", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("The elder", rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY("Other", rnd.Next(1, 150));
-
+            LoadCategoriesChart();
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -65,12 +36,31 @@ namespace MoneFeWinForms
 
         private void русскийToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            englishToolStripMenuItem.Checked = false;
+            русскийToolStripMenuItem.Checked = true;
             Monefy.LoadLang(Languages.RU);
+            LoadLang();
         }
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            englishToolStripMenuItem.Checked = true;
+            русскийToolStripMenuItem.Checked = false;
             Monefy.LoadLang(Languages.EN);
+            LoadLang();
+        }
+
+        private void btnCar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
+            //chart1.Series["Categories"].Points.Clear();
+            //LoadCategoriesChart();
+            MessageBox.Show(chart1.Series["Categories"].Points[1].YValues[0].ToString());
             
         }
     }

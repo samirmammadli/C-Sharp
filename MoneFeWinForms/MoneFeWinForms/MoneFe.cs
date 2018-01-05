@@ -39,20 +39,20 @@ namespace MoneFeWinForms
             if (CheckLang(lang) && File.Exists(_currentPath + "categories.txt") && File.ReadAllLines(_ruPath + "categories.txt").Length == 15)
                 Categories = File.ReadLines(_currentPath + "categories.txt").ToList();
             else
-                LoadCategoryDefaultValues();
+                CategoryDefaultValues();
             return getCategories();
         }
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 6)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 8)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
-                LoadAppInterfaceDefaultValues();
+                AppInterfaceDefaultValues();
             return getAppInterface();
         }
 
-        static private void LoadCategoryDefaultValues()
+        static private void CategoryDefaultValues()
         {
             Categories = new List<string>()
             {
@@ -74,7 +74,7 @@ namespace MoneFeWinForms
             };
         }
 
-        static private void LoadAppInterfaceDefaultValues()
+        static private void AppInterfaceDefaultValues()
         {
             AppInterface = new List<string>()
             {
@@ -83,11 +83,13 @@ namespace MoneFeWinForms
                 "English",
                 "Russian",
                 "Exit",
-                "Are you sure you want to exit?"
+                "Are you sure you want to exit?",
+                "Income",
+                "Outcome"
             };
         }
 
-        static public Dictionary<string, string> getCategories()
+        static private Dictionary<string, string> getCategories()
         {
             int i = 0;
             return new Dictionary<string, string>()
@@ -95,7 +97,7 @@ namespace MoneFeWinForms
                     { "category", Categories[i++] },
                     { "cars", Categories[i++] },
                     { "clothes", Categories[i++] },
-                    { "eating_our", Categories[i++] },
+                    { "eating_out", Categories[i++] },
                     { "entertainment", Categories[i++] },
                     { "food", Categories[i++] },
                     { "gifts", Categories[i++] },
@@ -110,7 +112,7 @@ namespace MoneFeWinForms
                 };
         }
 
-        static public Dictionary<string, string> getAppInterface()
+        static private Dictionary<string, string> getAppInterface()
         {
             int i = 0;
             return new Dictionary<string, string>()
@@ -120,7 +122,9 @@ namespace MoneFeWinForms
                     { "lang_english", AppInterface[i++] },
                     { "lang_russian", AppInterface[i++] },
                     { "exit", AppInterface[i++] },
-                    { "exit_warning", AppInterface[i++] }
+                    { "exit_warning", AppInterface[i++] },
+                    { "income", AppInterface[i++] },
+                    { "outcome", AppInterface[i++] }
                 };
         }
     }
@@ -176,7 +180,6 @@ namespace MoneFeWinForms
         }
     }
 
-
     class Account : ICSVWritable, IComparable
     {
         public Currency AccCurrency { get; set; }
@@ -201,9 +204,7 @@ namespace MoneFeWinForms
         public Dictionary<string, string> Interface { get; set; }
         public MoneFyBuild(Languages lang)
         {
-            LoadLang(lang);// (Languages.RU);
-            //string sad = Categories["cars"];
-            //Console.WriteLine(sad);
+            LoadLang(lang);
         }
         public void LoadLang(Languages lang)
         {
