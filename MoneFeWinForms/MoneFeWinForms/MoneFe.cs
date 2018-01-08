@@ -36,7 +36,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadCategories(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "categories.txt") && File.ReadAllLines(_ruPath + "categories.txt").Length == 15)
+            if (CheckLang(lang) && File.Exists(_currentPath + "categories.txt") && File.ReadAllLines(_ruPath + "categories.txt").Length == 12)
                 Categories = File.ReadLines(_currentPath + "categories.txt").ToList();
             else
                 CategoryDefaultValues();
@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 8)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 9)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -56,7 +56,6 @@ namespace MoneFeWinForms
         {
             Categories = new List<string>()
             {
-                "Category",
                 "Car",
                 "Clothes",
                 "Eating out",
@@ -66,10 +65,8 @@ namespace MoneFeWinForms
                 "Communications",
                 "Health",
                 "House",
-                "Pets",
                 "Sports",
                 "Taxi",
-                "Toiletry",
                 "Transport"
             };
         }
@@ -85,7 +82,8 @@ namespace MoneFeWinForms
                 "Exit",
                 "Are you sure you want to exit?",
                 "Income",
-                "Outcome"
+                "Outcome",
+                "Category"
             };
         }
 
@@ -94,7 +92,6 @@ namespace MoneFeWinForms
             int i = 0;
             return new Dictionary<string, string>()
                 {
-                    { "category", Categories[i++] },
                     { "cars", Categories[i++] },
                     { "clothes", Categories[i++] },
                     { "eating_out", Categories[i++] },
@@ -104,10 +101,8 @@ namespace MoneFeWinForms
                     { "communications", Categories[i++] },
                     { "health", Categories[i++] },
                     { "house", Categories[i++] },
-                    { "pets", Categories[i++] },
                     { "sports", Categories[i++] },
                     { "taxi", Categories[i++] },
-                    { "toiletry", Categories[i++] },
                     { "transport", Categories[i++] }
                 };
         }
@@ -124,7 +119,8 @@ namespace MoneFeWinForms
                     { "exit", AppInterface[i++] },
                     { "exit_warning", AppInterface[i++] },
                     { "income", AppInterface[i++] },
-                    { "outcome", AppInterface[i++] }
+                    { "outcome", AppInterface[i++] },
+                    { "category", AppInterface[i++] },
                 };
         }
     }
@@ -152,8 +148,19 @@ namespace MoneFeWinForms
         void WriteCSV();
     }
 
+    struct OperationValue
+    {
+        string category;
+        double value;
+    }
+
     class MoneyOperation : ICSVWritable, IComparable
     {
+        public DateTime Time { get; set; }
+        public string Category { get; set; }
+        public string Account { get; set; }
+        public double Value { get; set; }
+
         public int CompareTo(object obj)
         {
             throw new NotImplementedException();
@@ -200,10 +207,12 @@ namespace MoneFeWinForms
     class MoneFyBuild
     {
         public List<Account> Accounts { get; set; }
+        public MoneyOperation Operations { get; set; }
         public Dictionary<string, string> Categories { get; set; }
         public Dictionary<string, string> Interface { get; set; }
         public MoneFyBuild(Languages lang)
         {
+            Console.WriteLine((250f / 1500f).ToString("0.00%"));
             LoadLang(lang);
         }
         public void LoadLang(Languages lang)

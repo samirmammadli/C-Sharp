@@ -25,7 +25,6 @@ namespace MoneFeWinForms
         private void LoadLang()
         {
             //Categories
-            toolTipCategory.ToolTipTitle = Monefy.Categories["category"] + ":";
             toolTipCategory.SetToolTip(this.btnCar, Monefy.Categories["cars"]);
             toolTipCategory.SetToolTip(this.btnClothes, Monefy.Categories["clothes"]);
             toolTipCategory.SetToolTip(this.btnCommunication, Monefy.Categories["communications"]);
@@ -39,6 +38,7 @@ namespace MoneFeWinForms
             toolTipCategory.SetToolTip(this.btnTaxi, Monefy.Categories["taxi"]);
             toolTipCategory.SetToolTip(this.btnTransport, Monefy.Categories["transport"]);
             //Interface
+            this.toolTipCategory.ToolTipTitle = Monefy.Interface["category"] + ":";
             this.languageToolStripMenuItem.Text = Monefy.Interface["language"];
             this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
             this.русскийToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
@@ -51,23 +51,13 @@ namespace MoneFeWinForms
         private void LoadCategoriesChart()
         {
             Random rnd = new Random();
-
-            //chart1.Series["Categories"].Points.Add();//rnd.Next(1, 150));
-            ////chart1.Series["Categories"].Points[0].AxisLabel = 3214.ToString();
-            //chart1.Series["Categories"].Points[0].LegendText = Monefy.Categories["house"];
-            //chart1.Series["Categories"].Points[0].IsValueShownAsLabel = true;
-
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["cars"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["clothes"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["communications"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["eating_out"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["entertainment"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["food"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["gifts"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["health"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["sports"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["taxi"], rnd.Next(1, 150));
-            chart1.Series["Categories"].Points.AddXY(Monefy.Categories["transport"], rnd.Next(1, 150));
+            foreach (var item in Monefy.Categories)
+            {
+                int a = rnd.Next(1, 150);
+                int index = chart1.Series["Categories"].Points.Count;
+                chart1.Series["Categories"].Points.AddXY("", a);
+                chart1.Series["Categories"].Points[index].LegendText = item.Value + $" {(a / 150f).ToString("0.00%")}";
+            }
         }
 
         #region Windows Form Designer generated code
@@ -163,10 +153,10 @@ namespace MoneFeWinForms
             this.btnCommunication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCommunication.ForeColor = System.Drawing.Color.Transparent;
             this.btnCommunication.Image = ((System.Drawing.Image)(resources.GetObject("btnCommunication.Image")));
-            this.btnCommunication.Location = new System.Drawing.Point(163, 3);
+            this.btnCommunication.Location = new System.Drawing.Point(163, 73);
             this.btnCommunication.Name = "btnCommunication";
             this.btnCommunication.Size = new System.Drawing.Size(74, 64);
-            this.btnCommunication.TabIndex = 3;
+            this.btnCommunication.TabIndex = 7;
             this.btnCommunication.UseVisualStyleBackColor = false;
             // 
             // btnCar
@@ -190,10 +180,10 @@ namespace MoneFeWinForms
             this.btnEntertainment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntertainment.ForeColor = System.Drawing.Color.Transparent;
             this.btnEntertainment.Image = ((System.Drawing.Image)(resources.GetObject("btnEntertainment.Image")));
-            this.btnEntertainment.Location = new System.Drawing.Point(3, 73);
+            this.btnEntertainment.Location = new System.Drawing.Point(240, 3);
             this.btnEntertainment.Name = "btnEntertainment";
             this.btnEntertainment.Size = new System.Drawing.Size(74, 64);
-            this.btnEntertainment.TabIndex = 5;
+            this.btnEntertainment.TabIndex = 4;
             this.btnEntertainment.UseVisualStyleBackColor = false;
             // 
             // btnFood
@@ -202,10 +192,10 @@ namespace MoneFeWinForms
             this.btnFood.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFood.ForeColor = System.Drawing.Color.Transparent;
             this.btnFood.Image = ((System.Drawing.Image)(resources.GetObject("btnFood.Image")));
-            this.btnFood.Location = new System.Drawing.Point(83, 73);
+            this.btnFood.Location = new System.Drawing.Point(6, 73);
             this.btnFood.Name = "btnFood";
             this.btnFood.Size = new System.Drawing.Size(74, 64);
-            this.btnFood.TabIndex = 6;
+            this.btnFood.TabIndex = 5;
             this.btnFood.UseVisualStyleBackColor = false;
             // 
             // btnGifts
@@ -214,10 +204,10 @@ namespace MoneFeWinForms
             this.btnGifts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGifts.ForeColor = System.Drawing.Color.Transparent;
             this.btnGifts.Image = ((System.Drawing.Image)(resources.GetObject("btnGifts.Image")));
-            this.btnGifts.Location = new System.Drawing.Point(163, 73);
+            this.btnGifts.Location = new System.Drawing.Point(83, 73);
             this.btnGifts.Name = "btnGifts";
             this.btnGifts.Size = new System.Drawing.Size(74, 64);
-            this.btnGifts.TabIndex = 7;
+            this.btnGifts.TabIndex = 6;
             this.btnGifts.UseVisualStyleBackColor = false;
             // 
             // btnHealth
@@ -238,10 +228,10 @@ namespace MoneFeWinForms
             this.btnEatingOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEatingOut.ForeColor = System.Drawing.Color.Transparent;
             this.btnEatingOut.Image = ((System.Drawing.Image)(resources.GetObject("btnEatingOut.Image")));
-            this.btnEatingOut.Location = new System.Drawing.Point(243, 3);
+            this.btnEatingOut.Location = new System.Drawing.Point(163, 3);
             this.btnEatingOut.Name = "btnEatingOut";
             this.btnEatingOut.Size = new System.Drawing.Size(74, 64);
-            this.btnEatingOut.TabIndex = 4;
+            this.btnEatingOut.TabIndex = 3;
             this.btnEatingOut.UseVisualStyleBackColor = false;
             // 
             // btnHouse
@@ -298,18 +288,18 @@ namespace MoneFeWinForms
             this.mainPanel.Controls.Add(this.pnlBalance);
             this.mainPanel.Controls.Add(this.btnCar);
             this.mainPanel.Controls.Add(this.btnTransport);
+            this.mainPanel.Controls.Add(this.btnGifts);
+            this.mainPanel.Controls.Add(this.btnFood);
+            this.mainPanel.Controls.Add(this.btnCommunication);
             this.mainPanel.Controls.Add(this.btnAdd);
             this.mainPanel.Controls.Add(this.btnTaxi);
             this.mainPanel.Controls.Add(this.btnCharge);
             this.mainPanel.Controls.Add(this.btnSport);
             this.mainPanel.Controls.Add(this.btnClothes);
             this.mainPanel.Controls.Add(this.btnHouse);
-            this.mainPanel.Controls.Add(this.btnCommunication);
             this.mainPanel.Controls.Add(this.btnEatingOut);
             this.mainPanel.Controls.Add(this.btnEntertainment);
             this.mainPanel.Controls.Add(this.btnHealth);
-            this.mainPanel.Controls.Add(this.btnFood);
-            this.mainPanel.Controls.Add(this.btnGifts);
             this.mainPanel.Location = new System.Drawing.Point(12, 51);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(322, 386);
@@ -440,16 +430,17 @@ namespace MoneFeWinForms
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(357, 50);
+            this.chart1.Location = new System.Drawing.Point(340, 50);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
             series1.Name = "Categories";
+            series1.YValuesPerPoint = 2;
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(241, 208);
+            this.chart1.Size = new System.Drawing.Size(463, 384);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 

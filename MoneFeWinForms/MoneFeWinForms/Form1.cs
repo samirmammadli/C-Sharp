@@ -57,11 +57,16 @@ namespace MoneFeWinForms
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
-            //chart1.Series["Categories"].Points.Clear();
-            //LoadCategoriesChart();
-            MessageBox.Show(chart1.Series["Categories"].Points[1].YValues[0].ToString());
-            
+            //chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
+            chart1.Series["Categories"].Points.Clear();
+            LoadCategoriesChart();
+            foreach (var item in chart1.Series["Categories"].Points)
+            {
+                if (item.XValue.ToString() == "Car")
+                    Console.WriteLine("Nawel");
+            }
+            //MessageBox.Show(chart1.Series["Categories"].Points[1].YValues[0].ToString());
+
         }
     }
 }
