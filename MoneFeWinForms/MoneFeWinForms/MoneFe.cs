@@ -157,13 +157,15 @@ namespace MoneFeWinForms
         public Currency AccCurrency { get; set; }
         public string Category { get; set; }
         public string Account { get; set; }
+        public string Notes { get; set; }
         public double Value { get; set; }
 
-        public MoneyOperation(Currency currency ,string category, string account, double value)
+        public MoneyOperation(Currency currency ,string category, string account, string notes, double value)
         {
             AccCurrency = currency;
             Category = category;
             Account = account;
+            Notes = notes;
             Value = value;
         }
 
@@ -228,6 +230,7 @@ namespace MoneFeWinForms
         public MoneFyFormsBuild(Languages lang)
         {
             Operations = new SortedList<DateTime, List<MoneyOperation>>();
+            Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm", "account", "uiwqgfouigwqof",2321.5) });
             ChangeLang(lang);
             Accounts = new List<Account>();
         }
@@ -235,7 +238,7 @@ namespace MoneFeWinForms
         {
             Categories = MoneFeItemsLanguage.LoadCategories(lang);
             Interface = MoneFeItemsLanguage.LoadAppInterface(lang);
-            Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm", "account", 2321.5) });
+            
             DateTime t = new DateTime();
             t = DateTime.Now.Date;
             Console.WriteLine(Operations[t][0].Account);

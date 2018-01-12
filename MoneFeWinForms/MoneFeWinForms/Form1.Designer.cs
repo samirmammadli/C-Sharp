@@ -71,9 +71,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -105,7 +105,7 @@ namespace MoneFeWinForms
             this.toolTipCategory = new System.Windows.Forms.ToolTip(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.btnAddCategory = new System.Windows.Forms.Button();
-            this.tnAmount = new System.Windows.Forms.TextBox();
+            this.tbAmount = new System.Windows.Forms.TextBox();
             this.lbAddToCategory = new System.Windows.Forms.Label();
             this.lbAddedCategory = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -120,6 +120,7 @@ namespace MoneFeWinForms
             this.button13 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.pbSelectedCategoryImg = new System.Windows.Forms.PictureBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
@@ -444,20 +445,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(964, 461);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series5.Legend = "Legend1";
-            series5.Name = "Categories";
-            series5.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series5);
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Categories";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(32, 10);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -483,13 +484,17 @@ namespace MoneFeWinForms
             this.btnAddCategory.Text = "Add";
             this.btnAddCategory.UseVisualStyleBackColor = true;
             // 
-            // tnAmount
+            // tbAmount
             // 
-            this.tnAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tnAmount.Location = new System.Drawing.Point(368, 190);
-            this.tnAmount.Name = "tnAmount";
-            this.tnAmount.Size = new System.Drawing.Size(312, 26);
-            this.tnAmount.TabIndex = 1;
+            this.tbAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbAmount.Location = new System.Drawing.Point(368, 190);
+            this.tbAmount.Name = "tbAmount";
+            this.tbAmount.Size = new System.Drawing.Size(312, 26);
+            this.tbAmount.TabIndex = 1;
+            this.tbAmount.Text = "0";
+            this.tbAmount.Enter += new System.EventHandler(this.tbAmount_Enter);
+            this.tbAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tnAmount_KeyPress);
+            this.tbAmount.Leave += new System.EventHandler(this.tbAmount_Leave);
             // 
             // lbAddToCategory
             // 
@@ -640,12 +645,20 @@ namespace MoneFeWinForms
             this.pbSelectedCategoryImg.TabIndex = 32;
             this.pbSelectedCategoryImg.TabStop = false;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(721, 27);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 33;
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(1008, 483);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.pbSelectedCategoryImg);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button12);
@@ -660,7 +673,7 @@ namespace MoneFeWinForms
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lbAddedCategory);
             this.Controls.Add(this.lbAddToCategory);
-            this.Controls.Add(this.tnAmount);
+            this.Controls.Add(this.tbAmount);
             this.Controls.Add(this.btnAddCategory);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);
@@ -718,7 +731,7 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label lbOutcome;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAddCategory;
-        private System.Windows.Forms.TextBox tnAmount;
+        private System.Windows.Forms.TextBox tbAmount;
         private System.Windows.Forms.Label lbAddToCategory;
         private System.Windows.Forms.Label lbAddedCategory;
         private System.Windows.Forms.Button button2;
@@ -733,6 +746,7 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.PictureBox pbSelectedCategoryImg;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
 

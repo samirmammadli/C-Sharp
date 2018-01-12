@@ -52,7 +52,6 @@ namespace MoneFeWinForms
 
         private void btnCar_Click(object sender, EventArgs e)
         {
-            //lbAddedCategory.ForeColor = pbSelectedCategoryImg.Image.;
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             lbAddedCategory.Text = toolTipCategory.GetToolTip(btnCar);
             pbSelectedCategoryImg.Image = btnCar.Image;
@@ -72,5 +71,29 @@ namespace MoneFeWinForms
 
         }
 
+        private void tnAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !Char.IsDigit(e.KeyChar) && e.KeyChar != 8;
+        }
+
+
+        private void tbAmount_Enter(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+        }
+
+        private void tbAmount_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                Convert.ToDouble(tbAmount.Text);
+            }
+            catch (Exception)
+            {
+                tbAmount.Text = "0";
+                //throw;
+            }
+        }
     }
 }
