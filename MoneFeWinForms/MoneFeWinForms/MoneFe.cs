@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 9)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 11)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -83,7 +83,9 @@ namespace MoneFeWinForms
                 "Are you sure you want to exit?",
                 "Income",
                 "Outcome",
-                "Category"
+                "Category",
+                "Add to category:",
+                "Add"
             };
         }
 
@@ -121,6 +123,8 @@ namespace MoneFeWinForms
                     { "income", AppInterface[i++] },
                     { "outcome", AppInterface[i++] },
                     { "category", AppInterface[i++] },
+                    { "addToCategory", AppInterface[i++] },
+                    { "add", AppInterface[i++] }
                 };
         }
     }
@@ -148,18 +152,20 @@ namespace MoneFeWinForms
         void WriteCSV();
     }
 
-    struct OperationValue
-    {
-        string category;
-        double value;
-    }
-
     class MoneyOperation : ICSVWritable, IComparable
     {
-        public DateTime Time { get; set; }
+        public Currency AccCurrency { get; set; }
         public string Category { get; set; }
         public string Account { get; set; }
         public double Value { get; set; }
+
+        public MoneyOperation(Currency currency ,string category, string account, double value)
+        {
+            AccCurrency = currency;
+            Category = category;
+            Account = account;
+            Value = value;
+        }
 
         public int CompareTo(object obj)
         {
@@ -193,6 +199,15 @@ namespace MoneFeWinForms
         public bool Hidden { get; set; }
         public string AccName { get; set; }
         public double Balance { get; set; }
+
+        public Account(Currency accCurrency, bool hidden, string accName, double balance)
+        {
+            AccCurrency = accCurrency;
+            Hidden = hidden;
+            AccName = accName;
+            Balance = balance;
+        }
+
         public int CompareTo(object obj)
         {
             throw new NotImplementedException();
@@ -204,21 +219,36 @@ namespace MoneFeWinForms
         }
     }
 
-    class MoneFyBuild
+    class MoneFyFormsBuild
     {
         public List<Account> Accounts { get; set; }
-        public MoneyOperation Operations { get; set; }
+        public SortedList<DateTime, List<MoneyOperation>> Operations { get; set; }
         public Dictionary<string, string> Categories { get; set; }
         public Dictionary<string, string> Interface { get; set; }
-        public MoneFyBuild(Languages lang)
+        public MoneFyFormsBuild(Languages lang)
         {
-            Console.WriteLine((250f / 1500f).ToString("0.00%"));
-            LoadLang(lang);
+            Operations = new SortedList<DateTime, List<MoneyOperation>>();
+            ChangeLang(lang);
+            Accounts = new List<Account>();
         }
-        public void LoadLang(Languages lang)
+        public void ChangeLang(Languages lang)
         {
             Categories = MoneFeItemsLanguage.LoadCategories(lang);
             Interface = MoneFeItemsLanguage.LoadAppInterface(lang);
+            Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm", "account", 2321.5) });
+            DateTime t = new DateTime();
+            t = DateTime.Now.Date;
+            Console.WriteLine(Operations[t][0].Account);
+            var nese = (from item in Operations
+                        where item.Key >= t
+                        select item).ToList();
+
+            //Console.WriteLine(nese);
+
+            foreach (var item in nese)
+            {
+                Console.WriteLine(item.Value[0].Account);
+            }
         }
     }
 }

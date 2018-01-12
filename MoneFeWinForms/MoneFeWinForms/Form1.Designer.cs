@@ -46,6 +46,7 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem1.Text = Monefy.Interface["exit"];
             this.lbIncome.Text = Monefy.Interface["income"] + ":";
             this.lbOutcome.Text = Monefy.Interface["outcome"] + ":";
+            this.btnAddCategory.Text = Monefy.Interface["add"];
         }
 
         private void LoadCategoriesChart()
@@ -70,9 +71,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -103,11 +104,28 @@ namespace MoneFeWinForms
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTipCategory = new System.Windows.Forms.ToolTip(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.btnAddCategory = new System.Windows.Forms.Button();
+            this.tnAmount = new System.Windows.Forms.TextBox();
+            this.lbAddToCategory = new System.Windows.Forms.Label();
+            this.lbAddedCategory = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.pbSelectedCategoryImg = new System.Windows.Forms.PictureBox();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -300,7 +318,7 @@ namespace MoneFeWinForms
             this.mainPanel.Controls.Add(this.btnEatingOut);
             this.mainPanel.Controls.Add(this.btnEntertainment);
             this.mainPanel.Controls.Add(this.btnHealth);
-            this.mainPanel.Location = new System.Drawing.Point(12, 51);
+            this.mainPanel.Location = new System.Drawing.Point(12, 27);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(322, 386);
             this.mainPanel.TabIndex = 15;
@@ -426,21 +444,21 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(340, 50);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
+            this.chart1.Location = new System.Drawing.Point(964, 461);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
-            series1.Name = "Categories";
-            series1.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(463, 384);
+            series5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series5.Legend = "Legend1";
+            series5.Name = "Categories";
+            series5.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series5);
+            this.chart1.Size = new System.Drawing.Size(32, 10);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
@@ -456,12 +474,194 @@ namespace MoneFeWinForms
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // btnAddCategory
+            // 
+            this.btnAddCategory.Location = new System.Drawing.Point(368, 398);
+            this.btnAddCategory.Name = "btnAddCategory";
+            this.btnAddCategory.Size = new System.Drawing.Size(312, 35);
+            this.btnAddCategory.TabIndex = 0;
+            this.btnAddCategory.Text = "Add";
+            this.btnAddCategory.UseVisualStyleBackColor = true;
+            // 
+            // tnAmount
+            // 
+            this.tnAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tnAmount.Location = new System.Drawing.Point(368, 190);
+            this.tnAmount.Name = "tnAmount";
+            this.tnAmount.Size = new System.Drawing.Size(312, 26);
+            this.tnAmount.TabIndex = 1;
+            // 
+            // lbAddToCategory
+            // 
+            this.lbAddToCategory.AutoSize = true;
+            this.lbAddToCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToCategory.ForeColor = System.Drawing.Color.Green;
+            this.lbAddToCategory.Location = new System.Drawing.Point(365, 129);
+            this.lbAddToCategory.Name = "lbAddToCategory";
+            this.lbAddToCategory.Size = new System.Drawing.Size(0, 24);
+            this.lbAddToCategory.TabIndex = 19;
+            // 
+            // lbAddedCategory
+            // 
+            this.lbAddedCategory.AutoSize = true;
+            this.lbAddedCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddedCategory.ForeColor = System.Drawing.Color.Brown;
+            this.lbAddedCategory.Location = new System.Drawing.Point(365, 153);
+            this.lbAddedCategory.Name = "lbAddedCategory";
+            this.lbAddedCategory.Size = new System.Drawing.Size(0, 24);
+            this.lbAddedCategory.TabIndex = 20;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button2.Location = new System.Drawing.Point(368, 223);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 35);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "1";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button3.Location = new System.Drawing.Point(474, 222);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 35);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "2";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button4.Location = new System.Drawing.Point(580, 222);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(100, 35);
+            this.button4.TabIndex = 23;
+            this.button4.Text = "3";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button5.Location = new System.Drawing.Point(368, 267);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 35);
+            this.button5.TabIndex = 24;
+            this.button5.Text = "4";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button6.Location = new System.Drawing.Point(474, 313);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(100, 35);
+            this.button6.TabIndex = 28;
+            this.button6.Text = "8";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button7.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button7.Location = new System.Drawing.Point(368, 312);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(100, 35);
+            this.button7.TabIndex = 27;
+            this.button7.Text = "7";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button8.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button8.Location = new System.Drawing.Point(580, 267);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(100, 35);
+            this.button8.TabIndex = 26;
+            this.button8.Text = "6";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button9.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button9.Location = new System.Drawing.Point(474, 267);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(100, 35);
+            this.button9.TabIndex = 25;
+            this.button9.Text = "5";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button12.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button12.Location = new System.Drawing.Point(368, 357);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(100, 35);
+            this.button12.TabIndex = 30;
+            this.button12.Text = "0";
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button13.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button13.Location = new System.Drawing.Point(580, 312);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(100, 35);
+            this.button13.TabIndex = 29;
+            this.button13.Text = "9";
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button10.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button10.Location = new System.Drawing.Point(474, 357);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(206, 36);
+            this.button10.TabIndex = 31;
+            this.button10.Text = "<-";
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // pbSelectedCategoryImg
+            // 
+            this.pbSelectedCategoryImg.Location = new System.Drawing.Point(605, 129);
+            this.pbSelectedCategoryImg.Name = "pbSelectedCategoryImg";
+            this.pbSelectedCategoryImg.Size = new System.Drawing.Size(75, 55);
+            this.pbSelectedCategoryImg.TabIndex = 32;
+            this.pbSelectedCategoryImg.TabStop = false;
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
-            this.ClientSize = new System.Drawing.Size(1008, 500);
+            this.ClientSize = new System.Drawing.Size(1008, 483);
+            this.Controls.Add(this.pbSelectedCategoryImg);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.lbAddedCategory);
+            this.Controls.Add(this.lbAddToCategory);
+            this.Controls.Add(this.tnAmount);
+            this.Controls.Add(this.btnAddCategory);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
@@ -479,6 +679,7 @@ namespace MoneFeWinForms
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -516,6 +717,22 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbOutcome;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddCategory;
+        private System.Windows.Forms.TextBox tnAmount;
+        private System.Windows.Forms.Label lbAddToCategory;
+        private System.Windows.Forms.Label lbAddedCategory;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.PictureBox pbSelectedCategoryImg;
     }
 }
 

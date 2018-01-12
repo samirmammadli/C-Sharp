@@ -12,13 +12,13 @@ namespace MoneFeWinForms
 {
     public partial class MoneFy : Form
     {
-        private MoneFyBuild Monefy;
+        private MoneFyFormsBuild Monefy;
         private int x;
         public MoneFy()
         {
             x = 10000;
             InitializeComponent();
-            Monefy = new MoneFyBuild(Languages.EN);
+            Monefy = new MoneFyFormsBuild(Languages.EN);
             LoadLang();
         }
 
@@ -38,7 +38,7 @@ namespace MoneFeWinForms
         {
             englishToolStripMenuItem.Checked = false;
             русскийToolStripMenuItem.Checked = true;
-            Monefy.LoadLang(Languages.RU);
+            Monefy.ChangeLang(Languages.RU);
             LoadLang();
         }
 
@@ -46,13 +46,16 @@ namespace MoneFeWinForms
         {
             englishToolStripMenuItem.Checked = true;
             русскийToolStripMenuItem.Checked = false;
-            Monefy.LoadLang(Languages.EN);
+            Monefy.ChangeLang(Languages.EN);
             LoadLang();
         }
 
         private void btnCar_Click(object sender, EventArgs e)
         {
-
+            //lbAddedCategory.ForeColor = pbSelectedCategoryImg.Image.;
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnCar);
+            pbSelectedCategoryImg.Image = btnCar.Image;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -68,5 +71,6 @@ namespace MoneFeWinForms
             //MessageBox.Show(chart1.Series["Categories"].Points[1].YValues[0].ToString());
 
         }
+
     }
 }
