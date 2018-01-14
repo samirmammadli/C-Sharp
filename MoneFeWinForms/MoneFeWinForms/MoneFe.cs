@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 11)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 12)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -85,7 +85,8 @@ namespace MoneFeWinForms
                 "Outcome",
                 "Category",
                 "Add to category:",
-                "Add"
+                "Add",
+                "Add new account"
             };
         }
 
@@ -124,7 +125,8 @@ namespace MoneFeWinForms
                     { "outcome", AppInterface[i++] },
                     { "category", AppInterface[i++] },
                     { "addToCategory", AppInterface[i++] },
-                    { "add", AppInterface[i++] }
+                    { "add", AppInterface[i++] },
+                    { "addNewAccount", AppInterface[i++] }
                 };
         }
     }
@@ -154,11 +156,11 @@ namespace MoneFeWinForms
 
     class MoneyOperation : ICSVWritable, IComparable
     {
-        public Currency AccCurrency { get; set; }
-        public string Category { get; set; }
-        public string Account { get; set; }
-        public string Notes { get; set; }
-        public double Value { get; set; }
+        public Currency AccCurrency { get; }
+        public string Category { get; }
+        public string Account { get; }
+        public string Notes { get; }
+        public double Value { get; }
 
         public MoneyOperation(Currency currency ,string category, string account, string notes, double value)
         {
@@ -241,16 +243,13 @@ namespace MoneFeWinForms
             
             DateTime t = new DateTime();
             t = DateTime.Now.Date;
-            Console.WriteLine(Operations[t][0].Account);
             var nese = (from item in Operations
                         where item.Key >= t
                         select item).ToList();
 
-            //Console.WriteLine(nese);
-
             foreach (var item in nese)
             {
-                Console.WriteLine(item.Value[0].Account);
+                Console.WriteLine($"{item.Value[0].Account}  {item.Value[0].Value}");
             }
         }
     }

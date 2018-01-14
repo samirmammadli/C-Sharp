@@ -39,6 +39,7 @@ namespace MoneFeWinForms
             toolTipCategory.SetToolTip(this.btnTransport, Monefy.Categories["transport"]);
             //Interface
             this.toolTipCategory.ToolTipTitle = Monefy.Interface["category"] + ":";
+            this.toolTipInterface.ToolTipTitle = "";
             this.languageToolStripMenuItem.Text = Monefy.Interface["language"];
             this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
             this.русскийToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
@@ -47,6 +48,7 @@ namespace MoneFeWinForms
             this.lbIncome.Text = Monefy.Interface["income"] + ":";
             this.lbOutcome.Text = Monefy.Interface["outcome"] + ":";
             this.btnAddCategory.Text = Monefy.Interface["add"];
+            toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
         }
 
         private void LoadCategoriesChart()
@@ -71,9 +73,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -89,6 +91,7 @@ namespace MoneFeWinForms
             this.btnTaxi = new System.Windows.Forms.Button();
             this.btnSport = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.btnAddAccount = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbOutcome = new System.Windows.Forms.Label();
@@ -121,12 +124,17 @@ namespace MoneFeWinForms
             this.btnErase = new System.Windows.Forms.Button();
             this.pbSelectedCategoryImg = new System.Windows.Forms.PictureBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.buttonDot = new System.Windows.Forms.Button();
+            this.pnlAddAmount = new System.Windows.Forms.Panel();
+            this.toolTipInterface = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlAddAcount = new System.Windows.Forms.Panel();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).BeginInit();
+            this.pnlAddAmount.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -135,7 +143,7 @@ namespace MoneFeWinForms
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.Color.Transparent;
             this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
-            this.btnAdd.Location = new System.Drawing.Point(240, 306);
+            this.btnAdd.Location = new System.Drawing.Point(241, 400);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(77, 77);
             this.btnAdd.TabIndex = 14;
@@ -147,7 +155,7 @@ namespace MoneFeWinForms
             this.btnCharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCharge.ForeColor = System.Drawing.Color.Transparent;
             this.btnCharge.Image = ((System.Drawing.Image)(resources.GetObject("btnCharge.Image")));
-            this.btnCharge.Location = new System.Drawing.Point(3, 306);
+            this.btnCharge.Location = new System.Drawing.Point(4, 400);
             this.btnCharge.Name = "btnCharge";
             this.btnCharge.Size = new System.Drawing.Size(77, 77);
             this.btnCharge.TabIndex = 13;
@@ -159,11 +167,12 @@ namespace MoneFeWinForms
             this.btnClothes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClothes.ForeColor = System.Drawing.Color.Transparent;
             this.btnClothes.Image = ((System.Drawing.Image)(resources.GetObject("btnClothes.Image")));
-            this.btnClothes.Location = new System.Drawing.Point(83, 3);
+            this.btnClothes.Location = new System.Drawing.Point(84, 97);
             this.btnClothes.Name = "btnClothes";
             this.btnClothes.Size = new System.Drawing.Size(74, 64);
             this.btnClothes.TabIndex = 2;
             this.btnClothes.UseVisualStyleBackColor = false;
+            this.btnClothes.Click += new System.EventHandler(this.btnClothes_Click);
             // 
             // btnCommunication
             // 
@@ -171,11 +180,12 @@ namespace MoneFeWinForms
             this.btnCommunication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCommunication.ForeColor = System.Drawing.Color.Transparent;
             this.btnCommunication.Image = ((System.Drawing.Image)(resources.GetObject("btnCommunication.Image")));
-            this.btnCommunication.Location = new System.Drawing.Point(163, 73);
+            this.btnCommunication.Location = new System.Drawing.Point(164, 167);
             this.btnCommunication.Name = "btnCommunication";
             this.btnCommunication.Size = new System.Drawing.Size(74, 64);
             this.btnCommunication.TabIndex = 7;
             this.btnCommunication.UseVisualStyleBackColor = false;
+            this.btnCommunication.Click += new System.EventHandler(this.btnCommunication_Click);
             // 
             // btnCar
             // 
@@ -183,7 +193,7 @@ namespace MoneFeWinForms
             this.btnCar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCar.ForeColor = System.Drawing.Color.Transparent;
             this.btnCar.Image = ((System.Drawing.Image)(resources.GetObject("btnCar.Image")));
-            this.btnCar.Location = new System.Drawing.Point(3, 3);
+            this.btnCar.Location = new System.Drawing.Point(4, 97);
             this.btnCar.Name = "btnCar";
             this.btnCar.Size = new System.Drawing.Size(74, 64);
             this.btnCar.TabIndex = 1;
@@ -198,11 +208,12 @@ namespace MoneFeWinForms
             this.btnEntertainment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntertainment.ForeColor = System.Drawing.Color.Transparent;
             this.btnEntertainment.Image = ((System.Drawing.Image)(resources.GetObject("btnEntertainment.Image")));
-            this.btnEntertainment.Location = new System.Drawing.Point(240, 3);
+            this.btnEntertainment.Location = new System.Drawing.Point(241, 97);
             this.btnEntertainment.Name = "btnEntertainment";
             this.btnEntertainment.Size = new System.Drawing.Size(74, 64);
             this.btnEntertainment.TabIndex = 4;
             this.btnEntertainment.UseVisualStyleBackColor = false;
+            this.btnEntertainment.Click += new System.EventHandler(this.btnEntertainment_Click);
             // 
             // btnFood
             // 
@@ -210,11 +221,12 @@ namespace MoneFeWinForms
             this.btnFood.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFood.ForeColor = System.Drawing.Color.Transparent;
             this.btnFood.Image = ((System.Drawing.Image)(resources.GetObject("btnFood.Image")));
-            this.btnFood.Location = new System.Drawing.Point(6, 73);
+            this.btnFood.Location = new System.Drawing.Point(7, 167);
             this.btnFood.Name = "btnFood";
             this.btnFood.Size = new System.Drawing.Size(74, 64);
             this.btnFood.TabIndex = 5;
             this.btnFood.UseVisualStyleBackColor = false;
+            this.btnFood.Click += new System.EventHandler(this.btnFood_Click);
             // 
             // btnGifts
             // 
@@ -222,11 +234,12 @@ namespace MoneFeWinForms
             this.btnGifts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGifts.ForeColor = System.Drawing.Color.Transparent;
             this.btnGifts.Image = ((System.Drawing.Image)(resources.GetObject("btnGifts.Image")));
-            this.btnGifts.Location = new System.Drawing.Point(83, 73);
+            this.btnGifts.Location = new System.Drawing.Point(84, 167);
             this.btnGifts.Name = "btnGifts";
             this.btnGifts.Size = new System.Drawing.Size(74, 64);
             this.btnGifts.TabIndex = 6;
             this.btnGifts.UseVisualStyleBackColor = false;
+            this.btnGifts.Click += new System.EventHandler(this.btnGifts_Click);
             // 
             // btnHealth
             // 
@@ -234,11 +247,12 @@ namespace MoneFeWinForms
             this.btnHealth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHealth.ForeColor = System.Drawing.Color.Transparent;
             this.btnHealth.Image = ((System.Drawing.Image)(resources.GetObject("btnHealth.Image")));
-            this.btnHealth.Location = new System.Drawing.Point(243, 73);
+            this.btnHealth.Location = new System.Drawing.Point(244, 167);
             this.btnHealth.Name = "btnHealth";
             this.btnHealth.Size = new System.Drawing.Size(74, 64);
             this.btnHealth.TabIndex = 8;
             this.btnHealth.UseVisualStyleBackColor = false;
+            this.btnHealth.Click += new System.EventHandler(this.btnHealth_Click);
             // 
             // btnEatingOut
             // 
@@ -246,11 +260,12 @@ namespace MoneFeWinForms
             this.btnEatingOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEatingOut.ForeColor = System.Drawing.Color.Transparent;
             this.btnEatingOut.Image = ((System.Drawing.Image)(resources.GetObject("btnEatingOut.Image")));
-            this.btnEatingOut.Location = new System.Drawing.Point(163, 3);
+            this.btnEatingOut.Location = new System.Drawing.Point(164, 97);
             this.btnEatingOut.Name = "btnEatingOut";
             this.btnEatingOut.Size = new System.Drawing.Size(74, 64);
             this.btnEatingOut.TabIndex = 3;
             this.btnEatingOut.UseVisualStyleBackColor = false;
+            this.btnEatingOut.Click += new System.EventHandler(this.btnEatingOut_Click);
             // 
             // btnHouse
             // 
@@ -258,11 +273,12 @@ namespace MoneFeWinForms
             this.btnHouse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHouse.ForeColor = System.Drawing.Color.Transparent;
             this.btnHouse.Image = ((System.Drawing.Image)(resources.GetObject("btnHouse.Image")));
-            this.btnHouse.Location = new System.Drawing.Point(3, 143);
+            this.btnHouse.Location = new System.Drawing.Point(4, 237);
             this.btnHouse.Name = "btnHouse";
             this.btnHouse.Size = new System.Drawing.Size(74, 64);
             this.btnHouse.TabIndex = 9;
             this.btnHouse.UseVisualStyleBackColor = false;
+            this.btnHouse.Click += new System.EventHandler(this.btnHouse_Click);
             // 
             // btnTransport
             // 
@@ -270,11 +286,12 @@ namespace MoneFeWinForms
             this.btnTransport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTransport.ForeColor = System.Drawing.Color.Transparent;
             this.btnTransport.Image = ((System.Drawing.Image)(resources.GetObject("btnTransport.Image")));
-            this.btnTransport.Location = new System.Drawing.Point(243, 143);
+            this.btnTransport.Location = new System.Drawing.Point(244, 237);
             this.btnTransport.Name = "btnTransport";
             this.btnTransport.Size = new System.Drawing.Size(74, 64);
             this.btnTransport.TabIndex = 12;
             this.btnTransport.UseVisualStyleBackColor = false;
+            this.btnTransport.Click += new System.EventHandler(this.btnTransport_Click);
             // 
             // btnTaxi
             // 
@@ -282,11 +299,12 @@ namespace MoneFeWinForms
             this.btnTaxi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTaxi.ForeColor = System.Drawing.Color.Transparent;
             this.btnTaxi.Image = ((System.Drawing.Image)(resources.GetObject("btnTaxi.Image")));
-            this.btnTaxi.Location = new System.Drawing.Point(163, 143);
+            this.btnTaxi.Location = new System.Drawing.Point(164, 237);
             this.btnTaxi.Name = "btnTaxi";
             this.btnTaxi.Size = new System.Drawing.Size(74, 64);
             this.btnTaxi.TabIndex = 11;
             this.btnTaxi.UseVisualStyleBackColor = false;
+            this.btnTaxi.Click += new System.EventHandler(this.btnTaxi_Click);
             // 
             // btnSport
             // 
@@ -294,19 +312,22 @@ namespace MoneFeWinForms
             this.btnSport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSport.ForeColor = System.Drawing.Color.Transparent;
             this.btnSport.Image = ((System.Drawing.Image)(resources.GetObject("btnSport.Image")));
-            this.btnSport.Location = new System.Drawing.Point(83, 143);
+            this.btnSport.Location = new System.Drawing.Point(84, 237);
             this.btnSport.Name = "btnSport";
             this.btnSport.Size = new System.Drawing.Size(74, 64);
             this.btnSport.TabIndex = 10;
             this.btnSport.UseVisualStyleBackColor = false;
+            this.btnSport.Click += new System.EventHandler(this.btnSport_Click);
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.btnAddAccount);
             this.mainPanel.Controls.Add(this.panel1);
             this.mainPanel.Controls.Add(this.pnlBalance);
             this.mainPanel.Controls.Add(this.btnCar);
             this.mainPanel.Controls.Add(this.btnTransport);
             this.mainPanel.Controls.Add(this.btnGifts);
+            this.mainPanel.Controls.Add(this.btnCalendar);
             this.mainPanel.Controls.Add(this.btnFood);
             this.mainPanel.Controls.Add(this.btnCommunication);
             this.mainPanel.Controls.Add(this.btnAdd);
@@ -318,17 +339,30 @@ namespace MoneFeWinForms
             this.mainPanel.Controls.Add(this.btnEatingOut);
             this.mainPanel.Controls.Add(this.btnEntertainment);
             this.mainPanel.Controls.Add(this.btnHealth);
-            this.mainPanel.Location = new System.Drawing.Point(12, 27);
+            this.mainPanel.Location = new System.Drawing.Point(12, 75);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(322, 386);
+            this.mainPanel.Size = new System.Drawing.Size(322, 485);
             this.mainPanel.TabIndex = 15;
+            // 
+            // btnAddAccount
+            // 
+            this.btnAddAccount.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddAccount.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddAccount.Image = ((System.Drawing.Image)(resources.GetObject("btnAddAccount.Image")));
+            this.btnAddAccount.Location = new System.Drawing.Point(3, 3);
+            this.btnAddAccount.Name = "btnAddAccount";
+            this.btnAddAccount.Size = new System.Drawing.Size(74, 64);
+            this.btnAddAccount.TabIndex = 19;
+            this.btnAddAccount.Tag = "";
+            this.btnAddAccount.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Crimson;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lbOutcome);
-            this.panel1.Location = new System.Drawing.Point(3, 258);
+            this.panel1.Location = new System.Drawing.Point(4, 352);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(314, 39);
             this.panel1.TabIndex = 18;
@@ -362,7 +396,7 @@ namespace MoneFeWinForms
             this.pnlBalance.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlBalance.BackgroundImage")));
             this.pnlBalance.Controls.Add(this.lbBalanceValue);
             this.pnlBalance.Controls.Add(this.lbIncome);
-            this.pnlBalance.Location = new System.Drawing.Point(3, 213);
+            this.pnlBalance.Location = new System.Drawing.Point(4, 307);
             this.pnlBalance.Name = "pnlBalance";
             this.pnlBalance.Size = new System.Drawing.Size(314, 39);
             this.pnlBalance.TabIndex = 17;
@@ -397,7 +431,7 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(1412, 24);
+            this.MenuStrip.Size = new System.Drawing.Size(1160, 24);
             this.MenuStrip.TabIndex = 16;
             this.MenuStrip.Text = "menuStrip1";
             // 
@@ -444,20 +478,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(964, 461);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(721, 512);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
-            series1.Name = "Categories";
-            series1.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series1);
+            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Categories";
+            series2.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(32, 10);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -467,7 +501,7 @@ namespace MoneFeWinForms
             this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
             this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
-            this.btnCalendar.Location = new System.Drawing.Point(852, 54);
+            this.btnCalendar.Location = new System.Drawing.Point(246, 3);
             this.btnCalendar.Name = "btnCalendar";
             this.btnCalendar.Size = new System.Drawing.Size(69, 64);
             this.btnCalendar.TabIndex = 18;
@@ -476,17 +510,18 @@ namespace MoneFeWinForms
             // 
             // btnAddCategory
             // 
-            this.btnAddCategory.Location = new System.Drawing.Point(368, 398);
+            this.btnAddCategory.Location = new System.Drawing.Point(3, 211);
             this.btnAddCategory.Name = "btnAddCategory";
             this.btnAddCategory.Size = new System.Drawing.Size(312, 35);
             this.btnAddCategory.TabIndex = 0;
             this.btnAddCategory.Text = "Add";
             this.btnAddCategory.UseVisualStyleBackColor = true;
+            this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
             // tbAmount
             // 
             this.tbAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbAmount.Location = new System.Drawing.Point(368, 190);
+            this.tbAmount.Location = new System.Drawing.Point(3, 3);
             this.tbAmount.Name = "tbAmount";
             this.tbAmount.Size = new System.Drawing.Size(312, 26);
             this.tbAmount.TabIndex = 1;
@@ -519,7 +554,7 @@ namespace MoneFeWinForms
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button1.Location = new System.Drawing.Point(368, 223);
+            this.button1.Location = new System.Drawing.Point(3, 36);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 35);
             this.button1.TabIndex = 21;
@@ -531,7 +566,7 @@ namespace MoneFeWinForms
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button2.Location = new System.Drawing.Point(474, 222);
+            this.button2.Location = new System.Drawing.Point(109, 35);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 35);
             this.button2.TabIndex = 22;
@@ -543,7 +578,7 @@ namespace MoneFeWinForms
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button3.Location = new System.Drawing.Point(580, 222);
+            this.button3.Location = new System.Drawing.Point(215, 35);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 35);
             this.button3.TabIndex = 23;
@@ -555,7 +590,7 @@ namespace MoneFeWinForms
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button4.Location = new System.Drawing.Point(368, 267);
+            this.button4.Location = new System.Drawing.Point(3, 80);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 35);
             this.button4.TabIndex = 24;
@@ -567,7 +602,7 @@ namespace MoneFeWinForms
             // 
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button8.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button8.Location = new System.Drawing.Point(474, 313);
+            this.button8.Location = new System.Drawing.Point(109, 125);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(100, 35);
             this.button8.TabIndex = 28;
@@ -579,7 +614,7 @@ namespace MoneFeWinForms
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button7.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button7.Location = new System.Drawing.Point(368, 312);
+            this.button7.Location = new System.Drawing.Point(3, 125);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(100, 35);
             this.button7.TabIndex = 27;
@@ -591,7 +626,7 @@ namespace MoneFeWinForms
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button6.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button6.Location = new System.Drawing.Point(580, 267);
+            this.button6.Location = new System.Drawing.Point(215, 80);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(100, 35);
             this.button6.TabIndex = 26;
@@ -603,7 +638,7 @@ namespace MoneFeWinForms
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button5.Location = new System.Drawing.Point(474, 267);
+            this.button5.Location = new System.Drawing.Point(109, 80);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 35);
             this.button5.TabIndex = 25;
@@ -615,7 +650,7 @@ namespace MoneFeWinForms
             // 
             this.button0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button0.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button0.Location = new System.Drawing.Point(368, 357);
+            this.button0.Location = new System.Drawing.Point(3, 170);
             this.button0.Name = "button0";
             this.button0.Size = new System.Drawing.Size(100, 35);
             this.button0.TabIndex = 30;
@@ -627,7 +662,7 @@ namespace MoneFeWinForms
             // 
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button9.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button9.Location = new System.Drawing.Point(580, 312);
+            this.button9.Location = new System.Drawing.Point(215, 125);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(100, 35);
             this.button9.TabIndex = 29;
@@ -639,52 +674,85 @@ namespace MoneFeWinForms
             // 
             this.btnErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnErase.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnErase.Location = new System.Drawing.Point(474, 357);
+            this.btnErase.Location = new System.Drawing.Point(215, 170);
             this.btnErase.Name = "btnErase";
-            this.btnErase.Size = new System.Drawing.Size(206, 36);
+            this.btnErase.Size = new System.Drawing.Size(100, 36);
             this.btnErase.TabIndex = 31;
             this.btnErase.Text = "<-";
             this.btnErase.UseVisualStyleBackColor = true;
+            this.btnErase.Click += new System.EventHandler(this.btnErase_Click);
             // 
             // pbSelectedCategoryImg
             // 
-            this.pbSelectedCategoryImg.Location = new System.Drawing.Point(605, 129);
+            this.pbSelectedCategoryImg.Location = new System.Drawing.Point(605, 116);
             this.pbSelectedCategoryImg.Name = "pbSelectedCategoryImg";
-            this.pbSelectedCategoryImg.Size = new System.Drawing.Size(75, 55);
+            this.pbSelectedCategoryImg.Size = new System.Drawing.Size(75, 68);
             this.pbSelectedCategoryImg.TabIndex = 32;
             this.pbSelectedCategoryImg.TabStop = false;
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(721, 27);
+            this.dateTimePicker1.MaxDate = new System.DateTime(2018, 1, 14, 0, 0, 0, 0);
+            this.dateTimePicker1.MinDate = new System.DateTime(1990, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 33;
+            this.dateTimePicker1.Value = new System.DateTime(2018, 1, 14, 0, 0, 0, 0);
+            // 
+            // buttonDot
+            // 
+            this.buttonDot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonDot.ForeColor = System.Drawing.Color.DarkGreen;
+            this.buttonDot.Location = new System.Drawing.Point(109, 170);
+            this.buttonDot.Name = "buttonDot";
+            this.buttonDot.Size = new System.Drawing.Size(100, 35);
+            this.buttonDot.TabIndex = 34;
+            this.buttonDot.Text = ".";
+            this.buttonDot.UseVisualStyleBackColor = true;
+            this.buttonDot.Click += new System.EventHandler(this.buttonDot_Click);
+            // 
+            // pnlAddAmount
+            // 
+            this.pnlAddAmount.Controls.Add(this.tbAmount);
+            this.pnlAddAmount.Controls.Add(this.btnAddCategory);
+            this.pnlAddAmount.Controls.Add(this.buttonDot);
+            this.pnlAddAmount.Controls.Add(this.button1);
+            this.pnlAddAmount.Controls.Add(this.button2);
+            this.pnlAddAmount.Controls.Add(this.button3);
+            this.pnlAddAmount.Controls.Add(this.btnErase);
+            this.pnlAddAmount.Controls.Add(this.button4);
+            this.pnlAddAmount.Controls.Add(this.button0);
+            this.pnlAddAmount.Controls.Add(this.button5);
+            this.pnlAddAmount.Controls.Add(this.button9);
+            this.pnlAddAmount.Controls.Add(this.button6);
+            this.pnlAddAmount.Controls.Add(this.button8);
+            this.pnlAddAmount.Controls.Add(this.button7);
+            this.pnlAddAmount.Location = new System.Drawing.Point(360, 195);
+            this.pnlAddAmount.Name = "pnlAddAmount";
+            this.pnlAddAmount.Size = new System.Drawing.Size(320, 261);
+            this.pnlAddAmount.TabIndex = 36;
+            // 
+            // pnlAddAcount
+            // 
+            this.pnlAddAcount.Location = new System.Drawing.Point(757, 231);
+            this.pnlAddAcount.Name = "pnlAddAcount";
+            this.pnlAddAcount.Size = new System.Drawing.Size(295, 210);
+            this.pnlAddAcount.TabIndex = 37;
             // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
-            this.ClientSize = new System.Drawing.Size(1412, 637);
+            this.ClientSize = new System.Drawing.Size(1160, 572);
+            this.Controls.Add(this.pnlAddAcount);
+            this.Controls.Add(this.pnlAddAmount);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.pbSelectedCategoryImg);
-            this.Controls.Add(this.btnErase);
-            this.Controls.Add(this.button0);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbAddedCategory);
             this.Controls.Add(this.lbAddToCategory);
-            this.Controls.Add(this.tbAmount);
-            this.Controls.Add(this.btnAddCategory);
-            this.Controls.Add(this.btnCalendar);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.MenuStrip);
@@ -702,6 +770,8 @@ namespace MoneFeWinForms
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).EndInit();
+            this.pnlAddAmount.ResumeLayout(false);
+            this.pnlAddAmount.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -756,6 +826,11 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Button btnErase;
         private System.Windows.Forms.PictureBox pbSelectedCategoryImg;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button buttonDot;
+        private System.Windows.Forms.Panel pnlAddAmount;
+        private System.Windows.Forms.Button btnAddAccount;
+        private System.Windows.Forms.ToolTip toolTipInterface;
+        private System.Windows.Forms.Panel pnlAddAcount;
     }
 }
 

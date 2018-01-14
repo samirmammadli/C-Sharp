@@ -54,6 +54,15 @@ namespace MoneFeWinForms
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
+            foreach (var item in Monefy.Operations)
+            {
+                foreach (var operaiton in item.Value)
+                {
+                    MessageBox.Show(
+                        $"{operaiton.Account}  {operaiton.AccCurrency}  {operaiton.Category}  {operaiton.Value}");
+                }
+            }
+
             //chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
             chart1.Series["Categories"].Points.Clear();
             LoadCategoriesChart();
@@ -68,7 +77,10 @@ namespace MoneFeWinForms
 
         private void tnAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !Char.IsDigit(e.KeyChar) && e.KeyChar != 8;
+            if (e.KeyChar == '.' && (tbAmount.Text.Contains(".") || tbAmount.TextLength == 0))
+                e.Handled = true;
+            else if (!(Char.IsDigit(e.KeyChar) || e.KeyChar == 8 || e.KeyChar == '.'))
+                e.Handled = true;
         }
 
 
@@ -158,6 +170,105 @@ namespace MoneFeWinForms
             if (tbAmount.Text == "0")
                 tbAmount.Text = "";
             tbAmount.Text += "0";
+        }
+
+        private void btnClothes_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnClothes);
+            pbSelectedCategoryImg.Image = btnClothes.Image;
+        }
+
+        private void btnEatingOut_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnEatingOut);
+            pbSelectedCategoryImg.Image = btnEatingOut.Image;
+        }
+
+        private void btnEntertainment_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnEntertainment);
+            pbSelectedCategoryImg.Image = btnEntertainment.Image;
+        }
+
+        private void btnFood_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnFood);
+            pbSelectedCategoryImg.Image = btnFood.Image;
+        }
+
+        private void btnGifts_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnGifts);
+            pbSelectedCategoryImg.Image = btnGifts.Image;
+        }
+
+        private void btnCommunication_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnCommunication);
+            pbSelectedCategoryImg.Image = btnCommunication.Image;
+        }
+
+        private void btnHealth_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnHealth);
+            pbSelectedCategoryImg.Image = btnHealth.Image;
+        }
+
+        private void btnHouse_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnHouse);
+            pbSelectedCategoryImg.Image = btnHouse.Image;
+        }
+
+        private void btnSport_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnSport);
+            pbSelectedCategoryImg.Image = btnSport.Image;
+        }
+
+        private void btnTaxi_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnTaxi);
+            pbSelectedCategoryImg.Image = btnTaxi.Image;
+        }
+
+        private void btnTransport_Click(object sender, EventArgs e)
+        {
+            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            lbAddedCategory.Text = toolTipCategory.GetToolTip(btnTransport);
+            pbSelectedCategoryImg.Image = btnTransport.Image;
+        }
+
+        private void btnErase_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.TextLength != 0)
+                tbAmount.Text = tbAmount.Text.Remove(tbAmount.TextLength - 1);
+            if (tbAmount.Text == string.Empty)
+                tbAmount.Text = "0";
+        }
+
+        private void buttonDot_Click(object sender, EventArgs e)
+        {
+            if (!tbAmount.Text.Contains(".") && tbAmount.TextLength != 0)
+                tbAmount.Text += ".";
+        }
+
+        private void btnAddCategory_Click(object sender, EventArgs e)
+        {
+            if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
+                Monefy.Operations[DateTime.Now.Date].Add(new MoneyOperation(Currency.AZN, "test", "test", "test", Convert.ToDouble(tbAmount.Text)));
+            else
+                Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm", "account", "uiwqgfouigwqof", 2321.5) });
         }
     }
 }
