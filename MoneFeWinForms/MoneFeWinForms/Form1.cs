@@ -75,33 +75,6 @@ namespace MoneFeWinForms
 
         }
 
-        private void tnAmount_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '.' && (tbAmount.Text.Contains(".") || tbAmount.TextLength == 0))
-                e.Handled = true;
-            else if (!(Char.IsDigit(e.KeyChar) || e.KeyChar == 8 || e.KeyChar == '.'))
-                e.Handled = true;
-        }
-
-
-        private void tbAmount_Enter(object sender, EventArgs e)
-        {
-            if (tbAmount.Text == "0")
-                tbAmount.Text = "";
-        }
-
-        private void tbAmount_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                Convert.ToDouble(tbAmount.Text);
-            }
-            catch (Exception)
-            {
-                tbAmount.Text = "0";
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (tbAmount.Text == "0")
@@ -259,8 +232,8 @@ namespace MoneFeWinForms
 
         private void buttonDot_Click(object sender, EventArgs e)
         {
-            if (!tbAmount.Text.Contains(".") && tbAmount.TextLength != 0)
-                tbAmount.Text += ".";
+            if (!tbAmount.Text.Contains(",") && tbAmount.TextLength != 0)
+                tbAmount.Text += ",";
         }
 
         private void btnAddCategory_Click(object sender, EventArgs e)
@@ -269,6 +242,38 @@ namespace MoneFeWinForms
                 Monefy.Operations[DateTime.Now.Date].Add(new MoneyOperation(Currency.AZN, "test", "test", "test", Convert.ToDouble(tbAmount.Text)));
             else
                 Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm", "account", "uiwqgfouigwqof", 2321.5) });
+        }
+
+        private void tbAmount_TextChanged(object sender, EventArgs e)
+        {
+            double value = 0;
+            try
+            {
+                if (tbAmount.TextLength > 0)
+                value = Convert.ToDouble(tbAmount.Text);
+            }
+            catch (Exception)
+            {
+                tbAmount.Text = "0";
+            }
+            int dot = tbAmount.Text.IndexOf(",");
+
+            if (tbAmount.TextLength > 0 && value > 999999999.99 || dot > 0 && tbAmount.TextLength - dot == 4)
+            {
+                tbAmount.Text = tbAmount.Text.Remove(tbAmount.TextLength - 1);
+                tbAmount.SelectionStart = tbAmount.TextLength;
+            }
+        }
+
+        private void tbAmount_Enter(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = string.Empty;
+        }
+
+        private void tbAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',';
         }
     }
 }

@@ -250,6 +250,7 @@ namespace MoneFeWinForms
             foreach (var item in nese)
             {
                 Console.WriteLine($"{item.Value[0].Account}  {item.Value[0].Value}");
+                Console.WriteLine(Convert.ToDouble("12321,535") + 15.5);
             }
         }
     }

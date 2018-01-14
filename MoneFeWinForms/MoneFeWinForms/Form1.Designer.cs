@@ -98,6 +98,7 @@ namespace MoneFeWinForms
             this.pnlBalance = new System.Windows.Forms.Panel();
             this.lbBalanceValue = new System.Windows.Forms.Label();
             this.lbIncome = new System.Windows.Forms.Label();
+            this.btnCalendar = new System.Windows.Forms.Button();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +107,6 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTipCategory = new System.Windows.Forms.ToolTip(this.components);
-            this.btnCalendar = new System.Windows.Forms.Button();
             this.btnAddCategory = new System.Windows.Forms.Button();
             this.tbAmount = new System.Windows.Forms.TextBox();
             this.lbAddToCategory = new System.Windows.Forms.Label();
@@ -425,6 +425,18 @@ namespace MoneFeWinForms
             this.lbIncome.TabIndex = 0;
             this.lbIncome.Text = "Income";
             // 
+            // btnCalendar
+            // 
+            this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
+            this.btnCalendar.Location = new System.Drawing.Point(246, 3);
+            this.btnCalendar.Name = "btnCalendar";
+            this.btnCalendar.Size = new System.Drawing.Size(69, 64);
+            this.btnCalendar.TabIndex = 18;
+            this.btnCalendar.UseVisualStyleBackColor = true;
+            this.btnCalendar.Click += new System.EventHandler(this.btnCalendar_Click);
+            // 
             // MenuStrip
             // 
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -496,18 +508,6 @@ namespace MoneFeWinForms
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
-            // btnCalendar
-            // 
-            this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
-            this.btnCalendar.Location = new System.Drawing.Point(246, 3);
-            this.btnCalendar.Name = "btnCalendar";
-            this.btnCalendar.Size = new System.Drawing.Size(69, 64);
-            this.btnCalendar.TabIndex = 18;
-            this.btnCalendar.UseVisualStyleBackColor = true;
-            this.btnCalendar.Click += new System.EventHandler(this.btnCalendar_Click);
-            // 
             // btnAddCategory
             // 
             this.btnAddCategory.Location = new System.Drawing.Point(3, 211);
@@ -526,9 +526,9 @@ namespace MoneFeWinForms
             this.tbAmount.Size = new System.Drawing.Size(312, 26);
             this.tbAmount.TabIndex = 1;
             this.tbAmount.Text = "0";
+            this.tbAmount.TextChanged += new System.EventHandler(this.tbAmount_TextChanged);
             this.tbAmount.Enter += new System.EventHandler(this.tbAmount_Enter);
-            this.tbAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tnAmount_KeyPress);
-            this.tbAmount.Leave += new System.EventHandler(this.tbAmount_Leave);
+            this.tbAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAmount_KeyPress);
             // 
             // lbAddToCategory
             // 
@@ -703,13 +703,13 @@ namespace MoneFeWinForms
             // 
             // buttonDot
             // 
-            this.buttonDot.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonDot.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonDot.ForeColor = System.Drawing.Color.DarkGreen;
             this.buttonDot.Location = new System.Drawing.Point(109, 170);
             this.buttonDot.Name = "buttonDot";
             this.buttonDot.Size = new System.Drawing.Size(100, 35);
             this.buttonDot.TabIndex = 34;
-            this.buttonDot.Text = ".";
+            this.buttonDot.Text = ",";
             this.buttonDot.UseVisualStyleBackColor = true;
             this.buttonDot.Click += new System.EventHandler(this.buttonDot_Click);
             // 
