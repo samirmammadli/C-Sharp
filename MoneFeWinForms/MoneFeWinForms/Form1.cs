@@ -22,11 +22,6 @@ namespace MoneFeWinForms
             LoadLang();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            LoadCategoriesChart();
-        }
-
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(Monefy.Interface["exit_warning"], Monefy.Interface["exit"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -57,7 +52,7 @@ namespace MoneFeWinForms
             pbSelectedCategoryImg.Image = btnCar.Image;
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void btnCalendar_Click(object sender, EventArgs e)
         {
             //chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
             chart1.Series["Categories"].Points.Clear();
@@ -92,8 +87,77 @@ namespace MoneFeWinForms
             catch (Exception)
             {
                 tbAmount.Text = "0";
-                //throw;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "1";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "2";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "3";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "4";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "5";
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "6";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "7";
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "8";
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "9";
+        }
+
+        private void button0_Click(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == "0")
+                tbAmount.Text = "";
+            tbAmount.Text += "0";
         }
     }
 }

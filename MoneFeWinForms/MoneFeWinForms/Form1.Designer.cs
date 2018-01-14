@@ -103,22 +103,22 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTipCategory = new System.Windows.Forms.ToolTip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCalendar = new System.Windows.Forms.Button();
             this.btnAddCategory = new System.Windows.Forms.Button();
             this.tbAmount = new System.Windows.Forms.TextBox();
             this.lbAddToCategory = new System.Windows.Forms.Label();
             this.lbAddedCategory = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button0 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.btnErase = new System.Windows.Forms.Button();
             this.pbSelectedCategoryImg = new System.Windows.Forms.PictureBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.mainPanel.SuspendLayout();
@@ -140,7 +140,6 @@ namespace MoneFeWinForms
             this.btnAdd.Size = new System.Drawing.Size(77, 77);
             this.btnAdd.TabIndex = 14;
             this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnCharge
             // 
@@ -398,7 +397,7 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(1008, 24);
+            this.MenuStrip.Size = new System.Drawing.Size(1412, 24);
             this.MenuStrip.TabIndex = 16;
             this.MenuStrip.Text = "menuStrip1";
             // 
@@ -463,17 +462,17 @@ namespace MoneFeWinForms
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
-            // button1
+            // btnCalendar
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.Transparent;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(852, 54);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 64);
-            this.button1.TabIndex = 18;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
+            this.btnCalendar.Location = new System.Drawing.Point(852, 54);
+            this.btnCalendar.Name = "btnCalendar";
+            this.btnCalendar.Size = new System.Drawing.Size(69, 64);
+            this.btnCalendar.TabIndex = 18;
+            this.btnCalendar.UseVisualStyleBackColor = true;
+            this.btnCalendar.Click += new System.EventHandler(this.btnCalendar_Click);
             // 
             // btnAddCategory
             // 
@@ -516,60 +515,65 @@ namespace MoneFeWinForms
             this.lbAddedCategory.Size = new System.Drawing.Size(0, 24);
             this.lbAddedCategory.TabIndex = 20;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button1.Location = new System.Drawing.Point(368, 223);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 35);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button2.Location = new System.Drawing.Point(368, 223);
+            this.button2.Location = new System.Drawing.Point(474, 222);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 35);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "1";
+            this.button2.TabIndex = 22;
+            this.button2.Text = "2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button3.Location = new System.Drawing.Point(474, 222);
+            this.button3.Location = new System.Drawing.Point(580, 222);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 35);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "2";
+            this.button3.TabIndex = 23;
+            this.button3.Text = "3";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button4.Location = new System.Drawing.Point(580, 222);
+            this.button4.Location = new System.Drawing.Point(368, 267);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 35);
-            this.button4.TabIndex = 23;
-            this.button4.Text = "3";
+            this.button4.TabIndex = 24;
+            this.button4.Text = "4";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button5
+            // button8
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button5.Location = new System.Drawing.Point(368, 267);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 35);
-            this.button5.TabIndex = 24;
-            this.button5.Text = "4";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button6.Location = new System.Drawing.Point(474, 313);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 35);
-            this.button6.TabIndex = 28;
-            this.button6.Text = "8";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button8.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button8.Location = new System.Drawing.Point(474, 313);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(100, 35);
+            this.button8.TabIndex = 28;
+            this.button8.Text = "8";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
@@ -581,61 +585,66 @@ namespace MoneFeWinForms
             this.button7.TabIndex = 27;
             this.button7.Text = "7";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
+            // button6
             // 
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button8.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button8.Location = new System.Drawing.Point(580, 267);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(100, 35);
-            this.button8.TabIndex = 26;
-            this.button8.Text = "6";
-            this.button8.UseVisualStyleBackColor = true;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button6.Location = new System.Drawing.Point(580, 267);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(100, 35);
+            this.button6.TabIndex = 26;
+            this.button6.Text = "6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button5.Location = new System.Drawing.Point(474, 267);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 35);
+            this.button5.TabIndex = 25;
+            this.button5.Text = "5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button0
+            // 
+            this.button0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button0.ForeColor = System.Drawing.Color.DarkGreen;
+            this.button0.Location = new System.Drawing.Point(368, 357);
+            this.button0.Name = "button0";
+            this.button0.Size = new System.Drawing.Size(100, 35);
+            this.button0.TabIndex = 30;
+            this.button0.Text = "0";
+            this.button0.UseVisualStyleBackColor = true;
+            this.button0.Click += new System.EventHandler(this.button0_Click);
             // 
             // button9
             // 
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button9.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button9.Location = new System.Drawing.Point(474, 267);
+            this.button9.Location = new System.Drawing.Point(580, 312);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(100, 35);
-            this.button9.TabIndex = 25;
-            this.button9.Text = "5";
+            this.button9.TabIndex = 29;
+            this.button9.Text = "9";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // button12
+            // btnErase
             // 
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button12.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button12.Location = new System.Drawing.Point(368, 357);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(100, 35);
-            this.button12.TabIndex = 30;
-            this.button12.Text = "0";
-            this.button12.UseVisualStyleBackColor = true;
-            // 
-            // button13
-            // 
-            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button13.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button13.Location = new System.Drawing.Point(580, 312);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(100, 35);
-            this.button13.TabIndex = 29;
-            this.button13.Text = "9";
-            this.button13.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button10.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button10.Location = new System.Drawing.Point(474, 357);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(206, 36);
-            this.button10.TabIndex = 31;
-            this.button10.Text = "<-";
-            this.button10.UseVisualStyleBackColor = true;
+            this.btnErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnErase.ForeColor = System.Drawing.Color.DarkGreen;
+            this.btnErase.Location = new System.Drawing.Point(474, 357);
+            this.btnErase.Name = "btnErase";
+            this.btnErase.Size = new System.Drawing.Size(206, 36);
+            this.btnErase.TabIndex = 31;
+            this.btnErase.Text = "<-";
+            this.btnErase.UseVisualStyleBackColor = true;
             // 
             // pbSelectedCategoryImg
             // 
@@ -657,25 +666,25 @@ namespace MoneFeWinForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
-            this.ClientSize = new System.Drawing.Size(1008, 483);
+            this.ClientSize = new System.Drawing.Size(1412, 637);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.pbSelectedCategoryImg);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button13);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.btnErase);
+            this.Controls.Add(this.button0);
             this.Controls.Add(this.button9);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbAddedCategory);
             this.Controls.Add(this.lbAddToCategory);
             this.Controls.Add(this.tbAmount);
             this.Controls.Add(this.btnAddCategory);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCalendar);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.MenuStrip);
@@ -729,22 +738,22 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbOutcome;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCalendar;
         private System.Windows.Forms.Button btnAddCategory;
         private System.Windows.Forms.TextBox tbAmount;
         private System.Windows.Forms.Label lbAddToCategory;
         private System.Windows.Forms.Label lbAddedCategory;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button0;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btnErase;
         private System.Windows.Forms.PictureBox pbSelectedCategoryImg;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
