@@ -22,44 +22,19 @@ namespace MoneFeWinForms
             base.Dispose(disposing);
         }
 
-        private void LoadLang()
-        {
-            //Categories
-            toolTipCategory.SetToolTip(this.btnCar, Monefy.Categories["cars"]);
-            toolTipCategory.SetToolTip(this.btnClothes, Monefy.Categories["clothes"]);
-            toolTipCategory.SetToolTip(this.btnCommunication, Monefy.Categories["communications"]);
-            toolTipCategory.SetToolTip(this.btnEatingOut, Monefy.Categories["eating_out"]);
-            toolTipCategory.SetToolTip(this.btnEntertainment, Monefy.Categories["entertainment"]);
-            toolTipCategory.SetToolTip(this.btnFood, Monefy.Categories["food"]);
-            toolTipCategory.SetToolTip(this.btnGifts, Monefy.Categories["gifts"]);
-            toolTipCategory.SetToolTip(this.btnHealth, Monefy.Categories["health"]);
-            toolTipCategory.SetToolTip(this.btnHouse, Monefy.Categories["house"]);
-            toolTipCategory.SetToolTip(this.btnSport, Monefy.Categories["sports"]);
-            toolTipCategory.SetToolTip(this.btnTaxi, Monefy.Categories["taxi"]);
-            toolTipCategory.SetToolTip(this.btnTransport, Monefy.Categories["transport"]);
-            //Interface
-            this.toolTipCategory.ToolTipTitle = Monefy.Interface["category"] + ":";
-            this.toolTipInterface.ToolTipTitle = "";
-            this.languageToolStripMenuItem.Text = Monefy.Interface["language"];
-            this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
-            this.русскийToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
-            this.exitToolStripMenuItem.Text = Monefy.Interface["file"];
-            this.exitToolStripMenuItem1.Text = Monefy.Interface["exit"];
-            this.lbIncome.Text = Monefy.Interface["income"] + ":";
-            this.lbOutcome.Text = Monefy.Interface["outcome"] + ":";
-            this.btnAddCategory.Text = Monefy.Interface["add"];
-            toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
-        }
+        
 
         private void LoadCategoriesChart()
         {
-            Random rnd = new Random();
-            foreach (var item in Monefy.Categories)
+            foreach (var item in Monefy.Operations)
             {
-                int a = rnd.Next(1, 150);
-                int index = chart1.Series["Categories"].Points.Count;
-                chart1.Series["Categories"].Points.AddXY("", a);
-                chart1.Series["Categories"].Points[index].LegendText = item.Value + $" {(a / 150f).ToString("0.00%")}";
+                foreach (var oper in item.Value)
+                {
+                    chart1.Series["Categories"].Points.AddXY("", oper.Value);
+                    int index = chart1.Series["Categories"].Points.Count - 1;
+                    chart1.Series["Categories"].Points[index].LegendText = (oper.Value / 100).ToString("0.00%");
+                }
+                
             }
         }
 
@@ -73,9 +48,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -110,7 +85,6 @@ namespace MoneFeWinForms
             this.btnAddCategory = new System.Windows.Forms.Button();
             this.tbAmount = new System.Windows.Forms.TextBox();
             this.lbAddToCategory = new System.Windows.Forms.Label();
-            this.lbAddedCategory = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -128,6 +102,16 @@ namespace MoneFeWinForms
             this.pnlAddAmount = new System.Windows.Forms.Panel();
             this.toolTipInterface = new System.Windows.Forms.ToolTip(this.components);
             this.pnlAddAcount = new System.Windows.Forms.Panel();
+            this.pbAddAcc = new System.Windows.Forms.PictureBox();
+            this.lbAccountName = new System.Windows.Forms.Label();
+            this.tbAccName = new System.Windows.Forms.TextBox();
+            this.cbAddAccCurrency = new System.Windows.Forms.ComboBox();
+            this.lbAddAccCurrency = new System.Windows.Forms.Label();
+            this.pnlAddToCategory = new System.Windows.Forms.Panel();
+            this.cbSelectCategory = new System.Windows.Forms.ComboBox();
+            this.cbSelectAccount = new System.Windows.Forms.ComboBox();
+            this.lbSelectAccount = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
@@ -135,6 +119,9 @@ namespace MoneFeWinForms
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).BeginInit();
             this.pnlAddAmount.SuspendLayout();
+            this.pnlAddAcount.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAddAcc)).BeginInit();
+            this.pnlAddToCategory.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -356,6 +343,7 @@ namespace MoneFeWinForms
             this.btnAddAccount.TabIndex = 19;
             this.btnAddAccount.Tag = "";
             this.btnAddAccount.UseVisualStyleBackColor = false;
+            this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
             // 
             // panel1
             // 
@@ -490,27 +478,27 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(721, 512);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(686, 391);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Categories";
-            series2.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(32, 10);
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Categories";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(201, 184);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
             // btnAddCategory
             // 
-            this.btnAddCategory.Location = new System.Drawing.Point(3, 211);
+            this.btnAddCategory.Location = new System.Drawing.Point(5, 212);
             this.btnAddCategory.Name = "btnAddCategory";
             this.btnAddCategory.Size = new System.Drawing.Size(312, 35);
             this.btnAddCategory.TabIndex = 0;
@@ -521,7 +509,7 @@ namespace MoneFeWinForms
             // tbAmount
             // 
             this.tbAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbAmount.Location = new System.Drawing.Point(3, 3);
+            this.tbAmount.Location = new System.Drawing.Point(5, 4);
             this.tbAmount.Name = "tbAmount";
             this.tbAmount.Size = new System.Drawing.Size(312, 26);
             this.tbAmount.TabIndex = 1;
@@ -535,26 +523,17 @@ namespace MoneFeWinForms
             this.lbAddToCategory.AutoSize = true;
             this.lbAddToCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbAddToCategory.ForeColor = System.Drawing.Color.Green;
-            this.lbAddToCategory.Location = new System.Drawing.Point(365, 129);
+            this.lbAddToCategory.Location = new System.Drawing.Point(2, 25);
             this.lbAddToCategory.Name = "lbAddToCategory";
-            this.lbAddToCategory.Size = new System.Drawing.Size(0, 24);
+            this.lbAddToCategory.Size = new System.Drawing.Size(153, 24);
             this.lbAddToCategory.TabIndex = 19;
-            // 
-            // lbAddedCategory
-            // 
-            this.lbAddedCategory.AutoSize = true;
-            this.lbAddedCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAddedCategory.ForeColor = System.Drawing.Color.Brown;
-            this.lbAddedCategory.Location = new System.Drawing.Point(365, 153);
-            this.lbAddedCategory.Name = "lbAddedCategory";
-            this.lbAddedCategory.Size = new System.Drawing.Size(0, 24);
-            this.lbAddedCategory.TabIndex = 20;
+            this.lbAddToCategory.Text = "Add To Category";
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button1.Location = new System.Drawing.Point(3, 36);
+            this.button1.Location = new System.Drawing.Point(5, 37);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 35);
             this.button1.TabIndex = 21;
@@ -566,7 +545,7 @@ namespace MoneFeWinForms
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button2.Location = new System.Drawing.Point(109, 35);
+            this.button2.Location = new System.Drawing.Point(111, 36);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 35);
             this.button2.TabIndex = 22;
@@ -578,7 +557,7 @@ namespace MoneFeWinForms
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button3.Location = new System.Drawing.Point(215, 35);
+            this.button3.Location = new System.Drawing.Point(217, 36);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 35);
             this.button3.TabIndex = 23;
@@ -590,7 +569,7 @@ namespace MoneFeWinForms
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button4.Location = new System.Drawing.Point(3, 80);
+            this.button4.Location = new System.Drawing.Point(5, 81);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 35);
             this.button4.TabIndex = 24;
@@ -602,7 +581,7 @@ namespace MoneFeWinForms
             // 
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button8.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button8.Location = new System.Drawing.Point(109, 125);
+            this.button8.Location = new System.Drawing.Point(111, 126);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(100, 35);
             this.button8.TabIndex = 28;
@@ -614,7 +593,7 @@ namespace MoneFeWinForms
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button7.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button7.Location = new System.Drawing.Point(3, 125);
+            this.button7.Location = new System.Drawing.Point(5, 126);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(100, 35);
             this.button7.TabIndex = 27;
@@ -626,7 +605,7 @@ namespace MoneFeWinForms
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button6.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button6.Location = new System.Drawing.Point(215, 80);
+            this.button6.Location = new System.Drawing.Point(217, 81);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(100, 35);
             this.button6.TabIndex = 26;
@@ -638,7 +617,7 @@ namespace MoneFeWinForms
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button5.Location = new System.Drawing.Point(109, 80);
+            this.button5.Location = new System.Drawing.Point(111, 81);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 35);
             this.button5.TabIndex = 25;
@@ -650,7 +629,7 @@ namespace MoneFeWinForms
             // 
             this.button0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button0.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button0.Location = new System.Drawing.Point(3, 170);
+            this.button0.Location = new System.Drawing.Point(5, 171);
             this.button0.Name = "button0";
             this.button0.Size = new System.Drawing.Size(100, 35);
             this.button0.TabIndex = 30;
@@ -662,7 +641,7 @@ namespace MoneFeWinForms
             // 
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button9.ForeColor = System.Drawing.Color.DarkGreen;
-            this.button9.Location = new System.Drawing.Point(215, 125);
+            this.button9.Location = new System.Drawing.Point(217, 126);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(100, 35);
             this.button9.TabIndex = 29;
@@ -674,7 +653,7 @@ namespace MoneFeWinForms
             // 
             this.btnErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnErase.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnErase.Location = new System.Drawing.Point(215, 170);
+            this.btnErase.Location = new System.Drawing.Point(217, 171);
             this.btnErase.Name = "btnErase";
             this.btnErase.Size = new System.Drawing.Size(100, 36);
             this.btnErase.TabIndex = 31;
@@ -684,7 +663,7 @@ namespace MoneFeWinForms
             // 
             // pbSelectedCategoryImg
             // 
-            this.pbSelectedCategoryImg.Location = new System.Drawing.Point(605, 116);
+            this.pbSelectedCategoryImg.Location = new System.Drawing.Point(242, 12);
             this.pbSelectedCategoryImg.Name = "pbSelectedCategoryImg";
             this.pbSelectedCategoryImg.Size = new System.Drawing.Size(75, 68);
             this.pbSelectedCategoryImg.TabIndex = 32;
@@ -705,7 +684,7 @@ namespace MoneFeWinForms
             // 
             this.buttonDot.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonDot.ForeColor = System.Drawing.Color.DarkGreen;
-            this.buttonDot.Location = new System.Drawing.Point(109, 170);
+            this.buttonDot.Location = new System.Drawing.Point(111, 171);
             this.buttonDot.Name = "buttonDot";
             this.buttonDot.Size = new System.Drawing.Size(100, 35);
             this.buttonDot.TabIndex = 34;
@@ -729,17 +708,129 @@ namespace MoneFeWinForms
             this.pnlAddAmount.Controls.Add(this.button6);
             this.pnlAddAmount.Controls.Add(this.button8);
             this.pnlAddAmount.Controls.Add(this.button7);
-            this.pnlAddAmount.Location = new System.Drawing.Point(360, 195);
+            this.pnlAddAmount.Location = new System.Drawing.Point(360, 186);
             this.pnlAddAmount.Name = "pnlAddAmount";
-            this.pnlAddAmount.Size = new System.Drawing.Size(320, 261);
+            this.pnlAddAmount.Size = new System.Drawing.Size(320, 251);
             this.pnlAddAmount.TabIndex = 36;
+            this.pnlAddAmount.Visible = false;
             // 
             // pnlAddAcount
             // 
-            this.pnlAddAcount.Location = new System.Drawing.Point(757, 231);
+            this.pnlAddAcount.Controls.Add(this.pbAddAcc);
+            this.pnlAddAcount.Controls.Add(this.lbAccountName);
+            this.pnlAddAcount.Controls.Add(this.tbAccName);
+            this.pnlAddAcount.Location = new System.Drawing.Point(721, 172);
             this.pnlAddAcount.Name = "pnlAddAcount";
-            this.pnlAddAcount.Size = new System.Drawing.Size(295, 210);
+            this.pnlAddAcount.Size = new System.Drawing.Size(329, 130);
             this.pnlAddAcount.TabIndex = 37;
+            // 
+            // pbAddAcc
+            // 
+            this.pbAddAcc.Location = new System.Drawing.Point(239, 14);
+            this.pbAddAcc.Name = "pbAddAcc";
+            this.pbAddAcc.Size = new System.Drawing.Size(75, 68);
+            this.pbAddAcc.TabIndex = 33;
+            this.pbAddAcc.TabStop = false;
+            // 
+            // lbAccountName
+            // 
+            this.lbAccountName.AutoSize = true;
+            this.lbAccountName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAccountName.ForeColor = System.Drawing.Color.Green;
+            this.lbAccountName.Location = new System.Drawing.Point(3, 58);
+            this.lbAccountName.Name = "lbAccountName";
+            this.lbAccountName.Size = new System.Drawing.Size(141, 24);
+            this.lbAccountName.TabIndex = 20;
+            this.lbAccountName.Text = "Account Name:";
+            // 
+            // tbAccName
+            // 
+            this.tbAccName.Location = new System.Drawing.Point(7, 93);
+            this.tbAccName.Name = "tbAccName";
+            this.tbAccName.Size = new System.Drawing.Size(307, 20);
+            this.tbAccName.TabIndex = 0;
+            // 
+            // cbAddAccCurrency
+            // 
+            this.cbAddAccCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddAccCurrency.FormattingEnabled = true;
+            this.cbAddAccCurrency.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cbAddAccCurrency.Location = new System.Drawing.Point(196, 120);
+            this.cbAddAccCurrency.Name = "cbAddAccCurrency";
+            this.cbAddAccCurrency.Size = new System.Drawing.Size(121, 21);
+            this.cbAddAccCurrency.TabIndex = 36;
+            // 
+            // lbAddAccCurrency
+            // 
+            this.lbAddAccCurrency.AutoSize = true;
+            this.lbAddAccCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddAccCurrency.ForeColor = System.Drawing.Color.Chocolate;
+            this.lbAddAccCurrency.Location = new System.Drawing.Point(3, 115);
+            this.lbAddAccCurrency.Name = "lbAddAccCurrency";
+            this.lbAddAccCurrency.Size = new System.Drawing.Size(101, 24);
+            this.lbAddAccCurrency.TabIndex = 35;
+            this.lbAddAccCurrency.Text = "Currency:";
+            // 
+            // pnlAddToCategory
+            // 
+            this.pnlAddToCategory.Controls.Add(this.cbSelectCategory);
+            this.pnlAddToCategory.Controls.Add(this.cbAddAccCurrency);
+            this.pnlAddToCategory.Controls.Add(this.cbSelectAccount);
+            this.pnlAddToCategory.Controls.Add(this.lbSelectAccount);
+            this.pnlAddToCategory.Controls.Add(this.lbAddAccCurrency);
+            this.pnlAddToCategory.Controls.Add(this.pbSelectedCategoryImg);
+            this.pnlAddToCategory.Controls.Add(this.lbAddToCategory);
+            this.pnlAddToCategory.Location = new System.Drawing.Point(360, 27);
+            this.pnlAddToCategory.Name = "pnlAddToCategory";
+            this.pnlAddToCategory.Size = new System.Drawing.Size(329, 153);
+            this.pnlAddToCategory.TabIndex = 38;
+            // 
+            // cbSelectCategory
+            // 
+            this.cbSelectCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSelectCategory.FormattingEnabled = true;
+            this.cbSelectCategory.Location = new System.Drawing.Point(7, 53);
+            this.cbSelectCategory.Name = "cbSelectCategory";
+            this.cbSelectCategory.Size = new System.Drawing.Size(121, 21);
+            this.cbSelectCategory.TabIndex = 37;
+            // 
+            // cbSelectAccount
+            // 
+            this.cbSelectAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSelectAccount.FormattingEnabled = true;
+            this.cbSelectAccount.Location = new System.Drawing.Point(196, 91);
+            this.cbSelectAccount.Name = "cbSelectAccount";
+            this.cbSelectAccount.Size = new System.Drawing.Size(121, 21);
+            this.cbSelectAccount.TabIndex = 34;
+            // 
+            // lbSelectAccount
+            // 
+            this.lbSelectAccount.AutoSize = true;
+            this.lbSelectAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSelectAccount.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lbSelectAccount.Location = new System.Drawing.Point(2, 91);
+            this.lbSelectAccount.Name = "lbSelectAccount";
+            this.lbSelectAccount.Size = new System.Drawing.Size(93, 24);
+            this.lbSelectAccount.TabIndex = 33;
+            this.lbSelectAccount.Text = "Account:";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "car.png");
+            this.imageList1.Images.SetKeyName(1, "clothes.png");
+            this.imageList1.Images.SetKeyName(2, "communications.png");
+            this.imageList1.Images.SetKeyName(3, "date_icon.png");
+            this.imageList1.Images.SetKeyName(4, "eating_out.png");
+            this.imageList1.Images.SetKeyName(5, "entertainment.png");
+            this.imageList1.Images.SetKeyName(6, "food.png");
+            this.imageList1.Images.SetKeyName(7, "gifts.png");
+            this.imageList1.Images.SetKeyName(8, "health.png");
+            this.imageList1.Images.SetKeyName(9, "rent.png");
+            this.imageList1.Images.SetKeyName(10, "sports.png");
+            this.imageList1.Images.SetKeyName(11, "taxi.png");
+            this.imageList1.Images.SetKeyName(12, "transport.png");
             // 
             // MoneFy
             // 
@@ -747,12 +838,10 @@ namespace MoneFeWinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(1160, 572);
+            this.Controls.Add(this.pnlAddToCategory);
             this.Controls.Add(this.pnlAddAcount);
             this.Controls.Add(this.pnlAddAmount);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.pbSelectedCategoryImg);
-            this.Controls.Add(this.lbAddedCategory);
-            this.Controls.Add(this.lbAddToCategory);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.MenuStrip);
@@ -772,6 +861,11 @@ namespace MoneFeWinForms
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).EndInit();
             this.pnlAddAmount.ResumeLayout(false);
             this.pnlAddAmount.PerformLayout();
+            this.pnlAddAcount.ResumeLayout(false);
+            this.pnlAddAcount.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAddAcc)).EndInit();
+            this.pnlAddToCategory.ResumeLayout(false);
+            this.pnlAddToCategory.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -812,7 +906,6 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Button btnAddCategory;
         private System.Windows.Forms.TextBox tbAmount;
         private System.Windows.Forms.Label lbAddToCategory;
-        private System.Windows.Forms.Label lbAddedCategory;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -831,6 +924,16 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Button btnAddAccount;
         private System.Windows.Forms.ToolTip toolTipInterface;
         private System.Windows.Forms.Panel pnlAddAcount;
+        private System.Windows.Forms.Label lbAccountName;
+        private System.Windows.Forms.TextBox tbAccName;
+        private System.Windows.Forms.Panel pnlAddToCategory;
+        private System.Windows.Forms.ComboBox cbAddAccCurrency;
+        private System.Windows.Forms.Label lbAddAccCurrency;
+        private System.Windows.Forms.PictureBox pbAddAcc;
+        private System.Windows.Forms.ComboBox cbSelectAccount;
+        private System.Windows.Forms.Label lbSelectAccount;
+        private System.Windows.Forms.ComboBox cbSelectCategory;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

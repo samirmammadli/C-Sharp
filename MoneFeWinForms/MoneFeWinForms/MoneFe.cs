@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 12)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 14)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -86,7 +86,9 @@ namespace MoneFeWinForms
                 "Category",
                 "Add to category:",
                 "Add",
-                "Add new account"
+                "Add new account",
+                "Account",
+                "Currency"
             };
         }
 
@@ -126,7 +128,9 @@ namespace MoneFeWinForms
                     { "category", AppInterface[i++] },
                     { "addToCategory", AppInterface[i++] },
                     { "add", AppInterface[i++] },
-                    { "addNewAccount", AppInterface[i++] }
+                    { "addNewAccount", AppInterface[i++] },
+                    { "account", AppInterface[i++] },
+                    { "currency", AppInterface[i++] }
                 };
         }
     }
@@ -139,6 +143,11 @@ namespace MoneFeWinForms
         EUR
     }
 
+    enum OperationType
+    {
+        Account,
+        Category
+    }
 
     enum SubscriptionType
     {
@@ -159,16 +168,18 @@ namespace MoneFeWinForms
         public Currency AccCurrency { get; }
         public string Category { get; }
         public string Account { get; }
+        public int AccountID { get; }
         public string Notes { get; }
         public double Value { get; }
 
-        public MoneyOperation(Currency currency ,string category, string account, string notes, double value)
+        public MoneyOperation(Currency currency ,string category, int accountID, string notes, double value)
         {
             AccCurrency = currency;
             Category = category;
-            Account = account;
+            AccountID = accountID;
             Notes = notes;
             Value = value;
+
         }
 
         public int CompareTo(object obj)
@@ -200,16 +211,16 @@ namespace MoneFeWinForms
     class Account : ICSVWritable, IComparable
     {
         public Currency AccCurrency { get; set; }
-        public bool Hidden { get; set; }
+        public static int AccountID { get; private set; } = 0;
         public string AccName { get; set; }
         public double Balance { get; set; }
 
-        public Account(Currency accCurrency, bool hidden, string accName, double balance)
+        public Account(Currency accCurrency, string accName, double balance)
         {
             AccCurrency = accCurrency;
-            Hidden = hidden;
             AccName = accName;
             Balance = balance;
+            AccountID++;
         }
 
         public int CompareTo(object obj)
@@ -221,18 +232,24 @@ namespace MoneFeWinForms
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return AccName;
+        }
     }
 
     class MoneFyFormsBuild
     {
         public List<Account> Accounts { get; set; }
+        public OperationType OperType { get; set; }
         public SortedList<DateTime, List<MoneyOperation>> Operations { get; set; }
         public Dictionary<string, string> Categories { get; set; }
         public Dictionary<string, string> Interface { get; set; }
         public MoneFyFormsBuild(Languages lang)
         {
             Operations = new SortedList<DateTime, List<MoneyOperation>>();
-            Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm", "account", "uiwqgfouigwqof",2321.5) });
+            Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { new MoneyOperation(Currency.AZN, "salanm",0, "uiwqgfouigwqof",2321.5) });
             ChangeLang(lang);
             Accounts = new List<Account>();
         }
