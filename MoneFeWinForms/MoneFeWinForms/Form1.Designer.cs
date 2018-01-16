@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace MoneFeWinForms
 {
     partial class MoneFy
     {
+        private Dictionary<string, Image> Images { get; set; }
+        Image aha;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -22,7 +26,26 @@ namespace MoneFeWinForms
             base.Dispose(disposing);
         }
 
-        
+        private void LoadImages()
+        {
+            string path = Environment.CurrentDirectory + @"\Images\";
+            Images = new Dictionary<string, Image>()
+            {
+                { "cars", Image.FromFile(path + "car.png") },
+                { "clothes", Image.FromFile(path + "clothes.png") },
+                { "eating_out", Image.FromFile(path + "eating_out.png") },
+                { "entertainment", Image.FromFile(path + "entertainment.png") },
+                { "food", Image.FromFile(path + "food.png") },
+                { "gifts", Image.FromFile(path + "gifts.png") },
+                { "communications", Image.FromFile(path + "communications.png") },
+                { "health", Image.FromFile(path + "health.png") },
+                { "house", Image.FromFile(path + "house.png") },
+                { "sports", Image.FromFile(path + "sports.png") },
+                { "taxi", Image.FromFile(path + "taxi.png") },
+                { "transport", Image.FromFile(path + "transport.png") }
+            };
+
+        }
 
         private void LoadCategoriesChart()
         {
@@ -48,9 +71,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -111,7 +134,6 @@ namespace MoneFeWinForms
             this.cbSelectCategory = new System.Windows.Forms.ComboBox();
             this.cbSelectAccount = new System.Windows.Forms.ComboBox();
             this.lbSelectAccount = new System.Windows.Forms.Label();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
@@ -478,20 +500,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(686, 391);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
-            series1.Name = "Categories";
-            series1.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series1);
+            series3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series3.Legend = "Legend1";
+            series3.Name = "Categories";
+            series3.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(201, 184);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -793,6 +815,9 @@ namespace MoneFeWinForms
             this.cbSelectCategory.Name = "cbSelectCategory";
             this.cbSelectCategory.Size = new System.Drawing.Size(121, 21);
             this.cbSelectCategory.TabIndex = 37;
+            this.cbSelectCategory.SelectedIndexChanged += new System.EventHandler(this.cbSelectCategory_SelectedIndexChanged);
+            this.cbSelectCategory.ValueMemberChanged += new System.EventHandler(this.cbSelectCategory_ValueMemberChanged);
+            this.cbSelectCategory.SelectedValueChanged += new System.EventHandler(this.cbSelectCategory_SelectedValueChanged);
             // 
             // cbSelectAccount
             // 
@@ -813,24 +838,6 @@ namespace MoneFeWinForms
             this.lbSelectAccount.Size = new System.Drawing.Size(93, 24);
             this.lbSelectAccount.TabIndex = 33;
             this.lbSelectAccount.Text = "Account:";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "car.png");
-            this.imageList1.Images.SetKeyName(1, "clothes.png");
-            this.imageList1.Images.SetKeyName(2, "communications.png");
-            this.imageList1.Images.SetKeyName(3, "date_icon.png");
-            this.imageList1.Images.SetKeyName(4, "eating_out.png");
-            this.imageList1.Images.SetKeyName(5, "entertainment.png");
-            this.imageList1.Images.SetKeyName(6, "food.png");
-            this.imageList1.Images.SetKeyName(7, "gifts.png");
-            this.imageList1.Images.SetKeyName(8, "health.png");
-            this.imageList1.Images.SetKeyName(9, "rent.png");
-            this.imageList1.Images.SetKeyName(10, "sports.png");
-            this.imageList1.Images.SetKeyName(11, "taxi.png");
-            this.imageList1.Images.SetKeyName(12, "transport.png");
             // 
             // MoneFy
             // 
@@ -933,7 +940,6 @@ namespace MoneFeWinForms
         private System.Windows.Forms.ComboBox cbSelectAccount;
         private System.Windows.Forms.Label lbSelectAccount;
         private System.Windows.Forms.ComboBox cbSelectCategory;
-        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

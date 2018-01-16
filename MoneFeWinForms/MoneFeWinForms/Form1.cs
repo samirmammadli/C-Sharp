@@ -23,23 +23,24 @@ namespace MoneFeWinForms
             cbSelectAccount.DataSource = Monefy.Accounts;
             cbSelectAccount.SelectedItem = null;
             LoadLang();
+            LoadImages();
         }
 
         private void LoadLang()
         {
             //Categories
-            toolTipCategory.SetToolTip(this.btnCar, Monefy.Categories["cars"]);
-            toolTipCategory.SetToolTip(this.btnClothes, Monefy.Categories["clothes"]);
-            toolTipCategory.SetToolTip(this.btnCommunication, Monefy.Categories["communications"]);
-            toolTipCategory.SetToolTip(this.btnEatingOut, Monefy.Categories["eating_out"]);
-            toolTipCategory.SetToolTip(this.btnEntertainment, Monefy.Categories["entertainment"]);
-            toolTipCategory.SetToolTip(this.btnFood, Monefy.Categories["food"]);
-            toolTipCategory.SetToolTip(this.btnGifts, Monefy.Categories["gifts"]);
-            toolTipCategory.SetToolTip(this.btnHealth, Monefy.Categories["health"]);
-            toolTipCategory.SetToolTip(this.btnHouse, Monefy.Categories["house"]);
-            toolTipCategory.SetToolTip(this.btnSport, Monefy.Categories["sports"]);
-            toolTipCategory.SetToolTip(this.btnTaxi, Monefy.Categories["taxi"]);
-            toolTipCategory.SetToolTip(this.btnTransport, Monefy.Categories["transport"]);
+            this.toolTipCategory.SetToolTip(this.btnCar, Monefy.Categories["cars"]);
+            this.toolTipCategory.SetToolTip(this.btnClothes, Monefy.Categories["clothes"]);
+            this.toolTipCategory.SetToolTip(this.btnCommunication, Monefy.Categories["communications"]);
+            this.toolTipCategory.SetToolTip(this.btnEatingOut, Monefy.Categories["eating_out"]);
+            this.toolTipCategory.SetToolTip(this.btnEntertainment, Monefy.Categories["entertainment"]);
+            this.toolTipCategory.SetToolTip(this.btnFood, Monefy.Categories["food"]);
+            this.toolTipCategory.SetToolTip(this.btnGifts, Monefy.Categories["gifts"]);
+            this.toolTipCategory.SetToolTip(this.btnHealth, Monefy.Categories["health"]);
+            this.toolTipCategory.SetToolTip(this.btnHouse, Monefy.Categories["house"]);
+            this.toolTipCategory.SetToolTip(this.btnSport, Monefy.Categories["sports"]);
+            this.toolTipCategory.SetToolTip(this.btnTaxi, Monefy.Categories["taxi"]);
+            this.toolTipCategory.SetToolTip(this.btnTransport, Monefy.Categories["transport"]);
             //Interface
             this.toolTipCategory.ToolTipTitle = Monefy.Interface["category"] + ":";
             this.toolTipInterface.ToolTipTitle = "";
@@ -51,15 +52,14 @@ namespace MoneFeWinForms
             this.lbIncome.Text = Monefy.Interface["income"] + ":";
             this.lbOutcome.Text = Monefy.Interface["outcome"] + ":";
             this.btnAddCategory.Text = Monefy.Interface["add"];
-            toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            lbAddAccCurrency.Text = Monefy.Interface["currency"];
-            lbSelectAccount.Text = Monefy.Interface["account"];
-            cbSelectCategory.DataSource = Monefy.Categories.ToList();
-            cbSelectCategory.DisplayMember = "Value";
-            cbSelectCategory.ValueMember = "Key";
-
-
+            this.toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
+            this.lbAddToCategory.Text = Monefy.Interface["addToCategory"];
+            this.lbAddAccCurrency.Text = Monefy.Interface["currency"];
+            this.lbSelectAccount.Text = Monefy.Interface["account"];
+            this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
+            this.cbSelectCategory.DisplayMember = "Value";
+            this.cbSelectCategory.ValueMember = "Key";
+            this.cbSelectCategory.SelectedItem = null;
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -87,10 +87,12 @@ namespace MoneFeWinForms
 
         private void btnCar_Click(object sender, EventArgs e)
         {
-            Monefy.OperType = OperationType.Category;
-
-
             
+            Monefy.OperType = OperationType.Category;
+            cbSelectCategory.SelectedValue = "cars";
+
+
+
             pbSelectedCategoryImg.Image = btnCar.Image;
             pnlAddAmount.Visible = true;
         }
@@ -102,7 +104,7 @@ namespace MoneFeWinForms
                 foreach (var operaiton in item.Value)
                 {
                     MessageBox.Show(
-                        $"{operaiton.Account}  {operaiton.AccCurrency}  {operaiton.Category}  {operaiton.Value}");
+                        $"{operaiton.AccountID}   {operaiton.AccCurrency}  {operaiton.Category}  {operaiton.Value}");
                 }
             }
 
@@ -190,66 +192,77 @@ namespace MoneFeWinForms
 
         private void btnClothes_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "clothes";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnClothes.Image;
+             //btnClothes.Image;
         }
 
         private void btnEatingOut_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "eating_out";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnEatingOut.Image;
         }
 
         private void btnEntertainment_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "entertainment";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnEntertainment.Image;
         }
 
         private void btnFood_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "food";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnFood.Image;
         }
 
         private void btnGifts_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "gifts";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnGifts.Image;
         }
 
         private void btnCommunication_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "communications";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnCommunication.Image;
         }
 
         private void btnHealth_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "health";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnHealth.Image;
         }
 
         private void btnHouse_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "house";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnHouse.Image;
         }
 
         private void btnSport_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "sports";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnSport.Image;
         }
 
         private void btnTaxi_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "taxi";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             pbSelectedCategoryImg.Image = btnTaxi.Image;
         }
 
         private void btnTransport_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "transport";
             lbAddToCategory.Text = Monefy.Interface["addToCategory"];  
             pbSelectedCategoryImg.Image = btnTransport.Image;
         }
@@ -274,7 +287,7 @@ namespace MoneFeWinForms
             {
                 Currency curr;
                 Enum.TryParse(cbAddAccCurrency.SelectedText, out curr);
-                var operation = new MoneyOperation(curr, "test", 0, "test", Convert.ToDouble(tbAmount.Text));
+                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), 115, "Some note", Convert.ToDouble(tbAmount.Text));
 
                 if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
                     Monefy.Operations[DateTime.Now.Date].Add(operation);
@@ -312,6 +325,8 @@ namespace MoneFeWinForms
 
         private void tbAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == '.')
+                e.KeyChar = ',';
             if(tbAmount.Text == "0" && e.KeyChar != ',') tbAmount.Clear();
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',';
            
@@ -321,6 +336,26 @@ namespace MoneFeWinForms
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbSelectCategory_SelectedValueChanged(object sender, EventArgs e)
+        {
+            //pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
+        }
+
+        private void cbSelectCategory_ValueMemberChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbSelectCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSelectCategory.SelectedItem == null)// || cbSelectCategory.SelectedItem.ToString() == @"[cars, Car]")
+            {
+                return;
+            }
+            else
+                pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
         }
     }
 }
