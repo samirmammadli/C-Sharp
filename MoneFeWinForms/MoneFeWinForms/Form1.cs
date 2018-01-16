@@ -26,6 +26,32 @@ namespace MoneFeWinForms
             LoadImages();
         }
 
+        private void LoadCategoriesChart()
+        {
+            //var summ = Monefy.Operations.Values.Select(x => x.Sum(u => u.Value)).Sum(y => y);
+ 
+            var nese = Monefy.Operations.Where(x => x.Key >= DateTime.Now.Date).SelectMany(y => y.Value).ToList();
+            var gew = nese;
+
+
+            //var gew = Monefy.Operations.GroupBy(x => x.Key == DateTime.Now.Date).ToList();
+            var gnom = nese.Sum(y => y.Value);
+            
+            Console.WriteLine(gnom);
+
+
+            //foreach (var item in Monefy.Operations)
+            //{
+            //    foreach (var oper in item.Value)
+            //    {
+            //        chart1.Series["Categories"].Points.AddXY("", oper.Value);
+            //        int index = chart1.Series["Categories"].Points.Count - 1;
+
+            //        chart1.Series["Categories"].Points[index].LegendText = Monefy.Categories[oper.Category] + "  " + (oper.Value / 100).ToString("0.00%");
+            //    }
+
+            //}
+        }
         private void LoadLang()
         {
             //Categories
@@ -99,23 +125,25 @@ namespace MoneFeWinForms
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
-            foreach (var item in Monefy.Operations)
-            {
-                foreach (var operaiton in item.Value)
-                {
-                    MessageBox.Show(
-                        $"{operaiton.AccountID}   {operaiton.AccCurrency}  {operaiton.Category}  {operaiton.Value}");
-                }
-            }
-
+            //foreach (var item in Monefy.Operations)
+            //{
+            //    foreach (var operaiton in item.Value)
+            //    {
+            //        MessageBox.Show(
+            //            $"{operaiton.AccountID}   {operaiton.AccCurrency}  {operaiton.Category}  {operaiton.Value}");
+            //    }
+            //}
             //chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
             chart1.Series["Categories"].Points.Clear();
             LoadCategoriesChart();
-            foreach (var item in chart1.Series["Categories"].Points)
-            {
-                if (item.XValue.ToString() == "Car")
-                    Console.WriteLine("Nawel");
-            }
+            
+            //foreach (var item in chart1.Series["Categories"].Points)
+            //{
+            //    if (item.XValue.ToString() == "Car")
+            //        Console.WriteLine("Nawel");
+            //}
+
+            //Test();
             //MessageBox.Show(chart1.Series["Categories"].Points[1].YValues[0].ToString());
 
         }
@@ -285,14 +313,18 @@ namespace MoneFeWinForms
         { 
             if (Monefy.OperType == OperationType.Category)
             {
-                Currency curr;
-                Enum.TryParse(cbAddAccCurrency.SelectedText, out curr);
-                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), 115, "Some note", Convert.ToDouble(tbAmount.Text));
+                for (int i = 0; i < 11500; i++)
+                {
+                    Currency curr;
+                    Enum.TryParse(cbAddAccCurrency.SelectedText, out curr);
+                    var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), 115, "Some note", Convert.ToDouble(tbAmount.Text));
 
-                if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
-                    Monefy.Operations[DateTime.Now.Date].Add(operation);
-                else
-                    Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { operation });
+                    if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
+                        Monefy.Operations[DateTime.Now.Date].Add(operation);
+                    else
+                        Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { operation });
+                }
+                
             }
         }
 
