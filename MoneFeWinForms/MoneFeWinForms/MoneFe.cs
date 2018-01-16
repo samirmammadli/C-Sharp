@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 14)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 15)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -88,7 +88,8 @@ namespace MoneFeWinForms
                 "Add",
                 "Add new account",
                 "Account",
-                "Currency"
+                "Currency",
+                "Add note"
             };
         }
 
@@ -130,7 +131,8 @@ namespace MoneFeWinForms
                     { "add", AppInterface[i++] },
                     { "addNewAccount", AppInterface[i++] },
                     { "account", AppInterface[i++] },
-                    { "currency", AppInterface[i++] }
+                    { "currency", AppInterface[i++] },
+                    { "addNote", AppInterface[i++] }
                 };
         }
     }
@@ -168,18 +170,19 @@ namespace MoneFeWinForms
         public Currency AccCurrency { get; }
         public string Category { get; }
         public string Account { get; }
+        public OperationType Type { get; }
         public int AccountID { get; }
         public string Notes { get; }
         public double Value { get; }
 
-        public MoneyOperation(Currency currency ,string category, int accountID, string notes, double value)
+        public MoneyOperation(Currency currency ,string category, int accountID, string notes, double value, OperationType type = OperationType.Category)
         {
             AccCurrency = currency;
             Category = category;
             AccountID = accountID;
             Notes = notes;
             Value = value;
-
+            Type = type;
         }
 
         public int CompareTo(object obj)
@@ -249,26 +252,13 @@ namespace MoneFeWinForms
         public MoneFyFormsBuild(Languages lang)
         {
             Operations = new SortedList<DateTime, List<MoneyOperation>>();
-            Operations.Add(DateTime.Now.Date, new List<MoneyOperation>{ new MoneyOperation(Currency.AZN, "cars",0, "uiwqgfouigwqof",2321.5) });
-            ChangeLang(lang);
             Accounts = new List<Account>();
+            ChangeLang(lang);
         }
         public void ChangeLang(Languages lang)
         {
             Categories = MoneFeItemsLanguage.LoadCategories(lang);
             Interface = MoneFeItemsLanguage.LoadAppInterface(lang);
-            
-            DateTime t = new DateTime();
-            t = DateTime.Now.Date;
-            var nese = (from item in Operations
-                        where item.Key >= t
-                        select item).ToList();
-
-            foreach (var item in nese)
-            {
-                Console.WriteLine($"{item.Value[0].Account}  {item.Value[0].Value}");
-                Console.WriteLine(Convert.ToDouble("12321,535") + 15.5);
-            }
         }
     }
 }

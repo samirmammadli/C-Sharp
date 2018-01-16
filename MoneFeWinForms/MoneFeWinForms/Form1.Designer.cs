@@ -79,10 +79,10 @@ namespace MoneFeWinForms
             this.mainPanel = new System.Windows.Forms.Panel();
             this.btnAddAccount = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbOutcomeBalanceValue = new System.Windows.Forms.Label();
             this.lbOutcome = new System.Windows.Forms.Label();
             this.pnlBalance = new System.Windows.Forms.Panel();
-            this.lbBalanceValue = new System.Windows.Forms.Label();
+            this.lbIncomeBalanceValue = new System.Windows.Forms.Label();
             this.lbIncome = new System.Windows.Forms.Label();
             this.btnCalendar = new System.Windows.Forms.Button();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
@@ -116,12 +116,16 @@ namespace MoneFeWinForms
             this.pbAddAcc = new System.Windows.Forms.PictureBox();
             this.lbAccountName = new System.Windows.Forms.Label();
             this.tbAccName = new System.Windows.Forms.TextBox();
-            this.cbAddAccCurrency = new System.Windows.Forms.ComboBox();
-            this.lbAddAccCurrency = new System.Windows.Forms.Label();
+            this.cbAddCategoryCurrency = new System.Windows.Forms.ComboBox();
+            this.lbAddCategoryCurrency = new System.Windows.Forms.Label();
             this.pnlAddToCategory = new System.Windows.Forms.Panel();
             this.cbSelectCategory = new System.Windows.Forms.ComboBox();
             this.cbSelectAccount = new System.Windows.Forms.ComboBox();
             this.lbSelectAccount = new System.Windows.Forms.Label();
+            this.lbAddCategoryNote = new System.Windows.Forms.Label();
+            this.tbAddCategoryNote = new System.Windows.Forms.TextBox();
+            this.bcAddAccCurr = new System.Windows.Forms.ComboBox();
+            this.lbAddAccCurr = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
@@ -358,24 +362,24 @@ namespace MoneFeWinForms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Crimson;
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lbOutcomeBalanceValue);
             this.panel1.Controls.Add(this.lbOutcome);
             this.panel1.Location = new System.Drawing.Point(4, 352);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(314, 39);
             this.panel1.TabIndex = 18;
             // 
-            // label1
+            // lbOutcomeBalanceValue
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(90, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "17000";
+            this.lbOutcomeBalanceValue.AutoSize = true;
+            this.lbOutcomeBalanceValue.BackColor = System.Drawing.Color.Transparent;
+            this.lbOutcomeBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lbOutcomeBalanceValue.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbOutcomeBalanceValue.Location = new System.Drawing.Point(90, 9);
+            this.lbOutcomeBalanceValue.Name = "lbOutcomeBalanceValue";
+            this.lbOutcomeBalanceValue.Size = new System.Drawing.Size(59, 20);
+            this.lbOutcomeBalanceValue.TabIndex = 1;
+            this.lbOutcomeBalanceValue.Text = "17000";
             // 
             // lbOutcome
             // 
@@ -392,24 +396,24 @@ namespace MoneFeWinForms
             // pnlBalance
             // 
             this.pnlBalance.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlBalance.BackgroundImage")));
-            this.pnlBalance.Controls.Add(this.lbBalanceValue);
+            this.pnlBalance.Controls.Add(this.lbIncomeBalanceValue);
             this.pnlBalance.Controls.Add(this.lbIncome);
             this.pnlBalance.Location = new System.Drawing.Point(4, 307);
             this.pnlBalance.Name = "pnlBalance";
             this.pnlBalance.Size = new System.Drawing.Size(314, 39);
             this.pnlBalance.TabIndex = 17;
             // 
-            // lbBalanceValue
+            // lbIncomeBalanceValue
             // 
-            this.lbBalanceValue.AutoSize = true;
-            this.lbBalanceValue.BackColor = System.Drawing.Color.Transparent;
-            this.lbBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lbBalanceValue.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lbBalanceValue.Location = new System.Drawing.Point(90, 9);
-            this.lbBalanceValue.Name = "lbBalanceValue";
-            this.lbBalanceValue.Size = new System.Drawing.Size(59, 20);
-            this.lbBalanceValue.TabIndex = 1;
-            this.lbBalanceValue.Text = "17000";
+            this.lbIncomeBalanceValue.AutoSize = true;
+            this.lbIncomeBalanceValue.BackColor = System.Drawing.Color.Transparent;
+            this.lbIncomeBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lbIncomeBalanceValue.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbIncomeBalanceValue.Location = new System.Drawing.Point(90, 9);
+            this.lbIncomeBalanceValue.Name = "lbIncomeBalanceValue";
+            this.lbIncomeBalanceValue.Size = new System.Drawing.Size(59, 20);
+            this.lbIncomeBalanceValue.TabIndex = 1;
+            this.lbIncomeBalanceValue.Text = "17000";
             // 
             // lbIncome
             // 
@@ -441,7 +445,7 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(1160, 24);
+            this.MenuStrip.Size = new System.Drawing.Size(1482, 24);
             this.MenuStrip.TabIndex = 16;
             this.MenuStrip.Text = "menuStrip1";
             // 
@@ -492,7 +496,7 @@ namespace MoneFeWinForms
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(686, 391);
+            this.chart1.Location = new System.Drawing.Point(674, 307);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
@@ -502,7 +506,7 @@ namespace MoneFeWinForms
             series1.Name = "Categories";
             series1.YValuesPerPoint = 2;
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(364, 184);
+            this.chart1.Size = new System.Drawing.Size(361, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
@@ -527,6 +531,7 @@ namespace MoneFeWinForms
             this.tbAmount.TextChanged += new System.EventHandler(this.tbAmount_TextChanged);
             this.tbAmount.Enter += new System.EventHandler(this.tbAmount_Enter);
             this.tbAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAmount_KeyPress);
+            this.tbAmount.Leave += new System.EventHandler(this.tbAmount_Leave);
             // 
             // lbAddToCategory
             // 
@@ -718,7 +723,7 @@ namespace MoneFeWinForms
             this.pnlAddAmount.Controls.Add(this.button6);
             this.pnlAddAmount.Controls.Add(this.button8);
             this.pnlAddAmount.Controls.Add(this.button7);
-            this.pnlAddAmount.Location = new System.Drawing.Point(360, 186);
+            this.pnlAddAmount.Location = new System.Drawing.Point(348, 285);
             this.pnlAddAmount.Name = "pnlAddAmount";
             this.pnlAddAmount.Size = new System.Drawing.Size(320, 251);
             this.pnlAddAmount.TabIndex = 36;
@@ -726,7 +731,9 @@ namespace MoneFeWinForms
             // 
             // pnlAddAcount
             // 
+            this.pnlAddAcount.Controls.Add(this.bcAddAccCurr);
             this.pnlAddAcount.Controls.Add(this.pbAddAcc);
+            this.pnlAddAcount.Controls.Add(this.lbAddAccCurr);
             this.pnlAddAcount.Controls.Add(this.lbAccountName);
             this.pnlAddAcount.Controls.Add(this.tbAccName);
             this.pnlAddAcount.Location = new System.Drawing.Point(721, 172);
@@ -760,39 +767,41 @@ namespace MoneFeWinForms
             this.tbAccName.Size = new System.Drawing.Size(307, 20);
             this.tbAccName.TabIndex = 0;
             // 
-            // cbAddAccCurrency
+            // cbAddCategoryCurrency
             // 
-            this.cbAddAccCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbAddAccCurrency.FormattingEnabled = true;
-            this.cbAddAccCurrency.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cbAddAccCurrency.Location = new System.Drawing.Point(196, 120);
-            this.cbAddAccCurrency.Name = "cbAddAccCurrency";
-            this.cbAddAccCurrency.Size = new System.Drawing.Size(121, 21);
-            this.cbAddAccCurrency.TabIndex = 36;
+            this.cbAddCategoryCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddCategoryCurrency.FormattingEnabled = true;
+            this.cbAddCategoryCurrency.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cbAddCategoryCurrency.Location = new System.Drawing.Point(196, 120);
+            this.cbAddCategoryCurrency.Name = "cbAddCategoryCurrency";
+            this.cbAddCategoryCurrency.Size = new System.Drawing.Size(121, 21);
+            this.cbAddCategoryCurrency.TabIndex = 36;
             // 
-            // lbAddAccCurrency
+            // lbAddCategoryCurrency
             // 
-            this.lbAddAccCurrency.AutoSize = true;
-            this.lbAddAccCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAddAccCurrency.ForeColor = System.Drawing.Color.Chocolate;
-            this.lbAddAccCurrency.Location = new System.Drawing.Point(3, 115);
-            this.lbAddAccCurrency.Name = "lbAddAccCurrency";
-            this.lbAddAccCurrency.Size = new System.Drawing.Size(101, 24);
-            this.lbAddAccCurrency.TabIndex = 35;
-            this.lbAddAccCurrency.Text = "Currency:";
+            this.lbAddCategoryCurrency.AutoSize = true;
+            this.lbAddCategoryCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddCategoryCurrency.ForeColor = System.Drawing.Color.Chocolate;
+            this.lbAddCategoryCurrency.Location = new System.Drawing.Point(3, 115);
+            this.lbAddCategoryCurrency.Name = "lbAddCategoryCurrency";
+            this.lbAddCategoryCurrency.Size = new System.Drawing.Size(101, 24);
+            this.lbAddCategoryCurrency.TabIndex = 35;
+            this.lbAddCategoryCurrency.Text = "Currency:";
             // 
             // pnlAddToCategory
             // 
+            this.pnlAddToCategory.Controls.Add(this.tbAddCategoryNote);
+            this.pnlAddToCategory.Controls.Add(this.lbAddCategoryNote);
             this.pnlAddToCategory.Controls.Add(this.cbSelectCategory);
-            this.pnlAddToCategory.Controls.Add(this.cbAddAccCurrency);
+            this.pnlAddToCategory.Controls.Add(this.cbAddCategoryCurrency);
             this.pnlAddToCategory.Controls.Add(this.cbSelectAccount);
             this.pnlAddToCategory.Controls.Add(this.lbSelectAccount);
-            this.pnlAddToCategory.Controls.Add(this.lbAddAccCurrency);
+            this.pnlAddToCategory.Controls.Add(this.lbAddCategoryCurrency);
             this.pnlAddToCategory.Controls.Add(this.pbSelectedCategoryImg);
             this.pnlAddToCategory.Controls.Add(this.lbAddToCategory);
-            this.pnlAddToCategory.Location = new System.Drawing.Point(360, 27);
+            this.pnlAddToCategory.Location = new System.Drawing.Point(348, 75);
             this.pnlAddToCategory.Name = "pnlAddToCategory";
-            this.pnlAddToCategory.Size = new System.Drawing.Size(329, 153);
+            this.pnlAddToCategory.Size = new System.Drawing.Size(320, 210);
             this.pnlAddToCategory.TabIndex = 38;
             // 
             // cbSelectCategory
@@ -827,12 +836,52 @@ namespace MoneFeWinForms
             this.lbSelectAccount.TabIndex = 33;
             this.lbSelectAccount.Text = "Account:";
             // 
+            // lbAddCategoryNote
+            // 
+            this.lbAddCategoryNote.AutoSize = true;
+            this.lbAddCategoryNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddCategoryNote.ForeColor = System.Drawing.Color.LimeGreen;
+            this.lbAddCategoryNote.Location = new System.Drawing.Point(3, 152);
+            this.lbAddCategoryNote.Name = "lbAddCategoryNote";
+            this.lbAddCategoryNote.Size = new System.Drawing.Size(104, 24);
+            this.lbAddCategoryNote.TabIndex = 38;
+            this.lbAddCategoryNote.Text = "Add Note:";
+            // 
+            // tbAddCategoryNote
+            // 
+            this.tbAddCategoryNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbAddCategoryNote.Location = new System.Drawing.Point(5, 175);
+            this.tbAddCategoryNote.Name = "tbAddCategoryNote";
+            this.tbAddCategoryNote.Size = new System.Drawing.Size(311, 26);
+            this.tbAddCategoryNote.TabIndex = 34;
+            // 
+            // bcAddAccCurr
+            // 
+            this.bcAddAccCurr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bcAddAccCurr.FormattingEnabled = true;
+            this.bcAddAccCurr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.bcAddAccCurr.Location = new System.Drawing.Point(110, 10);
+            this.bcAddAccCurr.Name = "bcAddAccCurr";
+            this.bcAddAccCurr.Size = new System.Drawing.Size(121, 21);
+            this.bcAddAccCurr.TabIndex = 40;
+            // 
+            // lbAddAccCurr
+            // 
+            this.lbAddAccCurr.AutoSize = true;
+            this.lbAddAccCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddAccCurr.ForeColor = System.Drawing.Color.Chocolate;
+            this.lbAddAccCurr.Location = new System.Drawing.Point(3, 5);
+            this.lbAddAccCurr.Name = "lbAddAccCurr";
+            this.lbAddAccCurr.Size = new System.Drawing.Size(101, 24);
+            this.lbAddAccCurr.TabIndex = 39;
+            this.lbAddAccCurr.Text = "Currency:";
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
-            this.ClientSize = new System.Drawing.Size(1160, 572);
+            this.ClientSize = new System.Drawing.Size(1482, 641);
             this.Controls.Add(this.pnlAddToCategory);
             this.Controls.Add(this.pnlAddAcount);
             this.Controls.Add(this.pnlAddAmount);
@@ -887,7 +936,7 @@ namespace MoneFeWinForms
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
         private System.Windows.Forms.Panel pnlBalance;
-        private System.Windows.Forms.Label lbBalanceValue;
+        private System.Windows.Forms.Label lbIncomeBalanceValue;
         private System.Windows.Forms.Label lbIncome;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.ToolTip toolTipCategory;
@@ -895,7 +944,7 @@ namespace MoneFeWinForms
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem русскийToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbOutcomeBalanceValue;
         private System.Windows.Forms.Label lbOutcome;
         private System.Windows.Forms.Button btnCalendar;
         private System.Windows.Forms.Button btnAddCategory;
@@ -922,12 +971,16 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label lbAccountName;
         private System.Windows.Forms.TextBox tbAccName;
         private System.Windows.Forms.Panel pnlAddToCategory;
-        private System.Windows.Forms.ComboBox cbAddAccCurrency;
-        private System.Windows.Forms.Label lbAddAccCurrency;
+        private System.Windows.Forms.ComboBox cbAddCategoryCurrency;
+        private System.Windows.Forms.Label lbAddCategoryCurrency;
         private System.Windows.Forms.PictureBox pbAddAcc;
         private System.Windows.Forms.ComboBox cbSelectAccount;
         private System.Windows.Forms.Label lbSelectAccount;
         private System.Windows.Forms.ComboBox cbSelectCategory;
+        private System.Windows.Forms.TextBox tbAddCategoryNote;
+        private System.Windows.Forms.Label lbAddCategoryNote;
+        private System.Windows.Forms.ComboBox bcAddAccCurr;
+        private System.Windows.Forms.Label lbAddAccCurr;
     }
 }
 

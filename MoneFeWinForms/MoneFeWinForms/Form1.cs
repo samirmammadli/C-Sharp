@@ -18,8 +18,8 @@ namespace MoneFeWinForms
             InitializeComponent();
             Monefy = new MoneFyFormsBuild(Languages.EN);
             Monefy.Accounts.Add(new Account(Currency.AZN, "Samir", 1250.50));
-            cbAddAccCurrency.DataSource = Enum.GetValues(typeof(Currency));
-            cbAddAccCurrency.SelectedItem = null;
+            cbAddCategoryCurrency.DataSource = Enum.GetValues(typeof(Currency));
+            cbAddCategoryCurrency.SelectedItem = null;
             cbSelectAccount.DataSource = Monefy.Accounts;
             cbSelectAccount.SelectedItem = null;
             LoadLang();
@@ -31,26 +31,23 @@ namespace MoneFeWinForms
             //var summ = Monefy.Operations.Values.Select(x => x.Sum(u => u.Value)).Sum(y => y);
  
             var nese = Monefy.Operations.Where(x => x.Key >= DateTime.Now.Date).SelectMany(y => y.Value).ToList();
-            var gew = nese;
+            var outcome = nese.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
+            var income = nese.Where(x => x.Type == OperationType.Account).Sum(y => y.Value);
+            var ds = nese.GroupBy(x => x.Category);
 
+            lbIncomeBalanceValue.Text = income.ToString();
+            lbOutcomeBalanceValue.Text = outcome.ToString();
 
-            //var gew = Monefy.Operations.GroupBy(x => x.Key == DateTime.Now.Date).ToList();
-            var gnom = nese.Sum(y => y.Value);
-            
-            Console.WriteLine(gnom);
+            foreach (var item in ds)
+            {
+                //Console.WriteLine(item.Key);
+                double value = item.Sum(x => x.Value);
+                chart1.Series["Categories"].Points.AddXY("", value);
+                int index = chart1.Series["Categories"].Points.Count - 1;
 
+                chart1.Series["Categories"].Points[index].LegendText = Monefy.Categories[item.Key] + "  " + (value / outcome).ToString("0.00%");
+            }
 
-            //foreach (var item in Monefy.Operations)
-            //{
-            //    foreach (var oper in item.Value)
-            //    {
-            //        chart1.Series["Categories"].Points.AddXY("", oper.Value);
-            //        int index = chart1.Series["Categories"].Points.Count - 1;
-
-            //        chart1.Series["Categories"].Points[index].LegendText = Monefy.Categories[oper.Category] + "  " + (oper.Value / 100).ToString("0.00%");
-            //    }
-
-            //}
         }
         private void LoadLang()
         {
@@ -80,8 +77,10 @@ namespace MoneFeWinForms
             this.btnAddCategory.Text = Monefy.Interface["add"];
             this.toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
             this.lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            this.lbAddAccCurrency.Text = Monefy.Interface["currency"];
+            this.lbAddCategoryCurrency.Text = Monefy.Interface["currency"];
+            this.lbAddAccCurr.Text = Monefy.Interface["currency"];
             this.lbSelectAccount.Text = Monefy.Interface["account"];
+            this.lbAddCategoryNote.Text = Monefy.Interface["addNote"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
@@ -125,27 +124,8 @@ namespace MoneFeWinForms
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
-            //foreach (var item in Monefy.Operations)
-            //{
-            //    foreach (var operaiton in item.Value)
-            //    {
-            //        MessageBox.Show(
-            //            $"{operaiton.AccountID}   {operaiton.AccCurrency}  {operaiton.Category}  {operaiton.Value}");
-            //    }
-            //}
-            //chart1.Series["Categories"].Points[1].SetValueXY("Rombon", 1561651651);
             chart1.Series["Categories"].Points.Clear();
             LoadCategoriesChart();
-            
-            //foreach (var item in chart1.Series["Categories"].Points)
-            //{
-            //    if (item.XValue.ToString() == "Car")
-            //        Console.WriteLine("Nawel");
-            //}
-
-            //Test();
-            //MessageBox.Show(chart1.Series["Categories"].Points[1].YValues[0].ToString());
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -310,21 +290,17 @@ namespace MoneFeWinForms
         }
 
         private void btnAddCategory_Click(object sender, EventArgs e)
-        { 
+        {
             if (Monefy.OperType == OperationType.Category)
             {
-                for (int i = 0; i < 11500; i++)
-                {
-                    Currency curr;
-                    Enum.TryParse(cbAddAccCurrency.SelectedText, out curr);
-                    var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), 115, "Some note", Convert.ToDouble(tbAmount.Text));
+                Currency curr;
+                Enum.TryParse(cbAddCategoryCurrency.SelectedText, out curr);
+                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), 115, tbAddCategoryNote.Text, Convert.ToDouble(tbAmount.Text));
 
-                    if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
-                        Monefy.Operations[DateTime.Now.Date].Add(operation);
-                    else
-                        Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { operation });
-                }
-                
+                if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
+                    Monefy.Operations[DateTime.Now.Date].Add(operation);
+                else
+                    Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { operation });
             }
         }
 
@@ -388,6 +364,12 @@ namespace MoneFeWinForms
             }
             else
                 pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
+        }
+
+        private void tbAmount_Leave(object sender, EventArgs e)
+        {
+            if (tbAmount.Text == string.Empty)
+                tbAmount.Text = "0";
         }
     }
 }
