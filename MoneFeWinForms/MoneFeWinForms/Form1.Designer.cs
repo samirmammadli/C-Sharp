@@ -59,9 +59,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -108,14 +108,12 @@ namespace MoneFeWinForms
             this.button9 = new System.Windows.Forms.Button();
             this.btnErase = new System.Windows.Forms.Button();
             this.pbSelectedCategoryImg = new System.Windows.Forms.PictureBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.buttonDot = new System.Windows.Forms.Button();
             this.pnlAddAmount = new System.Windows.Forms.Panel();
             this.toolTipInterface = new System.Windows.Forms.ToolTip(this.components);
             this.pnlAddAcount = new System.Windows.Forms.Panel();
-            this.pbAddAcc = new System.Windows.Forms.PictureBox();
             this.lbAccountName = new System.Windows.Forms.Label();
-            this.tbAccName = new System.Windows.Forms.TextBox();
+            this.tbAddAccName = new System.Windows.Forms.TextBox();
             this.cbAddCategoryCurrency = new System.Windows.Forms.ComboBox();
             this.lbAddCategoryCurrency = new System.Windows.Forms.Label();
             this.pnlAddToCategory = new System.Windows.Forms.Panel();
@@ -124,8 +122,11 @@ namespace MoneFeWinForms
             this.lbSelectAccount = new System.Windows.Forms.Label();
             this.lbAddCategoryNote = new System.Windows.Forms.Label();
             this.tbAddCategoryNote = new System.Windows.Forms.TextBox();
-            this.bcAddAccCurr = new System.Windows.Forms.ComboBox();
+            this.cbAddAccCurr = new System.Windows.Forms.ComboBox();
             this.lbAddAccCurr = new System.Windows.Forms.Label();
+            this.lbTotalBalance = new System.Windows.Forms.Label();
+            this.tbTotalBalance = new System.Windows.Forms.TextBox();
+            this.lbAddAccBalance = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
@@ -134,7 +135,6 @@ namespace MoneFeWinForms
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedCategoryImg)).BeginInit();
             this.pnlAddAmount.SuspendLayout();
             this.pnlAddAcount.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAddAcc)).BeginInit();
             this.pnlAddToCategory.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -322,6 +322,8 @@ namespace MoneFeWinForms
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.tbTotalBalance);
+            this.mainPanel.Controls.Add(this.lbTotalBalance);
             this.mainPanel.Controls.Add(this.btnAddAccount);
             this.mainPanel.Controls.Add(this.panel1);
             this.mainPanel.Controls.Add(this.pnlBalance);
@@ -492,21 +494,21 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(674, 307);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
-            series1.Name = "Categories";
-            series1.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(361, 225);
+            series4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series4.Legend = "Legend1";
+            series4.Name = "Categories";
+            series4.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series4);
+            this.chart1.Size = new System.Drawing.Size(752, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
@@ -684,17 +686,6 @@ namespace MoneFeWinForms
             this.pbSelectedCategoryImg.TabIndex = 32;
             this.pbSelectedCategoryImg.TabStop = false;
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(721, 27);
-            this.dateTimePicker1.MaxDate = new System.DateTime(2018, 1, 14, 0, 0, 0, 0);
-            this.dateTimePicker1.MinDate = new System.DateTime(1990, 1, 1, 0, 0, 0, 0);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 33;
-            this.dateTimePicker1.Value = new System.DateTime(2018, 1, 14, 0, 0, 0, 0);
-            // 
             // buttonDot
             // 
             this.buttonDot.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -731,41 +722,33 @@ namespace MoneFeWinForms
             // 
             // pnlAddAcount
             // 
-            this.pnlAddAcount.Controls.Add(this.bcAddAccCurr);
-            this.pnlAddAcount.Controls.Add(this.pbAddAcc);
+            this.pnlAddAcount.Controls.Add(this.lbAddAccBalance);
+            this.pnlAddAcount.Controls.Add(this.cbAddAccCurr);
             this.pnlAddAcount.Controls.Add(this.lbAddAccCurr);
             this.pnlAddAcount.Controls.Add(this.lbAccountName);
-            this.pnlAddAcount.Controls.Add(this.tbAccName);
-            this.pnlAddAcount.Location = new System.Drawing.Point(721, 172);
+            this.pnlAddAcount.Controls.Add(this.tbAddAccName);
+            this.pnlAddAcount.Location = new System.Drawing.Point(700, 78);
             this.pnlAddAcount.Name = "pnlAddAcount";
-            this.pnlAddAcount.Size = new System.Drawing.Size(329, 130);
+            this.pnlAddAcount.Size = new System.Drawing.Size(317, 210);
             this.pnlAddAcount.TabIndex = 37;
-            // 
-            // pbAddAcc
-            // 
-            this.pbAddAcc.Location = new System.Drawing.Point(239, 14);
-            this.pbAddAcc.Name = "pbAddAcc";
-            this.pbAddAcc.Size = new System.Drawing.Size(75, 68);
-            this.pbAddAcc.TabIndex = 33;
-            this.pbAddAcc.TabStop = false;
             // 
             // lbAccountName
             // 
             this.lbAccountName.AutoSize = true;
             this.lbAccountName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbAccountName.ForeColor = System.Drawing.Color.Green;
-            this.lbAccountName.Location = new System.Drawing.Point(3, 58);
+            this.lbAccountName.Location = new System.Drawing.Point(80, 76);
             this.lbAccountName.Name = "lbAccountName";
             this.lbAccountName.Size = new System.Drawing.Size(141, 24);
             this.lbAccountName.TabIndex = 20;
             this.lbAccountName.Text = "Account Name:";
             // 
-            // tbAccName
+            // tbAddAccName
             // 
-            this.tbAccName.Location = new System.Drawing.Point(7, 93);
-            this.tbAccName.Name = "tbAccName";
-            this.tbAccName.Size = new System.Drawing.Size(307, 20);
-            this.tbAccName.TabIndex = 0;
+            this.tbAddAccName.Location = new System.Drawing.Point(3, 115);
+            this.tbAddAccName.Name = "tbAddAccName";
+            this.tbAddAccName.Size = new System.Drawing.Size(311, 20);
+            this.tbAddAccName.TabIndex = 0;
             // 
             // cbAddCategoryCurrency
             // 
@@ -855,26 +838,62 @@ namespace MoneFeWinForms
             this.tbAddCategoryNote.Size = new System.Drawing.Size(311, 26);
             this.tbAddCategoryNote.TabIndex = 34;
             // 
-            // bcAddAccCurr
+            // cbAddAccCurr
             // 
-            this.bcAddAccCurr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.bcAddAccCurr.FormattingEnabled = true;
-            this.bcAddAccCurr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.bcAddAccCurr.Location = new System.Drawing.Point(110, 10);
-            this.bcAddAccCurr.Name = "bcAddAccCurr";
-            this.bcAddAccCurr.Size = new System.Drawing.Size(121, 21);
-            this.bcAddAccCurr.TabIndex = 40;
+            this.cbAddAccCurr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddAccCurr.FormattingEnabled = true;
+            this.cbAddAccCurr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cbAddAccCurr.Location = new System.Drawing.Point(193, 46);
+            this.cbAddAccCurr.Name = "cbAddAccCurr";
+            this.cbAddAccCurr.Size = new System.Drawing.Size(121, 21);
+            this.cbAddAccCurr.TabIndex = 40;
             // 
             // lbAddAccCurr
             // 
             this.lbAddAccCurr.AutoSize = true;
             this.lbAddAccCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbAddAccCurr.ForeColor = System.Drawing.Color.Chocolate;
-            this.lbAddAccCurr.Location = new System.Drawing.Point(3, 5);
+            this.lbAddAccCurr.Location = new System.Drawing.Point(3, 46);
             this.lbAddAccCurr.Name = "lbAddAccCurr";
             this.lbAddAccCurr.Size = new System.Drawing.Size(101, 24);
             this.lbAddAccCurr.TabIndex = 39;
             this.lbAddAccCurr.Text = "Currency:";
+            // 
+            // lbTotalBalance
+            // 
+            this.lbTotalBalance.AutoSize = true;
+            this.lbTotalBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbTotalBalance.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lbTotalBalance.Location = new System.Drawing.Point(129, 400);
+            this.lbTotalBalance.Name = "lbTotalBalance";
+            this.lbTotalBalance.Size = new System.Drawing.Size(74, 20);
+            this.lbTotalBalance.TabIndex = 20;
+            this.lbTotalBalance.Text = "Balance";
+            // 
+            // tbTotalBalance
+            // 
+            this.tbTotalBalance.BackColor = System.Drawing.Color.MintCream;
+            this.tbTotalBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbTotalBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbTotalBalance.Location = new System.Drawing.Point(88, 431);
+            this.tbTotalBalance.Name = "tbTotalBalance";
+            this.tbTotalBalance.ReadOnly = true;
+            this.tbTotalBalance.Size = new System.Drawing.Size(150, 19);
+            this.tbTotalBalance.TabIndex = 21;
+            this.tbTotalBalance.Text = "CurrentBalance";
+            this.tbTotalBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbTotalBalance.TextChanged += new System.EventHandler(this.tbTotalBalance_TextChanged);
+            // 
+            // lbAddAccBalance
+            // 
+            this.lbAddAccBalance.AutoSize = true;
+            this.lbAddAccBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddAccBalance.ForeColor = System.Drawing.Color.Green;
+            this.lbAddAccBalance.Location = new System.Drawing.Point(3, 175);
+            this.lbAddAccBalance.Name = "lbAddAccBalance";
+            this.lbAddAccBalance.Size = new System.Drawing.Size(83, 24);
+            this.lbAddAccBalance.TabIndex = 41;
+            this.lbAddAccBalance.Text = "Balance:";
             // 
             // MoneFy
             // 
@@ -885,7 +904,6 @@ namespace MoneFeWinForms
             this.Controls.Add(this.pnlAddToCategory);
             this.Controls.Add(this.pnlAddAcount);
             this.Controls.Add(this.pnlAddAmount);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.MenuStrip);
@@ -895,6 +913,7 @@ namespace MoneFeWinForms
             this.Name = "MoneFy";
             this.Text = "MoneFy";
             this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.pnlBalance.ResumeLayout(false);
@@ -907,7 +926,6 @@ namespace MoneFeWinForms
             this.pnlAddAmount.PerformLayout();
             this.pnlAddAcount.ResumeLayout(false);
             this.pnlAddAcount.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAddAcc)).EndInit();
             this.pnlAddToCategory.ResumeLayout(false);
             this.pnlAddToCategory.PerformLayout();
             this.ResumeLayout(false);
@@ -962,25 +980,26 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button btnErase;
         private System.Windows.Forms.PictureBox pbSelectedCategoryImg;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button buttonDot;
         private System.Windows.Forms.Panel pnlAddAmount;
         private System.Windows.Forms.Button btnAddAccount;
         private System.Windows.Forms.ToolTip toolTipInterface;
         private System.Windows.Forms.Panel pnlAddAcount;
         private System.Windows.Forms.Label lbAccountName;
-        private System.Windows.Forms.TextBox tbAccName;
+        private System.Windows.Forms.TextBox tbAddAccName;
         private System.Windows.Forms.Panel pnlAddToCategory;
         private System.Windows.Forms.ComboBox cbAddCategoryCurrency;
         private System.Windows.Forms.Label lbAddCategoryCurrency;
-        private System.Windows.Forms.PictureBox pbAddAcc;
         private System.Windows.Forms.ComboBox cbSelectAccount;
         private System.Windows.Forms.Label lbSelectAccount;
         private System.Windows.Forms.ComboBox cbSelectCategory;
         private System.Windows.Forms.TextBox tbAddCategoryNote;
         private System.Windows.Forms.Label lbAddCategoryNote;
-        private System.Windows.Forms.ComboBox bcAddAccCurr;
+        private System.Windows.Forms.ComboBox cbAddAccCurr;
         private System.Windows.Forms.Label lbAddAccCurr;
+        private System.Windows.Forms.TextBox tbTotalBalance;
+        private System.Windows.Forms.Label lbTotalBalance;
+        private System.Windows.Forms.Label lbAddAccBalance;
     }
 }
 

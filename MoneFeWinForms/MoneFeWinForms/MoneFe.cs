@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 15)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 17)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -89,7 +89,9 @@ namespace MoneFeWinForms
                 "Add new account",
                 "Account",
                 "Currency",
-                "Add note"
+                "Add note",
+                "Balance",
+                "Account name"
             };
         }
 
@@ -132,7 +134,9 @@ namespace MoneFeWinForms
                     { "addNewAccount", AppInterface[i++] },
                     { "account", AppInterface[i++] },
                     { "currency", AppInterface[i++] },
-                    { "addNote", AppInterface[i++] }
+                    { "addNote", AppInterface[i++] },
+                    { "balance", AppInterface[i++] },
+                    { "accountName", AppInterface[i++] }
                 };
         }
     }
@@ -213,8 +217,9 @@ namespace MoneFeWinForms
 
     class Account : ICSVWritable, IComparable
     {
+        private static int AccountCounter = 0;
         public Currency AccCurrency { get; set; }
-        public static int AccountID { get; private set; } = 0;
+        public int AccountID { get; }
         public string AccName { get; set; }
         public double Balance { get; set; }
 
@@ -223,7 +228,7 @@ namespace MoneFeWinForms
             AccCurrency = accCurrency;
             AccName = accName;
             Balance = balance;
-            AccountID++;
+            AccountID = ++AccountCounter;
         }
 
         public int CompareTo(object obj)

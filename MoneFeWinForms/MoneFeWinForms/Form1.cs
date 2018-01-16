@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,23 +14,37 @@ namespace MoneFeWinForms
     public partial class MoneFy : Form
     {
         private MoneFyFormsBuild Monefy;
+
+        private delegate void Language();
+
+        private Language lang;
+        private event Language LoadLanguage; 
         public MoneFy()
         {
+            
             InitializeComponent();
             Monefy = new MoneFyFormsBuild(Languages.EN);
             Monefy.Accounts.Add(new Account(Currency.AZN, "Samir", 1250.50));
             cbAddCategoryCurrency.DataSource = Enum.GetValues(typeof(Currency));
+            cbAddAccCurr.DataSource = Enum.GetValues(typeof(Currency));
             cbAddCategoryCurrency.SelectedItem = null;
-            cbSelectAccount.DataSource = Monefy.Accounts;
-            cbSelectAccount.SelectedItem = null;
+            cbAddAccCurr.SelectedItem = null;
+            LoadAccList();
+            tbTotalBalance.Text = (cbSelectAccount.SelectedValue as Account).Balance.ToString();
             LoadLang();
             LoadImages();
         }
 
+        private void LoadAccList()
+        {
+            cbSelectAccount.DataSource = null;
+            cbSelectAccount.DataSource = Monefy.Accounts;
+            cbSelectAccount.DisplayMember = "AccName";
+        }
+
         private void LoadCategoriesChart()
         {
-            //var summ = Monefy.Operations.Values.Select(x => x.Sum(u => u.Value)).Sum(y => y);
- 
+            
             var nese = Monefy.Operations.Where(x => x.Key >= DateTime.Now.Date).SelectMany(y => y.Value).ToList();
             var outcome = nese.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
             var income = nese.Where(x => x.Type == OperationType.Account).Sum(y => y.Value);
@@ -81,10 +96,12 @@ namespace MoneFeWinForms
             this.lbAddAccCurr.Text = Monefy.Interface["currency"];
             this.lbSelectAccount.Text = Monefy.Interface["account"];
             this.lbAddCategoryNote.Text = Monefy.Interface["addNote"];
+            this.lbAddAccBalance.Text = Monefy.Interface["balance"];
+            this.lbTotalBalance.Text = Monefy.Interface["balance"];
+            this.lbAccountName.Text = Monefy.Interface["accountName"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
-            this.cbSelectCategory.SelectedItem = null;
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -96,6 +113,7 @@ namespace MoneFeWinForms
 
         private void русскийToolStripMenuItem_Click(object sender, EventArgs e)
         {
+           
             englishToolStripMenuItem.Checked = false;
             русскийToolStripMenuItem.Checked = true;
             Monefy.ChangeLang(Languages.RU);
@@ -291,16 +309,31 @@ namespace MoneFeWinForms
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
+            
+            var value = Convert.ToDouble(tbAmount.Text);
             if (Monefy.OperType == OperationType.Category)
             {
+
                 Currency curr;
                 Enum.TryParse(cbAddCategoryCurrency.SelectedText, out curr);
-                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), 115, tbAddCategoryNote.Text, Convert.ToDouble(tbAmount.Text));
+                var account = cbSelectAccount.SelectedValue as Account;
+                
+                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value );
+                account.Balance -= value;
+                tbTotalBalance.Text = Monefy.Accounts[0].Balance.ToString();
 
                 if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
                     Monefy.Operations[DateTime.Now.Date].Add(operation);
                 else
                     Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { operation });
+            }
+            else
+            {
+                Currency curr;
+                Enum.TryParse(cbAddAccCurr.SelectedText, out curr);
+                Monefy.Accounts.Add(new Account(curr, tbAddAccName.Text, value));
+                LoadAccList();
+                MessageBox.Show("");
             }
         }
 
@@ -343,12 +376,12 @@ namespace MoneFeWinForms
 
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
-
+            Monefy.OperType = OperationType.Account;
         }
 
         private void cbSelectCategory_SelectedValueChanged(object sender, EventArgs e)
         {
-            //pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
+           
         }
 
         private void cbSelectCategory_ValueMemberChanged(object sender, EventArgs e)
@@ -358,7 +391,7 @@ namespace MoneFeWinForms
 
         private void cbSelectCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbSelectCategory.SelectedItem == null)// || cbSelectCategory.SelectedItem.ToString() == @"[cars, Car]")
+            if (cbSelectCategory.SelectedItem == null)
             {
                 return;
             }
@@ -370,6 +403,16 @@ namespace MoneFeWinForms
         {
             if (tbAmount.Text == string.Empty)
                 tbAmount.Text = "0";
+        }
+
+        private void tbTotalBalance_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(tbTotalBalance.Text) < 0)
+                tbTotalBalance.ForeColor = Color.Red;
+            else
+            {
+                tbTotalBalance.ForeColor = Color.Green;
+            }
         }
     }
 }
