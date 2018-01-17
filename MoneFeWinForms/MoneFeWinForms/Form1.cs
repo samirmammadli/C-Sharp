@@ -14,33 +14,42 @@ namespace MoneFeWinForms
     public partial class MoneFy : Form
     {
         private MoneFyFormsBuild Monefy;
+        private List<string> DateChoose;
 
-        private delegate void Language();
-
-        private Language lang;
-        private event Language LoadLanguage; 
         public MoneFy()
         {
             
             InitializeComponent();
+            LoadImages();
             Monefy = new MoneFyFormsBuild(Languages.EN);
-            Monefy.Accounts.Add(new Account(Currency.AZN, "Samir", 1250.50));
+            //Monefy.Accounts.Add(new Account(Currency.AZN, "Samir", 1250.50));
             cbAddCategoryCurrency.DataSource = Enum.GetValues(typeof(Currency));
             cbAddAccCurr.DataSource = Enum.GetValues(typeof(Currency));
             cbAddCategoryCurrency.SelectedItem = null;
             cbAddAccCurr.SelectedItem = null;
             LoadAccList();
-            tbTotalBalance.Text = (cbSelectAccount.SelectedValue as Account).Balance.ToString();
+            RefreshData();
             LoadLang();
-            LoadImages();
         }
 
         private void LoadAccList()
         {
+            BindingSource bs = new BindingSource { DataSource = Monefy.Accounts };
+            cbMainAccount.DataSource = null;
+            cbMainAccount.DataSource = bs;
+            cbMainAccount.DisplayMember = "AccName";
+
             cbSelectAccount.DataSource = null;
             cbSelectAccount.DataSource = Monefy.Accounts;
             cbSelectAccount.DisplayMember = "AccName";
+
         }
+
+        private void RefreshData()
+        {
+            if (cbSelectAccount.Items.Count > 0) tbTotalBalance.Text = (cbMainAccount.SelectedValue as Account).Balance.ToString();
+        }
+
 
         private void LoadCategoriesChart()
         {
@@ -95,6 +104,7 @@ namespace MoneFeWinForms
             this.lbAddCategoryCurrency.Text = Monefy.Interface["currency"];
             this.lbAddAccCurr.Text = Monefy.Interface["currency"];
             this.lbSelectAccount.Text = Monefy.Interface["account"];
+            this.lbMainAccount.Text = Monefy.Interface["account"];
             this.lbAddCategoryNote.Text = Monefy.Interface["addNote"];
             this.lbAddAccBalance.Text = Monefy.Interface["balance"];
             this.lbTotalBalance.Text = Monefy.Interface["balance"];
@@ -102,6 +112,16 @@ namespace MoneFeWinForms
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
+            this.pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
+
+            DateChoose = new List<string>
+            {
+                Monefy.Interface["year"],
+                Monefy.Interface["month"],
+                Monefy.Interface["week"],
+                Monefy.Interface["day"],
+                Monefy.Interface["chooseDate"]
+            };
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -130,20 +150,18 @@ namespace MoneFeWinForms
 
         private void btnCar_Click(object sender, EventArgs e)
         {
-            
             Monefy.OperType = OperationType.Category;
             cbSelectCategory.SelectedValue = "cars";
-
-
-
-            pbSelectedCategoryImg.Image = btnCar.Image;
             pnlAddAmount.Visible = true;
         }
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
-            chart1.Series["Categories"].Points.Clear();
-            LoadCategoriesChart();
+            var dateselect = new Choose_Period(DateChoose, DateTime.Now);
+            dateselect.ShowDialog();
+
+            //chart1.Series["Categories"].Points.Clear();
+            //LoadCategoriesChart();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -218,79 +236,79 @@ namespace MoneFeWinForms
 
         private void btnClothes_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "clothes";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-             //btnClothes.Image;
         }
 
         private void btnEatingOut_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "eating_out";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnEatingOut.Image;
         }
 
         private void btnEntertainment_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "entertainment";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnEntertainment.Image;
         }
 
         private void btnFood_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "food";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnFood.Image;
         }
 
         private void btnGifts_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "gifts";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnGifts.Image;
         }
 
         private void btnCommunication_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "communications";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnCommunication.Image;
         }
 
         private void btnHealth_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "health";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnHealth.Image;
         }
 
         private void btnHouse_Click(object sender, EventArgs e)
         {
-            cbSelectCategory.SelectedValue = "house";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnHouse.Image;
+
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true; cbSelectCategory.SelectedValue = "house";
         }
 
         private void btnSport_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "sports";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnSport.Image;
         }
 
         private void btnTaxi_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "taxi";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];
-            pbSelectedCategoryImg.Image = btnTaxi.Image;
         }
 
         private void btnTransport_Click(object sender, EventArgs e)
         {
+            Monefy.OperType = OperationType.Category;
+            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "transport";
-            lbAddToCategory.Text = Monefy.Interface["addToCategory"];  
-            pbSelectedCategoryImg.Image = btnTransport.Image;
         }
 
         private void btnErase_Click(object sender, EventArgs e)
@@ -333,7 +351,7 @@ namespace MoneFeWinForms
                 Enum.TryParse(cbAddAccCurr.SelectedText, out curr);
                 Monefy.Accounts.Add(new Account(curr, tbAddAccName.Text, value));
                 LoadAccList();
-                MessageBox.Show("");
+                RefreshData();
             }
         }
 
@@ -391,7 +409,7 @@ namespace MoneFeWinForms
 
         private void cbSelectCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbSelectCategory.SelectedItem == null)
+            if (cbSelectCategory.Items.Count == 0)
             {
                 return;
             }
@@ -413,6 +431,11 @@ namespace MoneFeWinForms
             {
                 tbTotalBalance.ForeColor = Color.Green;
             }
+        }
+
+        private void cbMainAccount_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            RefreshData();
         }
     }
 }
