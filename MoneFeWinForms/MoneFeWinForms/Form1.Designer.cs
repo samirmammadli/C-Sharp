@@ -59,9 +59,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -77,6 +77,7 @@ namespace MoneFeWinForms
             this.btnTaxi = new System.Windows.Forms.Button();
             this.btnSport = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.cbSelectRange = new System.Windows.Forms.ComboBox();
             this.cbMainAccount = new System.Windows.Forms.ComboBox();
             this.lbMainAccount = new System.Windows.Forms.Label();
             this.tbTotalBalance = new System.Windows.Forms.TextBox();
@@ -129,6 +130,7 @@ namespace MoneFeWinForms
             this.cbSelectCategory = new System.Windows.Forms.ComboBox();
             this.cbSelectAccount = new System.Windows.Forms.ComboBox();
             this.lbSelectAccount = new System.Windows.Forms.Label();
+            this.lbSelectRange = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBalance.SuspendLayout();
@@ -324,6 +326,8 @@ namespace MoneFeWinForms
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.lbSelectRange);
+            this.mainPanel.Controls.Add(this.cbSelectRange);
             this.mainPanel.Controls.Add(this.cbMainAccount);
             this.mainPanel.Controls.Add(this.lbMainAccount);
             this.mainPanel.Controls.Add(this.tbTotalBalance);
@@ -334,7 +338,6 @@ namespace MoneFeWinForms
             this.mainPanel.Controls.Add(this.btnCar);
             this.mainPanel.Controls.Add(this.btnTransport);
             this.mainPanel.Controls.Add(this.btnGifts);
-            this.mainPanel.Controls.Add(this.btnCalendar);
             this.mainPanel.Controls.Add(this.btnFood);
             this.mainPanel.Controls.Add(this.btnCommunication);
             this.mainPanel.Controls.Add(this.btnAdd);
@@ -351,11 +354,20 @@ namespace MoneFeWinForms
             this.mainPanel.Size = new System.Drawing.Size(322, 485);
             this.mainPanel.TabIndex = 15;
             // 
+            // cbSelectRange
+            // 
+            this.cbSelectRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSelectRange.FormattingEnabled = true;
+            this.cbSelectRange.Location = new System.Drawing.Point(222, 46);
+            this.cbSelectRange.Name = "cbSelectRange";
+            this.cbSelectRange.Size = new System.Drawing.Size(93, 21);
+            this.cbSelectRange.TabIndex = 41;
+            // 
             // cbMainAccount
             // 
             this.cbMainAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMainAccount.FormattingEnabled = true;
-            this.cbMainAccount.Location = new System.Drawing.Point(88, 46);
+            this.cbMainAccount.Location = new System.Drawing.Point(83, 46);
             this.cbMainAccount.Name = "cbMainAccount";
             this.cbMainAccount.Size = new System.Drawing.Size(128, 21);
             this.cbMainAccount.TabIndex = 40;
@@ -366,7 +378,7 @@ namespace MoneFeWinForms
             this.lbMainAccount.AutoSize = true;
             this.lbMainAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbMainAccount.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lbMainAccount.Location = new System.Drawing.Point(110, 12);
+            this.lbMainAccount.Location = new System.Drawing.Point(94, 12);
             this.lbMainAccount.Name = "lbMainAccount";
             this.lbMainAccount.Size = new System.Drawing.Size(93, 24);
             this.lbMainAccount.TabIndex = 39;
@@ -483,7 +495,7 @@ namespace MoneFeWinForms
             this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
             this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
-            this.btnCalendar.Location = new System.Drawing.Point(246, 3);
+            this.btnCalendar.Location = new System.Drawing.Point(292, 12);
             this.btnCalendar.Name = "btnCalendar";
             this.btnCalendar.Size = new System.Drawing.Size(69, 64);
             this.btnCalendar.TabIndex = 18;
@@ -543,20 +555,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(674, 307);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Categories";
-            series2.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series2);
+            series5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series5.Legend = "Legend1";
+            series5.Name = "Categories";
+            series5.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series5);
             this.chart1.Size = new System.Drawing.Size(752, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -919,6 +931,17 @@ namespace MoneFeWinForms
             this.lbSelectAccount.TabIndex = 33;
             this.lbSelectAccount.Text = "Account:";
             // 
+            // lbSelectRange
+            // 
+            this.lbSelectRange.AutoSize = true;
+            this.lbSelectRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSelectRange.ForeColor = System.Drawing.Color.SeaGreen;
+            this.lbSelectRange.Location = new System.Drawing.Point(218, 12);
+            this.lbSelectRange.Name = "lbSelectRange";
+            this.lbSelectRange.Size = new System.Drawing.Size(77, 24);
+            this.lbSelectRange.TabIndex = 42;
+            this.lbSelectRange.Text = "Period:";
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -931,6 +954,7 @@ namespace MoneFeWinForms
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.MenuStrip);
+            this.Controls.Add(this.btnCalendar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
@@ -1026,6 +1050,8 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label lbAddAccBalance;
         private System.Windows.Forms.Label lbMainAccount;
         private System.Windows.Forms.ComboBox cbMainAccount;
+        private System.Windows.Forms.ComboBox cbSelectRange;
+        private System.Windows.Forms.Label lbSelectRange;
     }
 }
 

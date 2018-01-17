@@ -14,7 +14,6 @@ namespace MoneFeWinForms
     public partial class MoneFy : Form
     {
         private MoneFyFormsBuild Monefy;
-        private List<string> DateChoose;
 
         public MoneFy()
         {
@@ -109,19 +108,20 @@ namespace MoneFeWinForms
             this.lbAddAccBalance.Text = Monefy.Interface["balance"];
             this.lbTotalBalance.Text = Monefy.Interface["balance"];
             this.lbAccountName.Text = Monefy.Interface["accountName"];
+            this.lbSelectRange.Text = Monefy.Interface["chooseDate"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
             this.pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
 
-            DateChoose = new List<string>
-            {
-                Monefy.Interface["year"],
+            string[] RangeItems = {Monefy.Interface["year"],
                 Monefy.Interface["month"],
                 Monefy.Interface["week"],
-                Monefy.Interface["day"],
-                Monefy.Interface["chooseDate"]
-            };
+                Monefy.Interface["day"] };
+
+            this.cbSelectRange.Items.Clear();
+            this.cbSelectRange.Items.AddRange(RangeItems);
+            this.cbSelectRange.SelectedIndex = 3;
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -157,11 +157,8 @@ namespace MoneFeWinForms
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
-            var dateselect = new Choose_Period(DateChoose, DateTime.Now);
-            dateselect.ShowDialog();
-
-            //chart1.Series["Categories"].Points.Clear();
-            //LoadCategoriesChart();
+            chart1.Series["Categories"].Points.Clear();
+            LoadCategoriesChart();
         }
 
         private void button1_Click(object sender, EventArgs e)

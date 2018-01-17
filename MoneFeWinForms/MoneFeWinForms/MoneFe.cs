@@ -92,7 +92,7 @@ namespace MoneFeWinForms
                 "Add note",
                 "Balance",
                 "Account name",
-                "Choose date",
+                "Period",
                 "Year",
                 "Month",
                 "Week",
