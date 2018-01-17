@@ -23,13 +23,13 @@ namespace MoneFeWinForms
             InitializeComponent();
             LoadImages();
             Monefy = new MoneFyFormsBuild(Languages.EN);
-            cbAddCategoryCurrency.DataSource = Enum.GetValues(typeof(Currency));
-            cbAddAccCurr.DataSource = Enum.GetValues(typeof(Currency));
-            cbAddCategoryCurrency.SelectedItem = null;
-            cbAddAccCurr.SelectedItem = null;
-            LoadAccList();
+            Monefy.AccountQuantityChanged += LoadAccList;
+            Monefy.OperationAdded += LoadCategoriesChart;
+            Monefy.OperationAdded += RefreshData;
             RefreshData();
+            LoadAccList();
             LoadLang();
+            CheckForCurrentLanguage();
         }
 
 
@@ -43,6 +43,10 @@ namespace MoneFeWinForms
             cbSelectAccount.DataSource = null;
             cbSelectAccount.DataSource = Monefy.Accounts;
             cbSelectAccount.DisplayMember = "AccName";
+
+            cbEditAccAcc.DataSource = null;
+            cbEditAccAcc.DataSource = Monefy.Accounts;
+            cbEditAccAcc.DisplayMember = "AccName";
 
             //var formatter = new BinaryFormatter();
             //using (FileStream fs = new FileStream("form.bin", FileMode.OpenOrCreate))
@@ -64,8 +68,22 @@ namespace MoneFeWinForms
             var acc = (cbMainAccount.SelectedValue as Account);
             if (cbSelectAccount.Items.Count > 0) tbTotalBalance.Text = acc.Balance.ToString();
             if (cbSelectAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}  {acc.AccCurrency}";
+            if (cbMainAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}   {(cbMainAccount.SelectedItem as Account).AccCurrency}";
         }
 
+        private void CheckForCurrentLanguage()
+        {
+            if (Monefy.Language == Languages.EN)
+            {
+                russianToolStripMenuItem.Checked = false;
+                englishToolStripMenuItem.Checked = true;
+            }
+            else if (Monefy.Language == Languages.RU)
+            {
+                russianToolStripMenuItem.Checked = true;
+                englishToolStripMenuItem.Checked = false;
+            }
+        }
 
         private void LoadCategoriesChart()
         {
@@ -79,16 +97,18 @@ namespace MoneFeWinForms
                 list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 7).SelectMany(y => y.Value).ToList();
             else
                 list = Monefy.Operations.Where(x => x.Key.Date == date.Date).SelectMany(y => y.Value).ToList();
+
+            Console.WriteLine(date.Date);
             var outcome = list.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
             var income = list.Where(x => x.Type == OperationType.Account).Sum(y => y.Value);
-            var ds = list.GroupBy(x => x.Category);
+            var sorteByCategory = list.GroupBy(x => x.Category);
 
             lbIncomeBalanceValue.Text = income.ToString();
             lbOutcomeBalanceValue.Text = outcome.ToString();
 
-            foreach (var item in ds)
+            chart1.Series["Categories"].Points.Clear();
+            foreach (var item in sorteByCategory)
             {
-                //Console.WriteLine(item.Key);
                 double value = item.Sum(x => x.Value);
                 chart1.Series["Categories"].Points.AddXY("", value);
                 int index = chart1.Series["Categories"].Points.Count - 1;
@@ -117,7 +137,7 @@ namespace MoneFeWinForms
             this.toolTipInterface.ToolTipTitle = "";
             this.languageToolStripMenuItem.Text = Monefy.Interface["language"];
             this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
-            this.русскийToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
+            this.russianToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
             this.exitToolStripMenuItem.Text = Monefy.Interface["file"];
             this.exitToolStripMenuItem1.Text = Monefy.Interface["exit"];
             this.lbIncome.Text = Monefy.Interface["income"] + ":";
@@ -126,16 +146,22 @@ namespace MoneFeWinForms
             this.toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
             this.lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             this.lbAddCategoryCurrency.Text = Monefy.Interface["currency"];
+            this.lbEditAccCurrency.Text = Monefy.Interface["currency"];
             this.lbAddAccCurr.Text = Monefy.Interface["currency"];
             this.lbSelectAccount.Text = Monefy.Interface["account"];
             this.lbMainAccount.Text = Monefy.Interface["account"];
+            this.lbEditAccAcc.Text = Monefy.Interface["account"];
             this.lbAddCategoryNote.Text = Monefy.Interface["addNote"];
             this.lbAddAccBalance.Text = Monefy.Interface["balance"];
             this.lbTotalBalance.Text = Monefy.Interface["balance"];
-            if (cbMainAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}   {(cbMainAccount.SelectedItem as Account).AccCurrency}";
             this.lbAccountName.Text = Monefy.Interface["accountName"];
             this.lbSelectRange.Text = Monefy.Interface["chooseDate"];
             this.lbAddCategoryDate.Text = Monefy.Interface["date"];
+            this.btnEditAccSave.Text = Monefy.Interface["save"];
+            this.btnMainEditAcc.Text = Monefy.Interface["edit"];
+            this.btnEditAccCancel.Text = Monefy.Interface["cancel"];
+            this.btnAddCategoryCancel.Text = Monefy.Interface["cancel"];
+            this.btnEditAccDelete.Text = Monefy.Interface["delete"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
@@ -149,14 +175,21 @@ namespace MoneFeWinForms
             this.cbSelectRange.Items.Clear();
             this.cbSelectRange.Items.AddRange(RangeItems);
             this.cbSelectRange.SelectedIndex = 3;
+
+            cbAddCategoryCurrency.DataSource = Enum.GetValues(typeof(Currency));
+            cbAddAccCurr.DataSource = Enum.GetValues(typeof(Currency));
+            cbEditAccCurrency.DataSource = Enum.GetValues(typeof(Currency));
+
+            LoadCategoriesChart();
         }
 
 
         private void PanelsVisibility(bool visible)
         {
+            pnlAddToCategory.Visible = visible;
+            pnlEditAccount.Visible = visible;
             pnlAddAcount.Visible = visible;
             pnlAddAmount.Visible = visible;
-            pnlAddToCategory.Visible = visible;
             pnlMain.Visible = visible;
         }
 
@@ -169,9 +202,8 @@ namespace MoneFeWinForms
 
         private void русскийToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
             englishToolStripMenuItem.Checked = false;
-            русскийToolStripMenuItem.Checked = true;
+            russianToolStripMenuItem.Checked = true;
             Monefy.ChangeLang(Languages.RU);
             LoadLang();
         }
@@ -179,7 +211,7 @@ namespace MoneFeWinForms
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
             englishToolStripMenuItem.Checked = true;
-            русскийToolStripMenuItem.Checked = false;
+            russianToolStripMenuItem.Checked = false;
             Monefy.ChangeLang(Languages.EN);
             LoadLang();
         }
@@ -395,16 +427,16 @@ namespace MoneFeWinForms
                 var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value );
                 account.Balance -= value;
 
-                if (Monefy.Operations.ContainsKey(dtpAddCategory.Value))
-                    Monefy.Operations[dtpAddCategory.Value].Add(operation);
-                else
-                    Monefy.Operations.Add(dtpAddCategory.Value, new List<MoneyOperation>() { operation });
+                Monefy.AddOperation(dtpAddCategory.Value.Date, operation);
+                //if (Monefy.Operations.ContainsKey(dtpAddCategory.Value))
+                //    Monefy.Operations[dtpAddCategory.Value].Add(operation);
+                //else
+                //    Monefy.Operations.Add(dtpAddCategory.Value, new List<MoneyOperation>() { operation });
             }
             else
             {
                 Enum.TryParse(cbAddAccCurr.SelectedItem.ToString(), out Currency curr);
-                Monefy.Accounts.Add(new Account(curr, tbAddAccName.Text, value));
-                LoadAccList();
+                Monefy.AddAccount(new Account(curr, tbAddAccName.Text, value));
                 RefreshData();
             }
 
@@ -486,6 +518,63 @@ namespace MoneFeWinForms
         private void cbMainAccount_SelectionChangeCommitted(object sender, EventArgs e)
         {
             RefreshData();
+        }
+
+        private void btnAddCategoryCancel_Click(object sender, EventArgs e)
+        {
+                PanelsVisibility(false);
+                pnlMain.Visible = true;
+        }
+
+        private void btnCharge_Click(object sender, EventArgs e)
+        {
+            Monefy.OperType = OperationType.Category;
+            cbSelectCategory.SelectedValue = "cars";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
+        }
+
+        private void btnMainEditAcc_Click(object sender, EventArgs e)
+        {
+            if (cbMainAccount.SelectedIndex >= 0)
+            {
+                cbEditAccAcc.SelectedIndex = cbMainAccount.SelectedIndex;
+                var acc = cbEditAccAcc.SelectedItem as Account;
+                if (acc != null) cbEditAccCurrency.SelectedItem = acc.AccCurrency;
+
+                PanelsVisibility(false);
+                pnlEditAccount.Visible = true;
+            }
+        }
+
+        private void btnEditAccCancel_Click(object sender, EventArgs e)
+        {
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
+        }
+
+        private void btnEditAccSave_Click(object sender, EventArgs e)
+        {
+            var acc = cbEditAccAcc.SelectedItem as Account;
+            acc.AccCurrency = (Currency)cbEditAccCurrency.SelectedItem;
+            MessageBox.Show(Monefy.Interface["accountEdited"], Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
+        }
+
+        private void btnEditAccDelete_Click(object sender, EventArgs e)
+        {
+            var acc = cbEditAccAcc.SelectedItem as Account;
+            Monefy.DeleteAccount(acc.AccountID);
+            MessageBox.Show(Monefy.Interface["accountDeleted"], Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
+        }
+
+        private void cbSelectRange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadCategoriesChart();
         }
     }
 }

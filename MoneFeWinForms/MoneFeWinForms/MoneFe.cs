@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 23)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 30)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -97,7 +97,14 @@ namespace MoneFeWinForms
                 "Month",
                 "Week",
                 "Day",
-                "Date"
+                "Date",
+                "Save",
+                "Edit",
+                "Delete",
+                "Cancel",
+                "Succes",
+                "Account successfully edited!",
+                "Account successfully deleted!"
             };
         }
 
@@ -148,7 +155,14 @@ namespace MoneFeWinForms
                     { "month", AppInterface[i++] },
                     { "week", AppInterface[i++] },
                     { "day", AppInterface[i++] },
-                    { "date", AppInterface[i++] }
+                    { "date", AppInterface[i++] },
+                    { "save", AppInterface[i++] },
+                    { "edit", AppInterface[i++] },
+                    { "delete", AppInterface[i++] },
+                    { "cancel", AppInterface[i++] },
+                    { "successOperation", AppInterface[i++] },
+                    { "accountEdited", AppInterface[i++] },
+                    { "accountDeleted", AppInterface[i++] }
                 };
         }
     }
@@ -264,7 +278,13 @@ namespace MoneFeWinForms
     [Serializable]
     class MoneFyFormsBuild
     {
+        public delegate void StateHandler();
+
+        public event StateHandler AccountQuantityChanged;
+        public event StateHandler OperationAdded;
+
         public List<Account> Accounts { get; set; }
+        public Languages Language { get; set; }
         public OperationType OperType { get; set; }
         public SortedList<DateTime, List<MoneyOperation>> Operations { get; set; }
         public Dictionary<string, string> Categories { get; set; }
@@ -277,8 +297,38 @@ namespace MoneFeWinForms
         }
         public void ChangeLang(Languages lang)
         {
+            Language = lang;
             Categories = MoneFeItemsLanguage.LoadCategories(lang);
             Interface = MoneFeItemsLanguage.LoadAppInterface(lang);
+        }
+
+        public void AddOperation(DateTime date, MoneyOperation operation)
+        {
+            if (Operations.ContainsKey(date))
+                Operations[date].Add(operation);
+            else
+                Operations.Add(date, new List<MoneyOperation>{ operation });
+
+            OperationAdded?.Invoke();
+        }
+
+        public void AddAccount(Account acc)
+        {
+            Accounts.Add(acc);
+            AccountQuantityChanged?.Invoke();
+        }
+
+        public void DeleteAccount(int id)
+        {
+            for (int i = 0; i < Accounts.Count; i++)
+            {
+                if (Accounts[i].AccountID == id)
+                {
+                    Accounts.RemoveAt(i);
+                    break;
+                }
+            }
+            AccountQuantityChanged?.Invoke();
         }
     }
 }

@@ -58,9 +58,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -76,9 +76,10 @@ namespace MoneFeWinForms
             this.btnTaxi = new System.Windows.Forms.Button();
             this.btnSport = new System.Windows.Forms.Button();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.btnMainEditAcc = new System.Windows.Forms.Button();
             this.lbSelectRange = new System.Windows.Forms.Label();
-            this.cbSelectRange = new System.Windows.Forms.ComboBox();
             this.cbMainAccount = new System.Windows.Forms.ComboBox();
+            this.cbSelectRange = new System.Windows.Forms.ComboBox();
             this.lbMainAccount = new System.Windows.Forms.Label();
             this.tbTotalBalance = new System.Windows.Forms.TextBox();
             this.lbTotalBalance = new System.Windows.Forms.Label();
@@ -94,7 +95,7 @@ namespace MoneFeWinForms
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.русскийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTipCategory = new System.Windows.Forms.ToolTip(this.components);
@@ -115,6 +116,7 @@ namespace MoneFeWinForms
             this.pbSelectedCategoryImg = new System.Windows.Forms.PictureBox();
             this.buttonDot = new System.Windows.Forms.Button();
             this.pnlAddAmount = new System.Windows.Forms.Panel();
+            this.btnAddCategoryCancel = new System.Windows.Forms.Button();
             this.toolTipInterface = new System.Windows.Forms.ToolTip(this.components);
             this.pnlAddAcount = new System.Windows.Forms.Panel();
             this.lbAddAccBalance = new System.Windows.Forms.Label();
@@ -132,6 +134,14 @@ namespace MoneFeWinForms
             this.cbSelectCategory = new System.Windows.Forms.ComboBox();
             this.cbSelectAccount = new System.Windows.Forms.ComboBox();
             this.lbSelectAccount = new System.Windows.Forms.Label();
+            this.pnlEditAccount = new System.Windows.Forms.Panel();
+            this.cbEditAccCurrency = new System.Windows.Forms.ComboBox();
+            this.btnEditAccSave = new System.Windows.Forms.Button();
+            this.lbEditAccCurrency = new System.Windows.Forms.Label();
+            this.btnEditAccCancel = new System.Windows.Forms.Button();
+            this.btnEditAccDelete = new System.Windows.Forms.Button();
+            this.cbEditAccAcc = new System.Windows.Forms.ComboBox();
+            this.lbEditAccAcc = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlOutcome.SuspendLayout();
             this.pnlIncome.SuspendLayout();
@@ -141,6 +151,7 @@ namespace MoneFeWinForms
             this.pnlAddAmount.SuspendLayout();
             this.pnlAddAcount.SuspendLayout();
             this.pnlAddToCategory.SuspendLayout();
+            this.pnlEditAccount.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -166,6 +177,7 @@ namespace MoneFeWinForms
             this.btnCharge.Size = new System.Drawing.Size(77, 77);
             this.btnCharge.TabIndex = 13;
             this.btnCharge.UseVisualStyleBackColor = false;
+            this.btnCharge.Click += new System.EventHandler(this.btnCharge_Click);
             // 
             // btnClothes
             // 
@@ -327,9 +339,10 @@ namespace MoneFeWinForms
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnMainEditAcc);
             this.pnlMain.Controls.Add(this.lbSelectRange);
-            this.pnlMain.Controls.Add(this.cbSelectRange);
             this.pnlMain.Controls.Add(this.cbMainAccount);
+            this.pnlMain.Controls.Add(this.cbSelectRange);
             this.pnlMain.Controls.Add(this.lbMainAccount);
             this.pnlMain.Controls.Add(this.tbTotalBalance);
             this.pnlMain.Controls.Add(this.lbTotalBalance);
@@ -355,42 +368,53 @@ namespace MoneFeWinForms
             this.pnlMain.Size = new System.Drawing.Size(322, 485);
             this.pnlMain.TabIndex = 15;
             // 
+            // btnMainEditAcc
+            // 
+            this.btnMainEditAcc.Location = new System.Drawing.Point(187, 72);
+            this.btnMainEditAcc.Name = "btnMainEditAcc";
+            this.btnMainEditAcc.Size = new System.Drawing.Size(128, 23);
+            this.btnMainEditAcc.TabIndex = 43;
+            this.btnMainEditAcc.Text = "Edit";
+            this.btnMainEditAcc.UseVisualStyleBackColor = true;
+            this.btnMainEditAcc.Click += new System.EventHandler(this.btnMainEditAcc_Click);
+            // 
             // lbSelectRange
             // 
             this.lbSelectRange.AutoSize = true;
             this.lbSelectRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbSelectRange.ForeColor = System.Drawing.Color.SeaGreen;
-            this.lbSelectRange.Location = new System.Drawing.Point(218, 12);
+            this.lbSelectRange.Location = new System.Drawing.Point(79, 10);
             this.lbSelectRange.Name = "lbSelectRange";
             this.lbSelectRange.Size = new System.Drawing.Size(77, 24);
             this.lbSelectRange.TabIndex = 42;
             this.lbSelectRange.Text = "Period:";
             // 
-            // cbSelectRange
-            // 
-            this.cbSelectRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSelectRange.FormattingEnabled = true;
-            this.cbSelectRange.Location = new System.Drawing.Point(222, 46);
-            this.cbSelectRange.Name = "cbSelectRange";
-            this.cbSelectRange.Size = new System.Drawing.Size(93, 21);
-            this.cbSelectRange.TabIndex = 41;
-            // 
             // cbMainAccount
             // 
             this.cbMainAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMainAccount.FormattingEnabled = true;
-            this.cbMainAccount.Location = new System.Drawing.Point(83, 46);
+            this.cbMainAccount.Location = new System.Drawing.Point(187, 44);
             this.cbMainAccount.Name = "cbMainAccount";
             this.cbMainAccount.Size = new System.Drawing.Size(128, 21);
             this.cbMainAccount.TabIndex = 40;
             this.cbMainAccount.SelectionChangeCommitted += new System.EventHandler(this.cbMainAccount_SelectionChangeCommitted);
+            // 
+            // cbSelectRange
+            // 
+            this.cbSelectRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSelectRange.FormattingEnabled = true;
+            this.cbSelectRange.Location = new System.Drawing.Point(83, 44);
+            this.cbSelectRange.Name = "cbSelectRange";
+            this.cbSelectRange.Size = new System.Drawing.Size(93, 21);
+            this.cbSelectRange.TabIndex = 41;
+            this.cbSelectRange.SelectedIndexChanged += new System.EventHandler(this.cbSelectRange_SelectedIndexChanged);
             // 
             // lbMainAccount
             // 
             this.lbMainAccount.AutoSize = true;
             this.lbMainAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbMainAccount.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lbMainAccount.Location = new System.Drawing.Point(94, 12);
+            this.lbMainAccount.Location = new System.Drawing.Point(198, 10);
             this.lbMainAccount.Name = "lbMainAccount";
             this.lbMainAccount.Size = new System.Drawing.Size(93, 24);
             this.lbMainAccount.TabIndex = 39;
@@ -507,7 +531,7 @@ namespace MoneFeWinForms
             this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
             this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
-            this.btnCalendar.Location = new System.Drawing.Point(292, 12);
+            this.btnCalendar.Location = new System.Drawing.Point(1058, 533);
             this.btnCalendar.Name = "btnCalendar";
             this.btnCalendar.Size = new System.Drawing.Size(69, 64);
             this.btnCalendar.TabIndex = 18;
@@ -537,7 +561,7 @@ namespace MoneFeWinForms
             // 
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
-            this.русскийToolStripMenuItem});
+            this.russianToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
             this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.languageToolStripMenuItem.Text = "Language";
@@ -549,12 +573,12 @@ namespace MoneFeWinForms
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
-            // русскийToolStripMenuItem
+            // russianToolStripMenuItem
             // 
-            this.русскийToolStripMenuItem.Name = "русскийToolStripMenuItem";
-            this.русскийToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
-            this.русскийToolStripMenuItem.Text = "Русский";
-            this.русскийToolStripMenuItem.Click += new System.EventHandler(this.русскийToolStripMenuItem_Click);
+            this.russianToolStripMenuItem.Name = "russianToolStripMenuItem";
+            this.russianToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.russianToolStripMenuItem.Text = "Русский";
+            this.russianToolStripMenuItem.Click += new System.EventHandler(this.русскийToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
@@ -567,20 +591,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
-            this.chart1.Location = new System.Drawing.Point(691, 335);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(700, 313);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "Categories";
-            series3.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series3);
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Categories";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(326, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -589,7 +613,7 @@ namespace MoneFeWinForms
             // 
             this.btnAddCategory.Location = new System.Drawing.Point(5, 212);
             this.btnAddCategory.Name = "btnAddCategory";
-            this.btnAddCategory.Size = new System.Drawing.Size(312, 35);
+            this.btnAddCategory.Size = new System.Drawing.Size(154, 35);
             this.btnAddCategory.TabIndex = 0;
             this.btnAddCategory.Text = "Add";
             this.btnAddCategory.UseVisualStyleBackColor = true;
@@ -773,6 +797,7 @@ namespace MoneFeWinForms
             // 
             // pnlAddAmount
             // 
+            this.pnlAddAmount.Controls.Add(this.btnAddCategoryCancel);
             this.pnlAddAmount.Controls.Add(this.tbAmount);
             this.pnlAddAmount.Controls.Add(this.btnAddCategory);
             this.pnlAddAmount.Controls.Add(this.buttonDot);
@@ -787,11 +812,21 @@ namespace MoneFeWinForms
             this.pnlAddAmount.Controls.Add(this.button6);
             this.pnlAddAmount.Controls.Add(this.button8);
             this.pnlAddAmount.Controls.Add(this.button7);
-            this.pnlAddAmount.Location = new System.Drawing.Point(344, 309);
+            this.pnlAddAmount.Location = new System.Drawing.Point(348, 309);
             this.pnlAddAmount.Name = "pnlAddAmount";
             this.pnlAddAmount.Size = new System.Drawing.Size(320, 251);
             this.pnlAddAmount.TabIndex = 36;
             this.pnlAddAmount.Visible = false;
+            // 
+            // btnAddCategoryCancel
+            // 
+            this.btnAddCategoryCancel.Location = new System.Drawing.Point(163, 212);
+            this.btnAddCategoryCancel.Name = "btnAddCategoryCancel";
+            this.btnAddCategoryCancel.Size = new System.Drawing.Size(154, 35);
+            this.btnAddCategoryCancel.TabIndex = 35;
+            this.btnAddCategoryCancel.Text = "Cancel";
+            this.btnAddCategoryCancel.UseVisualStyleBackColor = true;
+            this.btnAddCategoryCancel.Click += new System.EventHandler(this.btnAddCategoryCancel_Click);
             // 
             // pnlAddAcount
             // 
@@ -909,12 +944,12 @@ namespace MoneFeWinForms
             // 
             this.dtpAddCategory.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpAddCategory.Location = new System.Drawing.Point(196, 147);
-            this.dtpAddCategory.MaxDate = new System.DateTime(2018, 1, 17, 16, 38, 49, 433);
+            this.dtpAddCategory.MaxDate = new System.DateTime(2018, 1, 18, 1, 8, 43, 904);
             this.dtpAddCategory.MinDate = new System.DateTime(2018, 1, 1, 0, 0, 0, 0);
             this.dtpAddCategory.Name = "dtpAddCategory";
             this.dtpAddCategory.Size = new System.Drawing.Size(121, 20);
             this.dtpAddCategory.TabIndex = 39;
-            this.dtpAddCategory.Value = new System.DateTime(2018, 1, 17, 16, 38, 49, 433);
+            this.dtpAddCategory.Value = new System.DateTime(2018, 1, 18, 0, 0, 0, 0);
             // 
             // tbAddCategoryNote
             // 
@@ -965,12 +1000,97 @@ namespace MoneFeWinForms
             this.lbSelectAccount.TabIndex = 33;
             this.lbSelectAccount.Text = "Account:";
             // 
+            // pnlEditAccount
+            // 
+            this.pnlEditAccount.Controls.Add(this.cbEditAccCurrency);
+            this.pnlEditAccount.Controls.Add(this.btnEditAccSave);
+            this.pnlEditAccount.Controls.Add(this.lbEditAccCurrency);
+            this.pnlEditAccount.Controls.Add(this.btnEditAccCancel);
+            this.pnlEditAccount.Controls.Add(this.btnEditAccDelete);
+            this.pnlEditAccount.Controls.Add(this.cbEditAccAcc);
+            this.pnlEditAccount.Controls.Add(this.lbEditAccAcc);
+            this.pnlEditAccount.Location = new System.Drawing.Point(1049, 78);
+            this.pnlEditAccount.Name = "pnlEditAccount";
+            this.pnlEditAccount.Size = new System.Drawing.Size(295, 112);
+            this.pnlEditAccount.TabIndex = 39;
+            // 
+            // cbEditAccCurrency
+            // 
+            this.cbEditAccCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEditAccCurrency.FormattingEnabled = true;
+            this.cbEditAccCurrency.Location = new System.Drawing.Point(162, 44);
+            this.cbEditAccCurrency.Name = "cbEditAccCurrency";
+            this.cbEditAccCurrency.Size = new System.Drawing.Size(121, 21);
+            this.cbEditAccCurrency.TabIndex = 49;
+            // 
+            // btnEditAccSave
+            // 
+            this.btnEditAccSave.Location = new System.Drawing.Point(9, 76);
+            this.btnEditAccSave.Name = "btnEditAccSave";
+            this.btnEditAccSave.Size = new System.Drawing.Size(75, 23);
+            this.btnEditAccSave.TabIndex = 48;
+            this.btnEditAccSave.Text = "Save";
+            this.btnEditAccSave.UseVisualStyleBackColor = true;
+            this.btnEditAccSave.Click += new System.EventHandler(this.btnEditAccSave_Click);
+            // 
+            // lbEditAccCurrency
+            // 
+            this.lbEditAccCurrency.AutoSize = true;
+            this.lbEditAccCurrency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditAccCurrency.ForeColor = System.Drawing.Color.Chocolate;
+            this.lbEditAccCurrency.Location = new System.Drawing.Point(3, 41);
+            this.lbEditAccCurrency.Name = "lbEditAccCurrency";
+            this.lbEditAccCurrency.Size = new System.Drawing.Size(101, 24);
+            this.lbEditAccCurrency.TabIndex = 41;
+            this.lbEditAccCurrency.Text = "Currency:";
+            // 
+            // btnEditAccCancel
+            // 
+            this.btnEditAccCancel.Location = new System.Drawing.Point(196, 76);
+            this.btnEditAccCancel.Name = "btnEditAccCancel";
+            this.btnEditAccCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnEditAccCancel.TabIndex = 47;
+            this.btnEditAccCancel.Text = "Cancel";
+            this.btnEditAccCancel.UseVisualStyleBackColor = true;
+            this.btnEditAccCancel.Click += new System.EventHandler(this.btnEditAccCancel_Click);
+            // 
+            // btnEditAccDelete
+            // 
+            this.btnEditAccDelete.Location = new System.Drawing.Point(105, 76);
+            this.btnEditAccDelete.Name = "btnEditAccDelete";
+            this.btnEditAccDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnEditAccDelete.TabIndex = 46;
+            this.btnEditAccDelete.Text = "Delete";
+            this.btnEditAccDelete.UseVisualStyleBackColor = true;
+            this.btnEditAccDelete.Click += new System.EventHandler(this.btnEditAccDelete_Click);
+            // 
+            // cbEditAccAcc
+            // 
+            this.cbEditAccAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEditAccAcc.FormattingEnabled = true;
+            this.cbEditAccAcc.Location = new System.Drawing.Point(162, 12);
+            this.cbEditAccAcc.Name = "cbEditAccAcc";
+            this.cbEditAccAcc.Size = new System.Drawing.Size(121, 21);
+            this.cbEditAccAcc.TabIndex = 44;
+            // 
+            // lbEditAccAcc
+            // 
+            this.lbEditAccAcc.AutoSize = true;
+            this.lbEditAccAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbEditAccAcc.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lbEditAccAcc.Location = new System.Drawing.Point(3, 12);
+            this.lbEditAccAcc.Name = "lbEditAccAcc";
+            this.lbEditAccAcc.Size = new System.Drawing.Size(93, 24);
+            this.lbEditAccAcc.TabIndex = 43;
+            this.lbEditAccAcc.Text = "Account:";
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(1370, 641);
+            this.Controls.Add(this.pnlEditAccount);
             this.Controls.Add(this.pnlAddToCategory);
             this.Controls.Add(this.pnlAddAcount);
             this.Controls.Add(this.pnlAddAmount);
@@ -999,6 +1119,8 @@ namespace MoneFeWinForms
             this.pnlAddAcount.PerformLayout();
             this.pnlAddToCategory.ResumeLayout(false);
             this.pnlAddToCategory.PerformLayout();
+            this.pnlEditAccount.ResumeLayout(false);
+            this.pnlEditAccount.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1031,7 +1153,7 @@ namespace MoneFeWinForms
         private System.Windows.Forms.ToolTip toolTipCategory;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem русскийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
         private System.Windows.Forms.Panel pnlOutcome;
         private System.Windows.Forms.Label lbOutcomeBalanceValue;
         private System.Windows.Forms.Label lbOutcome;
@@ -1077,6 +1199,16 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label lbSelectRange;
         private System.Windows.Forms.DateTimePicker dtpAddCategory;
         private System.Windows.Forms.Label lbAddCategoryDate;
+        private System.Windows.Forms.Panel pnlEditAccount;
+        private System.Windows.Forms.ComboBox cbEditAccAcc;
+        private System.Windows.Forms.Label lbEditAccAcc;
+        private System.Windows.Forms.Button btnEditAccCancel;
+        private System.Windows.Forms.Button btnEditAccDelete;
+        private System.Windows.Forms.Button btnAddCategoryCancel;
+        private System.Windows.Forms.Button btnEditAccSave;
+        private System.Windows.Forms.Label lbEditAccCurrency;
+        private System.Windows.Forms.ComboBox cbEditAccCurrency;
+        private System.Windows.Forms.Button btnMainEditAcc;
     }
 }
 
