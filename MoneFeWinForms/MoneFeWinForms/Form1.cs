@@ -67,17 +67,16 @@ namespace MoneFeWinForms
 
         private void LoadCategoriesChart()
         {
-            int day = DateTime.Now.Date.Second / 86400;
-            Console.WriteLine(DateTime.Now);
-            List<MoneyOperation> list = null;
+            var date = DateTime.Now;
+            List<MoneyOperation> list;
             if (cbSelectRange.SelectedIndex == 0)
-                list = Monefy.Operations.Where(x => x.Key.Year == DateTime.Now.Year).SelectMany(y => y.Value).ToList();
+                list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 365).SelectMany(y => y.Value).ToList();
             else if (cbSelectRange.SelectedIndex == 1)
-                list = Monefy.Operations.Where(x => x.Key.Second / 86400 >= day - 31).SelectMany(y => y.Value).ToList();
+                list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 31).SelectMany(y => y.Value).ToList();
             else if(cbSelectRange.SelectedIndex == 2)
-                list = Monefy.Operations.Where(x => x.Key.Second / 86400 >= day - 7).SelectMany(y => y.Value).ToList();
+                list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 7).SelectMany(y => y.Value).ToList();
             else
-                list = Monefy.Operations.Where(x => x.Key.Date == DateTime.Now.Date).SelectMany(y => y.Value).ToList();
+                list = Monefy.Operations.Where(x => x.Key.Date == date.Date).SelectMany(y => y.Value).ToList();
             var outcome = list.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
             var income = list.Where(x => x.Type == OperationType.Account).Sum(y => y.Value);
             var ds = list.GroupBy(x => x.Category);
@@ -149,6 +148,15 @@ namespace MoneFeWinForms
             this.cbSelectRange.SelectedIndex = 3;
         }
 
+
+        private void PanelsVisibility(bool visible)
+        {
+            pnlAddAcount.Visible = visible;
+            pnlAddAmount.Visible = visible;
+            pnlAddToCategory.Visible = visible;
+            pnlMain.Visible = visible;
+        }
+
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(Monefy.Interface["exit_warning"], Monefy.Interface["exit"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -177,7 +185,9 @@ namespace MoneFeWinForms
         {
             Monefy.OperType = OperationType.Category;
             cbSelectCategory.SelectedValue = "cars";
+            PanelsVisibility(false);
             pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnCalendar_Click(object sender, EventArgs e)
@@ -259,78 +269,101 @@ namespace MoneFeWinForms
         private void btnClothes_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "clothes";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnEatingOut_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "eating_out";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnEntertainment_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "entertainment";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnFood_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "food";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnGifts_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "gifts";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnCommunication_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "communications";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnHealth_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "health";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnHouse_Click(object sender, EventArgs e)
         {
 
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true; cbSelectCategory.SelectedValue = "house";
+            cbSelectCategory.SelectedValue = "house";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnSport_Click(object sender, EventArgs e)
         {
+            cbSelectCategory.SelectedValue = "sports";
             Monefy.OperType = OperationType.Category;
             pnlAddAmount.Visible = true;
-            cbSelectCategory.SelectedValue = "sports";
+            PanelsVisibility(false);
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnTaxi_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "taxi";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnTransport_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Category;
-            pnlAddAmount.Visible = true;
             cbSelectCategory.SelectedValue = "transport";
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddToCategory.Visible = true;
         }
 
         private void btnErase_Click(object sender, EventArgs e)
@@ -372,6 +405,9 @@ namespace MoneFeWinForms
                 LoadAccList();
                 RefreshData();
             }
+
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
         }
 
         private void tbAmount_TextChanged(object sender, EventArgs e)
@@ -410,20 +446,13 @@ namespace MoneFeWinForms
            
             
         }
-
+        
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Account;
-        }
-
-        private void cbSelectCategory_SelectedValueChanged(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void cbSelectCategory_ValueMemberChanged(object sender, EventArgs e)
-        {
-            
+            PanelsVisibility(false);
+            pnlAddAmount.Visible = true;
+            pnlAddAcount.Visible = true;
         }
 
         private void cbSelectCategory_SelectedIndexChanged(object sender, EventArgs e)
