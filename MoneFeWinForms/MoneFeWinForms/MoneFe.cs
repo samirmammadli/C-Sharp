@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 22)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 23)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -96,7 +96,8 @@ namespace MoneFeWinForms
                 "Year",
                 "Month",
                 "Week",
-                "Day"
+                "Day",
+                "Date"
             };
         }
 
@@ -146,7 +147,8 @@ namespace MoneFeWinForms
                     { "year", AppInterface[i++] },
                     { "month", AppInterface[i++] },
                     { "week", AppInterface[i++] },
-                    { "day", AppInterface[i++] }
+                    { "day", AppInterface[i++] },
+                    { "date", AppInterface[i++] }
                 };
         }
     }

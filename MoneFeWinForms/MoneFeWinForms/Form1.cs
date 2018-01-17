@@ -67,11 +67,20 @@ namespace MoneFeWinForms
 
         private void LoadCategoriesChart()
         {
-            
-            var nese = Monefy.Operations.Where(x => x.Key >= DateTime.Now.Date).SelectMany(y => y.Value).ToList();
-            var outcome = nese.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
-            var income = nese.Where(x => x.Type == OperationType.Account).Sum(y => y.Value);
-            var ds = nese.GroupBy(x => x.Category);
+            int day = DateTime.Now.Date.Second / 86400;
+            Console.WriteLine(DateTime.Now);
+            List<MoneyOperation> list = null;
+            if (cbSelectRange.SelectedIndex == 0)
+                list = Monefy.Operations.Where(x => x.Key.Year == DateTime.Now.Year).SelectMany(y => y.Value).ToList();
+            else if (cbSelectRange.SelectedIndex == 1)
+                list = Monefy.Operations.Where(x => x.Key.Second / 86400 >= day - 31).SelectMany(y => y.Value).ToList();
+            else if(cbSelectRange.SelectedIndex == 2)
+                list = Monefy.Operations.Where(x => x.Key.Second / 86400 >= day - 7).SelectMany(y => y.Value).ToList();
+            else
+                list = Monefy.Operations.Where(x => x.Key.Date == DateTime.Now.Date).SelectMany(y => y.Value).ToList();
+            var outcome = list.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
+            var income = list.Where(x => x.Type == OperationType.Account).Sum(y => y.Value);
+            var ds = list.GroupBy(x => x.Category);
 
             lbIncomeBalanceValue.Text = income.ToString();
             lbOutcomeBalanceValue.Text = outcome.ToString();
@@ -124,6 +133,7 @@ namespace MoneFeWinForms
             this.lbTotalBalance.Text = Monefy.Interface["balance"];
             this.lbAccountName.Text = Monefy.Interface["accountName"];
             this.lbSelectRange.Text = Monefy.Interface["chooseDate"];
+            this.lbAddCategoryDate.Text = Monefy.Interface["date"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
@@ -343,24 +353,21 @@ namespace MoneFeWinForms
             var value = Convert.ToDouble(tbAmount.Text);
             if (Monefy.OperType == OperationType.Category)
             {
-
-                Currency curr;
-                Enum.TryParse(cbAddCategoryCurrency.SelectedText, out curr);
+                Enum.TryParse(cbAddCategoryCurrency.SelectedText, out Currency curr);
                 var account = cbSelectAccount.SelectedValue as Account;
                 
                 var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value );
                 account.Balance -= value;
                 tbTotalBalance.Text = Monefy.Accounts[0].Balance.ToString();
 
-                if (Monefy.Operations.ContainsKey(DateTime.Now.Date))
-                    Monefy.Operations[DateTime.Now.Date].Add(operation);
+                if (Monefy.Operations.ContainsKey(dtpAddCategory.Value))
+                    Monefy.Operations[dtpAddCategory.Value].Add(operation);
                 else
-                    Monefy.Operations.Add(DateTime.Now.Date, new List<MoneyOperation>() { operation });
+                    Monefy.Operations.Add(dtpAddCategory.Value, new List<MoneyOperation>() { operation });
             }
             else
             {
-                Currency curr;
-                Enum.TryParse(cbAddAccCurr.SelectedText, out curr);
+                Enum.TryParse(cbAddAccCurr.SelectedText, out Currency curr);
                 Monefy.Accounts.Add(new Account(curr, tbAddAccName.Text, value));
                 LoadAccList();
                 RefreshData();
