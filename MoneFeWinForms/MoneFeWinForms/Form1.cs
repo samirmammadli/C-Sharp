@@ -61,7 +61,9 @@ namespace MoneFeWinForms
 
         private void RefreshData()
         {
-            if (cbSelectAccount.Items.Count > 0) tbTotalBalance.Text = (cbMainAccount.SelectedValue as Account).Balance.ToString();
+            var acc = (cbMainAccount.SelectedValue as Account);
+            if (cbSelectAccount.Items.Count > 0) tbTotalBalance.Text = acc.Balance.ToString();
+            if (cbSelectAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}  {acc.AccCurrency}";
         }
 
 
@@ -130,6 +132,7 @@ namespace MoneFeWinForms
             this.lbAddCategoryNote.Text = Monefy.Interface["addNote"];
             this.lbAddAccBalance.Text = Monefy.Interface["balance"];
             this.lbTotalBalance.Text = Monefy.Interface["balance"];
+            if (cbMainAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}   {(cbMainAccount.SelectedItem as Account).AccCurrency}";
             this.lbAccountName.Text = Monefy.Interface["accountName"];
             this.lbSelectRange.Text = Monefy.Interface["chooseDate"];
             this.lbAddCategoryDate.Text = Monefy.Interface["date"];
@@ -391,7 +394,6 @@ namespace MoneFeWinForms
                 
                 var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value );
                 account.Balance -= value;
-                tbTotalBalance.Text = Monefy.Accounts[0].Balance.ToString();
 
                 if (Monefy.Operations.ContainsKey(dtpAddCategory.Value))
                     Monefy.Operations[dtpAddCategory.Value].Add(operation);
@@ -400,7 +402,7 @@ namespace MoneFeWinForms
             }
             else
             {
-                Enum.TryParse(cbAddAccCurr.SelectedText, out Currency curr);
+                Enum.TryParse(cbAddAccCurr.SelectedItem.ToString(), out Currency curr);
                 Monefy.Accounts.Add(new Account(curr, tbAddAccName.Text, value));
                 LoadAccList();
                 RefreshData();
