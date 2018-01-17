@@ -7,7 +7,6 @@ namespace MoneFeWinForms
     partial class MoneFy
     {
         private Dictionary<string, Image> Images { get; set; }
-        Image aha;
         /// <summary>
         /// Required designer variable.
         /// </summary>

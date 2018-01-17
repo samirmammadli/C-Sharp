@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +23,6 @@ namespace MoneFeWinForms
             InitializeComponent();
             LoadImages();
             Monefy = new MoneFyFormsBuild(Languages.EN);
-            //Monefy.Accounts.Add(new Account(Currency.AZN, "Samir", 1250.50));
             cbAddCategoryCurrency.DataSource = Enum.GetValues(typeof(Currency));
             cbAddAccCurr.DataSource = Enum.GetValues(typeof(Currency));
             cbAddCategoryCurrency.SelectedItem = null;
@@ -30,6 +31,7 @@ namespace MoneFeWinForms
             RefreshData();
             LoadLang();
         }
+
 
         private void LoadAccList()
         {
@@ -41,6 +43,19 @@ namespace MoneFeWinForms
             cbSelectAccount.DataSource = null;
             cbSelectAccount.DataSource = Monefy.Accounts;
             cbSelectAccount.DisplayMember = "AccName";
+
+            //var formatter = new BinaryFormatter();
+            //using (FileStream fs = new FileStream("form.bin", FileMode.OpenOrCreate))
+            //{
+            //    formatter.Serialize(fs, Monefy);
+            //}
+
+            //var formatter = new BinaryFormatter();
+            //using (FileStream fs = new FileStream("form.bin", FileMode.Open))
+            //{
+            //    Console.WriteLine(fs.Name);
+            //    Monefy = formatter.Deserialize(fs) as MoneFyFormsBuild;
+            //}
 
         }
 

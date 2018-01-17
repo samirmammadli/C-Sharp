@@ -179,6 +179,7 @@ namespace MoneFeWinForms
         void WriteCSV();
     }
 
+    [Serializable]
     class MoneyOperation : ICSVWritable, IComparable
     {
         public Currency AccCurrency { get; }
@@ -225,6 +226,7 @@ namespace MoneFeWinForms
         }
     }
 
+    [Serializable]
     class Account : ICSVWritable, IComparable
     {
         private static int AccountCounter = 0;
@@ -257,6 +259,7 @@ namespace MoneFeWinForms
         }
     }
 
+    [Serializable]
     class MoneFyFormsBuild
     {
         public List<Account> Accounts { get; set; }
