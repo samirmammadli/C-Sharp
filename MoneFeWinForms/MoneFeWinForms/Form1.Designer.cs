@@ -76,6 +76,7 @@ namespace MoneFeWinForms
             this.btnTaxi = new System.Windows.Forms.Button();
             this.btnSport = new System.Windows.Forms.Button();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.lbTotalBalance = new System.Windows.Forms.TextBox();
             this.btnMainEditAcc = new System.Windows.Forms.Button();
             this.lbSelectRange = new System.Windows.Forms.Label();
             this.cbMainAccount = new System.Windows.Forms.ComboBox();
@@ -142,15 +143,15 @@ namespace MoneFeWinForms
             this.cbEditAccAcc = new System.Windows.Forms.ComboBox();
             this.lbEditAccAcc = new System.Windows.Forms.Label();
             this.pnlAddToBalance = new System.Windows.Forms.Panel();
-            this.lbAddToBalanceAcc = new System.Windows.Forms.Label();
-            this.cbAddToBalanceAcc = new System.Windows.Forms.ComboBox();
-            this.lbAddToBalanceNote = new System.Windows.Forms.Label();
-            this.tbAddToBalanceNote = new System.Windows.Forms.TextBox();
-            this.lbAddToBalanceCurr = new System.Windows.Forms.Label();
-            this.cbAddToBalanceCurr = new System.Windows.Forms.ComboBox();
-            this.dtpAddToBalance = new System.Windows.Forms.DateTimePicker();
             this.lbAddToBalanceDate = new System.Windows.Forms.Label();
-            this.lbTotalBalance = new System.Windows.Forms.TextBox();
+            this.dtpAddToBalance = new System.Windows.Forms.DateTimePicker();
+            this.cbAddToBalanceCurr = new System.Windows.Forms.ComboBox();
+            this.lbAddToBalanceCurr = new System.Windows.Forms.Label();
+            this.tbAddToBalanceNote = new System.Windows.Forms.TextBox();
+            this.lbAddToBalanceNote = new System.Windows.Forms.Label();
+            this.cbAddToBalanceAcc = new System.Windows.Forms.ComboBox();
+            this.lbAddToBalanceAcc = new System.Windows.Forms.Label();
+            this.btnMainExportCSV = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlOutcome.SuspendLayout();
             this.pnlIncome.SuspendLayout();
@@ -350,6 +351,7 @@ namespace MoneFeWinForms
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnMainExportCSV);
             this.pnlMain.Controls.Add(this.lbTotalBalance);
             this.pnlMain.Controls.Add(this.btnMainEditAcc);
             this.pnlMain.Controls.Add(this.lbSelectRange);
@@ -379,9 +381,21 @@ namespace MoneFeWinForms
             this.pnlMain.Size = new System.Drawing.Size(322, 485);
             this.pnlMain.TabIndex = 15;
             // 
+            // lbTotalBalance
+            // 
+            this.lbTotalBalance.BackColor = System.Drawing.Color.MintCream;
+            this.lbTotalBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbTotalBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbTotalBalance.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lbTotalBalance.Location = new System.Drawing.Point(91, 399);
+            this.lbTotalBalance.Name = "lbTotalBalance";
+            this.lbTotalBalance.Size = new System.Drawing.Size(147, 19);
+            this.lbTotalBalance.TabIndex = 41;
+            this.lbTotalBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // btnMainEditAcc
             // 
-            this.btnMainEditAcc.Location = new System.Drawing.Point(187, 72);
+            this.btnMainEditAcc.Location = new System.Drawing.Point(187, 68);
             this.btnMainEditAcc.Name = "btnMainEditAcc";
             this.btnMainEditAcc.Size = new System.Drawing.Size(128, 23);
             this.btnMainEditAcc.TabIndex = 43;
@@ -404,7 +418,7 @@ namespace MoneFeWinForms
             // 
             this.cbMainAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMainAccount.FormattingEnabled = true;
-            this.cbMainAccount.Location = new System.Drawing.Point(187, 44);
+            this.cbMainAccount.Location = new System.Drawing.Point(187, 37);
             this.cbMainAccount.Name = "cbMainAccount";
             this.cbMainAccount.Size = new System.Drawing.Size(128, 21);
             this.cbMainAccount.TabIndex = 40;
@@ -414,7 +428,7 @@ namespace MoneFeWinForms
             // 
             this.cbSelectRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectRange.FormattingEnabled = true;
-            this.cbSelectRange.Location = new System.Drawing.Point(83, 44);
+            this.cbSelectRange.Location = new System.Drawing.Point(83, 37);
             this.cbSelectRange.Name = "cbSelectRange";
             this.cbSelectRange.Size = new System.Drawing.Size(93, 21);
             this.cbSelectRange.TabIndex = 41;
@@ -1099,63 +1113,16 @@ namespace MoneFeWinForms
             this.pnlAddToBalance.Size = new System.Drawing.Size(326, 154);
             this.pnlAddToBalance.TabIndex = 40;
             // 
-            // lbAddToBalanceAcc
+            // lbAddToBalanceDate
             // 
-            this.lbAddToBalanceAcc.AutoSize = true;
-            this.lbAddToBalanceAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAddToBalanceAcc.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lbAddToBalanceAcc.Location = new System.Drawing.Point(3, 4);
-            this.lbAddToBalanceAcc.Name = "lbAddToBalanceAcc";
-            this.lbAddToBalanceAcc.Size = new System.Drawing.Size(93, 24);
-            this.lbAddToBalanceAcc.TabIndex = 50;
-            this.lbAddToBalanceAcc.Text = "Account:";
-            // 
-            // cbAddToBalanceAcc
-            // 
-            this.cbAddToBalanceAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbAddToBalanceAcc.FormattingEnabled = true;
-            this.cbAddToBalanceAcc.Location = new System.Drawing.Point(193, 4);
-            this.cbAddToBalanceAcc.Name = "cbAddToBalanceAcc";
-            this.cbAddToBalanceAcc.Size = new System.Drawing.Size(121, 21);
-            this.cbAddToBalanceAcc.TabIndex = 51;
-            // 
-            // lbAddToBalanceNote
-            // 
-            this.lbAddToBalanceNote.AutoSize = true;
-            this.lbAddToBalanceNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAddToBalanceNote.ForeColor = System.Drawing.Color.LimeGreen;
-            this.lbAddToBalanceNote.Location = new System.Drawing.Point(5, 103);
-            this.lbAddToBalanceNote.Name = "lbAddToBalanceNote";
-            this.lbAddToBalanceNote.Size = new System.Drawing.Size(104, 24);
-            this.lbAddToBalanceNote.TabIndex = 41;
-            this.lbAddToBalanceNote.Text = "Add Note:";
-            // 
-            // tbAddToBalanceNote
-            // 
-            this.tbAddToBalanceNote.Location = new System.Drawing.Point(7, 130);
-            this.tbAddToBalanceNote.Name = "tbAddToBalanceNote";
-            this.tbAddToBalanceNote.Size = new System.Drawing.Size(311, 20);
-            this.tbAddToBalanceNote.TabIndex = 41;
-            // 
-            // lbAddToBalanceCurr
-            // 
-            this.lbAddToBalanceCurr.AutoSize = true;
-            this.lbAddToBalanceCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAddToBalanceCurr.ForeColor = System.Drawing.Color.Chocolate;
-            this.lbAddToBalanceCurr.Location = new System.Drawing.Point(3, 36);
-            this.lbAddToBalanceCurr.Name = "lbAddToBalanceCurr";
-            this.lbAddToBalanceCurr.Size = new System.Drawing.Size(101, 24);
-            this.lbAddToBalanceCurr.TabIndex = 50;
-            this.lbAddToBalanceCurr.Text = "Currency:";
-            // 
-            // cbAddToBalanceCurr
-            // 
-            this.cbAddToBalanceCurr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbAddToBalanceCurr.FormattingEnabled = true;
-            this.cbAddToBalanceCurr.Location = new System.Drawing.Point(193, 36);
-            this.cbAddToBalanceCurr.Name = "cbAddToBalanceCurr";
-            this.cbAddToBalanceCurr.Size = new System.Drawing.Size(121, 21);
-            this.cbAddToBalanceCurr.TabIndex = 52;
+            this.lbAddToBalanceDate.AutoSize = true;
+            this.lbAddToBalanceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceDate.ForeColor = System.Drawing.Color.Sienna;
+            this.lbAddToBalanceDate.Location = new System.Drawing.Point(5, 68);
+            this.lbAddToBalanceDate.Name = "lbAddToBalanceDate";
+            this.lbAddToBalanceDate.Size = new System.Drawing.Size(58, 24);
+            this.lbAddToBalanceDate.TabIndex = 41;
+            this.lbAddToBalanceDate.Text = "Date:";
             // 
             // dtpAddToBalance
             // 
@@ -1168,28 +1135,73 @@ namespace MoneFeWinForms
             this.dtpAddToBalance.TabIndex = 53;
             this.dtpAddToBalance.Value = new System.DateTime(2018, 1, 18, 0, 0, 0, 0);
             // 
-            // lbAddToBalanceDate
+            // cbAddToBalanceCurr
             // 
-            this.lbAddToBalanceDate.AutoSize = true;
-            this.lbAddToBalanceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAddToBalanceDate.ForeColor = System.Drawing.Color.Sienna;
-            this.lbAddToBalanceDate.Location = new System.Drawing.Point(5, 68);
-            this.lbAddToBalanceDate.Name = "lbAddToBalanceDate";
-            this.lbAddToBalanceDate.Size = new System.Drawing.Size(58, 24);
-            this.lbAddToBalanceDate.TabIndex = 41;
-            this.lbAddToBalanceDate.Text = "Date:";
+            this.cbAddToBalanceCurr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddToBalanceCurr.FormattingEnabled = true;
+            this.cbAddToBalanceCurr.Location = new System.Drawing.Point(193, 36);
+            this.cbAddToBalanceCurr.Name = "cbAddToBalanceCurr";
+            this.cbAddToBalanceCurr.Size = new System.Drawing.Size(121, 21);
+            this.cbAddToBalanceCurr.TabIndex = 52;
             // 
-            // lbTotalBalance
+            // lbAddToBalanceCurr
             // 
-            this.lbTotalBalance.BackColor = System.Drawing.Color.MintCream;
-            this.lbTotalBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbTotalBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbTotalBalance.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lbTotalBalance.Location = new System.Drawing.Point(91, 399);
-            this.lbTotalBalance.Name = "lbTotalBalance";
-            this.lbTotalBalance.Size = new System.Drawing.Size(147, 19);
-            this.lbTotalBalance.TabIndex = 41;
-            this.lbTotalBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.lbAddToBalanceCurr.AutoSize = true;
+            this.lbAddToBalanceCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceCurr.ForeColor = System.Drawing.Color.Chocolate;
+            this.lbAddToBalanceCurr.Location = new System.Drawing.Point(3, 36);
+            this.lbAddToBalanceCurr.Name = "lbAddToBalanceCurr";
+            this.lbAddToBalanceCurr.Size = new System.Drawing.Size(101, 24);
+            this.lbAddToBalanceCurr.TabIndex = 50;
+            this.lbAddToBalanceCurr.Text = "Currency:";
+            // 
+            // tbAddToBalanceNote
+            // 
+            this.tbAddToBalanceNote.Location = new System.Drawing.Point(7, 130);
+            this.tbAddToBalanceNote.Name = "tbAddToBalanceNote";
+            this.tbAddToBalanceNote.Size = new System.Drawing.Size(311, 20);
+            this.tbAddToBalanceNote.TabIndex = 41;
+            // 
+            // lbAddToBalanceNote
+            // 
+            this.lbAddToBalanceNote.AutoSize = true;
+            this.lbAddToBalanceNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceNote.ForeColor = System.Drawing.Color.LimeGreen;
+            this.lbAddToBalanceNote.Location = new System.Drawing.Point(5, 103);
+            this.lbAddToBalanceNote.Name = "lbAddToBalanceNote";
+            this.lbAddToBalanceNote.Size = new System.Drawing.Size(104, 24);
+            this.lbAddToBalanceNote.TabIndex = 41;
+            this.lbAddToBalanceNote.Text = "Add Note:";
+            // 
+            // cbAddToBalanceAcc
+            // 
+            this.cbAddToBalanceAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddToBalanceAcc.FormattingEnabled = true;
+            this.cbAddToBalanceAcc.Location = new System.Drawing.Point(193, 4);
+            this.cbAddToBalanceAcc.Name = "cbAddToBalanceAcc";
+            this.cbAddToBalanceAcc.Size = new System.Drawing.Size(121, 21);
+            this.cbAddToBalanceAcc.TabIndex = 51;
+            // 
+            // lbAddToBalanceAcc
+            // 
+            this.lbAddToBalanceAcc.AutoSize = true;
+            this.lbAddToBalanceAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceAcc.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lbAddToBalanceAcc.Location = new System.Drawing.Point(3, 4);
+            this.lbAddToBalanceAcc.Name = "lbAddToBalanceAcc";
+            this.lbAddToBalanceAcc.Size = new System.Drawing.Size(93, 24);
+            this.lbAddToBalanceAcc.TabIndex = 50;
+            this.lbAddToBalanceAcc.Text = "Account:";
+            // 
+            // btnMainExportCSV
+            // 
+            this.btnMainExportCSV.Location = new System.Drawing.Point(11, 68);
+            this.btnMainExportCSV.Name = "btnMainExportCSV";
+            this.btnMainExportCSV.Size = new System.Drawing.Size(165, 23);
+            this.btnMainExportCSV.TabIndex = 44;
+            this.btnMainExportCSV.Text = "Export to CSV";
+            this.btnMainExportCSV.UseVisualStyleBackColor = true;
+            this.btnMainExportCSV.Click += new System.EventHandler(this.btnMainExportCSV_Click);
             // 
             // MoneFy
             // 
@@ -1328,6 +1340,7 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label lbAddToBalanceDate;
         private System.Windows.Forms.DateTimePicker dtpAddToBalance;
         private System.Windows.Forms.TextBox lbTotalBalance;
+        private System.Windows.Forms.Button btnMainExportCSV;
     }
 }
 

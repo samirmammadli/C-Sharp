@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,26 +95,24 @@ namespace MoneFeWinForms
         private void LoadCategoriesChart()
         {
             var date = DateTime.Now;
-            List<MoneyOperation> list;
+            int range = 0;
             if (cbSelectRange.SelectedIndex == 0)
-                list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 365).SelectMany(y => y.Value).ToList();
+                range = 365;
             else if (cbSelectRange.SelectedIndex == 1)
-                list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 31).SelectMany(y => y.Value).ToList();
-            else if(cbSelectRange.SelectedIndex == 2)
-                list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= 7).SelectMany(y => y.Value).ToList();
-            else
-                list = Monefy.Operations.Where(x => x.Key.Date == date.Date).SelectMany(y => y.Value).ToList();
+                range = 31;
+            else if (cbSelectRange.SelectedIndex == 2)
+                range = 7;
 
-
+            var list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= range).SelectMany(y => y.Value).ToList();
             var outcome = list.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
             var income = list.Where(x => x.Type == OperationType.Account || x.Type == OperationType.AddBalance).Sum(y => y.Value);
-            var sorteByCategory = list.Where(y=> y.Type == OperationType.Category).GroupBy(x => x.Category);
+            var sortedByCategory = list.Where(y=> y.Type == OperationType.Category).GroupBy(x => x.Category);
 
             lbIncomeBalanceValue.Text = income.ToString();
             lbOutcomeBalanceValue.Text = outcome.ToString();
 
             chart1.Series["Categories"].Points.Clear();
-            foreach (var item in sorteByCategory)
+            foreach (var item in sortedByCategory)
             {
                 double value = item.Sum(x => x.Value);
                 chart1.Series["Categories"].Points.AddXY("", value);
@@ -436,7 +435,7 @@ namespace MoneFeWinForms
                 Enum.TryParse(cbAddCategoryCurrency.SelectedText, out Currency curr);
                 var account = cbSelectAccount.SelectedValue as Account;
                 
-                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value);
+                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), account.AccName, Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value);
                 account.Balance -= value;
 
                 Monefy.AddOperation(dtpAddCategory.Value.Date, operation);
@@ -445,14 +444,14 @@ namespace MoneFeWinForms
             {
                 Enum.TryParse(cbAddAccCurr.SelectedItem.ToString(), out Currency curr);
                 Monefy.AddAccount(new Account(curr, tbAddAccName.Text, value));
-                var operation = new MoneyOperation(curr, Monefy.Interface["newAccountAdd"], Monefy.GetLastAddedAccountID(), tbAddAccName.Text, value, OperationType.Account);
+                var operation = new MoneyOperation(curr, Monefy.Interface["newAccountAdd"], tbAddAccName.Text, Monefy.GetLastAddedAccountID(),  tbAddAccName.Text, value, OperationType.Account);
                 Monefy.AddOperation(DateTime.Now.Date, operation);
             }
             else if (Monefy.OperType == OperationType.AddBalance)
             {
                 Enum.TryParse(cbAddToBalanceCurr.SelectedText, out Currency curr);
                 var account = cbAddToBalanceAcc.SelectedValue as Account;
-                var operation = new MoneyOperation(curr, Monefy.Interface["balanceIncrease"], Convert.ToInt32(account.AccountID), tbAddToBalanceNote.Text, value, OperationType.AddBalance);
+                var operation = new MoneyOperation(curr, Monefy.Interface["balanceIncrease"], account.AccName, Convert.ToInt32(account.AccountID), tbAddToBalanceNote.Text, value, OperationType.AddBalance);
                 Monefy.AddOperation(dtpAddToBalance.Value.Date, operation);
                 Monefy.IncreaseBalanceToAccount(account.AccountID, value);
             }
@@ -601,6 +600,26 @@ namespace MoneFeWinForms
             PanelsVisibility(false);
             pnlAddAmount.Visible = true;
             pnlAddToBalance.Visible = true;
+        }
+
+        private void btnMainExportCSV_Click(object sender, EventArgs e)
+        {
+            var date = DateTime.Now;
+            int range = 0;
+            if (cbSelectRange.SelectedIndex == 0)
+                range = 365;
+            else if (cbSelectRange.SelectedIndex == 1)
+                range = 31;
+            else if (cbSelectRange.SelectedIndex == 2)
+                range = 7;
+
+            var list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= range).SelectMany(y => y.Value).ToList();
+            if (File.Exists(@"C:\Users\Somir\Desktop\monefy\samir.txt"))
+                File.Delete(@"C:\Users\Somir\Desktop\monefy\samir.txt");
+            foreach (var item in list)
+            {
+                item.WriteCSV(@"C:\Users\Somir\Desktop\monefy\samir.txt");
+            }
         }
     }
 }

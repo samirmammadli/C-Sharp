@@ -199,7 +199,7 @@ namespace MoneFeWinForms
 
     interface ICSVWritable
     {
-        void WriteCSV();
+        void WriteCSV(string path);
     }
 
     [Serializable]
@@ -213,7 +213,7 @@ namespace MoneFeWinForms
         public string Notes { get; }
         public double Value { get; }
 
-        public MoneyOperation(Currency currency ,string category, int accountID, string notes, double value, OperationType type = OperationType.Category)
+        public MoneyOperation(Currency currency ,string category, string name, int accountID, string notes, double value, OperationType type = OperationType.Category)
         {
             AccCurrency = currency;
             Category = category;
@@ -221,6 +221,7 @@ namespace MoneFeWinForms
             Notes = notes;
             Value = value;
             Type = type;
+            Account = name;
         }
 
         public int CompareTo(object obj)
@@ -228,9 +229,18 @@ namespace MoneFeWinForms
             throw new NotImplementedException();
         }
 
-        public void WriteCSV()
+        public void WriteCSV(string path)
         {
-            throw new NotImplementedException();
+            string csv = $"{Account};{Category};{Value};{AccCurrency};{Notes}" + Environment.NewLine;
+            try
+            {
+                File.AppendAllText(path, csv);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
     }
 
@@ -243,7 +253,7 @@ namespace MoneFeWinForms
             throw new NotImplementedException();
         }
 
-        public void WriteCSV()
+        public void WriteCSV(string path)
         {
             throw new NotImplementedException();
         }
@@ -271,7 +281,7 @@ namespace MoneFeWinForms
             throw new NotImplementedException();
         }
 
-        public void WriteCSV()
+        public void WriteCSV(string path)
         {
             throw new NotImplementedException();
         }
@@ -374,15 +384,7 @@ namespace MoneFeWinForms
         {
             foreach (var item in Operations)
             {
-                for (int i = 0; i < item.Value.Count; i++)
-                {
-                    if (item.Value[i].AccountID == id)
-                    {
-                        Operations[item.Key].RemoveAt(i);
-                        if (Operations[item.Key].Count > 0)
-                            i--;
-                    }
-                }
+                item.Value.RemoveAll(x => x.AccountID == id);
             }
             OperationAdded?.Invoke();
         }
