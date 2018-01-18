@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 30)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 32)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -56,6 +56,7 @@ namespace MoneFeWinForms
         {
             Categories = new List<string>()
             {
+                
                 "Car",
                 "Clothes",
                 "Eating out",
@@ -104,7 +105,9 @@ namespace MoneFeWinForms
                 "Cancel",
                 "Succes",
                 "Account successfully edited!",
-                "Account successfully deleted!"
+                "Account successfully deleted!",
+                "Account balance increased",
+                "Added new account"
             };
         }
 
@@ -113,6 +116,7 @@ namespace MoneFeWinForms
             int i = 0;
             return new Dictionary<string, string>()
                 {
+                    
                     { "cars", Categories[i++] },
                     { "clothes", Categories[i++] },
                     { "eating_out", Categories[i++] },
@@ -162,7 +166,9 @@ namespace MoneFeWinForms
                     { "cancel", AppInterface[i++] },
                     { "successOperation", AppInterface[i++] },
                     { "accountEdited", AppInterface[i++] },
-                    { "accountDeleted", AppInterface[i++] }
+                    { "accountDeleted", AppInterface[i++] },
+                    { "balanceIncrease", AppInterface[i++] },
+                    { "newAccountAdd", AppInterface[i++] },
                 };
         }
     }
@@ -178,7 +184,8 @@ namespace MoneFeWinForms
     enum OperationType
     {
         Account,
-        Category
+        Category,
+        AddBalance
     }
 
     enum SubscriptionType
@@ -280,13 +287,14 @@ namespace MoneFeWinForms
     {
         public delegate void StateHandler();
 
-        public event StateHandler AccountQuantityChanged;
+        public event StateHandler AccountsCountChanged;
         public event StateHandler OperationAdded;
+        public event StateHandler BalanceChanged;
 
         public List<Account> Accounts { get; set; }
         public Languages Language { get; set; }
         public OperationType OperType { get; set; }
-        public SortedList<DateTime, List<MoneyOperation>> Operations { get; set; }
+        public SortedList<DateTime, List<MoneyOperation>> Operations { get; private set; }
         public Dictionary<string, string> Categories { get; set; }
         public Dictionary<string, string> Interface { get; set; }
         public MoneFyFormsBuild(Languages lang)
@@ -315,7 +323,7 @@ namespace MoneFeWinForms
         public void AddAccount(Account acc)
         {
             Accounts.Add(acc);
-            AccountQuantityChanged?.Invoke();
+            AccountsCountChanged?.Invoke();
         }
 
         public void DeleteAccount(int id)
@@ -325,10 +333,41 @@ namespace MoneFeWinForms
                 if (Accounts[i].AccountID == id)
                 {
                     Accounts.RemoveAt(i);
+                    AccountsCountChanged?.Invoke();
                     break;
                 }
             }
-            AccountQuantityChanged?.Invoke();
+        }
+
+        public void IncreaseBalanceToAccount(int id, double sum)
+        {
+            for (int i = 0; i < Accounts.Count; i++)
+            {
+                if (Accounts[i].AccountID == id)
+                {
+                    Accounts[i].Balance += sum;
+                    BalanceChanged?.Invoke();
+                    break;
+                }
+            }
+        }
+
+        public int GetLastAddedAccountID()
+        {
+            return Accounts[Accounts.Count - 1].AccountID;
+        }
+
+        public void ReduceAccountBalance(int id, double sum)
+        {
+            for (int i = 0; i < Accounts.Count; i++)
+            {
+                if (Accounts[i].AccountID == id)
+                {
+                    Accounts[i].Balance -= sum;
+                    BalanceChanged?.Invoke();
+                    break;
+                }
+            }
         }
     }
 }

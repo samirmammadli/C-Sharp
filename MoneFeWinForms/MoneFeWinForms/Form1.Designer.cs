@@ -142,6 +142,15 @@ namespace MoneFeWinForms
             this.btnEditAccDelete = new System.Windows.Forms.Button();
             this.cbEditAccAcc = new System.Windows.Forms.ComboBox();
             this.lbEditAccAcc = new System.Windows.Forms.Label();
+            this.pnlAddToBalance = new System.Windows.Forms.Panel();
+            this.lbAddToBalanceAcc = new System.Windows.Forms.Label();
+            this.cbAddToBalanceAcc = new System.Windows.Forms.ComboBox();
+            this.lbAddToBalanceNote = new System.Windows.Forms.Label();
+            this.tbAddToBalanceNote = new System.Windows.Forms.TextBox();
+            this.lbAddToBalanceCurr = new System.Windows.Forms.Label();
+            this.cbAddToBalanceCurr = new System.Windows.Forms.ComboBox();
+            this.dtpAddToBalance = new System.Windows.Forms.DateTimePicker();
+            this.lbAddToBalanceDate = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlOutcome.SuspendLayout();
             this.pnlIncome.SuspendLayout();
@@ -152,6 +161,7 @@ namespace MoneFeWinForms
             this.pnlAddAcount.SuspendLayout();
             this.pnlAddToCategory.SuspendLayout();
             this.pnlEditAccount.SuspendLayout();
+            this.pnlAddToBalance.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -165,6 +175,7 @@ namespace MoneFeWinForms
             this.btnAdd.Size = new System.Drawing.Size(77, 77);
             this.btnAdd.TabIndex = 14;
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnCharge
             // 
@@ -1009,16 +1020,16 @@ namespace MoneFeWinForms
             this.pnlEditAccount.Controls.Add(this.btnEditAccDelete);
             this.pnlEditAccount.Controls.Add(this.cbEditAccAcc);
             this.pnlEditAccount.Controls.Add(this.lbEditAccAcc);
-            this.pnlEditAccount.Location = new System.Drawing.Point(1049, 78);
+            this.pnlEditAccount.Location = new System.Drawing.Point(1023, 78);
             this.pnlEditAccount.Name = "pnlEditAccount";
-            this.pnlEditAccount.Size = new System.Drawing.Size(295, 112);
+            this.pnlEditAccount.Size = new System.Drawing.Size(326, 112);
             this.pnlEditAccount.TabIndex = 39;
             // 
             // cbEditAccCurrency
             // 
             this.cbEditAccCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEditAccCurrency.FormattingEnabled = true;
-            this.cbEditAccCurrency.Location = new System.Drawing.Point(162, 44);
+            this.cbEditAccCurrency.Location = new System.Drawing.Point(193, 46);
             this.cbEditAccCurrency.Name = "cbEditAccCurrency";
             this.cbEditAccCurrency.Size = new System.Drawing.Size(121, 21);
             this.cbEditAccCurrency.TabIndex = 49;
@@ -1046,7 +1057,7 @@ namespace MoneFeWinForms
             // 
             // btnEditAccCancel
             // 
-            this.btnEditAccCancel.Location = new System.Drawing.Point(196, 76);
+            this.btnEditAccCancel.Location = new System.Drawing.Point(239, 76);
             this.btnEditAccCancel.Name = "btnEditAccCancel";
             this.btnEditAccCancel.Size = new System.Drawing.Size(75, 23);
             this.btnEditAccCancel.TabIndex = 47;
@@ -1056,7 +1067,7 @@ namespace MoneFeWinForms
             // 
             // btnEditAccDelete
             // 
-            this.btnEditAccDelete.Location = new System.Drawing.Point(105, 76);
+            this.btnEditAccDelete.Location = new System.Drawing.Point(126, 76);
             this.btnEditAccDelete.Name = "btnEditAccDelete";
             this.btnEditAccDelete.Size = new System.Drawing.Size(75, 23);
             this.btnEditAccDelete.TabIndex = 46;
@@ -1068,7 +1079,7 @@ namespace MoneFeWinForms
             // 
             this.cbEditAccAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEditAccAcc.FormattingEnabled = true;
-            this.cbEditAccAcc.Location = new System.Drawing.Point(162, 12);
+            this.cbEditAccAcc.Location = new System.Drawing.Point(193, 12);
             this.cbEditAccAcc.Name = "cbEditAccAcc";
             this.cbEditAccAcc.Size = new System.Drawing.Size(121, 21);
             this.cbEditAccAcc.TabIndex = 44;
@@ -1084,12 +1095,108 @@ namespace MoneFeWinForms
             this.lbEditAccAcc.TabIndex = 43;
             this.lbEditAccAcc.Text = "Account:";
             // 
+            // pnlAddToBalance
+            // 
+            this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceDate);
+            this.pnlAddToBalance.Controls.Add(this.dtpAddToBalance);
+            this.pnlAddToBalance.Controls.Add(this.cbAddToBalanceCurr);
+            this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceCurr);
+            this.pnlAddToBalance.Controls.Add(this.tbAddToBalanceNote);
+            this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceNote);
+            this.pnlAddToBalance.Controls.Add(this.cbAddToBalanceAcc);
+            this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceAcc);
+            this.pnlAddToBalance.Location = new System.Drawing.Point(1023, 206);
+            this.pnlAddToBalance.Name = "pnlAddToBalance";
+            this.pnlAddToBalance.Size = new System.Drawing.Size(326, 154);
+            this.pnlAddToBalance.TabIndex = 40;
+            // 
+            // lbAddToBalanceAcc
+            // 
+            this.lbAddToBalanceAcc.AutoSize = true;
+            this.lbAddToBalanceAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceAcc.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lbAddToBalanceAcc.Location = new System.Drawing.Point(3, 4);
+            this.lbAddToBalanceAcc.Name = "lbAddToBalanceAcc";
+            this.lbAddToBalanceAcc.Size = new System.Drawing.Size(93, 24);
+            this.lbAddToBalanceAcc.TabIndex = 50;
+            this.lbAddToBalanceAcc.Text = "Account:";
+            // 
+            // cbAddToBalanceAcc
+            // 
+            this.cbAddToBalanceAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddToBalanceAcc.FormattingEnabled = true;
+            this.cbAddToBalanceAcc.Location = new System.Drawing.Point(193, 4);
+            this.cbAddToBalanceAcc.Name = "cbAddToBalanceAcc";
+            this.cbAddToBalanceAcc.Size = new System.Drawing.Size(121, 21);
+            this.cbAddToBalanceAcc.TabIndex = 51;
+            // 
+            // lbAddToBalanceNote
+            // 
+            this.lbAddToBalanceNote.AutoSize = true;
+            this.lbAddToBalanceNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceNote.ForeColor = System.Drawing.Color.LimeGreen;
+            this.lbAddToBalanceNote.Location = new System.Drawing.Point(5, 103);
+            this.lbAddToBalanceNote.Name = "lbAddToBalanceNote";
+            this.lbAddToBalanceNote.Size = new System.Drawing.Size(104, 24);
+            this.lbAddToBalanceNote.TabIndex = 41;
+            this.lbAddToBalanceNote.Text = "Add Note:";
+            // 
+            // tbAddToBalanceNote
+            // 
+            this.tbAddToBalanceNote.Location = new System.Drawing.Point(7, 130);
+            this.tbAddToBalanceNote.Name = "tbAddToBalanceNote";
+            this.tbAddToBalanceNote.Size = new System.Drawing.Size(311, 20);
+            this.tbAddToBalanceNote.TabIndex = 41;
+            // 
+            // lbAddToBalanceCurr
+            // 
+            this.lbAddToBalanceCurr.AutoSize = true;
+            this.lbAddToBalanceCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceCurr.ForeColor = System.Drawing.Color.Chocolate;
+            this.lbAddToBalanceCurr.Location = new System.Drawing.Point(3, 36);
+            this.lbAddToBalanceCurr.Name = "lbAddToBalanceCurr";
+            this.lbAddToBalanceCurr.Size = new System.Drawing.Size(101, 24);
+            this.lbAddToBalanceCurr.TabIndex = 50;
+            this.lbAddToBalanceCurr.Text = "Currency:";
+            // 
+            // cbAddToBalanceCurr
+            // 
+            this.cbAddToBalanceCurr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAddToBalanceCurr.FormattingEnabled = true;
+            this.cbAddToBalanceCurr.Location = new System.Drawing.Point(193, 36);
+            this.cbAddToBalanceCurr.Name = "cbAddToBalanceCurr";
+            this.cbAddToBalanceCurr.Size = new System.Drawing.Size(121, 21);
+            this.cbAddToBalanceCurr.TabIndex = 52;
+            // 
+            // dtpAddToBalance
+            // 
+            this.dtpAddToBalance.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpAddToBalance.Location = new System.Drawing.Point(193, 70);
+            this.dtpAddToBalance.MaxDate = new System.DateTime(2018, 1, 18, 1, 8, 43, 904);
+            this.dtpAddToBalance.MinDate = new System.DateTime(2018, 1, 1, 0, 0, 0, 0);
+            this.dtpAddToBalance.Name = "dtpAddToBalance";
+            this.dtpAddToBalance.Size = new System.Drawing.Size(121, 20);
+            this.dtpAddToBalance.TabIndex = 53;
+            this.dtpAddToBalance.Value = new System.DateTime(2018, 1, 18, 0, 0, 0, 0);
+            // 
+            // lbAddToBalanceDate
+            // 
+            this.lbAddToBalanceDate.AutoSize = true;
+            this.lbAddToBalanceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbAddToBalanceDate.ForeColor = System.Drawing.Color.Sienna;
+            this.lbAddToBalanceDate.Location = new System.Drawing.Point(5, 68);
+            this.lbAddToBalanceDate.Name = "lbAddToBalanceDate";
+            this.lbAddToBalanceDate.Size = new System.Drawing.Size(58, 24);
+            this.lbAddToBalanceDate.TabIndex = 41;
+            this.lbAddToBalanceDate.Text = "Date:";
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(1370, 641);
+            this.Controls.Add(this.pnlAddToBalance);
             this.Controls.Add(this.pnlEditAccount);
             this.Controls.Add(this.pnlAddToCategory);
             this.Controls.Add(this.pnlAddAcount);
@@ -1121,6 +1228,8 @@ namespace MoneFeWinForms
             this.pnlAddToCategory.PerformLayout();
             this.pnlEditAccount.ResumeLayout(false);
             this.pnlEditAccount.PerformLayout();
+            this.pnlAddToBalance.ResumeLayout(false);
+            this.pnlAddToBalance.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1209,6 +1318,15 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Label lbEditAccCurrency;
         private System.Windows.Forms.ComboBox cbEditAccCurrency;
         private System.Windows.Forms.Button btnMainEditAcc;
+        private System.Windows.Forms.Panel pnlAddToBalance;
+        private System.Windows.Forms.ComboBox cbAddToBalanceAcc;
+        private System.Windows.Forms.Label lbAddToBalanceAcc;
+        private System.Windows.Forms.TextBox tbAddToBalanceNote;
+        private System.Windows.Forms.Label lbAddToBalanceNote;
+        private System.Windows.Forms.ComboBox cbAddToBalanceCurr;
+        private System.Windows.Forms.Label lbAddToBalanceCurr;
+        private System.Windows.Forms.Label lbAddToBalanceDate;
+        private System.Windows.Forms.DateTimePicker dtpAddToBalance;
     }
 }
 
