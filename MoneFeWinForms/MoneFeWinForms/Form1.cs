@@ -168,6 +168,7 @@ namespace MoneFeWinForms
             this.lbOutcome.Text = Monefy.Interface["outcome"] + ":";
             this.btnAddCategory.Text = Monefy.Interface["add"];
             this.toolTipInterface.SetToolTip(this.btnAddAccount, Monefy.Interface["addNewAccount"]);
+            this.tbAddAccountAddNewAcc.Text = Monefy.Interface["addNewAccount"];
             this.lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             this.lbAddCategoryCurrency.Text = Monefy.Interface["currency"];
             this.lbEditAccCurrency.Text = Monefy.Interface["currency"];
