@@ -44,15 +44,15 @@ namespace MoneFeWinForms
             cbMainAccount.DisplayMember = "AccName";
 
             cbSelectAccount.DataSource = null;
-            cbSelectAccount.DataSource = Monefy.Accounts;
+            cbSelectAccount.DataSource = bs;
             cbSelectAccount.DisplayMember = "AccName";
 
             cbEditAccAcc.DataSource = null;
-            cbEditAccAcc.DataSource = Monefy.Accounts;
+            cbEditAccAcc.DataSource = bs;
             cbEditAccAcc.DisplayMember = "AccName";
 
             cbAddToBalanceAcc.DataSource = null;
-            cbAddToBalanceAcc.DataSource = Monefy.Accounts;
+            cbAddToBalanceAcc.DataSource = bs;
             cbAddToBalanceAcc.DisplayMember = "AccName";
             //var formatter = new BinaryFormatter();
             //using (FileStream fs = new FileStream("form.bin", FileMode.OpenOrCreate))
@@ -72,9 +72,9 @@ namespace MoneFeWinForms
         private void RefreshData()
         {
             var acc = (cbMainAccount.SelectedValue as Account);
-            if (cbSelectAccount.Items.Count > 0) tbTotalBalance.Text = acc.Balance.ToString();
-            if (cbSelectAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}  {acc.AccCurrency}";
-            if (cbMainAccount.Items.Count > 0) lbTotalBalance.Text = $"{Monefy.Interface["balance"]}   {(cbMainAccount.SelectedItem as Account).AccCurrency}";
+            tbTotalBalance.Text = (cbMainAccount.Items.Count > 0) ? acc.Balance.ToString() : "0";
+            lbTotalBalance.Text = (cbMainAccount.Items.Count > 0) ? $"{Monefy.Interface["balance"]}  {acc.AccCurrency}" : Monefy.Interface["balance"];
+
         }
 
         private void CheckForCurrentLanguage()
@@ -161,7 +161,6 @@ namespace MoneFeWinForms
             this.lbAddCategoryNote.Text = Monefy.Interface["addNote"];
             this.lbAddToBalanceNote.Text = Monefy.Interface["addNote"];
             this.lbAddAccBalance.Text = Monefy.Interface["balance"];
-            this.lbTotalBalance.Text = Monefy.Interface["balance"];
             this.lbAccountName.Text = Monefy.Interface["accountName"];
             this.lbSelectRange.Text = Monefy.Interface["chooseDate"];
             this.lbAddCategoryDate.Text = Monefy.Interface["date"];
@@ -175,6 +174,7 @@ namespace MoneFeWinForms
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
             this.pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
+            lbTotalBalance.Text = (cbMainAccount.Items.Count > 0) ? $"{Monefy.Interface["balance"]}  {(cbMainAccount.SelectedItem as Account).AccCurrency}" : Monefy.Interface["balance"];
 
             string[] RangeItems = {Monefy.Interface["year"],
                 Monefy.Interface["month"],
@@ -240,7 +240,6 @@ namespace MoneFeWinForms
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
-            chart1.Series["Categories"].Points.Clear();
             LoadCategoriesChart();
         }
 
@@ -585,6 +584,7 @@ namespace MoneFeWinForms
         {
             var acc = cbEditAccAcc.SelectedItem as Account;
             Monefy.DeleteAccount(acc.AccountID);
+            Monefy.DeleteOperations(acc.AccountID);
             MessageBox.Show(Monefy.Interface["accountDeleted"], Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             PanelsVisibility(false);
             pnlMain.Visible = true;

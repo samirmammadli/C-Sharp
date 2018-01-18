@@ -369,6 +369,23 @@ namespace MoneFeWinForms
                 }
             }
         }
+
+        public void DeleteOperations(int id)
+        {
+            foreach (var item in Operations)
+            {
+                for (int i = 0; i < item.Value.Count; i++)
+                {
+                    if (item.Value[i].AccountID == id)
+                    {
+                        Operations[item.Key].RemoveAt(i);
+                        if (Operations[item.Key].Count > 0)
+                            i--;
+                    }
+                }
+            }
+            OperationAdded?.Invoke();
+        }
     }
 }
 
