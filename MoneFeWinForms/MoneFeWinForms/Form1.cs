@@ -34,8 +34,27 @@ namespace MoneFeWinForms
             LoadLang();
             CheckForCurrentLanguage();
             LoadCurrencyComboBoxes();
+            ButtonsEventAdd();
         }
 
+        private void ButtonsEventAdd()
+        {
+            btnCar.Click += CheckAccountExist;
+            btnClothes.Click += CheckAccountExist;
+            btnEatingOut.Click += CheckAccountExist;
+            btnEntertainment.Click += CheckAccountExist;
+            btnFood.Click += CheckAccountExist;
+            btnGifts.Click += CheckAccountExist;
+            btnCommunication.Click += CheckAccountExist;
+            btnHealth.Click += CheckAccountExist;
+            btnHouse.Click += CheckAccountExist;
+            btnSport.Click += CheckAccountExist;
+            btnTaxi.Click += CheckAccountExist;
+            btnTransport.Click += CheckAccountExist;
+            btnMainEditAcc.Click += CheckAccountExist;
+            btnCharge.Click += CheckAccountExist;
+            btnAdd.Click += CheckAccountExist;
+        }
 
         private void LoadAccList()
         {
@@ -432,9 +451,9 @@ namespace MoneFeWinForms
             var value = Convert.ToDouble(tbAmount.Text);
             if (Monefy.OperType == OperationType.Category)
             {
-                Enum.TryParse(cbAddCategoryCurrency.SelectedText, out Currency curr);
-                var account = cbSelectAccount.SelectedValue as Account;
                 
+                var account = cbSelectAccount.SelectedValue as Account;
+                Currency curr = (Currency)cbAddCategoryCurrency.SelectedValue;
                 var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), account.AccName, Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value);
                 account.Balance -= value;
 
@@ -442,16 +461,16 @@ namespace MoneFeWinForms
             }
             else if (Monefy.OperType == OperationType.Account)
             {
-                Enum.TryParse(cbAddAccCurr.SelectedItem.ToString(), out Currency curr);
+                Currency curr = (Currency) cbAddAccCurr.SelectedValue;
                 Monefy.AddAccount(new Account(curr, tbAddAccName.Text, value));
-                var operation = new MoneyOperation(curr, Monefy.Interface["newAccountAdd"], tbAddAccName.Text, Monefy.GetLastAddedAccountID(),  tbAddAccName.Text, value, OperationType.Account);
+                var operation = new MoneyOperation(curr, "newAccountAdd", tbAddAccName.Text, Monefy.GetLastAddedAccountID(),  tbAddAccName.Text, value, OperationType.Account);
                 Monefy.AddOperation(DateTime.Now.Date, operation);
             }
             else if (Monefy.OperType == OperationType.AddBalance)
             {
-                Enum.TryParse(cbAddToBalanceCurr.SelectedText, out Currency curr);
+                Currency curr = (Currency)cbAddToBalanceCurr.SelectedValue;
                 var account = cbAddToBalanceAcc.SelectedValue as Account;
-                var operation = new MoneyOperation(curr, Monefy.Interface["balanceIncrease"], account.AccName, Convert.ToInt32(account.AccountID), tbAddToBalanceNote.Text, value, OperationType.AddBalance);
+                var operation = new MoneyOperation(curr, "balanceIncrease", account.AccName, Convert.ToInt32(account.AccountID), tbAddToBalanceNote.Text, value, OperationType.AddBalance);
                 Monefy.AddOperation(dtpAddToBalance.Value.Date, operation);
                 Monefy.IncreaseBalanceToAccount(account.AccountID, value);
             }
@@ -602,6 +621,14 @@ namespace MoneFeWinForms
             pnlAddToBalance.Visible = true;
         }
 
+        private void CheckAccountExist(object sender, EventArgs e)
+        {
+            if (Monefy?.Accounts.Count <= 0)
+            {
+                btnAddAccount_Click(sender, e);
+            }
+        }
+
         private void btnMainExportCSV_Click(object sender, EventArgs e)
         {
             var date = DateTime.Now;
@@ -614,11 +641,17 @@ namespace MoneFeWinForms
                 range = 7;
 
             var list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= range).SelectMany(y => y.Value).ToList();
-            if (File.Exists(@"C:\Users\Somir\Desktop\monefy\samir.txt"))
-                File.Delete(@"C:\Users\Somir\Desktop\monefy\samir.txt");
+            string patch = @"C:\Users\Somir\Desktop\monefy\samir.csv";
+            File.WriteAllText(patch, $"{Monefy.Interface["account"]};{Monefy.Interface["category"]};{Monefy.Interface["summ"]};{Monefy.Interface["currency"]};{Monefy.Interface["comment"]}" + Environment.NewLine, Encoding.UTF8);
             foreach (var item in list)
             {
-                item.WriteCSV(@"C:\Users\Somir\Desktop\monefy\samir.txt");
+                if (item.Type == OperationType.Account)
+                 item.WriteCSV(patch, Monefy.Interface[item.Category]);
+                else if (item.Type == OperationType.Category)
+                    item.WriteCSV(patch, Monefy.Categories[item.Category]);
+                else
+                    item.WriteCSV(patch, Monefy.Interface[item.Category]);
+
             }
         }
     }

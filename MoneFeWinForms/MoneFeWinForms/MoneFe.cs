@@ -45,7 +45,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 32)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 34)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -107,7 +107,9 @@ namespace MoneFeWinForms
                 "Account successfully edited!",
                 "Account successfully deleted!",
                 "Account balance increased",
-                "Added new account"
+                "Added new account",
+                "Summ",
+                "Comment"
             };
         }
 
@@ -169,6 +171,8 @@ namespace MoneFeWinForms
                     { "accountDeleted", AppInterface[i++] },
                     { "balanceIncrease", AppInterface[i++] },
                     { "newAccountAdd", AppInterface[i++] },
+                    { "summ", AppInterface[i++] },
+                    { "comment", AppInterface[i++] }
                 };
         }
     }
@@ -199,7 +203,7 @@ namespace MoneFeWinForms
 
     interface ICSVWritable
     {
-        void WriteCSV(string path);
+        void WriteCSV(string path, string category);
     }
 
     [Serializable]
@@ -229,12 +233,12 @@ namespace MoneFeWinForms
             throw new NotImplementedException();
         }
 
-        public void WriteCSV(string path)
+        public void WriteCSV(string path, string category)
         {
-            string csv = $"{Account};{Category};{Value};{AccCurrency};{Notes}" + Environment.NewLine;
+            string csv = $"{Account};{category};{Value};{AccCurrency};{Notes}" + Environment.NewLine;
             try
             {
-                File.AppendAllText(path, csv);
+                File.AppendAllText(path, csv,Encoding.UTF8);
             }
             catch (Exception e)
             {
@@ -253,7 +257,7 @@ namespace MoneFeWinForms
             throw new NotImplementedException();
         }
 
-        public void WriteCSV(string path)
+        public void WriteCSV(string path, string category)
         {
             throw new NotImplementedException();
         }
@@ -281,7 +285,7 @@ namespace MoneFeWinForms
             throw new NotImplementedException();
         }
 
-        public void WriteCSV(string path)
+        public void WriteCSV(string path, string category)
         {
             throw new NotImplementedException();
         }

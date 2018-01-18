@@ -58,9 +58,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -76,6 +76,7 @@ namespace MoneFeWinForms
             this.btnTaxi = new System.Windows.Forms.Button();
             this.btnSport = new System.Windows.Forms.Button();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.btnMainExportCSV = new System.Windows.Forms.Button();
             this.lbTotalBalance = new System.Windows.Forms.TextBox();
             this.btnMainEditAcc = new System.Windows.Forms.Button();
             this.lbSelectRange = new System.Windows.Forms.Label();
@@ -90,7 +91,6 @@ namespace MoneFeWinForms
             this.pnlIncome = new System.Windows.Forms.Panel();
             this.lbIncomeBalanceValue = new System.Windows.Forms.Label();
             this.lbIncome = new System.Windows.Forms.Label();
-            this.btnCalendar = new System.Windows.Forms.Button();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,7 +151,6 @@ namespace MoneFeWinForms
             this.lbAddToBalanceNote = new System.Windows.Forms.Label();
             this.cbAddToBalanceAcc = new System.Windows.Forms.ComboBox();
             this.lbAddToBalanceAcc = new System.Windows.Forms.Label();
-            this.btnMainExportCSV = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlOutcome.SuspendLayout();
             this.pnlIncome.SuspendLayout();
@@ -381,6 +380,16 @@ namespace MoneFeWinForms
             this.pnlMain.Size = new System.Drawing.Size(322, 485);
             this.pnlMain.TabIndex = 15;
             // 
+            // btnMainExportCSV
+            // 
+            this.btnMainExportCSV.Location = new System.Drawing.Point(11, 68);
+            this.btnMainExportCSV.Name = "btnMainExportCSV";
+            this.btnMainExportCSV.Size = new System.Drawing.Size(165, 23);
+            this.btnMainExportCSV.TabIndex = 44;
+            this.btnMainExportCSV.Text = "Export to CSV";
+            this.btnMainExportCSV.UseVisualStyleBackColor = true;
+            this.btnMainExportCSV.Click += new System.EventHandler(this.btnMainExportCSV_Click);
+            // 
             // lbTotalBalance
             // 
             this.lbTotalBalance.BackColor = System.Drawing.Color.MintCream;
@@ -540,18 +549,6 @@ namespace MoneFeWinForms
             this.lbIncome.TabIndex = 0;
             this.lbIncome.Text = "Income";
             // 
-            // btnCalendar
-            // 
-            this.btnCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalendar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnCalendar.Image = ((System.Drawing.Image)(resources.GetObject("btnCalendar.Image")));
-            this.btnCalendar.Location = new System.Drawing.Point(1058, 533);
-            this.btnCalendar.Name = "btnCalendar";
-            this.btnCalendar.Size = new System.Drawing.Size(69, 64);
-            this.btnCalendar.TabIndex = 18;
-            this.btnCalendar.UseVisualStyleBackColor = true;
-            this.btnCalendar.Click += new System.EventHandler(this.btnCalendar_Click);
-            // 
             // MenuStrip
             // 
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -605,20 +602,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(700, 313);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Categories";
-            series2.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series2);
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Categories";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(326, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -1193,16 +1190,6 @@ namespace MoneFeWinForms
             this.lbAddToBalanceAcc.TabIndex = 50;
             this.lbAddToBalanceAcc.Text = "Account:";
             // 
-            // btnMainExportCSV
-            // 
-            this.btnMainExportCSV.Location = new System.Drawing.Point(11, 68);
-            this.btnMainExportCSV.Name = "btnMainExportCSV";
-            this.btnMainExportCSV.Size = new System.Drawing.Size(165, 23);
-            this.btnMainExportCSV.TabIndex = 44;
-            this.btnMainExportCSV.Text = "Export to CSV";
-            this.btnMainExportCSV.UseVisualStyleBackColor = true;
-            this.btnMainExportCSV.Click += new System.EventHandler(this.btnMainExportCSV_Click);
-            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1217,7 +1204,6 @@ namespace MoneFeWinForms
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.MenuStrip);
-            this.Controls.Add(this.btnCalendar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
@@ -1279,7 +1265,6 @@ namespace MoneFeWinForms
         private System.Windows.Forms.Panel pnlOutcome;
         private System.Windows.Forms.Label lbOutcomeBalanceValue;
         private System.Windows.Forms.Label lbOutcome;
-        private System.Windows.Forms.Button btnCalendar;
         private System.Windows.Forms.Button btnAddCategory;
         private System.Windows.Forms.TextBox tbAmount;
         private System.Windows.Forms.Label lbAddToCategory;
