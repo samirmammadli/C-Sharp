@@ -185,16 +185,19 @@ namespace MoneFeWinForms
             this.lbAddCategoryDate.Text = Monefy.Interface["date"];
             this.lbAddToBalanceDate.Text = Monefy.Interface["date"];
             this.btnEditAccSave.Text = Monefy.Interface["save"];
+            this.btnRateChangeSave.Text = Monefy.Interface["save"];
             this.btnMainEditAcc.Text = Monefy.Interface["edit"];
             this.btnEditAccCancel.Text = Monefy.Interface["cancel"];
+            this.btnRateChangeCancel.Text = Monefy.Interface["cancel"];
             this.btnAddCategoryCancel.Text = Monefy.Interface["cancel"];
             this.btnEditAccDelete.Text = Monefy.Interface["delete"];
             this.btnMainExportCSV.Text = Monefy.Interface["exportToCSV"];
+            this.btnRateChangeGetOnline.Text = Monefy.Interface["getActualRate"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
             this.pbSelectedCategoryImg.Image = Images[cbSelectCategory.SelectedValue.ToString()];
-            lbTotalBalance.Text = (cbMainAccount.Items.Count > 0) ? $"{Monefy.Interface["balance"]}  {(cbMainAccount.SelectedItem as Account).AccCurrency}" : Monefy.Interface["balance"];
+            this.lbTotalBalance.Text = (cbMainAccount.Items.Count > 0) ? $"{Monefy.Interface["balance"]}  {(cbMainAccount.SelectedItem as Account).AccCurrency}" : Monefy.Interface["balance"];
 
             string[] RangeItems = {Monefy.Interface["year"],
                 Monefy.Interface["month"],
@@ -221,6 +224,7 @@ namespace MoneFeWinForms
             pnlAddToCategory.Visible = visible;
             pnlAddToBalance.Visible = visible;
             pnlEditAccount.Visible = visible;
+            pnlRateChange.Visible = visible;
             pnlAddAcount.Visible = visible;
             pnlAddAmount.Visible = visible;
             pnlMain.Visible = visible;
@@ -676,6 +680,14 @@ namespace MoneFeWinForms
         private void currencyToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void changeRateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PanelsVisibility(false);
+            pnlRateChange.Visible = true;
+            tbRateChangeUSD.Text = Monefy.CurRate.CurRates[Currency.USD].ToString();
+            tbRateChangeEUR.Text = Monefy.CurRate.CurRates[Currency.EUR].ToString();
         }
     }
 }

@@ -62,7 +62,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 36)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 37)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -87,7 +87,7 @@ namespace MoneFeWinForms
                 "Currency", "Add note", "Balance", "Account name", "Period", "Year", "Month", "Week",
                 "Day", "Date", "Save", "Edit", "Delete", "Cancel", "Succes", "Account successfully edited!",
                 "Account successfully deleted!", "Account balance increased", "Added new account", "Summ",
-                "Comment", "Export to CSV", "Change rate"
+                "Comment", "Export to CSV", "Change rate", "Get actual rate"
             };
         }
 
@@ -120,7 +120,8 @@ namespace MoneFeWinForms
                     { "edit", AppInterface[i++] },{ "delete", AppInterface[i++] },{ "cancel", AppInterface[i++] },
                     { "successOperation", AppInterface[i++] },{ "accountEdited", AppInterface[i++] },{ "accountDeleted", AppInterface[i++] },
                     { "balanceIncrease", AppInterface[i++] },{ "newAccountAdd", AppInterface[i++] },{ "summ", AppInterface[i++] },
-                    { "comment", AppInterface[i++] },{ "exportToCSV", AppInterface[i++] },{ "changeRate", AppInterface[i++] }
+                    { "comment", AppInterface[i++] },{ "exportToCSV", AppInterface[i++] },{ "changeRate", AppInterface[i++] },
+                    { "getActualRate", AppInterface[i++] }
                 };
         }
     }
@@ -169,7 +170,7 @@ namespace MoneFeWinForms
 
     class CurrencyRate
     {
-        Dictionary<Currency, double> CurRates { get; set; }
+        public Dictionary<Currency, double> CurRates { get; set; }
 
         public CurrencyRate()
         {
