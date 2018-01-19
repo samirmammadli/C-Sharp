@@ -35,6 +35,10 @@ namespace MoneFeWinForms
             CheckForCurrentLanguage();
             LoadCurrencyComboBoxes();
             ButtonsEventAdd();
+            dtpAddCategory.MaxDate = DateTime.Now.Date;
+            dtpAddToBalance.MaxDate = DateTime.Now.Date;
+            dtpAddCategory.Value = DateTime.Now.Date;
+            dtpAddToBalance.Value = DateTime.Now.Date;
         }
 
         private void ButtonsEventAdd()
@@ -114,13 +118,7 @@ namespace MoneFeWinForms
         private void LoadCategoriesChart()
         {
             var date = DateTime.Now;
-            int range = 0;
-            if (cbSelectRange.SelectedIndex == 0)
-                range = 365;
-            else if (cbSelectRange.SelectedIndex == 1)
-                range = 31;
-            else if (cbSelectRange.SelectedIndex == 2)
-                range = 7;
+            int range = GetRange();
 
             var list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= range).SelectMany(y => y.Value).ToList();
             var outcome = list.Where(x=>x.Type == OperationType.Category).Sum(y => y.Value);
@@ -163,6 +161,7 @@ namespace MoneFeWinForms
             this.englishToolStripMenuItem.Text = Monefy.Interface["lang_english"];
             this.russianToolStripMenuItem.Text = Monefy.Interface["lang_russian"];
             this.exitToolStripMenuItem.Text = Monefy.Interface["file"];
+            this.changeRateToolStripMenuItem.Text = Monefy.Interface["changeRate"];
             this.exitToolStripMenuItem1.Text = Monefy.Interface["exit"];
             this.lbIncome.Text = Monefy.Interface["income"] + ":";
             this.lbOutcome.Text = Monefy.Interface["outcome"] + ":";
@@ -171,6 +170,7 @@ namespace MoneFeWinForms
             this.tbAddAccountAddNewAcc.Text = Monefy.Interface["addNewAccount"];
             this.lbAddToCategory.Text = Monefy.Interface["addToCategory"];
             this.lbAddCategoryCurrency.Text = Monefy.Interface["currency"];
+            this.lbAddToBalanceCurr.Text = Monefy.Interface["currency"];
             this.lbEditAccCurrency.Text = Monefy.Interface["currency"];
             this.lbAddAccCurr.Text = Monefy.Interface["currency"];
             this.lbSelectAccount.Text = Monefy.Interface["account"];
@@ -189,6 +189,7 @@ namespace MoneFeWinForms
             this.btnEditAccCancel.Text = Monefy.Interface["cancel"];
             this.btnAddCategoryCancel.Text = Monefy.Interface["cancel"];
             this.btnEditAccDelete.Text = Monefy.Interface["delete"];
+            this.btnMainExportCSV.Text = Monefy.Interface["exportToCSV"];
             this.cbSelectCategory.DataSource = Monefy.Categories.ToList();
             this.cbSelectCategory.DisplayMember = "Value";
             this.cbSelectCategory.ValueMember = "Key";
@@ -630,30 +631,51 @@ namespace MoneFeWinForms
             }
         }
 
+        private int GetRange()
+        {
+
+            if (cbSelectRange.SelectedIndex == 0)
+                return 365;
+            else if (cbSelectRange.SelectedIndex == 1)
+                return 31;
+            else if (cbSelectRange.SelectedIndex == 2)
+                return 7;
+            else
+                return 0;
+        }
+
         private void btnMainExportCSV_Click(object sender, EventArgs e)
         {
-            var date = DateTime.Now;
-            int range = 0;
-            if (cbSelectRange.SelectedIndex == 0)
-                range = 365;
-            else if (cbSelectRange.SelectedIndex == 1)
-                range = 31;
-            else if (cbSelectRange.SelectedIndex == 2)
-                range = 7;
+            int range = GetRange();
 
-            var list = Monefy.Operations.Where(x => (date.Date - x.Key.Date).Days <= range).SelectMany(y => y.Value).ToList();
-            string patch = @"C:\Users\Somir\Desktop\monefy\samir.csv";
-            File.WriteAllText(patch, $"{Monefy.Interface["account"]};{Monefy.Interface["category"]};{Monefy.Interface["summ"]};{Monefy.Interface["currency"]};{Monefy.Interface["comment"]}" + Environment.NewLine, Encoding.UTF8);
-            foreach (var item in list)
+            sfdExportCSV.Filter =  "CSV Files |*.csv";
+            if (sfdExportCSV.ShowDialog() == DialogResult.OK)
             {
-                if (item.Type == OperationType.Account)
-                 item.WriteCSV(patch, Monefy.Interface[item.Category]);
-                else if (item.Type == OperationType.Category)
-                    item.WriteCSV(patch, Monefy.Categories[item.Category]);
-                else
-                    item.WriteCSV(patch, Monefy.Interface[item.Category]);
-
+                try
+                {
+                    Monefy.WriteToCSV(sfdExportCSV.FileName, range);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
+        }
+
+        private void pnlMain_VisibleChanged(object sender, EventArgs e)
+        {
+            if (pnlMain.Visible)
+            {
+                tbAmount.Text = "0";
+                tbAddCategoryNote.Text = "";
+                tbAddToBalanceNote.Text = "";
+                tbAddAccName.Text = "";
+            }
+        }
+
+        private void currencyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

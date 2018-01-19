@@ -58,9 +58,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -119,6 +119,7 @@ namespace MoneFeWinForms
             this.btnAddCategoryCancel = new System.Windows.Forms.Button();
             this.toolTipInterface = new System.Windows.Forms.ToolTip(this.components);
             this.pnlAddAcount = new System.Windows.Forms.Panel();
+            this.tbAddAccountAddNewAcc = new System.Windows.Forms.TextBox();
             this.lbAddAccBalance = new System.Windows.Forms.Label();
             this.cbAddAccCurr = new System.Windows.Forms.ComboBox();
             this.lbAddAccCurr = new System.Windows.Forms.Label();
@@ -151,7 +152,9 @@ namespace MoneFeWinForms
             this.lbAddToBalanceNote = new System.Windows.Forms.Label();
             this.cbAddToBalanceAcc = new System.Windows.Forms.ComboBox();
             this.lbAddToBalanceAcc = new System.Windows.Forms.Label();
-            this.tbAddAccountAddNewAcc = new System.Windows.Forms.TextBox();
+            this.sfdExportCSV = new System.Windows.Forms.SaveFileDialog();
+            this.changeRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnlMain.SuspendLayout();
             this.pnlOutcome.SuspendLayout();
             this.pnlIncome.SuspendLayout();
@@ -380,6 +383,7 @@ namespace MoneFeWinForms
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(322, 485);
             this.pnlMain.TabIndex = 15;
+            this.pnlMain.VisibleChanged += new System.EventHandler(this.pnlMain_VisibleChanged);
             // 
             // btnMainExportCSV
             // 
@@ -553,7 +557,8 @@ namespace MoneFeWinForms
             // MenuStrip
             // 
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.changeRateToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Size = new System.Drawing.Size(1370, 24);
@@ -603,20 +608,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(700, 313);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Categories";
-            series2.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series2);
+            series5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series5.Legend = "Legend1";
+            series5.Name = "Categories";
+            series5.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series5);
             this.chart1.Size = new System.Drawing.Size(326, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -852,6 +857,18 @@ namespace MoneFeWinForms
             this.pnlAddAcount.Name = "pnlAddAcount";
             this.pnlAddAcount.Size = new System.Drawing.Size(317, 210);
             this.pnlAddAcount.TabIndex = 37;
+            // 
+            // tbAddAccountAddNewAcc
+            // 
+            this.tbAddAccountAddNewAcc.BackColor = System.Drawing.Color.MintCream;
+            this.tbAddAccountAddNewAcc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbAddAccountAddNewAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbAddAccountAddNewAcc.ForeColor = System.Drawing.Color.DarkGreen;
+            this.tbAddAccountAddNewAcc.Location = new System.Drawing.Point(16, 12);
+            this.tbAddAccountAddNewAcc.Name = "tbAddAccountAddNewAcc";
+            this.tbAddAccountAddNewAcc.Size = new System.Drawing.Size(287, 22);
+            this.tbAddAccountAddNewAcc.TabIndex = 42;
+            this.tbAddAccountAddNewAcc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lbAddAccBalance
             // 
@@ -1107,7 +1124,7 @@ namespace MoneFeWinForms
             this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceNote);
             this.pnlAddToBalance.Controls.Add(this.cbAddToBalanceAcc);
             this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceAcc);
-            this.pnlAddToBalance.Location = new System.Drawing.Point(1023, 206);
+            this.pnlAddToBalance.Location = new System.Drawing.Point(1023, 309);
             this.pnlAddToBalance.Name = "pnlAddToBalance";
             this.pnlAddToBalance.Size = new System.Drawing.Size(326, 154);
             this.pnlAddToBalance.TabIndex = 40;
@@ -1192,17 +1209,22 @@ namespace MoneFeWinForms
             this.lbAddToBalanceAcc.TabIndex = 50;
             this.lbAddToBalanceAcc.Text = "Account:";
             // 
-            // tbAddAccountAddNewAcc
+            // sfdExportCSV
             // 
-            this.tbAddAccountAddNewAcc.BackColor = System.Drawing.Color.MintCream;
-            this.tbAddAccountAddNewAcc.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbAddAccountAddNewAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbAddAccountAddNewAcc.ForeColor = System.Drawing.Color.DarkGreen;
-            this.tbAddAccountAddNewAcc.Location = new System.Drawing.Point(16, 12);
-            this.tbAddAccountAddNewAcc.Name = "tbAddAccountAddNewAcc";
-            this.tbAddAccountAddNewAcc.Size = new System.Drawing.Size(287, 22);
-            this.tbAddAccountAddNewAcc.TabIndex = 42;
-            this.tbAddAccountAddNewAcc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.sfdExportCSV.DefaultExt = "csv";
+            // 
+            // changeRateToolStripMenuItem
+            // 
+            this.changeRateToolStripMenuItem.Name = "changeRateToolStripMenuItem";
+            this.changeRateToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.changeRateToolStripMenuItem.Text = "Change rate";
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(1023, 475);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(255, 10);
+            this.panel1.TabIndex = 41;
             // 
             // MoneFy
             // 
@@ -1210,6 +1232,7 @@ namespace MoneFeWinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(1370, 641);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlAddToBalance);
             this.Controls.Add(this.pnlEditAccount);
             this.Controls.Add(this.pnlAddToCategory);
@@ -1341,6 +1364,9 @@ namespace MoneFeWinForms
         private System.Windows.Forms.TextBox lbTotalBalance;
         private System.Windows.Forms.Button btnMainExportCSV;
         private System.Windows.Forms.TextBox tbAddAccountAddNewAcc;
+        private System.Windows.Forms.SaveFileDialog sfdExportCSV;
+        private System.Windows.Forms.ToolStripMenuItem changeRateToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
