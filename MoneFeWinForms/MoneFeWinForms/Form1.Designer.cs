@@ -58,9 +58,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -627,20 +627,20 @@ namespace MoneFeWinForms
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea8.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chart1.Legends.Add(legend8);
             this.chart1.Location = new System.Drawing.Point(700, 313);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series5.Legend = "Legend1";
-            series5.Name = "Categories";
-            series5.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series5);
+            series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series8.Legend = "Legend1";
+            series8.Name = "Categories";
+            series8.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(326, 225);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
@@ -1315,6 +1315,7 @@ namespace MoneFeWinForms
             this.btnRateChangeGetOnline.TabIndex = 45;
             this.btnRateChangeGetOnline.Text = "Get actual rate";
             this.btnRateChangeGetOnline.UseVisualStyleBackColor = true;
+            this.btnRateChangeGetOnline.Click += new System.EventHandler(this.btnRateChangeGetOnline_Click);
             // 
             // btnRateChangeSave
             // 
@@ -1324,6 +1325,7 @@ namespace MoneFeWinForms
             this.btnRateChangeSave.TabIndex = 46;
             this.btnRateChangeSave.Text = "Save";
             this.btnRateChangeSave.UseVisualStyleBackColor = true;
+            this.btnRateChangeSave.Click += new System.EventHandler(this.btnRateChangeSave_Click);
             // 
             // btnRateChangeCancel
             // 
@@ -1333,6 +1335,7 @@ namespace MoneFeWinForms
             this.btnRateChangeCancel.TabIndex = 47;
             this.btnRateChangeCancel.Text = "Cancel";
             this.btnRateChangeCancel.UseVisualStyleBackColor = true;
+            this.btnRateChangeCancel.Click += new System.EventHandler(this.btnRateChangeCancel_Click);
             // 
             // MoneFy
             // 

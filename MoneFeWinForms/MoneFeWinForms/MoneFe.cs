@@ -62,7 +62,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 37)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 39)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -87,7 +87,7 @@ namespace MoneFeWinForms
                 "Currency", "Add note", "Balance", "Account name", "Period", "Year", "Month", "Week",
                 "Day", "Date", "Save", "Edit", "Delete", "Cancel", "Succes", "Account successfully edited!",
                 "Account successfully deleted!", "Account balance increased", "Added new account", "Summ",
-                "Comment", "Export to CSV", "Change rate", "Get actual rate"
+                "Comment", "Export to CSV", "Change rate", "Get actual rate", "Rate", "Rate changed!"
             };
         }
 
@@ -121,7 +121,7 @@ namespace MoneFeWinForms
                     { "successOperation", AppInterface[i++] },{ "accountEdited", AppInterface[i++] },{ "accountDeleted", AppInterface[i++] },
                     { "balanceIncrease", AppInterface[i++] },{ "newAccountAdd", AppInterface[i++] },{ "summ", AppInterface[i++] },
                     { "comment", AppInterface[i++] },{ "exportToCSV", AppInterface[i++] },{ "changeRate", AppInterface[i++] },
-                    { "getActualRate", AppInterface[i++] }
+                    { "getActualRate", AppInterface[i++] }, { "rate", AppInterface[i++] }, { "rateChanged", AppInterface[i++] }
                 };
         }
     }
@@ -179,16 +179,6 @@ namespace MoneFeWinForms
                 {Currency.USD, 1.701 },
                 {Currency.EUR, 2.05 }
             };
-
-            try
-            {
-                LoadRatesFromApi();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
         }
 
         public double EquateRates(Currency toThisCur, Currency cur, double sum)
@@ -197,8 +187,9 @@ namespace MoneFeWinForms
             return sum * CurRates[cur] / CurRates[toThisCur];
         }
 
-        public void LoadRatesFromApi()
+        public Dictionary<Currency, double> LoadRatesFromApi()
         {
+            Dictionary<Currency, double> responce = new Dictionary<Currency, double>();
             var date = DateTime.Now.ToString("dd.MM.yyyy");
             var link = $"https://www.cbar.az/currencies/{date}.xml";
             var rates = XDocument.Load(link);
@@ -211,8 +202,10 @@ namespace MoneFeWinForms
             {
                 double value = Convert.ToDouble(item.Element("Value").Value, new NumberFormatInfo { NumberDecimalSeparator = "." });
                 Currency key = (Currency)Enum.Parse(typeof(Currency), item.Attribute("Code").Value, ignoreCase: false);
-                CurRates[key] = value;
+                responce.Add(key, value);
             }
+
+            return responce;
         }
     }
 

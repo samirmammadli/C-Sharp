@@ -732,5 +732,36 @@ namespace MoneFeWinForms
             if (tbRateChangeEUR.Text == "0")
                 tbRateChangeEUR.Text = Monefy.CurRate.CurRates[Currency.EUR].ToString();
         }
+
+        private void btnRateChangeGetOnline_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var responce = Monefy.CurRate.LoadRatesFromApi();
+                tbRateChangeEUR.Text = responce[Currency.EUR].ToString();
+                tbRateChangeUSD.Text = responce[Currency.USD].ToString();
+                MessageBox.Show($"USD - {responce[Currency.USD]}\nEUR - {responce[Currency.EUR]}", Monefy.Interface["rate"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRateChangeCancel_Click(object sender, EventArgs e)
+        {
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
+        }
+
+        private void btnRateChangeSave_Click(object sender, EventArgs e)
+        {
+            Monefy.CurRate.CurRates[Currency.EUR] = Convert.ToDouble(tbRateChangeEUR.Text);
+            Monefy.CurRate.CurRates[Currency.USD] = Convert.ToDouble(tbRateChangeUSD.Text);
+            MessageBox.Show(Monefy.Interface["rateChanged"], Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
+        }
     }
 }
