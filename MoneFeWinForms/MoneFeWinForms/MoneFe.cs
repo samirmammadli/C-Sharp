@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Xml.Linq;
 
 namespace MoneFeWinForms
 {
@@ -31,14 +29,13 @@ namespace MoneFeWinForms
         AddBalance
     }
 
+    
     class MoneFeItemsLanguage
     {
         private const string _ruPath = @"lang\ru\";
-        private const string _enPath = @"lang\en\";
         static private string _currentPath;
         static private List<string> Categories { get; set; }
         static private List<string> AppInterface { get; set; }
-        static private List<string> Account { get; set; }
 
         static private bool CheckLang(Languages lang)
         {
@@ -62,7 +59,7 @@ namespace MoneFeWinForms
 
         static public Dictionary<string, string> LoadAppInterface(Languages lang = Languages.EN)
         {
-            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 39)
+            if (CheckLang(lang) && File.Exists(_currentPath + "interface.txt") && File.ReadAllLines(_ruPath + "interface.txt").Length == 45)
                 AppInterface = File.ReadLines(_currentPath + "interface.txt").ToList();
             else
                 AppInterfaceDefaultValues();
@@ -87,7 +84,8 @@ namespace MoneFeWinForms
                 "Currency", "Add note", "Balance", "Account name", "Period", "Year", "Month", "Week",
                 "Day", "Date", "Save", "Edit", "Delete", "Cancel", "Succes", "Account successfully edited!",
                 "Account successfully deleted!", "Account balance increased", "Added new account", "Summ",
-                "Comment", "Export to CSV", "Change rate", "Get actual rate", "Rate", "Rate changed!"
+                "Comment", "Export to CSV", "Change rate", "Get actual rate", "Rate", "Rate changed!", "Spent",
+                "Added", "New account successfully added!", "Failed to load data!", "Error", "Sum can not be 0!"
             };
         }
 
@@ -121,7 +119,9 @@ namespace MoneFeWinForms
                     { "successOperation", AppInterface[i++] },{ "accountEdited", AppInterface[i++] },{ "accountDeleted", AppInterface[i++] },
                     { "balanceIncrease", AppInterface[i++] },{ "newAccountAdd", AppInterface[i++] },{ "summ", AppInterface[i++] },
                     { "comment", AppInterface[i++] },{ "exportToCSV", AppInterface[i++] },{ "changeRate", AppInterface[i++] },
-                    { "getActualRate", AppInterface[i++] }, { "rate", AppInterface[i++] }, { "rateChanged", AppInterface[i++] }
+                    { "getActualRate", AppInterface[i++] }, { "rate", AppInterface[i++] }, { "rateChanged", AppInterface[i++] },
+                    {"spent", AppInterface[i++]}, {"added", AppInterface[i++]}, {"accountAdded", AppInterface[i++]},
+                    {"loadDataFailed", AppInterface[i++]},  {"error", AppInterface[i++]}, {"sumError", AppInterface[i++]}
                 };
         }
     }
@@ -129,84 +129,6 @@ namespace MoneFeWinForms
     interface ICSVWritable
     {
         void WriteCSV(string path, string category);
-    }
-
-    [Serializable]
-    class MoneyOperation : ICSVWritable
-    {
-        public Currency AccCurrency { get; }
-        public string Category { get; }
-        public string Account { get; }
-        public OperationType Type { get; }
-        public int AccountID { get; }
-        public string Notes { get; }
-        public double Value { get; }
-
-        public MoneyOperation(Currency currency ,string category, string name, int accountID, string notes, double value, OperationType type = OperationType.Category)
-        {
-            AccCurrency = currency;
-            Category = category;
-            AccountID = accountID;
-            Notes = notes;
-            Value = value;
-            Type = type;
-            Account = name;
-        }
-
-        public void WriteCSV(string path, string category)
-        {
-            string csv = $"{Account};{category};{Value};{AccCurrency};{Notes}" + Environment.NewLine;
-            try
-            {
-                File.AppendAllText(path, csv,Encoding.UTF8);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            
-        }
-    }
-
-    class CurrencyRate
-    {
-        public Dictionary<Currency, double> CurRates { get; set; }
-
-        public CurrencyRate()
-        {
-            CurRates = new Dictionary<Currency, double> {
-                {Currency.AZN, 1 },
-                {Currency.USD, 1.701 },
-                {Currency.EUR, 2.05 }
-            };
-        }
-
-        public double EquateRates(Currency toThisCur, Currency cur, double sum)
-        {
-            if(toThisCur == cur) return sum;
-            return sum * CurRates[cur] / CurRates[toThisCur];
-        }
-
-        public Dictionary<Currency, double> LoadRatesFromApi()
-        {
-            Dictionary<Currency, double> responce = new Dictionary<Currency, double>();
-            var date = DateTime.Now.ToString("dd.MM.yyyy");
-            var link = $"https://www.cbar.az/currencies/{date}.xml";
-            var rates = XDocument.Load(link);
-
-            var result = from item in rates.Element("ValCurs").Elements("ValType").Elements("Valute")
-                         where item.Attribute("Code").Value == "EUR" || item.Attribute("Code").Value == "USD"
-                         select item;
-
-            foreach (var item in result)
-            {
-                double value = Convert.ToDouble(item.Element("Value").Value, new NumberFormatInfo { NumberDecimalSeparator = "." });
-                Currency key = (Currency)Enum.Parse(typeof(Currency), item.Attribute("Code").Value, ignoreCase: false);
-                responce.Add(key, value);
-            }
-
-            return responce;
-        }
     }
 
     [Serializable]
@@ -235,11 +157,16 @@ namespace MoneFeWinForms
     [Serializable]
     class MoneFyFormsBuild
     {
+     
         public delegate void StateHandler();
 
+        [field: NonSerialized]
         public event StateHandler AccountsCountChanged;
+        [field: NonSerialized]
         public event StateHandler OperationAdded;
+        [field: NonSerialized]
         public event StateHandler BalanceChanged;
+
 
         public CurrencyRate CurRate { get; set; }
         public List<Account> Accounts { get; set; }

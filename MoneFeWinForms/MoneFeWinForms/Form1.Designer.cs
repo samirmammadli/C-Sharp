@@ -58,9 +58,9 @@ namespace MoneFeWinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoneFy));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.btnClothes = new System.Windows.Forms.Button();
@@ -159,11 +159,11 @@ namespace MoneFeWinForms
             this.lbRateChangeUSD = new System.Windows.Forms.Label();
             this.lbRateChangeEUR = new System.Windows.Forms.Label();
             this.pnlRateChange = new System.Windows.Forms.Panel();
-            this.pbRateChangeUSD = new System.Windows.Forms.PictureBox();
-            this.pbRateChangeEUR = new System.Windows.Forms.PictureBox();
-            this.btnRateChangeGetOnline = new System.Windows.Forms.Button();
-            this.btnRateChangeSave = new System.Windows.Forms.Button();
             this.btnRateChangeCancel = new System.Windows.Forms.Button();
+            this.btnRateChangeSave = new System.Windows.Forms.Button();
+            this.btnRateChangeGetOnline = new System.Windows.Forms.Button();
+            this.pbRateChangeEUR = new System.Windows.Forms.PictureBox();
+            this.pbRateChangeUSD = new System.Windows.Forms.PictureBox();
             this.pnlMain.SuspendLayout();
             this.pnlOutcome.SuspendLayout();
             this.pnlIncome.SuspendLayout();
@@ -176,8 +176,8 @@ namespace MoneFeWinForms
             this.pnlEditAccount.SuspendLayout();
             this.pnlAddToBalance.SuspendLayout();
             this.pnlRateChange.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRateChangeUSD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRateChangeEUR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRateChangeUSD)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -391,7 +391,7 @@ namespace MoneFeWinForms
             this.pnlMain.Controls.Add(this.btnEatingOut);
             this.pnlMain.Controls.Add(this.btnEntertainment);
             this.pnlMain.Controls.Add(this.btnHealth);
-            this.pnlMain.Location = new System.Drawing.Point(12, 75);
+            this.pnlMain.Location = new System.Drawing.Point(12, 30);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(322, 485);
             this.pnlMain.TabIndex = 15;
@@ -573,7 +573,7 @@ namespace MoneFeWinForms
             this.changeRateToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(1370, 24);
+            this.MenuStrip.Size = new System.Drawing.Size(720, 24);
             this.MenuStrip.TabIndex = 16;
             this.MenuStrip.Text = "menuStrip1";
             // 
@@ -625,23 +625,23 @@ namespace MoneFeWinForms
             // 
             // chart1
             // 
-            this.chart1.BackColor = System.Drawing.Color.Transparent;
+            this.chart1.BackColor = System.Drawing.Color.MintCream;
             this.chart1.BorderlineColor = System.Drawing.Color.DarkRed;
-            chartArea8.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.chart1.Legends.Add(legend8);
-            this.chart1.Location = new System.Drawing.Point(700, 313);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(344, 30);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series8.Legend = "Legend1";
-            series8.Name = "Categories";
-            series8.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series8);
-            this.chart1.Size = new System.Drawing.Size(326, 225);
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Categories";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(359, 477);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
@@ -848,7 +848,7 @@ namespace MoneFeWinForms
             this.pnlAddAmount.Controls.Add(this.button6);
             this.pnlAddAmount.Controls.Add(this.button8);
             this.pnlAddAmount.Controls.Add(this.button7);
-            this.pnlAddAmount.Location = new System.Drawing.Point(348, 309);
+            this.pnlAddAmount.Location = new System.Drawing.Point(12, 265);
             this.pnlAddAmount.Name = "pnlAddAmount";
             this.pnlAddAmount.Size = new System.Drawing.Size(320, 251);
             this.pnlAddAmount.TabIndex = 36;
@@ -872,7 +872,7 @@ namespace MoneFeWinForms
             this.pnlAddAcount.Controls.Add(this.lbAddAccCurr);
             this.pnlAddAcount.Controls.Add(this.lbAccountName);
             this.pnlAddAcount.Controls.Add(this.tbAddAccName);
-            this.pnlAddAcount.Location = new System.Drawing.Point(700, 78);
+            this.pnlAddAcount.Location = new System.Drawing.Point(12, 40);
             this.pnlAddAcount.Name = "pnlAddAcount";
             this.pnlAddAcount.Size = new System.Drawing.Size(317, 210);
             this.pnlAddAcount.TabIndex = 37;
@@ -973,7 +973,7 @@ namespace MoneFeWinForms
             this.pnlAddToCategory.Controls.Add(this.lbAddCategoryCurrency);
             this.pnlAddToCategory.Controls.Add(this.pbSelectedCategoryImg);
             this.pnlAddToCategory.Controls.Add(this.lbAddToCategory);
-            this.pnlAddToCategory.Location = new System.Drawing.Point(348, 75);
+            this.pnlAddToCategory.Location = new System.Drawing.Point(12, 30);
             this.pnlAddToCategory.Name = "pnlAddToCategory";
             this.pnlAddToCategory.Size = new System.Drawing.Size(320, 228);
             this.pnlAddToCategory.TabIndex = 38;
@@ -1058,7 +1058,7 @@ namespace MoneFeWinForms
             this.pnlEditAccount.Controls.Add(this.btnEditAccDelete);
             this.pnlEditAccount.Controls.Add(this.cbEditAccAcc);
             this.pnlEditAccount.Controls.Add(this.lbEditAccAcc);
-            this.pnlEditAccount.Location = new System.Drawing.Point(1023, 78);
+            this.pnlEditAccount.Location = new System.Drawing.Point(12, 30);
             this.pnlEditAccount.Name = "pnlEditAccount";
             this.pnlEditAccount.Size = new System.Drawing.Size(326, 112);
             this.pnlEditAccount.TabIndex = 39;
@@ -1143,7 +1143,7 @@ namespace MoneFeWinForms
             this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceNote);
             this.pnlAddToBalance.Controls.Add(this.cbAddToBalanceAcc);
             this.pnlAddToBalance.Controls.Add(this.lbAddToBalanceAcc);
-            this.pnlAddToBalance.Location = new System.Drawing.Point(1023, 309);
+            this.pnlAddToBalance.Location = new System.Drawing.Point(12, 107);
             this.pnlAddToBalance.Name = "pnlAddToBalance";
             this.pnlAddToBalance.Size = new System.Drawing.Size(326, 154);
             this.pnlAddToBalance.TabIndex = 40;
@@ -1283,49 +1283,10 @@ namespace MoneFeWinForms
             this.pnlRateChange.Controls.Add(this.lbRateChangeUSD);
             this.pnlRateChange.Controls.Add(this.tbRateChangeEUR);
             this.pnlRateChange.Controls.Add(this.tbRateChangeUSD);
-            this.pnlRateChange.Location = new System.Drawing.Point(1023, 196);
+            this.pnlRateChange.Location = new System.Drawing.Point(12, 30);
             this.pnlRateChange.Name = "pnlRateChange";
             this.pnlRateChange.Size = new System.Drawing.Size(326, 96);
             this.pnlRateChange.TabIndex = 41;
-            // 
-            // pbRateChangeUSD
-            // 
-            this.pbRateChangeUSD.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pbRateChangeUSD.Image = ((System.Drawing.Image)(resources.GetObject("pbRateChangeUSD.Image")));
-            this.pbRateChangeUSD.Location = new System.Drawing.Point(0, 9);
-            this.pbRateChangeUSD.Name = "pbRateChangeUSD";
-            this.pbRateChangeUSD.Size = new System.Drawing.Size(27, 29);
-            this.pbRateChangeUSD.TabIndex = 43;
-            this.pbRateChangeUSD.TabStop = false;
-            // 
-            // pbRateChangeEUR
-            // 
-            this.pbRateChangeEUR.Image = ((System.Drawing.Image)(resources.GetObject("pbRateChangeEUR.Image")));
-            this.pbRateChangeEUR.Location = new System.Drawing.Point(174, 7);
-            this.pbRateChangeEUR.Name = "pbRateChangeEUR";
-            this.pbRateChangeEUR.Size = new System.Drawing.Size(27, 31);
-            this.pbRateChangeEUR.TabIndex = 44;
-            this.pbRateChangeEUR.TabStop = false;
-            // 
-            // btnRateChangeGetOnline
-            // 
-            this.btnRateChangeGetOnline.Location = new System.Drawing.Point(3, 44);
-            this.btnRateChangeGetOnline.Name = "btnRateChangeGetOnline";
-            this.btnRateChangeGetOnline.Size = new System.Drawing.Size(311, 23);
-            this.btnRateChangeGetOnline.TabIndex = 45;
-            this.btnRateChangeGetOnline.Text = "Get actual rate";
-            this.btnRateChangeGetOnline.UseVisualStyleBackColor = true;
-            this.btnRateChangeGetOnline.Click += new System.EventHandler(this.btnRateChangeGetOnline_Click);
-            // 
-            // btnRateChangeSave
-            // 
-            this.btnRateChangeSave.Location = new System.Drawing.Point(3, 69);
-            this.btnRateChangeSave.Name = "btnRateChangeSave";
-            this.btnRateChangeSave.Size = new System.Drawing.Size(150, 23);
-            this.btnRateChangeSave.TabIndex = 46;
-            this.btnRateChangeSave.Text = "Save";
-            this.btnRateChangeSave.UseVisualStyleBackColor = true;
-            this.btnRateChangeSave.Click += new System.EventHandler(this.btnRateChangeSave_Click);
             // 
             // btnRateChangeCancel
             // 
@@ -1337,12 +1298,51 @@ namespace MoneFeWinForms
             this.btnRateChangeCancel.UseVisualStyleBackColor = true;
             this.btnRateChangeCancel.Click += new System.EventHandler(this.btnRateChangeCancel_Click);
             // 
+            // btnRateChangeSave
+            // 
+            this.btnRateChangeSave.Location = new System.Drawing.Point(3, 69);
+            this.btnRateChangeSave.Name = "btnRateChangeSave";
+            this.btnRateChangeSave.Size = new System.Drawing.Size(150, 23);
+            this.btnRateChangeSave.TabIndex = 46;
+            this.btnRateChangeSave.Text = "Save";
+            this.btnRateChangeSave.UseVisualStyleBackColor = true;
+            this.btnRateChangeSave.Click += new System.EventHandler(this.btnRateChangeSave_Click);
+            // 
+            // btnRateChangeGetOnline
+            // 
+            this.btnRateChangeGetOnline.Location = new System.Drawing.Point(3, 44);
+            this.btnRateChangeGetOnline.Name = "btnRateChangeGetOnline";
+            this.btnRateChangeGetOnline.Size = new System.Drawing.Size(311, 23);
+            this.btnRateChangeGetOnline.TabIndex = 45;
+            this.btnRateChangeGetOnline.Text = "Get actual rate";
+            this.btnRateChangeGetOnline.UseVisualStyleBackColor = true;
+            this.btnRateChangeGetOnline.Click += new System.EventHandler(this.btnRateChangeGetOnline_Click);
+            // 
+            // pbRateChangeEUR
+            // 
+            this.pbRateChangeEUR.Image = ((System.Drawing.Image)(resources.GetObject("pbRateChangeEUR.Image")));
+            this.pbRateChangeEUR.Location = new System.Drawing.Point(174, 7);
+            this.pbRateChangeEUR.Name = "pbRateChangeEUR";
+            this.pbRateChangeEUR.Size = new System.Drawing.Size(27, 31);
+            this.pbRateChangeEUR.TabIndex = 44;
+            this.pbRateChangeEUR.TabStop = false;
+            // 
+            // pbRateChangeUSD
+            // 
+            this.pbRateChangeUSD.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pbRateChangeUSD.Image = ((System.Drawing.Image)(resources.GetObject("pbRateChangeUSD.Image")));
+            this.pbRateChangeUSD.Location = new System.Drawing.Point(0, 9);
+            this.pbRateChangeUSD.Name = "pbRateChangeUSD";
+            this.pbRateChangeUSD.Size = new System.Drawing.Size(27, 29);
+            this.pbRateChangeUSD.TabIndex = 43;
+            this.pbRateChangeUSD.TabStop = false;
+            // 
             // MoneFy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MintCream;
-            this.ClientSize = new System.Drawing.Size(1370, 641);
+            this.ClientSize = new System.Drawing.Size(720, 522);
             this.Controls.Add(this.pnlRateChange);
             this.Controls.Add(this.pnlAddToBalance);
             this.Controls.Add(this.pnlEditAccount);
@@ -1353,10 +1353,13 @@ namespace MoneFeWinForms
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.MenuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
+            this.MaximizeBox = false;
             this.Name = "MoneFy";
             this.Text = "MoneFy";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MoneFy_FormClosing);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             this.pnlOutcome.ResumeLayout(false);
@@ -1379,8 +1382,8 @@ namespace MoneFeWinForms
             this.pnlAddToBalance.PerformLayout();
             this.pnlRateChange.ResumeLayout(false);
             this.pnlRateChange.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRateChangeUSD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRateChangeEUR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRateChangeUSD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

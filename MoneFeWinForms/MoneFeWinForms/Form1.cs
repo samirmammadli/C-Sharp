@@ -23,14 +23,16 @@ namespace MoneFeWinForms
             
             InitializeComponent();
             LoadImages();
-            Monefy = new MoneFyFormsBuild(Languages.EN);
+            LoadSavedData();
+            PanelsVisibility(false);
+            pnlMain.Visible = true;
             Monefy.AccountsCountChanged += LoadAccList;
             Monefy.AccountsCountChanged += RefreshData;
             Monefy.OperationAdded += LoadCategoriesChart;
             Monefy.OperationAdded += RefreshData;
             Monefy.BalanceChanged += RefreshData;
-            RefreshData();
             LoadAccList();
+            RefreshData();
             LoadLang();
             CheckForCurrentLanguage();
             LoadCurrencyComboBoxes();
@@ -78,19 +80,33 @@ namespace MoneFeWinForms
             cbAddToBalanceAcc.DataSource = null;
             cbAddToBalanceAcc.DataSource = bs;
             cbAddToBalanceAcc.DisplayMember = "AccName";
-            //var formatter = new BinaryFormatter();
-            //using (FileStream fs = new FileStream("form.bin", FileMode.OpenOrCreate))
-            //{
-            //    formatter.Serialize(fs, Monefy);
-            //}
 
-            //var formatter = new BinaryFormatter();
-            //using (FileStream fs = new FileStream("form.bin", FileMode.Open))
-            //{
-            //    Console.WriteLine(fs.Name);
-            //    Monefy = formatter.Deserialize(fs) as MoneFyFormsBuild;
-            //}
+        }
 
+
+        private void LoadSavedData()
+        {
+            try
+            {
+                var formatter = new BinaryFormatter();
+                if (File.Exists("MonefyData.dat"))
+                {
+                    using (FileStream fs = new FileStream("MonefyData.dat", FileMode.Open))
+                    {
+                        Monefy = formatter.Deserialize(fs) as MoneFyFormsBuild;
+                    }
+                }
+                else
+                    Monefy = new MoneFyFormsBuild(Languages.EN);
+
+            }
+            catch (Exception)
+            {
+                Monefy = new MoneFyFormsBuild(Languages.EN);
+                MessageBox.Show(Monefy.Interface["loadDataFailed"], Monefy.Interface["error"], MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            
         }
 
         private void RefreshData()
@@ -232,8 +248,6 @@ namespace MoneFeWinForms
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show(Monefy.Interface["exit_warning"], Monefy.Interface["exit"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
                 Application.Exit();
         }
 
@@ -454,31 +468,65 @@ namespace MoneFeWinForms
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
             
-            var value = Convert.ToDouble(tbAmount.Text);
             if (Monefy.OperType == OperationType.Category)
             {
-                
-                var account = cbSelectAccount.SelectedValue as Account;
-                Currency curr = (Currency)cbAddCategoryCurrency.SelectedValue;
-                var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), account.AccName, Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value);
-                account.Balance -= value;
+                var value = Convert.ToDouble(tbAmount.Text);
+                if (value != 0)
+                {
+                    var account = cbSelectAccount.SelectedValue as Account;
+                    Currency curr = (Currency)cbAddCategoryCurrency.SelectedValue;
+                    value = Monefy.CurRate.EquateRates(account.AccCurrency, curr, value);
 
-                Monefy.AddOperation(dtpAddCategory.Value.Date, operation);
+
+                    var operation = new MoneyOperation(curr, cbSelectCategory.SelectedValue.ToString(), account.AccName, Convert.ToInt32(account.AccountID), tbAddCategoryNote.Text, value);
+                    Monefy.ReduceAccountBalance(account.AccountID, value);
+                    Monefy.AddOperation(dtpAddCategory.Value.Date, operation);
+
+                    MessageBox.Show(
+                        $"{Monefy.Interface["spent"]}:    {value} {account.AccCurrency}\n{Monefy.Interface["category"]}:    {Monefy.Categories[cbSelectCategory.SelectedValue.ToString()]}",
+                        Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                else
+                    MessageBox.Show(Monefy.Interface["sumError"], Monefy.Interface["error"], MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                
             }
             else if (Monefy.OperType == OperationType.Account)
             {
-                Currency curr = (Currency) cbAddAccCurr.SelectedValue;
+                var value = Convert.ToDouble(tbAmount.Text);
+
+                Currency curr = (Currency)cbAddAccCurr.SelectedValue;
                 Monefy.AddAccount(new Account(curr, tbAddAccName.Text, value));
-                var operation = new MoneyOperation(curr, "newAccountAdd", tbAddAccName.Text, Monefy.GetLastAddedAccountID(),  tbAddAccName.Text, value, OperationType.Account);
+                var operation = new MoneyOperation(curr, "newAccountAdd", tbAddAccName.Text, Monefy.GetLastAddedAccountID(), tbAddAccName.Text, value, OperationType.Account);
                 Monefy.AddOperation(DateTime.Now.Date, operation);
+
+                MessageBox.Show(
+                    $"{Monefy.Interface["accountAdded"]}",
+                    Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+
             }
             else if (Monefy.OperType == OperationType.AddBalance)
             {
-                Currency curr = (Currency)cbAddToBalanceCurr.SelectedValue;
-                var account = cbAddToBalanceAcc.SelectedValue as Account;
-                var operation = new MoneyOperation(curr, "balanceIncrease", account.AccName, Convert.ToInt32(account.AccountID), tbAddToBalanceNote.Text, value, OperationType.AddBalance);
-                Monefy.AddOperation(dtpAddToBalance.Value.Date, operation);
-                Monefy.IncreaseBalanceToAccount(account.AccountID, value);
+                var value = Convert.ToDouble(tbAmount.Text);
+                if (value != 0)
+                {
+                    Currency curr = (Currency)cbAddToBalanceCurr.SelectedValue;
+                    var account = cbAddToBalanceAcc.SelectedValue as Account;
+                    value = Monefy.CurRate.EquateRates(account.AccCurrency, curr, value);
+                    var operation = new MoneyOperation(curr, "balanceIncrease", account.AccName, Convert.ToInt32(account.AccountID), tbAddToBalanceNote.Text, value, OperationType.AddBalance);
+                    Monefy.AddOperation(dtpAddToBalance.Value.Date, operation);
+                    Monefy.IncreaseBalanceToAccount(account.AccountID, value);
+
+                    MessageBox.Show(
+                        $"{Monefy.Interface["added"]}:    {value} {account.AccCurrency}\n{Monefy.Interface["account"]}:    {account.AccName}",
+                        Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                else
+                    MessageBox.Show(Monefy.Interface["sumError"], Monefy.Interface["error"], MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                
             }
 
             PanelsVisibility(false);
@@ -762,6 +810,29 @@ namespace MoneFeWinForms
             MessageBox.Show(Monefy.Interface["rateChanged"], Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             PanelsVisibility(false);
             pnlMain.Visible = true;
+        }
+
+        private void MoneFy_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show(Monefy.Interface["exit_warning"], Monefy.Interface["exit"], MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+                e.Cancel = true;
+            else
+            {
+                var formatter = new BinaryFormatter();
+                try
+                {
+                    using (FileStream fs = new FileStream("MonefyData.dat", FileMode.OpenOrCreate))
+                    {
+                        formatter.Serialize(fs, Monefy);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+                
+            }
         }
     }
 }
