@@ -518,10 +518,9 @@ namespace MoneFeWinForms
                 e.KeyChar = ',';
             if(tbAmount.Text == "0" && e.KeyChar != ',') tbAmount.Clear();
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',';
-           
-            
         }
         
+
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
             Monefy.OperType = OperationType.Account;
@@ -688,6 +687,50 @@ namespace MoneFeWinForms
             pnlRateChange.Visible = true;
             tbRateChangeUSD.Text = Monefy.CurRate.CurRates[Currency.USD].ToString();
             tbRateChangeEUR.Text = Monefy.CurRate.CurRates[Currency.EUR].ToString();
+        }
+
+        private void tbRateChangeUSD_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.')
+                e.KeyChar = ',';
+            if (tbRateChangeUSD.Text == "0" && e.KeyChar != ',') tbRateChangeUSD.Clear();
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',';
+        }
+
+        private void tbRateChangeUSD_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                Convert.ToDouble(tbRateChangeUSD.Text);
+            }
+            catch (Exception)
+            {
+                tbRateChangeUSD.Text = Monefy.CurRate.CurRates[Currency.USD].ToString();
+            }
+            if (tbRateChangeUSD.Text == "0")
+                tbRateChangeUSD.Text = Monefy.CurRate.CurRates[Currency.USD].ToString();
+        }
+
+        private void tbRateChangeEUR_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.')
+                e.KeyChar = ',';
+            if (tbRateChangeEUR.Text == "0" && e.KeyChar != ',') tbRateChangeEUR.Clear();
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != ',';
+        }
+
+        private void tbRateChangeEUR_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                Convert.ToDouble(tbRateChangeEUR.Text);
+            }
+            catch (Exception)
+            {
+                tbRateChangeEUR.Text = Monefy.CurRate.CurRates[Currency.EUR].ToString();
+            }
+            if (tbRateChangeEUR.Text == "0")
+                tbRateChangeEUR.Text = Monefy.CurRate.CurRates[Currency.EUR].ToString();
         }
     }
 }
