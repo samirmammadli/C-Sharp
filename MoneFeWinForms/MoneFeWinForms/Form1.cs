@@ -493,16 +493,24 @@ namespace MoneFeWinForms
             }
             else if (Monefy.OperType == OperationType.Account)
             {
-                var value = Convert.ToDouble(tbAmount.Text);
+                if (tbAddAccName.Text != string.Empty)
+                {
+                    var value = Convert.ToDouble(tbAmount.Text);
 
-                Currency curr = (Currency)cbAddAccCurr.SelectedValue;
-                Monefy.AddAccount(new Account(curr, tbAddAccName.Text, value));
-                var operation = new MoneyOperation(curr, "newAccountAdd", tbAddAccName.Text, Monefy.GetLastAddedAccountID(), tbAddAccName.Text, value, OperationType.Account);
-                Monefy.AddOperation(DateTime.Now.Date, operation);
+                    Currency curr = (Currency)cbAddAccCurr.SelectedValue;
+                    Monefy.AddAccount(new Account(curr, tbAddAccName.Text, value));
+                    var operation = new MoneyOperation(curr, "newAccountAdd", tbAddAccName.Text, Monefy.GetLastAddedAccountID(), tbAddAccName.Text, value, OperationType.Account);
+                    Monefy.AddOperation(DateTime.Now.Date, operation);
 
-                MessageBox.Show(
-                    $"{Monefy.Interface["accountAdded"]}",
-                    Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBox.Show(
+                        $"{Monefy.Interface["accountAdded"]}",
+                        Monefy.Interface["successOperation"], MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                else
+                {
+                    MessageBox.Show(Monefy.Interface["emptyAccNameWarning"], Monefy.Interface["error"], MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+               
 
 
             }
