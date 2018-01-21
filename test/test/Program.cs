@@ -13,6 +13,18 @@ using Newtonsoft.Json.Linq;
 
 namespace test
 {
+    struct Testik
+    {
+        private int a;
+        private int b;
+
+        public Testik(int A, int B)
+        {
+            b = A;
+            a = B;
+        }
+    }
+
 
     class Person
     {
@@ -73,9 +85,9 @@ namespace test
             //    Console.Clear();
             //}
 
-            Test il = new Test("Samir", 1986);
-            il.x = 15;
-            Console.WriteLine(il++);
+            //Test il = new Test("Samir", 1986);
+            //il.x = 15;
+            //Console.WriteLine(il++);
 
 
         }
