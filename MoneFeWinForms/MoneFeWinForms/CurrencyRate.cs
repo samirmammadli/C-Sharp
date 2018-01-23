@@ -39,6 +39,7 @@ namespace MoneFeWinForms
 
             foreach (var item in result)
             {
+                
                 double value = Convert.ToDouble(item.Element("Value").Value, new NumberFormatInfo { NumberDecimalSeparator = "." });
                 Currency key = (Currency)Enum.Parse(typeof(Currency), item.Attribute("Code").Value, ignoreCase: false);
                 responce.Add(key, value);
