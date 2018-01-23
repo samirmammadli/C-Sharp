@@ -1,129 +1,99 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Microsoft.Office.Interop;
+using System.Xml.Linq;
+using Microsoft.Office.Core;
 
 namespace test
 {
-    struct Testik
-    {
-        private int a;
-        private int b;
-
-        public Testik(int A, int B)
-        {
-            b = A;
-            a = B;
-        }
-    }
-
-
-    class Person
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-
-        public void Deconstruct(out string name, out int age)
-        {
-            name = this.Name;
-            age = this.Age;
-        }
-    }
-
-    class Test
-    {
-        private string FullName;
-        public int Year;
-        public int x;
-        public Test(string name, int year)
-        {
-            FullName = name;
-            Year = year;
-        }
-
-        public override string ToString()
-        {
-            return x.ToString();
-        }
-
-        public static Test operator ++(Test obj)
-        {
-            Test temp = new Test(obj.FullName, obj.Year);
-            temp.x = obj.x;
-            obj.x++;
-            return temp;
-        }
-    }
-
     class Program
     {
-        
-        Excel.Application excel = new Excel.Application();
-        Excel.Workbook workbook = excel.Workbooks.Open(openDialog.FileName);
-        Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets[1];
-
         static void Main(string[] args)
         {
-            
+            XElement root = XElement.Load(@"https://randomuser.me/api/?format=xml&results=1000");
+
+
+            //var a = from item in root.Elements()
+            //        where item.Name != "info"
+            //        where item.Element("nat").Value == "DE"
+            //        select item;
+
+            //var a = from item in root.Elements()
+            //    where item.Name != "info"
+            //    where item.Element("nat").Value == "DE"
+            //    select item;
+
+            //var a = from item in root.Elements()
+            //    where item.Name != "info"
+            //    where item.Element("name").Element("first").Value.StartsWith("a")
+            //    select item;
+
+            var a = from item in root.Elements()
+                where item.Name != "info"
+                orderby item.Element("registered")
+                select item;
+
+
+            foreach (var item in a)
+            {
+               
+                //Console.WriteLine(item.Element("gender").Value);
+                //Console.WriteLine(item.Element("nat")?.Value);
+                //Console.WriteLine(item.Element("name").Element("first").Value);
+                Console.WriteLine(item.Element("registered").Value);
+            }
+
+
+
+            //XElement root = XElement.Load("../../XMLFile1.xml");
+
+            //var query = from user in root.Elements()
+            //            where int.Parse(user.Element("age").Value) == 20
+            //            select user;
+
+            //var query = from user in root.Elements()
+            //            where int.Parse(user.Attribute("id").Value) == 1
+            //            select user;
+
+            //var query = from user in root.Elements()
+            //            orderby int.Parse(user.Attribute("id").Value)
+            //            select user;
+
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            //var query = from user in root.Elements()
+            //            group user by user.Element("age").Value into grp
+            //            select grp;
+
+            //foreach (var group in query)
+            //{
+            //    Console.WriteLine(group.Key);
+            //    foreach (var item in group)
+            //    {
+            //        Console.WriteLine($"\t{item.Value}");
+            //    }
+            //}
+
+
+
+            //var query = from user in root.Elements()
+            //            //where user.Element("dog") != null 
+            //            where user.Element("dog")?.Elements().Count() > 1
+            //            select user;
+
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
 
 
         }
     }
 }
-
-
-//List<Test> list = new List<Test>() {
-//new Test("Samir", 1986),
-//new Test("Ujal", 1995),
-//new Test("OOOOOr", 1986),
-//new Test("AAAlon", 1986),
-//new Test("Irvinn", 1995) };
-
-////var hehe = from item3 in list[0].FullName
-////           group
-
-
-////string lesh = "Ahmedova irina agu";
-
-////var slovo = from item4 in lesh
-////    group item4 by x => x;
-
-////foreach (var r in slovo)
-////{
-////    Console.WriteLine(r.Key);
-////}
-
-////var poisk = from item1 in list
-////    group item1.FullName by 
-////    into g
-
-////    select g;
-////where groups.Count() == 5
-////select groups;
-
-////foreach (var item in poisk)
-////{
-////    Console.WriteLine(item.Key); 
-////}
-
-//var group = from item2 in list
-//where item2.FullName.GroupBy(x => x).OrderByDescending(z => z.Count()).First().Count() == 5
-//select item2;
-
-
-//Console.WriteLine(group.Count());
-//foreach (var item in group)
-//{
-//Console.WriteLine(item.FullName);
-//}
-
-//}
