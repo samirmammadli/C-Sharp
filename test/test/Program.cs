@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.Office.Interop;
 
 namespace test
 {
@@ -65,29 +66,14 @@ namespace test
 
     class Program
     {
+        
+        Excel.Application excel = new Excel.Application();
+        Excel.Workbook workbook = excel.Workbooks.Open(openDialog.FileName);
+        Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets[1];
 
         static void Main(string[] args)
         {
-            //var language = "en-ru";
-            //var text = "";
-            //var webClient = new WebClient();
-            //webClient.Encoding = Encoding.UTF8;
-            //while (true)
-            //{
-            //    text = Console.ReadLine();
-            //    text = HttpUtility.UrlEncode(text);
-            //    string url =
-            //        $"https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171221T171359Z.7c952e5cee5cce49.4522dd804535b842a0959725f4275cc4bf261f60&text={text}&lang={language}";
-            //    var data = webClient.DownloadString(url);
-            //    dynamic obj = JObject.Parse(data);
-            //    Console.WriteLine(obj.text[0]);
-            //    Console.Read();
-            //    Console.Clear();
-            //}
-
-            //Test il = new Test("Samir", 1986);
-            //il.x = 15;
-            //Console.WriteLine(il++);
+            
 
 
         }
