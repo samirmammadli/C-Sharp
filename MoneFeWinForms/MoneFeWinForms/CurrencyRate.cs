@@ -28,7 +28,7 @@ namespace MoneFeWinForms
 
         public Dictionary<Currency, double> LoadRatesFromApi()
         {
-            Dictionary<Currency, double> responce = new Dictionary<Currency, double>();
+            var responce = new Dictionary<Currency, double>();
             var date = DateTime.Now.ToString("dd.MM.yyyy");
             var link = $"https://www.cbar.az/currencies/{date}.xml";
             var rates = XDocument.Load(link);
