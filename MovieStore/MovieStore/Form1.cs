@@ -16,28 +16,40 @@ namespace MovieStore
     {
         public BindingSource data;
         private List<Movie> movies;
+        private BindingSource bs;
         public Form1()
         {
             InitializeComponent();
+                Random a = new Random();
             movies = new List<Movie>
             {
                 new Movie("Terminator 2", "Fantastic", "Movie", "240", "1991", false),
                 new Movie("Avatar", "Fantastic", "Movie", "240", "240", true)
             };
+
+            for (int i = 0; i < 321412; i++)
+            {
+                movies.Add(new Movie("Avatar", "Fantastic", "Movie", "240", a.Next(0, 2020).ToString(), true));
+            }
+
+            SortData(tbGenre.Text, tbTitle.Text, tbType.Text, tbYear.Text);
             //data = new BindingSource {DataSource = movies};
 
-           // dataGridView2.DataSource = data;
+            // dataGridView2.DataSource = data;
 
 
         }
 
-        private void SortData(string name)
+        private void SortData(string genre, string title, string type, string year)
         {
-            var mov = (from item in movies
-                where item.Title.Contains(name)
+            var mov = (from item in movies.Take(20)
+                where item.Title.Contains(title, StringComparison.OrdinalIgnoreCase)
+                where item.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase)
+                where item.Type.Contains(type, StringComparison.OrdinalIgnoreCase)
+                where item.Year.Contains(year, StringComparison.OrdinalIgnoreCase)
                 select item).ToList();
-            data = new BindingSource { DataSource = mov };
-            dataGridView2.DataSource = data;
+            bs = new BindingSource { DataSource = mov };
+            dataGridView2.DataSource = bs;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -45,14 +57,10 @@ namespace MovieStore
 
         }
 
-        private void btnFind_Click(object sender, EventArgs e)
-        {
-            SortData(tbTitle.Text);
-        }
-
         private void Search_TextChanged(object sender, EventArgs e)
         {
-
+            SortData(tbGenre.Text, tbTitle.Text, tbType.Text, tbYear.Text);
+           
         }
     }
 
