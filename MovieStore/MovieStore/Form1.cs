@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +21,14 @@ namespace MovieStore
             InitializeComponent();
             movies = new List<Movie>
             {
-                new Movie("Terminator 2", "Fantastic", "Movie", 240, 1991),
-                new Movie("Avatar", "Fantastic", "Movie", 280, 2008)
+                new Movie("Terminator 2", "Fantastic", "Movie", "240", "1991", false),
+                new Movie("Avatar", "Fantastic", "Movie", "240", "240", true)
             };
             //data = new BindingSource {DataSource = movies};
 
            // dataGridView2.DataSource = data;
+
+
         }
 
         private void SortData(string name)
@@ -47,32 +50,7 @@ namespace MovieStore
             SortData(tbTitle.Text);
         }
 
-        private void tbYear_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char key = e.KeyChar;
-
-            e.Handled = (!Char.IsDigit(key) && key != 8);
-        }
-
-        private void tbYear_Leave(object sender, EventArgs e)
-        {
-            if (tbYear.Text.Length != 4)
-            {
-                errorProvider1.SetError(tbYear, "Wrong year!");
-            }
-        }
-
-        private void tbYear_TextChanged(object sender, EventArgs e)
-        {
-            errorProvider1.Clear();
-        }
-
-        private void tbYear_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbYear_Enter(object sender, EventArgs e)
+        private void Search_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -32,35 +32,38 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnFind = new System.Windows.Forms.Button();
-            this.lbTitle = new System.Windows.Forms.Label();
-            this.tbTitle = new System.Windows.Forms.TextBox();
-            this.lbGenre = new System.Windows.Forms.Label();
-            this.tbGenre = new System.Windows.Forms.TextBox();
-            this.lbType = new System.Windows.Forms.Label();
-            this.tbType = new System.Windows.Forms.TextBox();
-            this.lbYear = new System.Windows.Forms.Label();
             this.tbYear = new System.Windows.Forms.TextBox();
+            this.lbYear = new System.Windows.Forms.Label();
+            this.tbType = new System.Windows.Forms.TextBox();
+            this.lbType = new System.Windows.Forms.Label();
+            this.tbGenre = new System.Windows.Forms.TextBox();
+            this.lbGenre = new System.Windows.Forms.Label();
+            this.tbTitle = new System.Windows.Forms.TextBox();
+            this.lbTitle = new System.Windows.Forms.Label();
+            this.pbMovieImage = new System.Windows.Forms.PictureBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMovieImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 88.69801F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.30199F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.84283F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.15718F));
             this.tableLayoutPanel1.Controls.Add(this.dataGridView2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pbMovieImage, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.7234F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.2766F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1106, 466);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(878, 411);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // dataGridView2
@@ -74,7 +77,7 @@
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(975, 360);
+            this.dataGridView2.Size = new System.Drawing.Size(615, 317);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
@@ -88,74 +91,19 @@
             this.panel1.Controls.Add(this.lbGenre);
             this.panel1.Controls.Add(this.tbTitle);
             this.panel1.Controls.Add(this.lbTitle);
-            this.panel1.Controls.Add(this.btnFind);
-            this.panel1.Location = new System.Drawing.Point(3, 369);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 326);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(442, 94);
+            this.panel1.Size = new System.Drawing.Size(615, 82);
             this.panel1.TabIndex = 2;
             // 
-            // errorProvider1
+            // tbYear
             // 
-            this.errorProvider1.ContainerControl = this;
-            // 
-            // btnFind
-            // 
-            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFind.Location = new System.Drawing.Point(2, 67);
-            this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(75, 23);
-            this.btnFind.TabIndex = 0;
-            this.btnFind.Text = "Find";
-            this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
-            // 
-            // lbTitle
-            // 
-            this.lbTitle.AutoSize = true;
-            this.lbTitle.Location = new System.Drawing.Point(3, 9);
-            this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(30, 13);
-            this.lbTitle.TabIndex = 1;
-            this.lbTitle.Text = "Title:";
-            // 
-            // tbTitle
-            // 
-            this.tbTitle.Location = new System.Drawing.Point(3, 36);
-            this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(100, 20);
-            this.tbTitle.TabIndex = 2;
-            // 
-            // lbGenre
-            // 
-            this.lbGenre.AutoSize = true;
-            this.lbGenre.Location = new System.Drawing.Point(109, 9);
-            this.lbGenre.Name = "lbGenre";
-            this.lbGenre.Size = new System.Drawing.Size(39, 13);
-            this.lbGenre.TabIndex = 3;
-            this.lbGenre.Text = "Genre:";
-            // 
-            // tbGenre
-            // 
-            this.tbGenre.Location = new System.Drawing.Point(109, 36);
-            this.tbGenre.Name = "tbGenre";
-            this.tbGenre.Size = new System.Drawing.Size(100, 20);
-            this.tbGenre.TabIndex = 4;
-            // 
-            // lbType
-            // 
-            this.lbType.AutoSize = true;
-            this.lbType.Location = new System.Drawing.Point(215, 9);
-            this.lbType.Name = "lbType";
-            this.lbType.Size = new System.Drawing.Size(34, 13);
-            this.lbType.TabIndex = 5;
-            this.lbType.Text = "Type:";
-            // 
-            // tbType
-            // 
-            this.tbType.Location = new System.Drawing.Point(215, 36);
-            this.tbType.Name = "tbType";
-            this.tbType.Size = new System.Drawing.Size(100, 20);
-            this.tbType.TabIndex = 6;
+            this.tbYear.Location = new System.Drawing.Point(321, 29);
+            this.tbYear.Name = "tbYear";
+            this.tbYear.Size = new System.Drawing.Size(100, 20);
+            this.tbYear.TabIndex = 8;
+            this.tbYear.TextChanged += new System.EventHandler(this.Search_TextChanged);
             // 
             // lbYear
             // 
@@ -166,29 +114,86 @@
             this.lbYear.TabIndex = 7;
             this.lbYear.Text = "Year:";
             // 
-            // tbYear
+            // tbType
             // 
-            this.tbYear.Location = new System.Drawing.Point(321, 36);
-            this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(100, 20);
-            this.tbYear.TabIndex = 8;
-            this.tbYear.TextChanged += new System.EventHandler(this.tbYear_TextChanged_1);
-            this.tbYear.Enter += new System.EventHandler(this.tbYear_Enter);
-            this.tbYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbYear_KeyPress);
-            this.tbYear.Leave += new System.EventHandler(this.tbYear_Leave);
+            this.tbType.Location = new System.Drawing.Point(215, 29);
+            this.tbType.Name = "tbType";
+            this.tbType.Size = new System.Drawing.Size(100, 20);
+            this.tbType.TabIndex = 6;
+            this.tbType.TextChanged += new System.EventHandler(this.Search_TextChanged);
+            // 
+            // lbType
+            // 
+            this.lbType.AutoSize = true;
+            this.lbType.Location = new System.Drawing.Point(215, 9);
+            this.lbType.Name = "lbType";
+            this.lbType.Size = new System.Drawing.Size(34, 13);
+            this.lbType.TabIndex = 5;
+            this.lbType.Text = "Type:";
+            // 
+            // tbGenre
+            // 
+            this.tbGenre.Location = new System.Drawing.Point(109, 29);
+            this.tbGenre.Name = "tbGenre";
+            this.tbGenre.Size = new System.Drawing.Size(100, 20);
+            this.tbGenre.TabIndex = 4;
+            this.tbGenre.TextChanged += new System.EventHandler(this.Search_TextChanged);
+            // 
+            // lbGenre
+            // 
+            this.lbGenre.AutoSize = true;
+            this.lbGenre.Location = new System.Drawing.Point(109, 9);
+            this.lbGenre.Name = "lbGenre";
+            this.lbGenre.Size = new System.Drawing.Size(39, 13);
+            this.lbGenre.TabIndex = 3;
+            this.lbGenre.Text = "Genre:";
+            // 
+            // tbTitle
+            // 
+            this.tbTitle.Location = new System.Drawing.Point(3, 29);
+            this.tbTitle.Name = "tbTitle";
+            this.tbTitle.Size = new System.Drawing.Size(100, 20);
+            this.tbTitle.TabIndex = 2;
+            this.tbTitle.TextChanged += new System.EventHandler(this.Search_TextChanged);
+            // 
+            // lbTitle
+            // 
+            this.lbTitle.AutoSize = true;
+            this.lbTitle.Location = new System.Drawing.Point(3, 9);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(30, 13);
+            this.lbTitle.TabIndex = 1;
+            this.lbTitle.Text = "Title:";
+            // 
+            // pbMovieImage
+            // 
+            this.pbMovieImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbMovieImage.Location = new System.Drawing.Point(624, 3);
+            this.pbMovieImage.Name = "pbMovieImage";
+            this.pbMovieImage.Size = new System.Drawing.Size(251, 317);
+            this.pbMovieImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbMovieImage.TabIndex = 3;
+            this.pbMovieImage.TabStop = false;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1106, 676);
+            this.ClientSize = new System.Drawing.Size(878, 411);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MinimumSize = new System.Drawing.Size(894, 450);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMovieImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
@@ -199,7 +204,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.TextBox tbYear;
         private System.Windows.Forms.Label lbYear;
         private System.Windows.Forms.TextBox tbType;
@@ -208,7 +212,8 @@
         private System.Windows.Forms.Label lbGenre;
         private System.Windows.Forms.TextBox tbTitle;
         private System.Windows.Forms.Label lbTitle;
-        private System.Windows.Forms.Button btnFind;
+        private System.Windows.Forms.PictureBox pbMovieImage;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 
