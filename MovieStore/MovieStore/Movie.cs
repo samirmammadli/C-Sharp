@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace MovieStore
 {
@@ -18,20 +20,75 @@ namespace MovieStore
         }
     }
 
+
+    class MovieDataDownloader
+    {
+        Uri Link { get; set; }
+        JObject Data { get; set; }
+
+        public MovieDataDownloader(string link)
+        {
+            Link = new Uri(link);
+        }
+
+        public string[] GetData()
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    var data = webClient.DownloadString(Link);
+                    dynamic obj = JObject.Parse(data);
+                    if (obj.Response == "False")
+                        throw new ArgumentException(obj.Error);
+                    string[] Data = { obj.Title, obj.Genre, obj.Type, obj.Runtime, obj.Year };
+                    return Data;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public Image GetImage(string id)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    var data = webClient.DownloadString(Link);
+                    dynamic obj = JObject.Parse(data);
+                    if (obj.Response == "False")
+                        throw new ArgumentException(obj.Error);
+                    Link = new Uri(obj.Poster);
+                    webClient.DownloadFile(obj.Poster, $@"\Posters\{id}.jpg");
+                    return new Bitmap($@"\Posters\{id}.jpg");
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+    }
+
     class Movie
     {
         [Browsable(false)]
-        public Image MovieImage { get; private set; }
+        public Image MovieImage { get; set; }
         [Browsable(false)]
         public int MovieID { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
         public string Type { get; set; }
-        public int Runtime { get; set; }
+        public string Runtime { get; set; }
         public int Year { get; set; }
         public bool Viewed { get; set; }
 
-        public Movie(string title, string genre, string type, int runtime, int year, bool viewed, Image image = null)
+        public Movie(string title, string genre, string type, string runtime, int year, bool viewed, Image image = null)
         {
             Title = title;
             Genre = genre;
@@ -55,11 +112,12 @@ namespace MovieStore
             Movies = new List<Movie>();
         }
 
-        public void AddMovie(Movie movie)
+        public void AddMovie(Movie movie, Image poster = null)
         {
             if (movie == null) throw new ArgumentNullException();
             Movies.Add(movie);
             Movies.Last().MovieID = ++IdCounter;
+            //Movies.Last().MovieImage = poster;
             MovieCollectionChanged?.Invoke();
         }
 

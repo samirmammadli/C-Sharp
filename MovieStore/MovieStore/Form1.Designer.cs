@@ -77,9 +77,11 @@
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(615, 317);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             // 
             // panel1
             // 
@@ -171,7 +173,7 @@
             this.pbMovieImage.Location = new System.Drawing.Point(624, 3);
             this.pbMovieImage.Name = "pbMovieImage";
             this.pbMovieImage.Size = new System.Drawing.Size(251, 317);
-            this.pbMovieImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbMovieImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMovieImage.TabIndex = 3;
             this.pbMovieImage.TabStop = false;
             // 
@@ -189,7 +191,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
