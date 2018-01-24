@@ -30,21 +30,26 @@ namespace test
             //    where item.Element("name").Element("first").Value.StartsWith("a")
             //    select item;
 
-            var a = from item in root.Elements()
+            //var a = from item in root.Elements()
+            //        where item.Name != "info"
+            //        orderby item.Element("registered").Value
+            //        select item;
+
+
+            var a = (from item in root.Elements()
                 where item.Name != "info"
-                orderby item.Element("registered")
-                select item;
+                orderby item.Element("name")?.Element("first")?.Value.Length
+                select item).Last();
 
 
-            foreach (var item in a)
-            {
-               
-                //Console.WriteLine(item.Element("gender").Value);
-                //Console.WriteLine(item.Element("nat")?.Value);
-                //Console.WriteLine(item.Element("name").Element("first").Value);
-                Console.WriteLine(item.Element("registered").Value);
-            }
-
+            //foreach (var item in a)
+            //{
+            //    //Console.WriteLine(item.Element("gender").Value);
+            //    //Console.WriteLine(item.Element("nat")?.Value);
+            //    //Console.WriteLine(item.Element("name").Element("first").Value);
+            //    //Console.WriteLine(item.Element("registered")?.Value);
+            //}
+            Console.WriteLine(a.Element("name").Element("first").Value);
 
 
             //XElement root = XElement.Load("../../XMLFile1.xml");
