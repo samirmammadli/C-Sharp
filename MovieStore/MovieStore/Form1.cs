@@ -99,14 +99,15 @@ namespace MovieStore
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Movie mov = null;
-            var AddEdit = new AddEditMovie(mov);
-            var result = AddEdit.ShowDialog();
-            AddEdit = null;
-            if (result == DialogResult.OK)
-            {
-                store.AddMovie(mov);
-            }
+            var addEdit = new AddEditMovie(this);
+            addEdit.ShowDialog();
+
+        }
+
+
+        public void GetAddedMovieData(Movie movie, Image img)
+        {
+            store.AddMovie(movie, img);
         }
     }
 

@@ -29,6 +29,11 @@ namespace MovieStore
             Movies.Last().MovieID = ++IdCounter;
             if (poster == null)
                 Movies.Last().MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
+            else
+            {
+                poster.Save($@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg");
+                Movies.Last().MovieImage = poster;
+            }
 
             MovieCollectionChanged?.Invoke();
         }

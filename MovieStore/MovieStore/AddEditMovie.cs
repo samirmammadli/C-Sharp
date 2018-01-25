@@ -12,13 +12,12 @@ namespace MovieStore
 {
     public partial class AddEditMovie : Form
     {
-        private Image Image { get; set; }
-        public Movie NewMovie { get; set; }
-        public AddEditMovie(Movie movie)
+        private Form1 Parent { get; set; } 
+        public AddEditMovie(Form1 parent)
         {
-
-            NewMovie = movie;
             InitializeComponent();
+            Parent = parent;
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -44,7 +43,7 @@ namespace MovieStore
         private void btnSave_Click(object sender, EventArgs e)
         {
             int.TryParse(tbYear.Text, out int year);
-            NewMovie = new Movie(tbTitle.Text, tbGenre.Text,tbType.Text, tbRuntime.Text, year, cbViewed.Checked, pbImage.Image);
+            Parent.GetAddedMovieData(new Movie(tbTitle.Text, tbGenre.Text, tbType.Text, tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
             DialogResult = DialogResult.OK;
         }
 
