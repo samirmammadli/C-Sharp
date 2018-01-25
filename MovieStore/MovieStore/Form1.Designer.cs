@@ -42,6 +42,7 @@
             this.lbTitle = new System.Windows.Forms.Label();
             this.pbMovieImage = new System.Windows.Forms.PictureBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cbSearchViewed = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -85,6 +86,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbSearchViewed);
             this.panel1.Controls.Add(this.tbYear);
             this.panel1.Controls.Add(this.lbYear);
             this.panel1.Controls.Add(this.tbType);
@@ -181,6 +183,17 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // cbSearchViewed
+            // 
+            this.cbSearchViewed.AutoSize = true;
+            this.cbSearchViewed.Location = new System.Drawing.Point(447, 31);
+            this.cbSearchViewed.Name = "cbSearchViewed";
+            this.cbSearchViewed.Size = new System.Drawing.Size(61, 17);
+            this.cbSearchViewed.TabIndex = 9;
+            this.cbSearchViewed.Text = "Viewed";
+            this.cbSearchViewed.UseVisualStyleBackColor = true;
+            this.cbSearchViewed.CheckedChanged += new System.EventHandler(this.Search_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,6 +228,7 @@
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.PictureBox pbMovieImage;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.CheckBox cbSearchViewed;
     }
 }
 

@@ -22,8 +22,7 @@ namespace MovieStore
             InitializeComponent();
                 Random a = new Random();
             store = new MovieStore();
-           
-            //Image aas;
+
             store.AddMovie(new Movie("Terminator 2", "Fantastic", "Movie", "240", 1991, false));
             store.AddMovie(new Movie("Avatar2", "Fantastic", "Movie", "300", 2008, false));
             store.AddMovie(new Movie("Lethal Weapon", "Action film", "Movie", "180", 1992, false));
@@ -31,12 +30,7 @@ namespace MovieStore
             store.AddMovie(new Movie("Millionare", "Drama", "Movie", "110", 1991, false));
             store.AddMovie(new Movie("Game of Thrones", "Fantastic", "Serial", "65", 2017, false));
 
-            for (int i = 0; i < 15000; i++)
-            {
-                store.AddMovie(new Movie("Game of Thrones", "Fantastic", "Serial", "65", 2017, false));
-            }
 
-           
             bs = new BindingSource { DataSource = ConvertToDataTable(store.Movies) };
             dataGridView2.DataSource = bs;
             dataGridView2.Columns[0].Visible = false;
@@ -62,16 +56,16 @@ namespace MovieStore
             return table;
         }
 
-        private void SortData(string genre, string title, string type, string year)
+        private void SortData(string genre, string title, string type, string year, bool viewed)
         {
             
-            bs.DataSource = ConvertToDataTable(store.Movies);
+            //bs.DataSource = ConvertToDataTable(store.Movies);
            //bs.ResetBindings(false);
 
             if (!int.TryParse(year, out int Year))
-                bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%'";
+                bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%' AND Viewed = {viewed}";
             else
-                bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%' AND Year = {Year}";
+                bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%' AND Year = {Year} AND Viewed = {viewed}";
 
         }
 
@@ -82,7 +76,7 @@ namespace MovieStore
 
         private void Search_TextChanged(object sender, EventArgs e)
         {
-            SortData(tbGenre.Text, tbTitle.Text, tbType.Text, tbYear.Text);
+            SortData(tbGenre.Text, tbTitle.Text, tbType.Text, tbYear.Text, cbSearchViewed.Checked);
            
         }
 
