@@ -16,12 +16,12 @@ namespace MovieStore
     public partial class Form1 : Form
     {
         private BindingSource bs;
-        private MovieStore store;
+        private MovieStorage store;
         public Form1()
         {
             InitializeComponent();
                 Random a = new Random();
-            store = new MovieStore();
+            store = new MovieStorage();
 
             store.AddMovie(new Movie("Terminator 2", "Fantastic", "Movie", "240", 1991, false));
             store.AddMovie(new Movie("Avatar2", "Fantastic", "Movie", "300", 2008, false));
@@ -35,6 +35,8 @@ namespace MovieStore
             dataGridView2.DataSource = bs;
             dataGridView2.Columns[0].Visible = false;
             dataGridView2.Columns[1].Visible = false;
+
+            store.MovieCollectionChanged += RefreshDataGrid;
 
 
         }
@@ -59,8 +61,7 @@ namespace MovieStore
         private void SortData(string genre, string title, string type, string year, bool viewed)
         {
             
-            //bs.DataSource = ConvertToDataTable(store.Movies);
-           //bs.ResetBindings(false);
+            
 
             if (!int.TryParse(year, out int Year))
                 bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%' AND Viewed = {viewed}";
@@ -72,6 +73,12 @@ namespace MovieStore
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+
+        private void RefreshDataGrid()
+        {
+            bs.DataSource = ConvertToDataTable(store.Movies);
+            bs.ResetBindings(false);
         }
 
         private void Search_TextChanged(object sender, EventArgs e)
@@ -88,6 +95,18 @@ namespace MovieStore
                 pbMovieImage.Image = dataGridView2.SelectedRows[0].Cells[0].Value as Bitmap;
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Movie mov = null;
+            var AddEdit = new AddEditMovie(mov);
+            var result = AddEdit.ShowDialog();
+            AddEdit = null;
+            if (result == DialogResult.OK)
+            {
+                store.AddMovie(mov);
+            }
         }
     }
 

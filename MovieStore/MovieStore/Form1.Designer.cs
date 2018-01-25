@@ -32,6 +32,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbSearchViewed = new System.Windows.Forms.CheckBox();
             this.tbYear = new System.Windows.Forms.TextBox();
             this.lbYear = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TextBox();
@@ -42,7 +43,7 @@
             this.lbTitle = new System.Windows.Forms.Label();
             this.pbMovieImage = new System.Windows.Forms.PictureBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cbSearchViewed = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -58,13 +59,14 @@
             this.tableLayoutPanel1.Controls.Add(this.dataGridView2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.pbMovieImage, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.7234F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.2766F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(878, 411);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84.71178F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.28822F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(882, 397);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // dataGridView2
@@ -79,7 +81,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(615, 317);
+            this.dataGridView2.Size = new System.Drawing.Size(618, 330);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
@@ -95,11 +97,21 @@
             this.panel1.Controls.Add(this.lbGenre);
             this.panel1.Controls.Add(this.tbTitle);
             this.panel1.Controls.Add(this.lbTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 326);
+            this.panel1.Location = new System.Drawing.Point(3, 339);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(615, 82);
+            this.panel1.Size = new System.Drawing.Size(615, 55);
             this.panel1.TabIndex = 2;
+            // 
+            // cbSearchViewed
+            // 
+            this.cbSearchViewed.AutoSize = true;
+            this.cbSearchViewed.Location = new System.Drawing.Point(447, 31);
+            this.cbSearchViewed.Name = "cbSearchViewed";
+            this.cbSearchViewed.Size = new System.Drawing.Size(61, 17);
+            this.cbSearchViewed.TabIndex = 9;
+            this.cbSearchViewed.Text = "Viewed";
+            this.cbSearchViewed.UseVisualStyleBackColor = true;
+            this.cbSearchViewed.CheckedChanged += new System.EventHandler(this.Search_TextChanged);
             // 
             // tbYear
             // 
@@ -172,9 +184,9 @@
             // pbMovieImage
             // 
             this.pbMovieImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbMovieImage.Location = new System.Drawing.Point(624, 3);
+            this.pbMovieImage.Location = new System.Drawing.Point(627, 3);
             this.pbMovieImage.Name = "pbMovieImage";
-            this.pbMovieImage.Size = new System.Drawing.Size(251, 317);
+            this.pbMovieImage.Size = new System.Drawing.Size(252, 330);
             this.pbMovieImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMovieImage.TabIndex = 3;
             this.pbMovieImage.TabStop = false;
@@ -183,24 +195,23 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // cbSearchViewed
+            // button1
             // 
-            this.cbSearchViewed.AutoSize = true;
-            this.cbSearchViewed.Location = new System.Drawing.Point(447, 31);
-            this.cbSearchViewed.Name = "cbSearchViewed";
-            this.cbSearchViewed.Size = new System.Drawing.Size(61, 17);
-            this.cbSearchViewed.TabIndex = 9;
-            this.cbSearchViewed.Text = "Viewed";
-            this.cbSearchViewed.UseVisualStyleBackColor = true;
-            this.cbSearchViewed.CheckedChanged += new System.EventHandler(this.Search_TextChanged);
+            this.button1.Location = new System.Drawing.Point(627, 339);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Add new";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(878, 411);
+            this.ClientSize = new System.Drawing.Size(882, 397);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(894, 450);
+            this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -229,6 +240,7 @@
         private System.Windows.Forms.PictureBox pbMovieImage;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.CheckBox cbSearchViewed;
+        private System.Windows.Forms.Button button1;
     }
 }
 
