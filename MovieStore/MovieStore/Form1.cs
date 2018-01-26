@@ -173,6 +173,28 @@ namespace MovieStore
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void dataGridView2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 46)
+            {
+                if (dataGridView2.Rows.Count > 0)
+                {
+                    int id = (int)dataGridView2.SelectedRows[0].Cells[1].Value;
+                    pbMovieImage.Image = null;
+                    store.DeleteMovie(id);
+                }
+            }
+            else if(e.KeyValue == 13)
+            {
+                if (dataGridView2.Rows.Count > 0)
+                {
+                    var addEdit = new AddEditMovie(this, OperationType.Edit);
+                    addEdit.ShowDialog();
+                    addEdit.Dispose();
+                }
+            }
+        }
     }
 
 }
