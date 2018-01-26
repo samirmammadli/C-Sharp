@@ -45,7 +45,6 @@
             this.btnLoadImage = new System.Windows.Forms.Button();
             this.cbViewed = new System.Windows.Forms.CheckBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.btnDeleteImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +55,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
-            this.btnSave.Location = new System.Drawing.Point(12, 243);
+            this.btnSave.Location = new System.Drawing.Point(15, 170);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -71,7 +70,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
-            this.btnCancel.Location = new System.Drawing.Point(93, 243);
+            this.btnCancel.Location = new System.Drawing.Point(107, 170);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -176,7 +175,7 @@
             this.pbImage.InitialImage = null;
             this.pbImage.Location = new System.Drawing.Point(306, 5);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(207, 232);
+            this.pbImage.Size = new System.Drawing.Size(196, 185);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbImage.TabIndex = 12;
             this.pbImage.TabStop = false;
@@ -188,9 +187,9 @@
             this.btnLoadImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadImage.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnLoadImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
-            this.btnLoadImage.Location = new System.Drawing.Point(413, 243);
+            this.btnLoadImage.Location = new System.Drawing.Point(214, 170);
             this.btnLoadImage.Name = "btnLoadImage";
-            this.btnLoadImage.Size = new System.Drawing.Size(100, 23);
+            this.btnLoadImage.Size = new System.Drawing.Size(89, 23);
             this.btnLoadImage.TabIndex = 13;
             this.btnLoadImage.Text = "Upload Image";
             this.btnLoadImage.UseVisualStyleBackColor = false;
@@ -214,7 +213,7 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
-            this.btnSearch.Location = new System.Drawing.Point(122, 144);
+            this.btnSearch.Location = new System.Drawing.Point(15, 144);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(167, 23);
             this.btnSearch.TabIndex = 15;
@@ -222,27 +221,12 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // btnDeleteImage
-            // 
-            this.btnDeleteImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(49)))), ((int)(((byte)(89)))));
-            this.btnDeleteImage.FlatAppearance.BorderSize = 0;
-            this.btnDeleteImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteImage.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDeleteImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
-            this.btnDeleteImage.Location = new System.Drawing.Point(306, 243);
-            this.btnDeleteImage.Name = "btnDeleteImage";
-            this.btnDeleteImage.Size = new System.Drawing.Size(100, 23);
-            this.btnDeleteImage.TabIndex = 16;
-            this.btnDeleteImage.Text = "Delete Image";
-            this.btnDeleteImage.UseVisualStyleBackColor = false;
-            // 
             // AddEditMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(518, 271);
-            this.Controls.Add(this.btnDeleteImage);
+            this.ClientSize = new System.Drawing.Size(514, 202);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.cbViewed);
             this.Controls.Add(this.btnLoadImage);
@@ -288,6 +272,5 @@
         private System.Windows.Forms.Button btnLoadImage;
         private System.Windows.Forms.CheckBox cbViewed;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnDeleteImage;
     }
 }

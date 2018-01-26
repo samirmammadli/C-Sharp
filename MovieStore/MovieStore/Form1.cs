@@ -92,14 +92,14 @@ namespace MovieStore
            
             if (dataGridView2.SelectedRows.Count > 0)
             {
-                pbMovieImage.Load(dataGridView2.SelectedRows[0].Cells[0].Value as string);
+                pbMovieImage.Image = dataGridView2.SelectedRows[0].Cells[0].Value as Bitmap;
             }
             
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var addEdit = new AddEditMovie(this, OperationType.Add);
+            var addEdit = new AddEditMovie(this);
             addEdit.ShowDialog();
 
         }
@@ -108,45 +108,6 @@ namespace MovieStore
         public void GetAddedMovieData(Movie movie, Image img)
         {
             store.AddMovie(movie, img);
-        }
-
-        private void btnExitProgram_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        public void GetEditedMovieData(Movie movie, Image img)
-        {
-            if (dataGridView2.Rows.Count > 0)
-                store.EditMovie((int)dataGridView2.SelectedRows[0].Cells[1].Value,movie, img);
-        }
-
-        public Movie SendSelectedMovieData()
-        {
-            int id = (int)dataGridView2.SelectedRows[0].Cells[1].Value;
-            return store.Movies.Find(x => x.MovieID == id);
-        }
-
-        private void btnEditSelected_Click(object sender, EventArgs e)
-        {
-            if (dataGridView2.Rows.Count > 0)
-            {
-                var addEdit = new AddEditMovie(this, OperationType.Edit);
-                pbMovieImage.Image?.Dispose();
-                pbMovieImage.Image = null;
-                addEdit.ShowDialog();
-                addEdit.Dispose();
-            }  
-        }
-
-        private void btnRemoveSelected_Click(object sender, EventArgs e)
-        {
-            if(dataGridView2.Rows.Count > 0)
-            {
-                int id = (int)dataGridView2.SelectedRows[0].Cells[1].Value;
-                pbMovieImage.Image = null;
-                store.DeleteMovie(id);
-            }  
         }
     }
 
