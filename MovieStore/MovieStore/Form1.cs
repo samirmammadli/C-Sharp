@@ -99,7 +99,7 @@ namespace MovieStore
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var addEdit = new AddEditMovie(this);
+            var addEdit = new AddEditMovie(this, OperationType.Add);
             addEdit.ShowDialog();
 
         }
@@ -108,6 +108,41 @@ namespace MovieStore
         public void GetAddedMovieData(Movie movie, Image img)
         {
             store.AddMovie(movie, img);
+        }
+
+        private void btnExitProgram_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        public void GetEditedMovieData(Movie movie, Image img)
+        {
+            if (dataGridView2.Rows.Count > 0)
+                store.EditMovie((int)dataGridView2.SelectedRows[0].Cells[1].Value,movie, img);
+        }
+
+        public Movie SendSelectedMovieData()
+        {
+            int id = (int)dataGridView2.SelectedRows[0].Cells[1].Value;
+            return store.Movies.Find(x => x.MovieID == id);
+        }
+
+        private void btnEditSelected_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.Rows.Count > 0)
+            {
+                var addEdit = new AddEditMovie(this, OperationType.Edit);
+                addEdit.ShowDialog();
+            }  
+        }
+
+        private void btnRemoveSelected_Click(object sender, EventArgs e)
+        {
+            if(dataGridView2.Rows.Count > 0)
+            {
+                int id = (int)dataGridView2.SelectedRows[0].Cells[1].Value;
+                store.DeleteMovie(id);
+            }  
         }
     }
 
