@@ -17,28 +17,30 @@ namespace MovieStore
     {
         private BindingSource bs;
         private MovieStorage store;
+        
         public Form1()
         {
             InitializeComponent();
-                Random a = new Random();
             store = new MovieStorage();
-
             store.AddMovie(new Movie("Terminator 2", "Fantastic", "Movie", "240", 1991, false));
             store.AddMovie(new Movie("Avatar2", "Fantastic", "Movie", "300", 2008, false));
             store.AddMovie(new Movie("Lethal Weapon", "Action film", "Movie", "180", 1992, false));
             store.AddMovie(new Movie("Fantastic four", "Fantastic", "Movie", "190", 2004, false));
             store.AddMovie(new Movie("Millionare", "Drama", "Movie", "110", 1991, false));
             store.AddMovie(new Movie("Game of Thrones", "Fantastic", "Serial", "65", 2017, false));
+            store.MovieCollectionChanged += RefreshDataGrid;
 
 
             bs = new BindingSource { DataSource = ConvertToDataTable(store.Movies) };
             dataGridView2.DataSource = bs;
             dataGridView2.Columns[0].Visible = false;
             dataGridView2.Columns[1].Visible = false;
+            
+            var viewed = new Dictionary<string, bool> { { "All", false} , { "Viewed", true }, { "Unviewed", false } }.ToList();
 
-            store.MovieCollectionChanged += RefreshDataGrid;
-
-
+            cbViewed.DataSource = viewed;
+            cbViewed.DisplayMember = "Key";
+            cbViewed.ValueMember = "Value";
         }
 
         public DataTable ConvertToDataTable<T>(IList<T> data)
@@ -60,14 +62,12 @@ namespace MovieStore
 
         private void SortData(string genre, string title, string type, string year, bool viewed)
         {
-            
-            
-
-            if (!int.TryParse(year, out int Year))
-                bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%' AND Viewed = {viewed}";
-            else
-                bs.Filter = $"Title LIKE '{title}%' AND Type LIKE '{type}%' AND Year = {Year} AND Viewed = {viewed}";
-
+            string filter = $"Title LIKE '%{title}%' AND Type LIKE '{type}%' AND Genre LIKE '%{genre}%'";
+            if (cbViewed.SelectedIndex != 0)
+                filter += $" AND Viewed = {viewed}";
+            if (int.TryParse(year, out int Year))
+                filter += $" AND Year = {Year}";
+            bs.Filter = filter;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -83,7 +83,7 @@ namespace MovieStore
 
         private void Search_TextChanged(object sender, EventArgs e)
         {
-            SortData(tbGenre.Text, tbTitle.Text, tbType.Text, tbYear.Text, cbSearchViewed.Checked);
+            SortData(tbGenre.Text, tbTitle.Text, tbType.Text, tbYear.Text, (bool)cbViewed.SelectedValue);
            
         }
 

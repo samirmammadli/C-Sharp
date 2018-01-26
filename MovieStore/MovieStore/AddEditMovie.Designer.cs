@@ -50,22 +50,32 @@
             // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(49)))), ((int)(((byte)(89)))));
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.btnSave.Location = new System.Drawing.Point(15, 170);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(49)))), ((int)(((byte)(89)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.btnCancel.Location = new System.Drawing.Point(107, 170);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // tbTitle
@@ -78,37 +88,44 @@
             // lbTitle
             // 
             this.lbTitle.AutoSize = true;
-            this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbTitle.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.lbTitle.Location = new System.Drawing.Point(12, 9);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(37, 16);
+            this.lbTitle.Size = new System.Drawing.Size(38, 16);
             this.lbTitle.TabIndex = 3;
             this.lbTitle.Text = "Title:";
             // 
             // lbGenre
             // 
             this.lbGenre.AutoSize = true;
+            this.lbGenre.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbGenre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.lbGenre.Location = new System.Drawing.Point(12, 35);
             this.lbGenre.Name = "lbGenre";
-            this.lbGenre.Size = new System.Drawing.Size(39, 13);
+            this.lbGenre.Size = new System.Drawing.Size(52, 16);
             this.lbGenre.TabIndex = 4;
             this.lbGenre.Text = "Genre:";
             // 
             // lbType
             // 
             this.lbType.AutoSize = true;
+            this.lbType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.lbType.Location = new System.Drawing.Point(12, 63);
             this.lbType.Name = "lbType";
-            this.lbType.Size = new System.Drawing.Size(34, 13);
+            this.lbType.Size = new System.Drawing.Size(43, 16);
             this.lbType.TabIndex = 5;
             this.lbType.Text = "Type:";
             // 
             // lbRuntime
             // 
             this.lbRuntime.AutoSize = true;
+            this.lbRuntime.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbRuntime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.lbRuntime.Location = new System.Drawing.Point(12, 92);
             this.lbRuntime.Name = "lbRuntime";
-            this.lbRuntime.Size = new System.Drawing.Size(49, 13);
+            this.lbRuntime.Size = new System.Drawing.Size(64, 16);
             this.lbRuntime.TabIndex = 6;
             this.lbRuntime.Text = "Runtime:";
             // 
@@ -143,9 +160,11 @@
             // lbYear
             // 
             this.lbYear.AutoSize = true;
+            this.lbYear.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.lbYear.Location = new System.Drawing.Point(12, 118);
             this.lbYear.Name = "lbYear";
-            this.lbYear.Size = new System.Drawing.Size(32, 13);
+            this.lbYear.Size = new System.Drawing.Size(42, 16);
             this.lbYear.TabIndex = 10;
             this.lbYear.Text = "Year:";
             // 
@@ -163,38 +182,50 @@
             // 
             // btnLoadImage
             // 
+            this.btnLoadImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(49)))), ((int)(((byte)(89)))));
+            this.btnLoadImage.FlatAppearance.BorderSize = 0;
+            this.btnLoadImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadImage.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnLoadImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.btnLoadImage.Location = new System.Drawing.Point(214, 170);
             this.btnLoadImage.Name = "btnLoadImage";
             this.btnLoadImage.Size = new System.Drawing.Size(89, 23);
             this.btnLoadImage.TabIndex = 13;
             this.btnLoadImage.Text = "Upload Image";
-            this.btnLoadImage.UseVisualStyleBackColor = true;
+            this.btnLoadImage.UseVisualStyleBackColor = false;
             // 
             // cbViewed
             // 
             this.cbViewed.AutoSize = true;
-            this.cbViewed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbViewed.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbViewed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.cbViewed.Location = new System.Drawing.Point(228, 120);
             this.cbViewed.Name = "cbViewed";
-            this.cbViewed.Size = new System.Drawing.Size(61, 17);
+            this.cbViewed.Size = new System.Drawing.Size(75, 20);
             this.cbViewed.TabIndex = 14;
             this.cbViewed.Text = "Viewed";
             this.cbViewed.UseVisualStyleBackColor = true;
             // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(49)))), ((int)(((byte)(89)))));
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(208)))), ((int)(((byte)(102)))));
             this.btnSearch.Location = new System.Drawing.Point(15, 144);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(167, 23);
             this.btnSearch.TabIndex = 15;
             this.btnSearch.Text = "Search by Title";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // AddEditMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(514, 202);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.cbViewed);
@@ -212,7 +243,10 @@
             this.Controls.Add(this.tbTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddEditMovie";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddEditMovie";
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
