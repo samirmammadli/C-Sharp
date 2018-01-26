@@ -10,16 +10,17 @@ namespace MovieStore
 {
     static public class DeserializeAndLoad
     {
-        static public object LoadSavedData<T>(string filename)
+        static public object LoadSavedData(string filename)
         {
+            object obj = null;
             try
             {
                 var formatter = new BinaryFormatter();
-                if (File.Exists("MovieStore.dat"))
+                if (File.Exists(filename))
                 {
-                    using (FileStream fs = new FileStream("MonefyData.dat", FileMode.Open))
+                    using (FileStream fs = new FileStream(filename, FileMode.Open))
                     {
-                        return formatter.Deserialize(fs);
+                        obj = formatter.Deserialize(fs);
                     }
                 }
                 else
@@ -29,21 +30,14 @@ namespace MovieStore
             {
                 throw;
             }
-
+            return obj;
         }
         static public void SaveData<T>(string path, T data)
         {
             var formatter = new BinaryFormatter();
-            try
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
-                using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-                {
-                    formatter.Serialize(fs, data);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                formatter.Serialize(fs, data);
             }
         }
     }

@@ -168,7 +168,7 @@
             this.pbImage.ErrorImage = null;
             this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
             this.pbImage.InitialImage = null;
-            this.pbImage.Location = new System.Drawing.Point(306, 5);
+            this.pbImage.Location = new System.Drawing.Point(309, 5);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(207, 232);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

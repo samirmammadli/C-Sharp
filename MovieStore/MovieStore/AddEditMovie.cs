@@ -45,8 +45,8 @@ namespace MovieStore
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
+                
             }
         }
 
@@ -62,7 +62,6 @@ namespace MovieStore
                 Parent.GetAddedMovieData(new Movie(tbTitle.Text, tbGenre.Text, cbType.SelectedItem.ToString(), tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
             else 
                 Parent.GetEditedMovieData(new Movie(tbTitle.Text, tbGenre.Text, cbType.SelectedItem.ToString(), tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
-
             DialogResult = DialogResult.OK;
         }
 

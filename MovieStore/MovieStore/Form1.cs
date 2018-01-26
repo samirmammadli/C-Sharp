@@ -21,13 +21,16 @@ namespace MovieStore
         public Form1()
         {
             InitializeComponent();
-            store = new MovieStorage();
-            store.AddMovie(new Movie("Terminator 2", "Fantastic", "Movie", "240", 1991, false));
-            store.AddMovie(new Movie("Avatar2", "Fantastic", "Movie", "300", 2008, false));
-            store.AddMovie(new Movie("Lethal Weapon", "Action film", "Movie", "180", 1992, false));
-            store.AddMovie(new Movie("Fantastic four", "Fantastic", "Movie", "190", 2004, false));
-            store.AddMovie(new Movie("Millionare", "Drama", "Movie", "110", 1991, false));
-            store.AddMovie(new Movie("Game of Thrones", "Fantastic", "Serial", "65", 2017, false));
+            try
+            {
+                store = DeserializeAndLoad.LoadSavedData("MovieStore.dat") as MovieStorage;
+            }
+            catch (Exception e)
+            {
+                store = new MovieStorage();
+                MessageBox.Show(e.Message);
+            }
+            
             store.MovieCollectionChanged += RefreshDataGrid;
 
 
@@ -101,7 +104,6 @@ namespace MovieStore
         {
             var addEdit = new AddEditMovie(this, OperationType.Add);
             addEdit.ShowDialog();
-
         }
 
 
@@ -139,12 +141,37 @@ namespace MovieStore
 
         private void btnRemoveSelected_Click(object sender, EventArgs e)
         {
-            if(dataGridView2.Rows.Count > 0)
+
+            if (dataGridView2.Rows.Count > 0)
             {
                 int id = (int)dataGridView2.SelectedRows[0].Cells[1].Value;
                 pbMovieImage.Image = null;
                 store.DeleteMovie(id);
-            }  
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
+        {
+            try
+            {
+                DeserializeAndLoad.SaveData("MovieStore.dat", store);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 

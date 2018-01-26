@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.IO;
+using System.Text;
 
 namespace MovieStore
 {
     static class MovieDataDownloader
     {
-        static private Uri Link = new Uri(@"http://www.omdbapi.com/?apikey=e55850b5");
-        static private JObject Data = null;
+        private static Uri Link = new Uri(@"http://www.omdbapi.com/?apikey=e55850b5");
+        private static JObject Data = null;
 
 
-        static public string[] GetData(string title)
+        public static string[] GetData(string title)
         {
             using (WebClient webClient = new WebClient())
             {
                 try
                 {
+                    
                     Link = Link.AddParameter("t", title);
-                    var data = webClient.DownloadString(Link);
+                    var data = Encoding.UTF8.GetString(webClient.DownloadData(Link));
                     dynamic obj = JObject.Parse(data);
                     if (obj.Response == "False")
                         throw new ArgumentException(obj.Error);
@@ -34,18 +37,15 @@ namespace MovieStore
             }
         }
 
-        static public Image GetImage(string link)
+        public static Image GetImage(string link)
         {
+            Bitmap img = null;
             using (WebClient webClient = new WebClient())
             {
                 try
                 {
-                    ;
-                    //webClient.DownloadFile(link, $@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
-
-                    //return new Bitmap($@"Posters\{id}.jpg");
                     MemoryStream stream = new MemoryStream(webClient.DownloadData(link));
-                    return new Bitmap(stream);
+                    img = new Bitmap(stream);
                 }
                 catch (Exception)
                 {
@@ -53,6 +53,7 @@ namespace MovieStore
                     throw;
                 }
             }
+            return img;
         }
     }
 }

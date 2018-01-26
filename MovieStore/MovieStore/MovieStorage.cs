@@ -21,8 +21,9 @@ namespace MovieStore
     class MovieStorage
     {
         public delegate void MovieCollectionStateHandler();
+        [field:NonSerialized]
         public event MovieCollectionStateHandler MovieCollectionChanged;
-        private static int IdCounter = 0;
+        private int IdCounter = 0;
         public List<Movie> Movies { get; private set; }
 
         public MovieStorage()
@@ -39,7 +40,7 @@ namespace MovieStore
                 Movies.Last().MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
             else
             {
-                Movies.Last().MovieImage = poster;
+                Movies.Last().MovieImage = new Bitmap(poster);
             }
 
             MovieCollectionChanged?.Invoke();
@@ -71,7 +72,7 @@ namespace MovieStore
                     Movies[index].MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
                 else
                 {
-                    Movies[index].MovieImage = poster;
+                    Movies[index].MovieImage =  new Bitmap(poster);
                 }
                 MovieCollectionChanged?.Invoke();
             }
