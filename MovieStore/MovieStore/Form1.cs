@@ -92,7 +92,7 @@ namespace MovieStore
            
             if (dataGridView2.SelectedRows.Count > 0)
             {
-                pbMovieImage.Load(dataGridView2.SelectedRows[0].Cells[0].Value as string);
+                pbMovieImage.Image = dataGridView2.SelectedRows[0].Cells[0].Value as Bitmap;
             }
             
         }
@@ -132,8 +132,6 @@ namespace MovieStore
             if (dataGridView2.Rows.Count > 0)
             {
                 var addEdit = new AddEditMovie(this, OperationType.Edit);
-                pbMovieImage.Image?.Dispose();
-                pbMovieImage.Image = null;
                 addEdit.ShowDialog();
                 addEdit.Dispose();
             }  

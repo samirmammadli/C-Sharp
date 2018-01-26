@@ -46,6 +46,7 @@
             this.cbViewed = new System.Windows.Forms.CheckBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnDeleteImage = new System.Windows.Forms.Button();
+            this.ofdLoadImage = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -194,6 +195,7 @@
             this.btnLoadImage.TabIndex = 13;
             this.btnLoadImage.Text = "Upload Image";
             this.btnLoadImage.UseVisualStyleBackColor = false;
+            this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
             // 
             // cbViewed
             // 
@@ -235,6 +237,12 @@
             this.btnDeleteImage.TabIndex = 16;
             this.btnDeleteImage.Text = "Delete Image";
             this.btnDeleteImage.UseVisualStyleBackColor = false;
+            this.btnDeleteImage.Click += new System.EventHandler(this.btnDeleteImage_Click);
+            // 
+            // ofdLoadImage
+            // 
+            this.ofdLoadImage.FileName = "openFileDialog1";
+            this.ofdLoadImage.Filter = "Image Files(*.BMP;*.JPG;*.JPEG)|*.BMP;*.JPG;*.JPEG";
             // 
             // AddEditMovie
             // 
@@ -289,5 +297,6 @@
         private System.Windows.Forms.CheckBox cbViewed;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnDeleteImage;
+        private System.Windows.Forms.OpenFileDialog ofdLoadImage;
     }
 }

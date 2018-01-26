@@ -33,7 +33,6 @@ namespace MovieStore
                 tbType.Text = data[2];
                 tbRuntime.Text = data[3];
                 tbYear.Text = data[4];
-
                 pbImage.Image = MovieDataDownloader.GetImage(data[5]);
             }
             catch (Exception ex)
@@ -68,6 +67,28 @@ namespace MovieStore
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnLoadImage_Click(object sender, EventArgs e)
+        {
+            var result = ofdLoadImage.ShowDialog();
+            try
+            {
+                if (result == DialogResult.OK)
+                {
+                    pbImage.Image = null;
+                    pbImage.Load(ofdLoadImage.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnDeleteImage_Click(object sender, EventArgs e)
+        {
+            pbImage.Image = null;
         }
     }
 }

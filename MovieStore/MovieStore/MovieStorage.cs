@@ -36,11 +36,10 @@ namespace MovieStore
             Movies.Add(movie);
             Movies.Last().MovieID = ++IdCounter;
             if (poster == null)
-                Movies.Last().MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\no_poster.jpg";
+                Movies.Last().MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
             else
             {
-                poster.Save($@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg");
-                Movies.Last().MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg";
+                Movies.Last().MovieImage = poster;
             }
 
             MovieCollectionChanged?.Invoke();
@@ -51,8 +50,6 @@ namespace MovieStore
             try
             {
                 Movies.RemoveAt(Movies.FindIndex(x => x.MovieID == id));
-                if (File.Exists($@"{Environment.CurrentDirectory}\Posters\{id}.jpg"))
-                    File.Delete($@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
                 MovieCollectionChanged?.Invoke();
             }
             catch (Exception)
@@ -71,13 +68,10 @@ namespace MovieStore
                 Movies[index] = movie;
                 Movies[index].MovieID = id;
                 if (poster == null)
-                    Movies[index].MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\no_poster.jpg";
+                    Movies[index].MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
                 else
                 {
-                    File.Delete($@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
-                    poster.Save($@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
-                    Movies[index].MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\{id}.jpg";
-                    poster.Dispose();
+                    Movies[index].MovieImage = poster;
                 }
                 MovieCollectionChanged?.Invoke();
             }
