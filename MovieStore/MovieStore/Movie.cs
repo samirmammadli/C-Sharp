@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore
 {
-
+    [Serializable]
     public class Movie
     {
         public Image MovieImage { get; set; }

@@ -21,16 +21,24 @@ namespace MovieStore
             Type = type;
             if (type == OperationType.Edit)
                 LoadMovie();
+
+            cbType.Items.AddRange(new string[] { "movie", "series", "episode" });
+            cbType.SelectedIndex = 0;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            if (tbTitle.Text == string.Empty)
+            {
+                MessageBox.Show("Title can not be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 var data = MovieDataDownloader.GetData(tbTitle.Text);
                 tbTitle.Text = data[0];
                 tbGenre.Text = data[1];
-                tbType.Text = data[2];
+                cbType.SelectedItem = data[2];
                 tbRuntime.Text = data[3];
                 tbYear.Text = data[4];
                 pbImage.Image = MovieDataDownloader.GetImage(data[5]);
@@ -44,11 +52,16 @@ namespace MovieStore
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (tbTitle.Text == string.Empty)
+            {
+                MessageBox.Show("Title can not be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             int.TryParse(tbYear.Text, out int year);
             if (Type == OperationType.Add)
-                Parent.GetAddedMovieData(new Movie(tbTitle.Text, tbGenre.Text, tbType.Text, tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
+                Parent.GetAddedMovieData(new Movie(tbTitle.Text, tbGenre.Text, cbType.SelectedItem.ToString(), tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
             else 
-                Parent.GetEditedMovieData(new Movie(tbTitle.Text, tbGenre.Text, tbType.Text, tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
+                Parent.GetEditedMovieData(new Movie(tbTitle.Text, tbGenre.Text, cbType.SelectedItem.ToString(), tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
 
             DialogResult = DialogResult.OK;
         }
@@ -59,7 +72,7 @@ namespace MovieStore
             tbGenre.Text = movie.Genre;
             tbTitle.Text = movie.Title;
             tbRuntime.Text = movie.Runtime;
-            tbType.Text = movie.Type;
+            cbType.SelectedText = movie.Type;
             tbYear.Text = movie.Year.ToString();
             pbImage.Image = movie.MovieImage;
         }

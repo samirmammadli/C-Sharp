@@ -37,7 +37,6 @@
             this.lbType = new System.Windows.Forms.Label();
             this.lbRuntime = new System.Windows.Forms.Label();
             this.tbGenre = new System.Windows.Forms.TextBox();
-            this.tbType = new System.Windows.Forms.TextBox();
             this.tbRuntime = new System.Windows.Forms.TextBox();
             this.tbYear = new System.Windows.Forms.TextBox();
             this.lbYear = new System.Windows.Forms.Label();
@@ -47,6 +46,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnDeleteImage = new System.Windows.Forms.Button();
             this.ofdLoadImage = new System.Windows.Forms.OpenFileDialog();
+            this.cbType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,13 +137,6 @@
             this.tbGenre.Name = "tbGenre";
             this.tbGenre.Size = new System.Drawing.Size(182, 20);
             this.tbGenre.TabIndex = 7;
-            // 
-            // tbType
-            // 
-            this.tbType.Location = new System.Drawing.Point(107, 63);
-            this.tbType.Name = "tbType";
-            this.tbType.Size = new System.Drawing.Size(182, 20);
-            this.tbType.TabIndex = 8;
             // 
             // tbRuntime
             // 
@@ -244,12 +237,23 @@
             this.ofdLoadImage.FileName = "openFileDialog1";
             this.ofdLoadImage.Filter = "Image Files(*.BMP;*.JPG;*.JPEG)|*.BMP;*.JPG;*.JPEG";
             // 
+            // cbType
+            // 
+            this.cbType.BackColor = System.Drawing.Color.White;
+            this.cbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbType.FormattingEnabled = true;
+            this.cbType.Location = new System.Drawing.Point(107, 62);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(182, 21);
+            this.cbType.TabIndex = 17;
+            // 
             // AddEditMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(518, 271);
+            this.Controls.Add(this.cbType);
             this.Controls.Add(this.btnDeleteImage);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.cbViewed);
@@ -258,7 +262,6 @@
             this.Controls.Add(this.tbYear);
             this.Controls.Add(this.lbYear);
             this.Controls.Add(this.tbRuntime);
-            this.Controls.Add(this.tbType);
             this.Controls.Add(this.tbGenre);
             this.Controls.Add(this.lbRuntime);
             this.Controls.Add(this.lbType);
@@ -288,7 +291,6 @@
         private System.Windows.Forms.Label lbType;
         private System.Windows.Forms.Label lbRuntime;
         private System.Windows.Forms.TextBox tbGenre;
-        private System.Windows.Forms.TextBox tbType;
         private System.Windows.Forms.TextBox tbRuntime;
         private System.Windows.Forms.TextBox tbYear;
         private System.Windows.Forms.Label lbYear;
@@ -298,5 +300,6 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnDeleteImage;
         private System.Windows.Forms.OpenFileDialog ofdLoadImage;
+        private System.Windows.Forms.ComboBox cbType;
     }
 }
