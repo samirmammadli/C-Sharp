@@ -10,6 +10,13 @@ using System.Threading.Tasks;
 
 namespace MovieStore
 {
+    public enum OperationType
+    {
+        Add,
+        Edit
+    }
+
+
     class MovieStorage
     {
         public delegate void MovieCollectionStateHandler();
@@ -52,13 +59,21 @@ namespace MovieStore
             }
         }
 
-        public void EditMovie(int id, Movie movie)
+        public void EditMovie(int id, Movie movie, Image poster = null)
         {
             if (movie == null) throw new ArgumentNullException();
             try
             {
                 int index = Movies.FindIndex(x => x.MovieID == id);
-                Movies.RemoveAt(index);
+                Movies[index] = movie;
+                Movies[index].MovieID = id;
+                if (poster == null)
+                    Movies[index].MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
+                else
+                {
+                    poster.Save($@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg");
+                    Movies[index].MovieImage = poster;
+                }
                 MovieCollectionChanged?.Invoke();
             }
             catch (Exception)
