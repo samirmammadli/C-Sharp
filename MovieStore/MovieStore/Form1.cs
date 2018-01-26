@@ -28,7 +28,6 @@ namespace MovieStore
             catch (Exception e)
             {
                 store = new MovieStorage();
-                MessageBox.Show(e.Message);
             }
             
             store.MovieCollectionChanged += RefreshDataGrid;
