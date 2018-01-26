@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MovieStore
 {
@@ -35,11 +36,11 @@ namespace MovieStore
             Movies.Add(movie);
             Movies.Last().MovieID = ++IdCounter;
             if (poster == null)
-                Movies.Last().MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
+                Movies.Last().MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\no_poster.jpg";
             else
             {
                 poster.Save($@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg");
-                Movies.Last().MovieImage = poster;
+                Movies.Last().MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg";
             }
 
             MovieCollectionChanged?.Invoke();
@@ -50,6 +51,8 @@ namespace MovieStore
             try
             {
                 Movies.RemoveAt(Movies.FindIndex(x => x.MovieID == id));
+                if (File.Exists($@"{Environment.CurrentDirectory}\Posters\{id}.jpg"))
+                    File.Delete($@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
                 MovieCollectionChanged?.Invoke();
             }
             catch (Exception)
@@ -68,11 +71,13 @@ namespace MovieStore
                 Movies[index] = movie;
                 Movies[index].MovieID = id;
                 if (poster == null)
-                    Movies[index].MovieImage = new Bitmap($@"{Environment.CurrentDirectory}\Posters\no_poster.jpg");
+                    Movies[index].MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\no_poster.jpg";
                 else
                 {
-                    poster.Save($@"{Environment.CurrentDirectory}\Posters\{Movies.Last().MovieID}.jpg");
-                    Movies[index].MovieImage = poster;
+                    File.Delete($@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
+                    poster.Save($@"{Environment.CurrentDirectory}\Posters\{id}.jpg");
+                    Movies[index].MovieImagePath = $@"{Environment.CurrentDirectory}\Posters\{id}.jpg";
+                    poster.Dispose();
                 }
                 MovieCollectionChanged?.Invoke();
             }
