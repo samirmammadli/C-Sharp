@@ -72,7 +72,7 @@ namespace MovieStore
             tbRuntime.Text = movie.Runtime;
             tbType.Text = movie.Type;
             tbYear.Text = movie.Year.ToString();
-            pbImage.Image = movie.MovieImage;
+            pbImage.Load(movie.MovieImagePath);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -87,6 +87,7 @@ namespace MovieStore
             {
                 if (result == DialogResult.OK)
                 {
+                    pbImage.Image?.Dispose();
                     pbImage.Image = null;
                     pbImage.Load(ofdLoadImage.FileName);
                 }
@@ -99,6 +100,7 @@ namespace MovieStore
 
         private void btnDeleteImage_Click(object sender, EventArgs e)
         {
+            pbImage.Image?.Dispose();
             pbImage.Image = null;
         }
     }

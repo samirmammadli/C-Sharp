@@ -13,7 +13,7 @@ namespace MovieStore
     public class Movie
     {
         [field:NonSerialized]
-        public Image MovieImage { get; set; }
+        public string MovieImagePath { get; set; }
         public int MovieID { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
@@ -22,14 +22,14 @@ namespace MovieStore
         public int Year { get; set; }
         public bool Viewed { get; set; }
 
-        public Movie(string title, string genre, string type, string runtime, int year, bool viewed, Image image = null)
+        public Movie(string title, string genre, string type, string runtime, int year, bool viewed, string imagePath = null)
         {
             Title = title;
             Genre = genre;
             Type = type;
             Runtime = runtime;
             Year = year;
-            MovieImage = image;
+            MovieImagePath = imagePath;
             Viewed = viewed;
         }
     }
