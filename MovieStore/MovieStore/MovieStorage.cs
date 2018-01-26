@@ -17,7 +17,7 @@ namespace MovieStore
         Edit
     }
 
-    [Serializable]
+
     class MovieStorage
     {
         public delegate void MovieCollectionStateHandler();

@@ -25,11 +25,6 @@ namespace MovieStore
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (tbTitle.Text == string.Empty)
-            {
-                MessageBox.Show("Title can not be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             try
             {
                 var data = MovieDataDownloader.GetData(tbTitle.Text);
@@ -50,11 +45,6 @@ namespace MovieStore
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (tbTitle.Text == string.Empty)
-            {
-                MessageBox.Show("Title can not be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             int.TryParse(tbYear.Text, out int year);
             if (Type == OperationType.Add)
                 Parent.GetAddedMovieData(new Movie(tbTitle.Text, tbGenre.Text, tbType.Text, tbRuntime.Text, year, cbViewed.Checked), pbImage.Image);
@@ -72,36 +62,12 @@ namespace MovieStore
             tbRuntime.Text = movie.Runtime;
             tbType.Text = movie.Type;
             tbYear.Text = movie.Year.ToString();
-            pbImage.Load(movie.MovieImagePath);
+            pbImage.Image = movie.MovieImage;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void btnLoadImage_Click(object sender, EventArgs e)
-        {
-            var result = ofdLoadImage.ShowDialog();
-            try
-            {
-                if (result == DialogResult.OK)
-                {
-                    pbImage.Image?.Dispose();
-                    pbImage.Image = null;
-                    pbImage.Load(ofdLoadImage.FileName);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void btnDeleteImage_Click(object sender, EventArgs e)
-        {
-            pbImage.Image?.Dispose();
-            pbImage.Image = null;
         }
     }
 }

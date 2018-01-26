@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -9,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace MovieStore
 {
-    [Serializable]
+
     public class Movie
     {
-        [field:NonSerialized]
-        public string MovieImagePath { get; set; }
+        public Image MovieImage { get; set; }
         public int MovieID { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
@@ -22,14 +20,14 @@ namespace MovieStore
         public int Year { get; set; }
         public bool Viewed { get; set; }
 
-        public Movie(string title, string genre, string type, string runtime, int year, bool viewed, string imagePath = null)
+        public Movie(string title, string genre, string type, string runtime, int year, bool viewed, Image image = null)
         {
             Title = title;
             Genre = genre;
             Type = type;
             Runtime = runtime;
             Year = year;
-            MovieImagePath = imagePath;
+            MovieImage = image;
             Viewed = viewed;
         }
     }
