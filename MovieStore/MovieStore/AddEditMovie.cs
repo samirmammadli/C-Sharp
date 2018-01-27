@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace MovieStore
 {
-    public partial class AddEditMovie : Form
+    public partial class AddEditMovieForm : Form
     {
         private Form1 Parent { get; set; }
-        OperationType Type { get; set; }
-        public AddEditMovie(Form1 parent, OperationType type)
+        private OperationType Type { get; set; }
+        public AddEditMovieForm(Form1 parent, OperationType type)
         {
             InitializeComponent();
             Parent = parent;

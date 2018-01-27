@@ -101,7 +101,7 @@ namespace MovieStore
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var addEdit = new AddEditMovie(this, OperationType.Add);
+            var addEdit = new AddEditMovieForm(this, OperationType.Add);
             addEdit.ShowDialog();
         }
 
@@ -132,7 +132,7 @@ namespace MovieStore
         {
             if (dataGridView2.Rows.Count > 0)
             {
-                var addEdit = new AddEditMovie(this, OperationType.Edit);
+                var addEdit = new AddEditMovieForm(this, OperationType.Edit);
                 addEdit.ShowDialog();
                 addEdit.Dispose();
             }  
@@ -188,7 +188,7 @@ namespace MovieStore
             {
                 if (dataGridView2.Rows.Count > 0)
                 {
-                    var addEdit = new AddEditMovie(this, OperationType.Edit);
+                    var addEdit = new AddEditMovieForm(this, OperationType.Edit);
                     addEdit.ShowDialog();
                     addEdit.Dispose();
                 }

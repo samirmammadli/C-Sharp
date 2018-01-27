@@ -1,6 +1,6 @@
 ﻿namespace MovieStore
 {
-    partial class AddEditMovie
+    partial class AddEditMovieForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditMovie));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditMovieForm));
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbTitle = new System.Windows.Forms.TextBox();
@@ -247,7 +247,7 @@
             this.cbType.Size = new System.Drawing.Size(182, 21);
             this.cbType.TabIndex = 17;
             // 
-            // AddEditMovie
+            // AddEditMovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -272,7 +272,7 @@
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "AddEditMovie";
+            this.Name = "AddEditMovieForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddEditMovie";
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
