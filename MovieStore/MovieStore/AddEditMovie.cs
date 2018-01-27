@@ -20,7 +20,12 @@ namespace MovieStore
             Parent = parent;
             Type = type;
             if (type == OperationType.Edit)
+            {
+                this.Text = "Edit movie";
                 LoadMovie();
+            }
+            else
+                this.Text = "Add movie";
 
             cbType.Items.AddRange(new string[] { "movie", "series", "episode" });
             cbType.SelectedIndex = 0;
