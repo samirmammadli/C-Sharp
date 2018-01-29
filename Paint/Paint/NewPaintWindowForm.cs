@@ -64,11 +64,8 @@ namespace Paint
 
         private void Draw(Point s, Point f)
         {
-            if (pbDrawCurrent.Image == null)
-            {
-                pbDrawCurrent.Image = new Bitmap(Savedimg);//new Bitmap(600, 600);
-            }
 
+            pbDrawCurrent.Image = Savedimg.Clone() as Bitmap;
 
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
@@ -101,13 +98,6 @@ namespace Paint
             if (e.Button == MouseButtons.Left)
             {
                 DrawingStarted = false;
-                //using (Graphics g1 = Graphics.FromImage(pbDrawCurrent.Image))
-                //{
-                //    g1.DrawImage(pbMainCanvas.Image, new Point(0, 0));
-
-                //}
-                //pbDrawCurrent.CreateGraphics().DrawImage(Savedimg, new Point(0, 0));
-                //Savedimg = new Bitmap(pbDrawCurrent.Image);
                 pbDrawCurrent.DrawToBitmap(Savedimg as Bitmap, pbDrawCurrent.Bounds);
             }
         }
@@ -120,22 +110,20 @@ namespace Paint
                 finish.X = e.X;
                 finish.Y = e.Y;
 
-                Point TempStart = start;
-                Point TempFinish = finish;
+                Point tempStart = start;
+                Point tempFinish = finish;
                  
                 if (start.X > finish.X )
                 {
-                    TempStart.X = finish.X;
-                    TempFinish.X = start.X;
+                    tempStart.X = finish.X;
+                    tempFinish.X = start.X;
                 }
                 if (start.Y > finish.Y)
                 {
-                    TempStart.Y = finish.Y;
-                    TempFinish.Y = start.Y;
+                    tempStart.Y = finish.Y;
+                    tempFinish.Y = start.Y;
                 }
-
-                pbDrawCurrent.Image = null;//new Bitmap(Savedimg);
-                Draw(TempStart, TempFinish);
+                Draw(tempStart, tempFinish);
             }
         }
     }
