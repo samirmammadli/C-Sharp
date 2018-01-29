@@ -68,7 +68,7 @@ namespace Paint
             {
                 pbDrawCurrent.Image = new Bitmap(Savedimg);//new Bitmap(600, 600);
             }
-                
+
 
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
