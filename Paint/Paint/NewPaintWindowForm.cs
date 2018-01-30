@@ -16,23 +16,22 @@ namespace Paint
         private Point start;
         private Point finish;
         private int SkipDrawing;
-        Image Savedimg;
         private bool IsDrawing = false;
-        private bool IsSelecting = false;
-       
+        private WinPaint paint;
         public NewPaintWindowForm()
         {
             InitializeComponent();
             start = new Point(0, 0);
             finish = new Point(150, 150);
 
-            Savedimg = new Bitmap(1900, 1600);
+            var tempImg = new Bitmap(1900, 1600);
             Brush brush = new SolidBrush(Color.White);
-            using (Graphics g = Graphics.FromImage(Savedimg))
+            using (Graphics g = Graphics.FromImage(tempImg))
             {
-                g.FillRectangle(brush, 0, 0, Savedimg.Width, Savedimg.Height);
+                g.FillRectangle(brush, 0, 0, tempImg.Width, tempImg.Height);
             }
-            pbDrawCurrent.Image = Savedimg.Clone() as Bitmap;
+            paint = new WinPaint(tempImg);
+            pbDrawCurrent.Image = tempImg.Clone() as Bitmap;
         }
 
         private void NewPaintWindowForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,12 +44,12 @@ namespace Paint
         private void Draw(Point s, Point f)
         {
 
-            pbDrawCurrent.Image = Savedimg.Clone() as Bitmap;
+            pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
 
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
                 var current = Color.Red;
-                Pen pen = new Pen(Color.Blue, 4);
+                Pen pen = new Pen(Color.Blue, 5);
                 Brush brush = new SolidBrush(current);
                 //pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
                 //g.DrawLine(pen, start, finish);
@@ -78,7 +77,7 @@ namespace Paint
             if (e.Button == MouseButtons.Left)
             {
                 IsDrawing = false;
-                Savedimg = pbDrawCurrent.Image.Clone() as Bitmap;
+                paint.AddToBuffer(pbDrawCurrent.Image.Clone() as Bitmap);
             }
         }
 
@@ -114,5 +113,42 @@ namespace Paint
             }
         }
 
+        private void NewPaintWindowForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                this.Close();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                paint.Undo();
+                pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                paint.Redo();
+                pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
+            }
+            catch (Exception)
+            {
+
+               
+            }
+            
+        }
     }
 }
