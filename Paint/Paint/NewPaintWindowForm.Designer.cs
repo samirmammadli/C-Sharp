@@ -34,18 +34,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRedo = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawCurrent)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // pbDrawCurrent
             // 
             this.pbDrawCurrent.BackColor = System.Drawing.Color.Transparent;
             this.pbDrawCurrent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbDrawCurrent.Location = new System.Drawing.Point(3, 55);
+            this.pbDrawCurrent.Location = new System.Drawing.Point(3, 76);
             this.pbDrawCurrent.Name = "pbDrawCurrent";
-            this.pbDrawCurrent.Size = new System.Drawing.Size(981, 475);
+            this.pbDrawCurrent.Size = new System.Drawing.Size(981, 454);
             this.pbDrawCurrent.TabIndex = 0;
             this.pbDrawCurrent.TabStop = false;
             this.pbDrawCurrent.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
@@ -63,7 +65,7 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 73F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(987, 533);
             this.tableLayoutPanel1.TabIndex = 1;
@@ -71,19 +73,20 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.numericUpDown1);
             this.panel1.Controls.Add(this.btnRedo);
             this.panel1.Controls.Add(this.btnUndo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(981, 46);
+            this.panel1.Size = new System.Drawing.Size(981, 67);
             this.panel1.TabIndex = 1;
             // 
             // btnRedo
             // 
             this.btnRedo.BackColor = System.Drawing.Color.Transparent;
             this.btnRedo.Image = ((System.Drawing.Image)(resources.GetObject("btnRedo.Image")));
-            this.btnRedo.Location = new System.Drawing.Point(49, 3);
+            this.btnRedo.Location = new System.Drawing.Point(49, 9);
             this.btnRedo.Name = "btnRedo";
             this.btnRedo.Size = new System.Drawing.Size(40, 40);
             this.btnRedo.TabIndex = 1;
@@ -94,12 +97,19 @@
             // 
             this.btnUndo.BackColor = System.Drawing.Color.Transparent;
             this.btnUndo.Image = ((System.Drawing.Image)(resources.GetObject("btnUndo.Image")));
-            this.btnUndo.Location = new System.Drawing.Point(3, 3);
+            this.btnUndo.Location = new System.Drawing.Point(3, 9);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(40, 40);
             this.btnUndo.TabIndex = 0;
             this.btnUndo.UseVisualStyleBackColor = false;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(713, 21);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 3;
             // 
             // NewPaintWindowForm
             // 
@@ -116,6 +126,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawCurrent)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -127,5 +138,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.Button btnRedo;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
