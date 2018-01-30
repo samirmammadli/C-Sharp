@@ -15,6 +15,7 @@ namespace Paint
     {
         private Point start;
         private Point finish;
+        private int FrameSkip;
         Image Savedimg;
         private bool DrawingStarted = false;
        
@@ -24,17 +25,13 @@ namespace Paint
             start = new Point(0, 0);
             finish = new Point(150, 150);
 
-            pbDrawCurrent.Image = new Bitmap(600, 600);
-            Savedimg = new Bitmap(600, 600);
+            Savedimg = new Bitmap(1900, 1600);
             Brush brush = new SolidBrush(Color.White);
-            using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
+            using (Graphics g = Graphics.FromImage(Savedimg))
             {
-                g.FillRectangle(brush, 0, 0, pbDrawCurrent.Image.Width, pbDrawCurrent.Image.Height);
+                g.FillRectangle(brush, 0, 0, Savedimg.Width, Savedimg.Height);
             }
-
-            //pbDrawCurrent.BringToFront();
-            //pbMainCanvas.SendToBack();
-
+            pbDrawCurrent.Image = Savedimg.Clone() as Bitmap;
         }
 
         private void NewPaintWindowForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -43,24 +40,6 @@ namespace Paint
             if (result == DialogResult.Cancel)
                 e.Cancel = true;
         }
-
-
-        private void Swap()
-        {
-            if (start.X > finish.X)
-            {
-                int temp = start.X;
-                start.X = finish.X;
-                finish.X = temp;
-            }
-            if (start.Y > finish.Y)
-            {
-                int temp = start.Y;
-                start.Y = finish.Y;
-                finish.Y = temp;
-            }
-        }
-
 
         private void Draw(Point s, Point f)
         {
@@ -73,11 +52,10 @@ namespace Paint
                 Pen pen = new Pen(Color.Blue, 5);
                 Brush brush = new SolidBrush(current);
                 //g.DrawLine(pen, start, finish);
-                g.DrawRectangle(pen, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
+                //g.DrawRectangle(pen, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
                 //g.FillRectangle(brush, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
-                //g.DrawEllipse(pen, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
-                //g.FillEllipse(brush, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
-                pbDrawCurrent.Invalidate();
+                g.DrawEllipse(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                g.FillEllipse(brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
             }
         }
 
@@ -98,7 +76,7 @@ namespace Paint
             if (e.Button == MouseButtons.Left)
             {
                 DrawingStarted = false;
-                pbDrawCurrent.DrawToBitmap(Savedimg as Bitmap, pbDrawCurrent.Bounds);
+                Savedimg = pbDrawCurrent.Image.Clone() as Bitmap;
             }
         }
 
@@ -106,24 +84,31 @@ namespace Paint
         {
             if (DrawingStarted)
             {
-                              
-                finish.X = e.X;
-                finish.Y = e.Y;
+                if (FrameSkip == 0)
+                {
+                    FrameSkip++;
+                    finish.X = e.X;
+                    finish.Y = e.Y;
 
-                Point tempStart = start;
-                Point tempFinish = finish;
-                 
-                if (start.X > finish.X )
-                {
-                    tempStart.X = finish.X;
-                    tempFinish.X = start.X;
+                    Point tempStart = start;
+                    Point tempFinish = finish;
+
+                    if (start.X > finish.X)
+                    {
+                        tempStart.X = finish.X;
+                        tempFinish.X = start.X;
+                    }
+                    if (start.Y > finish.Y)
+                    {
+                        tempStart.Y = finish.Y;
+                        tempFinish.Y = start.Y;
+                    }
+                    Draw(tempStart, tempFinish);
                 }
-                if (start.Y > finish.Y)
-                {
-                    tempStart.Y = finish.Y;
-                    tempFinish.Y = start.Y;
-                }
-                Draw(tempStart, tempFinish);
+                else
+                    FrameSkip = 0;
+                              
+                
             }
         }
     }
