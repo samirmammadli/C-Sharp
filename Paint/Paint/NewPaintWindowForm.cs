@@ -43,7 +43,7 @@ namespace Paint
 
         private void Draw(Point s, Point f)
         {
-
+            pbDrawCurrent.Image.Dispose();
             pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
 
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
@@ -78,6 +78,7 @@ namespace Paint
             {
                 IsDrawing = false;
                 paint.AddToBuffer(pbDrawCurrent.Image.Clone() as Bitmap);
+                GC.Collect();
             }
         }
 
@@ -115,40 +116,29 @@ namespace Paint
 
         private void NewPaintWindowForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            //paint.Undo();
+            //pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
+            this.Close();
+            if (e.KeyCode == Keys.Z )//&& e.Shift)
             {
-                this.Close();
+                
+                    
+                
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
                 paint.Undo();
+                pbDrawCurrent.Image.Dispose();
                 pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
-            }
-            catch (Exception)
-            {
-
-                
-            }
-            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
-            {
-                paint.Redo();
-                pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
-            }
-            catch (Exception)
-            {
-
-               
-            }
-            
+            paint.Redo();
+            pbDrawCurrent.Image.Dispose();
+            pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
         }
     }
 }
