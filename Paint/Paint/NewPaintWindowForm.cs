@@ -15,9 +15,10 @@ namespace Paint
     {
         private Point start;
         private Point finish;
-        private int FrameSkip;
+        private int SkipDrawing;
         Image Savedimg;
-        private bool DrawingStarted = false;
+        private bool IsDrawing = false;
+        private bool IsSelecting = false;
        
         public NewPaintWindowForm()
         {
@@ -49,8 +50,9 @@ namespace Paint
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
                 var current = Color.Red;
-                Pen pen = new Pen(Color.Blue, 5);
+                Pen pen = new Pen(Color.Blue, 4);
                 Brush brush = new SolidBrush(current);
+                //pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
                 //g.DrawLine(pen, start, finish);
                 //g.DrawRectangle(pen, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
                 //g.FillRectangle(brush, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
@@ -63,7 +65,7 @@ namespace Paint
         {
             if (e.Button == MouseButtons.Left)
             {
-                DrawingStarted = true;
+                IsDrawing = true;
                 start.X = e.X;
                 start.Y = e.Y;
                 finish = start;
@@ -75,18 +77,18 @@ namespace Paint
         {
             if (e.Button == MouseButtons.Left)
             {
-                DrawingStarted = false;
+                IsDrawing = false;
                 Savedimg = pbDrawCurrent.Image.Clone() as Bitmap;
             }
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (DrawingStarted)
+            if (IsDrawing)
             {
-                if (FrameSkip == 0)
+                if (SkipDrawing == 0)
                 {
-                    FrameSkip++;
+                    SkipDrawing++;
                     finish.X = e.X;
                     finish.Y = e.Y;
 
@@ -106,10 +108,11 @@ namespace Paint
                     Draw(tempStart, tempFinish);
                 }
                 else
-                    FrameSkip = 0;
+                    SkipDrawing = 0;
                               
                 
             }
         }
+
     }
 }
