@@ -18,6 +18,7 @@ namespace Paint
         private int SkipDrawing;
         private bool IsDrawing = false;
         private WinPaint paint;
+
         public NewPaintWindowForm()
         {
             InitializeComponent();
@@ -116,25 +117,21 @@ namespace Paint
 
         private void NewPaintWindowForm_KeyDown(object sender, KeyEventArgs e)
         {
-            //paint.Undo();
-            //pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
-            this.Close();
-            if (e.KeyCode == Keys.Z )//&& e.Shift)
-            {
-                
-                    
-                
-            }
+            if (!e.Control) return;
+            if (e.KeyCode == Keys.Z)
+                btnUndo_Click(this, null);
+            else if (e.KeyCode == Keys.Y)
+                btnRedo_Click(this, null);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnUndo_Click(object sender, EventArgs e)
         {
                 paint.Undo();
                 pbDrawCurrent.Image.Dispose();
                 pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnRedo_Click(object sender, EventArgs e)
         {
             paint.Redo();
             pbDrawCurrent.Image.Dispose();

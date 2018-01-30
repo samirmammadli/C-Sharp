@@ -43,9 +43,9 @@
             // 
             this.pbDrawCurrent.BackColor = System.Drawing.Color.Transparent;
             this.pbDrawCurrent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbDrawCurrent.Location = new System.Drawing.Point(3, 43);
+            this.pbDrawCurrent.Location = new System.Drawing.Point(3, 55);
             this.pbDrawCurrent.Name = "pbDrawCurrent";
-            this.pbDrawCurrent.Size = new System.Drawing.Size(981, 487);
+            this.pbDrawCurrent.Size = new System.Drawing.Size(981, 475);
             this.pbDrawCurrent.TabIndex = 0;
             this.pbDrawCurrent.TabStop = false;
             this.pbDrawCurrent.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
@@ -63,41 +63,43 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(987, 533);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.btnRedo);
             this.panel1.Controls.Add(this.btnUndo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(981, 34);
+            this.panel1.Size = new System.Drawing.Size(981, 46);
             this.panel1.TabIndex = 1;
             // 
             // btnRedo
             // 
-            this.btnRedo.Location = new System.Drawing.Point(116, 3);
+            this.btnRedo.BackColor = System.Drawing.Color.Transparent;
+            this.btnRedo.Image = ((System.Drawing.Image)(resources.GetObject("btnRedo.Image")));
+            this.btnRedo.Location = new System.Drawing.Point(49, 3);
             this.btnRedo.Name = "btnRedo";
-            this.btnRedo.Size = new System.Drawing.Size(30, 30);
+            this.btnRedo.Size = new System.Drawing.Size(40, 40);
             this.btnRedo.TabIndex = 1;
-            this.btnRedo.Text = "Redo";
-            this.btnRedo.UseVisualStyleBackColor = true;
-            this.btnRedo.Click += new System.EventHandler(this.button2_Click);
+            this.btnRedo.UseVisualStyleBackColor = false;
+            this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
             // 
             // btnUndo
             // 
             this.btnUndo.BackColor = System.Drawing.Color.Transparent;
             this.btnUndo.Image = ((System.Drawing.Image)(resources.GetObject("btnUndo.Image")));
-            this.btnUndo.Location = new System.Drawing.Point(35, 3);
+            this.btnUndo.Location = new System.Drawing.Point(3, 3);
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(34, 30);
+            this.btnUndo.Size = new System.Drawing.Size(40, 40);
             this.btnUndo.TabIndex = 0;
             this.btnUndo.UseVisualStyleBackColor = false;
-            this.btnUndo.Click += new System.EventHandler(this.button1_Click);
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // NewPaintWindowForm
             // 
@@ -106,6 +108,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(987, 533);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.KeyPreview = true;
             this.Name = "NewPaintWindowForm";
             this.Text = "NewPaintWindowForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewPaintWindowForm_FormClosing);
@@ -122,7 +125,7 @@
         private System.Windows.Forms.PictureBox pbDrawCurrent;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnRedo;
         private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.Button btnRedo;
     }
 }
