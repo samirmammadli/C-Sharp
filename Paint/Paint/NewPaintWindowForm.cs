@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
@@ -63,6 +64,15 @@ namespace Paint
             }
         }
 
+        private void DrawPen()
+        {
+            using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
+            {
+                paint.Pen.DashStyle = DashStyle.Dot;
+                g.DrawLine(paint.Pen, start, finish);
+            }
+        }
+
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -85,9 +95,10 @@ namespace Paint
             }
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+
+        private void DrawFigures(MouseEventArgs e)
         {
-            if (!IsDrawing) return;
+           
             if (SkipDrawing == 0)
             {
                 SkipDrawing++;
@@ -109,13 +120,25 @@ namespace Paint
                 }
                 if (paint.CurrentInstrument == Instruments.Pen)
                 {
-                    
+
                 }
                 else
                     Draw(tempStart, tempFinish);
             }
             else
                 SkipDrawing = 0;
+        }
+
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!IsDrawing) return;
+            if (paint.CurrentInstrument == Instruments.Rectangle)
+                DrawFigures(e);
+            else
+                DrawPen();
+
+
         }
 
         private void NewPaintWindowForm_KeyDown(object sender, KeyEventArgs e)
