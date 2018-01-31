@@ -33,6 +33,8 @@ namespace Paint
             }
             paint = new WinPaint(tempImg);
             pbDrawCurrent.Image = tempImg.Clone() as Bitmap;
+            btnBackColor.BackColor = paint.BackColor;
+            btnForeColor.BackColor = paint.ForeColor;
         }
 
         private void NewPaintWindowForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -49,15 +51,15 @@ namespace Paint
 
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
-                var current = Color.Red;
-                Pen pen = new Pen(Color.Blue, 5);
-                Brush brush = new SolidBrush(current);
+                Pen pen = new Pen(paint.ForeColor, paint.PenDepth);
+                Brush brush = new SolidBrush(paint.BackColor);
                 //pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
                 //g.DrawLine(pen, start, finish);
-                //g.DrawRectangle(pen, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
+
+                //g.DrawRectangle(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
                 //g.FillRectangle(brush, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
-                g.DrawEllipse(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
-                g.FillEllipse(brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                //g.DrawEllipse(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                //g.FillEllipse(brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
             }
         }
 
@@ -85,34 +87,35 @@ namespace Paint
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (IsDrawing)
+            if (!IsDrawing) return;
+            if (SkipDrawing == 0)
             {
-                if (SkipDrawing == 0)
+                SkipDrawing++;
+                finish.X = e.X;
+                finish.Y = e.Y;
+
+                Point tempStart = start;
+                Point tempFinish = finish;
+
+                if (start.X > finish.X)
                 {
-                    SkipDrawing++;
-                    finish.X = e.X;
-                    finish.Y = e.Y;
-
-                    Point tempStart = start;
-                    Point tempFinish = finish;
-
-                    if (start.X > finish.X)
-                    {
-                        tempStart.X = finish.X;
-                        tempFinish.X = start.X;
-                    }
-                    if (start.Y > finish.Y)
-                    {
-                        tempStart.Y = finish.Y;
-                        tempFinish.Y = start.Y;
-                    }
-                    Draw(tempStart, tempFinish);
+                    tempStart.X = finish.X;
+                    tempFinish.X = start.X;
+                }
+                if (start.Y > finish.Y)
+                {
+                    tempStart.Y = finish.Y;
+                    tempFinish.Y = start.Y;
+                }
+                if (paint.CurrentInstrument == Instruments.Pen)
+                {
+                    
                 }
                 else
-                    SkipDrawing = 0;
-                              
-                
+                    Draw(tempStart, tempFinish);
             }
+            else
+                SkipDrawing = 0;
         }
 
         private void NewPaintWindowForm_KeyDown(object sender, KeyEventArgs e)
@@ -136,6 +139,31 @@ namespace Paint
             paint.Redo();
             pbDrawCurrent.Image.Dispose();
             pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
+        }
+
+        private void btnForeColor_Click(object sender, EventArgs e)
+        {
+            using (colorDialog)
+            {
+                colorDialog.ShowDialog();
+                btnForeColor.BackColor = colorDialog.Color;
+                paint.ForeColor = colorDialog.Color;
+            }
+        }
+
+        private void btnBackColor_Click(object sender, EventArgs e)
+        {
+            using (colorDialog)
+            {
+                colorDialog.ShowDialog();
+                btnBackColor.BackColor = colorDialog.Color;
+                paint.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            paint.PenDepth = (float)numericUpDown1.Value;
         }
     }
 }

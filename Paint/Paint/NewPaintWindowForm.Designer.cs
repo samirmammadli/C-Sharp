@@ -32,9 +32,13 @@
             this.pbDrawCurrent = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnRedo = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.lbDepth = new System.Windows.Forms.Label();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.btnForeColor = new System.Windows.Forms.Button();
+            this.btnBackColor = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawCurrent)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -73,6 +77,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.btnBackColor);
+            this.panel1.Controls.Add(this.btnForeColor);
+            this.panel1.Controls.Add(this.lbDepth);
             this.panel1.Controls.Add(this.numericUpDown1);
             this.panel1.Controls.Add(this.btnRedo);
             this.panel1.Controls.Add(this.btnUndo);
@@ -81,6 +88,35 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(981, 67);
             this.panel1.TabIndex = 1;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 1;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDown1.Location = new System.Drawing.Point(238, 29);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(43, 20);
+            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // btnRedo
             // 
@@ -104,12 +140,34 @@
             this.btnUndo.UseVisualStyleBackColor = false;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
-            // numericUpDown1
+            // lbDepth
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(713, 21);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.lbDepth.AutoSize = true;
+            this.lbDepth.Location = new System.Drawing.Point(235, 9);
+            this.lbDepth.Name = "lbDepth";
+            this.lbDepth.Size = new System.Drawing.Size(36, 13);
+            this.lbDepth.TabIndex = 4;
+            this.lbDepth.Text = "Depth";
+            // 
+            // btnForeColor
+            // 
+            this.btnForeColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnForeColor.Location = new System.Drawing.Point(351, 9);
+            this.btnForeColor.Name = "btnForeColor";
+            this.btnForeColor.Size = new System.Drawing.Size(44, 43);
+            this.btnForeColor.TabIndex = 5;
+            this.btnForeColor.UseVisualStyleBackColor = false;
+            this.btnForeColor.Click += new System.EventHandler(this.btnForeColor_Click);
+            // 
+            // btnBackColor
+            // 
+            this.btnBackColor.BackColor = System.Drawing.Color.Aqua;
+            this.btnBackColor.Location = new System.Drawing.Point(401, 9);
+            this.btnBackColor.Name = "btnBackColor";
+            this.btnBackColor.Size = new System.Drawing.Size(44, 43);
+            this.btnBackColor.TabIndex = 6;
+            this.btnBackColor.UseVisualStyleBackColor = false;
+            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
             // 
             // NewPaintWindowForm
             // 
@@ -126,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawCurrent)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
@@ -139,5 +198,9 @@
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.Button btnRedo;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button btnForeColor;
+        private System.Windows.Forms.Label lbDepth;
+        private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.Button btnBackColor;
     }
 }
