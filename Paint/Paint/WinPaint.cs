@@ -29,7 +29,6 @@ namespace Paint
         public Color BackColor { get; set; }
         public float PenDepth { get; set; }
         public Instruments CurrentInstrument { get; set; }
-        public int SkipDrawingCycle { get; set; }
         public bool IsDrawing { get; set; }
         public int BufferSize { get; private set; }
         private LinkedList<Image> UndoRedoBuffer { get; set; }
@@ -45,6 +44,7 @@ namespace Paint
             PenDepth = 5;
             Pen = new Pen(ForeColor, PenDepth);
             Brush = new SolidBrush(BackColor);
+            IsDrawing = false;
         }
 
         public void SetBufferSize(int size)

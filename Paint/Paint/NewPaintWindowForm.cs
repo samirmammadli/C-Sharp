@@ -14,17 +14,10 @@ namespace Paint
 {
     public partial class NewPaintWindowForm : Form
     {
-        private Point start;
-        private Point finish;
-        private int SkipDrawing;
-        private bool IsDrawing = false;
         private WinPaint paint;
-
         public NewPaintWindowForm()
         {
             InitializeComponent();
-            start = new Point(0, 0);
-            finish = new Point(150, 150);
 
             var tempImg = new Bitmap(1900, 1600);
             Brush brush = new SolidBrush(Color.White);
@@ -36,6 +29,7 @@ namespace Paint
             pbDrawCurrent.Image = tempImg.Clone() as Bitmap;
             btnBackColor.BackColor = paint.BackColor;
             btnForeColor.BackColor = paint.ForeColor;
+            paint.CurrentInstrument = Instruments.Pen;
         }
 
         private void NewPaintWindowForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,7 +39,7 @@ namespace Paint
                 e.Cancel = true;
         }
 
-        private void Draw(Point s, Point f)
+        private void DrawFigures(Point s, Point f)
         {
             pbDrawCurrent.Image.Dispose();
             pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
@@ -57,19 +51,24 @@ namespace Paint
                 //pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
                 //g.DrawLine(pen, start, finish);
 
-                //g.DrawRectangle(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                g.DrawRectangle(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
                 //g.FillRectangle(brush, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
                 //g.DrawEllipse(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
                 //g.FillEllipse(brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
             }
         }
 
-        private void DrawPen()
+        private void DrawPen(MouseEventArgs e)
         {
+            paint.Start = paint.Finish;
+            paint.Finish = e.Location;
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
-                paint.Pen.DashStyle = DashStyle.Dot;
-                g.DrawLine(paint.Pen, start, finish);
+                paint.Pen.DashStyle = DashStyle.Solid;
+                paint.Pen.Width = 3;
+                paint.Pen.Color = Color.Blue;
+                g.DrawLine(paint.Pen, paint.Start, paint.Finish);
+                pbDrawCurrent.Invalidate();
             }
         }
 
@@ -77,10 +76,9 @@ namespace Paint
         {
             if (e.Button == MouseButtons.Left)
             {
-                IsDrawing = true;
-                start.X = e.X;
-                start.Y = e.Y;
-                finish = start;
+                paint.IsDrawing = true;
+                paint.Start = e.Location;
+                paint.Finish = paint.Start;
 
             }
         }
@@ -89,54 +87,41 @@ namespace Paint
         {
             if (e.Button == MouseButtons.Left)
             {
-                IsDrawing = false;
+                paint.IsDrawing = false;
                 paint.AddToBuffer(pbDrawCurrent.Image.Clone() as Bitmap);
                 GC.Collect();
             }
         }
 
 
-        private void DrawFigures(MouseEventArgs e)
+        private void SetFiguresCoords(MouseEventArgs e)
         {
-           
-            if (SkipDrawing == 0)
+            paint.Finish = e.Location;
+
+            Point tempStart = paint.Start;
+            Point tempFinish = paint.Finish;
+
+            if (paint.Start.X > paint.Finish.X)
             {
-                SkipDrawing++;
-                finish.X = e.X;
-                finish.Y = e.Y;
-
-                Point tempStart = start;
-                Point tempFinish = finish;
-
-                if (start.X > finish.X)
-                {
-                    tempStart.X = finish.X;
-                    tempFinish.X = start.X;
-                }
-                if (start.Y > finish.Y)
-                {
-                    tempStart.Y = finish.Y;
-                    tempFinish.Y = start.Y;
-                }
-                if (paint.CurrentInstrument == Instruments.Pen)
-                {
-
-                }
-                else
-                    Draw(tempStart, tempFinish);
+                tempStart.X = paint.Finish.X;
+                tempFinish.X = paint.Start.X;
             }
-            else
-                SkipDrawing = 0;
+            if (paint.Start.Y > paint.Finish.Y)
+            {
+                tempStart.Y = paint.Finish.Y;
+                tempFinish.Y = paint.Start.Y;
+            }
+            DrawFigures(tempStart, tempFinish);
         }
 
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!IsDrawing) return;
+            if (!paint.IsDrawing) return;
             if (paint.CurrentInstrument == Instruments.Rectangle)
-                DrawFigures(e);
+                SetFiguresCoords(e);
             else
-                DrawPen();
+                DrawPen(e);
 
 
         }
