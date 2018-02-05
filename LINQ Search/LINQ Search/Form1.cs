@@ -12,9 +12,16 @@ namespace LINQ_Search
 {
     public partial class Form1 : Form
     {
+        private Search search;
+        private BindingSource bs;
+
         public Form1()
         {
             InitializeComponent();
+            search = new Search();
+            bs = new BindingSource { DataSource = search.Users };
+            dataGridView1.DataSource = bs;
+            bs.ResetBindings(false);
         }
     }
 }

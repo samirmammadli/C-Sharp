@@ -11,9 +11,14 @@ namespace LINQ_Search
 {
     class Search
     {
+        public List<User> Users { get; set; }
+        public Search()
+        {
+            LoadUsers();
+        }
         public void LoadUsers()
         {
-            List<User> users = new List<User>();
+            Users = new List<User>();
 
             XElement root = XElement.Load("../../XMLFile1.xml");
 
@@ -24,7 +29,7 @@ namespace LINQ_Search
                 {
                     try
                     {
-                        users.Add(formatter.Deserialize(stringInMemoryStream) as User);
+                        Users.Add(formatter.Deserialize(stringInMemoryStream) as User);
                     }
                     catch (Exception)
                     {
