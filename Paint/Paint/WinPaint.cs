@@ -14,7 +14,8 @@ namespace Paint
         Rectangle,
         Circle,
         FilledRectangle,
-        FilledCircle
+        FilledCircle,
+        Line
     }
 
 
@@ -31,6 +32,7 @@ namespace Paint
         public Instruments CurrentInstrument { get; set; }
         public bool IsDrawing { get; set; }
         public int BufferSize { get; private set; }
+        public bool Filled { get; set; }
         private LinkedList<Image> UndoRedoBuffer { get; set; }
         private LinkedListNode<Image> currentPosition;
 
@@ -45,6 +47,7 @@ namespace Paint
             Pen = new Pen(ForeColor, PenDepth);
             Brush = new SolidBrush(BackColor);
             IsDrawing = false;
+            Filled = false;
         }
 
         public void SetBufferSize(int size)

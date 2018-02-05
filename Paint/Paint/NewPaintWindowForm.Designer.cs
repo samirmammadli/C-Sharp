@@ -32,13 +32,18 @@
             this.pbDrawCurrent = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCircle = new System.Windows.Forms.Button();
+            this.btnLine = new System.Windows.Forms.Button();
+            this.btnRect = new System.Windows.Forms.Button();
+            this.btnBackColor = new System.Windows.Forms.Button();
+            this.btnForeColor = new System.Windows.Forms.Button();
+            this.lbDepth = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnRedo = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
-            this.lbDepth = new System.Windows.Forms.Label();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.btnForeColor = new System.Windows.Forms.Button();
-            this.btnBackColor = new System.Windows.Forms.Button();
+            this.btnPen = new System.Windows.Forms.Button();
+            this.cbDrawFilled = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawCurrent)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -77,6 +82,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.cbDrawFilled);
+            this.panel1.Controls.Add(this.btnPen);
+            this.panel1.Controls.Add(this.btnCircle);
+            this.panel1.Controls.Add(this.btnLine);
+            this.panel1.Controls.Add(this.btnRect);
             this.panel1.Controls.Add(this.btnBackColor);
             this.panel1.Controls.Add(this.btnForeColor);
             this.panel1.Controls.Add(this.lbDepth);
@@ -89,6 +99,65 @@
             this.panel1.Size = new System.Drawing.Size(981, 67);
             this.panel1.TabIndex = 1;
             // 
+            // btnCircle
+            // 
+            this.btnCircle.Image = ((System.Drawing.Image)(resources.GetObject("btnCircle.Image")));
+            this.btnCircle.Location = new System.Drawing.Point(483, 10);
+            this.btnCircle.Name = "btnCircle";
+            this.btnCircle.Size = new System.Drawing.Size(25, 25);
+            this.btnCircle.TabIndex = 10;
+            this.btnCircle.UseVisualStyleBackColor = true;
+            this.btnCircle.Click += new System.EventHandler(this.btnCircle_Click);
+            // 
+            // btnLine
+            // 
+            this.btnLine.Image = ((System.Drawing.Image)(resources.GetObject("btnLine.Image")));
+            this.btnLine.Location = new System.Drawing.Point(514, 10);
+            this.btnLine.Name = "btnLine";
+            this.btnLine.Size = new System.Drawing.Size(25, 25);
+            this.btnLine.TabIndex = 9;
+            this.btnLine.UseVisualStyleBackColor = true;
+            this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
+            // 
+            // btnRect
+            // 
+            this.btnRect.Image = ((System.Drawing.Image)(resources.GetObject("btnRect.Image")));
+            this.btnRect.Location = new System.Drawing.Point(452, 10);
+            this.btnRect.Name = "btnRect";
+            this.btnRect.Size = new System.Drawing.Size(25, 25);
+            this.btnRect.TabIndex = 7;
+            this.btnRect.UseVisualStyleBackColor = true;
+            this.btnRect.Click += new System.EventHandler(this.btnRect_Click);
+            // 
+            // btnBackColor
+            // 
+            this.btnBackColor.BackColor = System.Drawing.Color.Aqua;
+            this.btnBackColor.Location = new System.Drawing.Point(514, 42);
+            this.btnBackColor.Name = "btnBackColor";
+            this.btnBackColor.Size = new System.Drawing.Size(25, 25);
+            this.btnBackColor.TabIndex = 6;
+            this.btnBackColor.UseVisualStyleBackColor = false;
+            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
+            // 
+            // btnForeColor
+            // 
+            this.btnForeColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnForeColor.Location = new System.Drawing.Point(483, 41);
+            this.btnForeColor.Name = "btnForeColor";
+            this.btnForeColor.Size = new System.Drawing.Size(25, 25);
+            this.btnForeColor.TabIndex = 5;
+            this.btnForeColor.UseVisualStyleBackColor = false;
+            this.btnForeColor.Click += new System.EventHandler(this.btnForeColor_Click);
+            // 
+            // lbDepth
+            // 
+            this.lbDepth.AutoSize = true;
+            this.lbDepth.Location = new System.Drawing.Point(330, 9);
+            this.lbDepth.Name = "lbDepth";
+            this.lbDepth.Size = new System.Drawing.Size(36, 13);
+            this.lbDepth.TabIndex = 4;
+            this.lbDepth.Text = "Depth";
+            // 
             // numericUpDown1
             // 
             this.numericUpDown1.DecimalPlaces = 1;
@@ -97,7 +166,7 @@
             0,
             0,
             65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(238, 29);
+            this.numericUpDown1.Location = new System.Drawing.Point(372, 10);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             40,
             0,
@@ -140,34 +209,26 @@
             this.btnUndo.UseVisualStyleBackColor = false;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
-            // lbDepth
+            // btnPen
             // 
-            this.lbDepth.AutoSize = true;
-            this.lbDepth.Location = new System.Drawing.Point(235, 9);
-            this.lbDepth.Name = "lbDepth";
-            this.lbDepth.Size = new System.Drawing.Size(36, 13);
-            this.lbDepth.TabIndex = 4;
-            this.lbDepth.Text = "Depth";
+            this.btnPen.Image = ((System.Drawing.Image)(resources.GetObject("btnPen.Image")));
+            this.btnPen.Location = new System.Drawing.Point(421, 9);
+            this.btnPen.Name = "btnPen";
+            this.btnPen.Size = new System.Drawing.Size(25, 25);
+            this.btnPen.TabIndex = 11;
+            this.btnPen.UseVisualStyleBackColor = true;
+            this.btnPen.Click += new System.EventHandler(this.btnPen_Click);
             // 
-            // btnForeColor
+            // cbDrawFilled
             // 
-            this.btnForeColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnForeColor.Location = new System.Drawing.Point(351, 9);
-            this.btnForeColor.Name = "btnForeColor";
-            this.btnForeColor.Size = new System.Drawing.Size(44, 43);
-            this.btnForeColor.TabIndex = 5;
-            this.btnForeColor.UseVisualStyleBackColor = false;
-            this.btnForeColor.Click += new System.EventHandler(this.btnForeColor_Click);
-            // 
-            // btnBackColor
-            // 
-            this.btnBackColor.BackColor = System.Drawing.Color.Aqua;
-            this.btnBackColor.Location = new System.Drawing.Point(401, 9);
-            this.btnBackColor.Name = "btnBackColor";
-            this.btnBackColor.Size = new System.Drawing.Size(44, 43);
-            this.btnBackColor.TabIndex = 6;
-            this.btnBackColor.UseVisualStyleBackColor = false;
-            this.btnBackColor.Click += new System.EventHandler(this.btnBackColor_Click);
+            this.cbDrawFilled.AutoSize = true;
+            this.cbDrawFilled.Location = new System.Drawing.Point(333, 42);
+            this.cbDrawFilled.Name = "cbDrawFilled";
+            this.cbDrawFilled.Size = new System.Drawing.Size(115, 17);
+            this.cbDrawFilled.TabIndex = 12;
+            this.cbDrawFilled.Text = "Draw Figures Filled";
+            this.cbDrawFilled.UseVisualStyleBackColor = true;
+            this.cbDrawFilled.CheckedChanged += new System.EventHandler(this.cbDrawFilled_CheckedChanged);
             // 
             // NewPaintWindowForm
             // 
@@ -202,5 +263,10 @@
         private System.Windows.Forms.Label lbDepth;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Button btnBackColor;
+        private System.Windows.Forms.Button btnCircle;
+        private System.Windows.Forms.Button btnLine;
+        private System.Windows.Forms.Button btnRect;
+        private System.Windows.Forms.Button btnPen;
+        private System.Windows.Forms.CheckBox cbDrawFilled;
     }
 }

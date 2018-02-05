@@ -19,7 +19,7 @@ namespace Paint
         {
             InitializeComponent();
 
-            var tempImg = new Bitmap(1900, 1600);
+            var tempImg = new Bitmap(900, 600);
             Brush brush = new SolidBrush(Color.White);
             using (Graphics g = Graphics.FromImage(tempImg))
             {
@@ -46,15 +46,16 @@ namespace Paint
 
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
-                Pen pen = new Pen(paint.ForeColor, paint.PenDepth);
-                Brush brush = new SolidBrush(paint.BackColor);
-                //pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-                //g.DrawLine(pen, start, finish);
-
-                g.DrawRectangle(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
-                //g.FillRectangle(brush, s.X, s.Y, Math.Abs(f.X - s.X), Math.Abs(f.Y - s.Y));
-                //g.DrawEllipse(pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
-                //g.FillEllipse(brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                if (paint.CurrentInstrument == Instruments.Rectangle)
+                {
+                    g.DrawRectangle(paint.Pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                    if (paint.Filled) g.FillRectangle(paint.Brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                }
+                else
+                {
+                    g.DrawEllipse(paint.Pen, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                    if (paint.Filled) g.FillEllipse(paint.Brush, s.X, s.Y, f.X - s.X, f.Y - s.Y);
+                }
             }
         }
 
@@ -64,11 +65,19 @@ namespace Paint
             paint.Finish = e.Location;
             using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
             {
-                paint.Pen.DashStyle = DashStyle.Solid;
-                paint.Pen.Width = 3;
-                paint.Pen.Color = Color.Blue;
                 g.DrawLine(paint.Pen, paint.Start, paint.Finish);
                 pbDrawCurrent.Invalidate();
+            }
+        }
+
+        private void DrawLine(Point s, Point f)
+        {
+            pbDrawCurrent.Image.Dispose();
+            pbDrawCurrent.Image = paint.GetCurrentImage().Clone() as Bitmap;
+
+            using (Graphics g = Graphics.FromImage(pbDrawCurrent.Image))
+            {
+                g.DrawLine(paint.Pen, s, f);
             }
         }
 
@@ -79,7 +88,6 @@ namespace Paint
                 paint.IsDrawing = true;
                 paint.Start = e.Location;
                 paint.Finish = paint.Start;
-
             }
         }
 
@@ -114,15 +122,18 @@ namespace Paint
             DrawFigures(tempStart, tempFinish);
         }
 
+        
+
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (!paint.IsDrawing) return;
-            if (paint.CurrentInstrument == Instruments.Rectangle)
-                SetFiguresCoords(e);
-            else
+            if (paint.CurrentInstrument == Instruments.Pen)
                 DrawPen(e);
-
+            else if (paint.CurrentInstrument == Instruments.Line)
+                DrawLine(paint.Start, e.Location);
+            else
+                SetFiguresCoords(e);
 
         }
 
@@ -156,6 +167,7 @@ namespace Paint
                 colorDialog.ShowDialog();
                 btnForeColor.BackColor = colorDialog.Color;
                 paint.ForeColor = colorDialog.Color;
+                paint.Pen.Color = paint.ForeColor;
             }
         }
 
@@ -166,12 +178,40 @@ namespace Paint
                 colorDialog.ShowDialog();
                 btnBackColor.BackColor = colorDialog.Color;
                 paint.BackColor = colorDialog.Color;
+                paint.Brush.Dispose();
+                paint.Brush = new SolidBrush(paint.BackColor);
             }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             paint.PenDepth = (float)numericUpDown1.Value;
+            paint.Pen.Width = paint.PenDepth;
+        }
+
+        private void btnPen_Click(object sender, EventArgs e)
+        {
+            paint.CurrentInstrument = Instruments.Pen;
+        }
+
+        private void btnRect_Click(object sender, EventArgs e)
+        {
+            paint.CurrentInstrument = Instruments.Rectangle;
+        }
+
+        private void btnCircle_Click(object sender, EventArgs e)
+        {
+            paint.CurrentInstrument = Instruments.Circle;
+        }
+
+        private void btnLine_Click(object sender, EventArgs e)
+        {
+            paint.CurrentInstrument = Instruments.Line;
+        }
+
+        private void cbDrawFilled_CheckedChanged(object sender, EventArgs e)
+        {
+            paint.Filled = cbDrawFilled.Checked;
         }
     }
 }
