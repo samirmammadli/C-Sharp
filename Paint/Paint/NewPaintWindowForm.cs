@@ -37,6 +37,17 @@ namespace Paint
             var result = MessageBox.Show("Do you want to save changes?", "Paint", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
             if (result == DialogResult.Cancel)
                 e.Cancel = true;
+            else if (result == DialogResult.Yes)
+            {
+                using (saveFileDialog1)
+                {
+                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        paint.GetCurrentImage().Save(saveFileDialog1.FileName);
+                    }
+
+                }
+            }
         }
 
         private void DrawFigures(Point s, Point f)

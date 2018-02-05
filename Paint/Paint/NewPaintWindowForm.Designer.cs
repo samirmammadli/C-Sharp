@@ -44,6 +44,7 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.btnPen = new System.Windows.Forms.Button();
             this.cbDrawFilled = new System.Windows.Forms.CheckBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawCurrent)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -230,6 +231,11 @@
             this.cbDrawFilled.UseVisualStyleBackColor = true;
             this.cbDrawFilled.CheckedChanged += new System.EventHandler(this.cbDrawFilled_CheckedChanged);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "jpg";
+            this.saveFileDialog1.Filter = "JPG (*.jpg)|*.jpg|BMP (*.bmp)|*.bmp|PNG (*.png)|*.png";
+            // 
             // NewPaintWindowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,5 +274,6 @@
         private System.Windows.Forms.Button btnRect;
         private System.Windows.Forms.Button btnPen;
         private System.Windows.Forms.CheckBox cbDrawFilled;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
