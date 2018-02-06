@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+
 namespace LINQ_Search
 {
 
@@ -9,7 +11,6 @@ namespace LINQ_Search
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class User
     {
-
         private uint idField;
 
         private string nameField;
@@ -41,6 +42,7 @@ namespace LINQ_Search
         private string birthDateField;
 
         /// <remarks/>
+        [Browsable(false)]
         public uint Id
         {
             get

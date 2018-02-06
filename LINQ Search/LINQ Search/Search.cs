@@ -9,6 +9,13 @@ using System.Xml.Serialization;
 
 namespace LINQ_Search
 {
+    enum Gender
+    {
+        Male, 
+        Female
+    }
+
+
     class Search
     {
         public List<User> Users { get; set; }
