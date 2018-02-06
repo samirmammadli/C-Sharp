@@ -15,7 +15,6 @@ namespace LINQ_Search
         Female
     }
 
-
     class Search
     {
         public List<User> Users { get; set; }
@@ -32,7 +31,7 @@ namespace LINQ_Search
             XmlSerializer formatter = new XmlSerializer(typeof(User));
             foreach (var item in root.Elements())
             {
-                using (MemoryStream stringInMemoryStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(item.ToString())))
+                using (MemoryStream stringInMemoryStream = new MemoryStream(ASCIIEncoding.Unicode.GetBytes(item.ToString())))
                 {
                     try
                     {
