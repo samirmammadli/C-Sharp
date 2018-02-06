@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Equin.ApplicationFramework;
 
@@ -17,30 +12,27 @@ namespace LINQ_Search
     {
         private Search search;
         private BindingListView<User> BindingList;
-        private Dictionary<string, List<string>> CountriesCitiesList;
+        private Dictionary<string, List<string>> CountriesAndCitiesList;
 
         public Form1()
         {
             InitializeComponent();
             search = new Search();
-            CountriesCitiesList = new Dictionary<string, List<string>>();
-            GetCountries();
+            CountriesAndCitiesList = new Dictionary<string, List<string>>();
+            LoadCountriesToComboBox();
             BindingList = new BindingListView<User>(search.Users);
             dataGridView1.DataSource = BindingList;
             cbGender.SelectedIndex = 0;
         }
 
 
-        private void GetCountries()
+        private void LoadCountriesToComboBox()
         {
-
-            CountriesCitiesList = search.Users.OrderBy(x=>x.Country).GroupBy(x => x.Country, y => y.City).ToDictionary(x=>x.Key, y=>y.OrderBy(z => z).ToList());
+            CountriesAndCitiesList = search.Users.OrderBy(x=>x.Country).GroupBy(x => x.Country, y => y.City).ToDictionary(x=>x.Key, y=>y.OrderBy(z => z).ToList());
             var list = new List<string>();
             list.Add("All Countries");
-            list.AddRange(CountriesCitiesList.Keys.ToList());
+            list.AddRange(CountriesAndCitiesList.Keys.ToList());
             cbCountries.DataSource = list;
-
-            
         }
 
 
@@ -67,7 +59,7 @@ namespace LINQ_Search
             var list = new List<string>();
             list.Add("All Cities");
             if (cbCountries.SelectedValue.ToString() != "All Countries")
-            list.AddRange(CountriesCitiesList[cbCountries.SelectedValue.ToString()]);
+                list.AddRange(CountriesAndCitiesList[cbCountries.SelectedValue.ToString()]);
             cbCities.DataSource = list;
         }
     }
