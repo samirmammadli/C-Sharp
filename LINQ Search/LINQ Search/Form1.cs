@@ -23,5 +23,10 @@ namespace LINQ_Search
             dataGridView1.DataSource = bs;
             bs.ResetBindings(false);
         }
+
+        private void SearchUser()
+        {
+
+        }
     }
 }

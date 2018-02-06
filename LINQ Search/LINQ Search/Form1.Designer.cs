@@ -29,188 +29,212 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.lbName = new System.Windows.Forms.Label();
+            this.lbLastName = new System.Windows.Forms.Label();
+            this.tbLastName = new System.Windows.Forms.TextBox();
+            this.lbCountry = new System.Windows.Forms.Label();
+            this.tbCountry = new System.Windows.Forms.TextBox();
+            this.lbCity = new System.Windows.Forms.Label();
+            this.tbCity = new System.Windows.Forms.TextBox();
+            this.lbCompany = new System.Windows.Forms.Label();
+            this.tbCompany = new System.Windows.Forms.TextBox();
+            this.lbGender = new System.Windows.Forms.Label();
+            this.cbGender = new System.Windows.Forms.ComboBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 74);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(786, 419);
+            this.dataGridView1.Size = new System.Drawing.Size(683, 557);
             this.dataGridView1.TabIndex = 0;
             // 
-            // textBox1
+            // tbName
             // 
-            this.textBox1.Location = new System.Drawing.Point(909, 88);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.tbName.Location = new System.Drawing.Point(26, 25);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(100, 20);
+            this.tbName.TabIndex = 1;
             // 
-            // label1
+            // lbName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(909, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
+            this.lbName.AutoSize = true;
+            this.lbName.Location = new System.Drawing.Point(26, 6);
+            this.lbName.Name = "lbName";
+            this.lbName.Size = new System.Drawing.Size(35, 13);
+            this.lbName.TabIndex = 2;
+            this.lbName.Text = "Name";
             // 
-            // label2
+            // lbLastName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(909, 111);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
+            this.lbLastName.AutoSize = true;
+            this.lbLastName.Location = new System.Drawing.Point(26, 48);
+            this.lbLastName.Name = "lbLastName";
+            this.lbLastName.Size = new System.Drawing.Size(56, 13);
+            this.lbLastName.TabIndex = 4;
+            this.lbLastName.Text = "Last name";
             // 
-            // textBox2
+            // tbLastName
             // 
-            this.textBox2.Location = new System.Drawing.Point(909, 130);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.tbLastName.Location = new System.Drawing.Point(26, 67);
+            this.tbLastName.Name = "tbLastName";
+            this.tbLastName.Size = new System.Drawing.Size(100, 20);
+            this.tbLastName.TabIndex = 3;
             // 
-            // label3
+            // lbCountry
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(909, 159);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "label3";
+            this.lbCountry.AutoSize = true;
+            this.lbCountry.Location = new System.Drawing.Point(26, 96);
+            this.lbCountry.Name = "lbCountry";
+            this.lbCountry.Size = new System.Drawing.Size(43, 13);
+            this.lbCountry.TabIndex = 6;
+            this.lbCountry.Text = "Country";
             // 
-            // textBox3
+            // tbCountry
             // 
-            this.textBox3.Location = new System.Drawing.Point(909, 178);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 5;
+            this.tbCountry.Location = new System.Drawing.Point(26, 115);
+            this.tbCountry.Name = "tbCountry";
+            this.tbCountry.Size = new System.Drawing.Size(100, 20);
+            this.tbCountry.TabIndex = 5;
             // 
-            // label4
+            // lbCity
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(909, 209);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "label4";
+            this.lbCity.AutoSize = true;
+            this.lbCity.Location = new System.Drawing.Point(26, 146);
+            this.lbCity.Name = "lbCity";
+            this.lbCity.Size = new System.Drawing.Size(24, 13);
+            this.lbCity.TabIndex = 8;
+            this.lbCity.Text = "City";
             // 
-            // textBox4
+            // tbCity
             // 
-            this.textBox4.Location = new System.Drawing.Point(909, 228);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 7;
+            this.tbCity.Location = new System.Drawing.Point(26, 165);
+            this.tbCity.Name = "tbCity";
+            this.tbCity.Size = new System.Drawing.Size(100, 20);
+            this.tbCity.TabIndex = 7;
             // 
-            // label5
+            // lbCompany
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(909, 258);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "label5";
+            this.lbCompany.AutoSize = true;
+            this.lbCompany.Location = new System.Drawing.Point(26, 195);
+            this.lbCompany.Name = "lbCompany";
+            this.lbCompany.Size = new System.Drawing.Size(51, 13);
+            this.lbCompany.TabIndex = 10;
+            this.lbCompany.Text = "Company";
             // 
-            // textBox5
+            // tbCompany
             // 
-            this.textBox5.Location = new System.Drawing.Point(909, 277);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 9;
+            this.tbCompany.Location = new System.Drawing.Point(26, 214);
+            this.tbCompany.Name = "tbCompany";
+            this.tbCompany.Size = new System.Drawing.Size(100, 20);
+            this.tbCompany.TabIndex = 9;
             // 
-            // label6
+            // lbGender
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(909, 300);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "label6";
+            this.lbGender.AutoSize = true;
+            this.lbGender.Location = new System.Drawing.Point(26, 246);
+            this.lbGender.Name = "lbGender";
+            this.lbGender.Size = new System.Drawing.Size(42, 13);
+            this.lbGender.TabIndex = 14;
+            this.lbGender.Text = "Gender";
             // 
-            // textBox6
+            // cbGender
             // 
-            this.textBox6.Location = new System.Drawing.Point(909, 319);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 11;
+            this.cbGender.FormattingEnabled = true;
+            this.cbGender.Location = new System.Drawing.Point(26, 262);
+            this.cbGender.Name = "cbGender";
+            this.cbGender.Size = new System.Drawing.Size(100, 21);
+            this.cbGender.TabIndex = 15;
             // 
-            // label7
+            // tableLayoutPanel1
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(909, 346);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "label7";
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156F));
+            this.tableLayoutPanel1.Controls.Add(this.pnlSearch, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(845, 563);
+            this.tableLayoutPanel1.TabIndex = 16;
             // 
-            // textBox7
+            // pnlSearch
             // 
-            this.textBox7.Location = new System.Drawing.Point(909, 365);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 13;
+            this.pnlSearch.Controls.Add(this.btnSearch);
+            this.pnlSearch.Controls.Add(this.tbCompany);
+            this.pnlSearch.Controls.Add(this.cbGender);
+            this.pnlSearch.Controls.Add(this.tbName);
+            this.pnlSearch.Controls.Add(this.lbGender);
+            this.pnlSearch.Controls.Add(this.lbName);
+            this.pnlSearch.Controls.Add(this.lbCompany);
+            this.pnlSearch.Controls.Add(this.tbLastName);
+            this.pnlSearch.Controls.Add(this.lbLastName);
+            this.pnlSearch.Controls.Add(this.lbCity);
+            this.pnlSearch.Controls.Add(this.tbCountry);
+            this.pnlSearch.Controls.Add(this.tbCity);
+            this.pnlSearch.Controls.Add(this.lbCountry);
+            this.pnlSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSearch.Location = new System.Drawing.Point(692, 3);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new System.Drawing.Size(150, 557);
+            this.pnlSearch.TabIndex = 17;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(51, 289);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 16;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 633);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(845, 563);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.MinimumSize = new System.Drawing.Size(562, 429);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Search User";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Label lbName;
+        private System.Windows.Forms.Label lbLastName;
+        private System.Windows.Forms.TextBox tbLastName;
+        private System.Windows.Forms.Label lbCountry;
+        private System.Windows.Forms.TextBox tbCountry;
+        private System.Windows.Forms.Label lbCity;
+        private System.Windows.Forms.TextBox tbCity;
+        private System.Windows.Forms.Label lbCompany;
+        private System.Windows.Forms.TextBox tbCompany;
+        private System.Windows.Forms.Label lbGender;
+        private System.Windows.Forms.ComboBox cbGender;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 
