@@ -29,8 +29,7 @@ namespace LINQ_Search
         private void LoadCountriesToComboBox()
         {
             CountriesAndCitiesList = search.Users.OrderBy(x=>x.Country).GroupBy(x => x.Country, y => y.City).ToDictionary(x=>x.Key, y=>y.OrderBy(z => z).ToList());
-            var list = new List<string>();
-            list.Add("All Countries");
+            var list = new List<string> {"All Countries"};
             list.AddRange(CountriesAndCitiesList.Keys.ToList());
             cbCountries.DataSource = list;
         }
@@ -56,8 +55,7 @@ namespace LINQ_Search
 
         private void cbCountries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var list = new List<string>();
-            list.Add("All Cities");
+            var list = new List<string> { "All Cities"};
             if (cbCountries.SelectedValue.ToString() != "All Countries")
                 list.AddRange(CountriesAndCitiesList[cbCountries.SelectedValue.ToString()]);
             cbCities.DataSource = list;
