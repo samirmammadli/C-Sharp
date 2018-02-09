@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyBinaryConverter
+﻿namespace MyBinaryConverter
 {
-    static class BinaryConverter
+    static public class BinaryConverter 
     {
         static private string result;
         static public string ConvertToBinary(int number)
@@ -27,3 +21,4 @@ namespace MyBinaryConverter
         }
     }
 }
+

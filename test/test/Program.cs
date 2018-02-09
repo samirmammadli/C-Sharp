@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Office.Core;
+using MyBinaryConverter;
+
 
 namespace test
 {
@@ -16,6 +18,8 @@ namespace test
             var i = BitConverter.ToUInt64(a, 0);
             Console.WriteLine(i);
             Console.WriteLine(ulong.MaxValue);
+            var res = BinaryConverter.ConvertToBinary(156);
+            Console.WriteLine(res);
         }
     }
 }
