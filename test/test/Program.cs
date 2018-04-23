@@ -99,6 +99,15 @@ namespace test
     {
         static void Main(string[] args)
         {
+
+            int a = 0;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                Console.Write(i + ",");
+            }
+
+            Console.Read();
             //byte[] a = new byte[8]{255,255,255,255,0,0,0,0 };
             //var i = BitConverter.ToUInt64(a, 0);
             //Console.WriteLine(i);
@@ -124,13 +133,13 @@ namespace test
             //proc.Dispose();
             //Console.WriteLine(str);
             //Console.Read();
-            MessageHelper msg = new MessageHelper();
-            int result = 0;
-            //First param can be null
-            int hWnd = msg.getWindowId(null, "Edit");
-            result = msg.sendWindowsStringMessage(hWnd, 0, "Some_String_Message");
-            //Or for an integer message
-            result = msg.sendWindowsMessage(hWnd, MessageHelper.WM_USER, 123, 456);
+            //MessageHelper msg = new MessageHelper();
+            //int result = 0;
+            ////First param can be null
+            //int hWnd = msg.getWindowId(null, "Edit");
+            //result = msg.sendWindowsStringMessage(hWnd, 0, "Some_String_Message");
+            ////Or for an integer message
+            //result = msg.sendWindowsMessage(hWnd, MessageHelper.WM_USER, 123, 456);
         }
     }
 }

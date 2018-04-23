@@ -45,7 +45,7 @@ namespace SqlConnectTest
         static void Main(string[] args)
         {
             // Получить объект Connection подключенный к DB.
-            SqlConnection conn = DBUtils.GetDBConnection();
+            var conn = DBUtils.GetDBConnection();
             conn.Open();
             try
             {
@@ -82,8 +82,8 @@ namespace SqlConnectTest
                 {
                     while (reader.Read())
                     {
-                        Console.Write($"{reader.GetString(1)}" + "salam" + Environment.NewLine);
-                        //Console.WriteLine(reader.GetString(1));
+                        //Console.Write($"{reader.GetString(1), - 100}" + "salam" + Environment.NewLine);
+                        Console.WriteLine($"{reader.GetString(1), -80}{reader.GetString(8)}");
                         
                         //// Индекс столбца Emp_ID в команде SQL.
                         //int empIdIndex = reader.GetOrdinal("Emp_Id"); // 0
