@@ -14,7 +14,7 @@ namespace SqlConnectTest
         {
             string datasource = @"ms-sql-9.in-solve.ru";
 
-            string database = "1gb_samirdb";
+            string database = "1gb_librarysql";
             string username = "1gb_samir4ik86";
             string password = "4474zz75iw";
 
@@ -44,24 +44,37 @@ namespace SqlConnectTest
     {
         static void Main(string[] args)
         {
+            // Получить объект Connection подключенный к DB.
             SqlConnection conn = DBUtils.GetDBConnection();
-            SqlCommand cmd = conn.CreateCommand();
-
-            cmd.CommandText = "sql";
+            conn.Open();
+            try
+            {
+                QueryEmployee(conn);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                // Закрыть соединение.
+                conn.Close();
+                // Разрушить объект, освободить ресурс.
+                conn.Dispose();
+            }
 
         }
 
         private static void QueryEmployee(SqlConnection conn)
         {
-            string sql = "Select Emp_Id, Emp_No, Emp_Name, Mng_Id from Employee";
+            string sql = "SELECT * from Books order by id";
 
             // Создать объект Command.
-            SqlCommand cmd = new SqlCommand();
+            SqlCommand cmd = conn.CreateCommand();
 
             // Сочетать Command с Connection.
-            cmd.Connection = conn;
             cmd.CommandText = sql;
-
 
             using (DbDataReader reader = cmd.ExecuteReader())
             {
@@ -69,33 +82,39 @@ namespace SqlConnectTest
                 {
                     while (reader.Read())
                     {
+                        Console.Write($"{reader.GetString(1)}" + "salam" + Environment.NewLine);
+                        //Console.WriteLine(reader.GetString(1));
+                        
+                        //// Индекс столбца Emp_ID в команде SQL.
+                        //int empIdIndex = reader.GetOrdinal("Emp_Id"); // 0
+
+
+                        //long empId = Convert.ToInt64(reader.GetValue(0));
+
+                        //// Столбец Emp_No имеет index = 1.
+                        //string empNo = reader.GetString(1);
+                        //int empNameIndex = reader.GetOrdinal("Emp_Name");// 2
+                        //string empName = reader.GetString(empNameIndex);
+
+                        //// Индекс столбца Mng_Id в команде SQL.
+                        //int mngIdIndex = reader.GetOrdinal("Mng_Id");
+
+                        //long? mngId = null;
+
+
+                        //if (!reader.IsDBNull(mngIdIndex))
+                        //{
+                        //    mngId = Convert.ToInt64(reader.GetValue(mngIdIndex));
+                        //}
+                        //Console.WriteLine("--------------------");
+                        //Console.WriteLine("empIdIndex:" + empIdIndex);
+                        //Console.WriteLine("EmpId:" + empId);
+                        //Console.WriteLine("EmpNo:" + empNo);
+                        //Console.WriteLine("EmpName:" + empName);
+                        //Console.WriteLine("MngId:" + mngId);
+
                         // Индекс столбца Emp_ID в команде SQL.
-                        int empIdIndex = reader.GetOrdinal("Emp_Id"); // 0
-
-
-                        long empId = Convert.ToInt64(reader.GetValue(0));
-
-                        // Столбец Emp_No имеет index = 1.
-                        string empNo = reader.GetString(1);
-                        int empNameIndex = reader.GetOrdinal("Emp_Name");// 2
-                        string empName = reader.GetString(empNameIndex);
-
-                        // Индекс столбца Mng_Id в команде SQL.
-                        int mngIdIndex = reader.GetOrdinal("Mng_Id");
-
-                        long? mngId = null;
-
-
-                        if (!reader.IsDBNull(mngIdIndex))
-                        {
-                            mngId = Convert.ToInt64(reader.GetValue(mngIdIndex));
-                        }
-                        Console.WriteLine("--------------------");
-                        Console.WriteLine("empIdIndex:" + empIdIndex);
-                        Console.WriteLine("EmpId:" + empId);
-                        Console.WriteLine("EmpNo:" + empNo);
-                        Console.WriteLine("EmpName:" + empName);
-                        Console.WriteLine("MngId:" + mngId);
+                       
                     }
                 }
             }
