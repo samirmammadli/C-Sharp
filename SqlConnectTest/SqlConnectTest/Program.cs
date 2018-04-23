@@ -68,7 +68,7 @@ namespace SqlConnectTest
 
         private static void QueryEmployee(SqlConnection conn)
         {
-            string sql = "SELECT * from Books order by id";
+            string sql = "SELECT * from Books order by pages desc";
 
             // Создать объект Command.
             SqlCommand cmd = conn.CreateCommand();
@@ -78,47 +78,45 @@ namespace SqlConnectTest
 
             using (DbDataReader reader = cmd.ExecuteReader())
             {
-                if (reader.HasRows)
+                if (!reader.HasRows) return;
+                Console.WriteLine($"{"Book Name:",-70} {"Pages:",-15} Comment:\n");
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        //Console.Write($"{reader.GetString(1), - 100}" + "salam" + Environment.NewLine);
-                        Console.WriteLine($"{reader.GetString(1), -80}{reader.GetString(8)}");
-                        
-                        //// Индекс столбца Emp_ID в команде SQL.
-                        //int empIdIndex = reader.GetOrdinal("Emp_Id"); // 0
+                    //Console.Write($"{reader.GetString(1), - 100}" + "salam" + Environment.NewLine);
+                    Console.WriteLine($"{reader.GetString(1),-70} {reader.GetInt32(2),-15} {reader.GetString(8)}");
+                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------");
+
+                    //// Индекс столбца Emp_ID в команде SQL.
+                    //int empIdIndex = reader.GetOrdinal("Emp_Id"); // 0
 
 
-                        //long empId = Convert.ToInt64(reader.GetValue(0));
+                    //long empId = Convert.ToInt64(reader.GetValue(0));
 
-                        //// Столбец Emp_No имеет index = 1.
-                        //string empNo = reader.GetString(1);
-                        //int empNameIndex = reader.GetOrdinal("Emp_Name");// 2
-                        //string empName = reader.GetString(empNameIndex);
+                    //// Столбец Emp_No имеет index = 1.
+                    //string empNo = reader.GetString(1);
+                    //int empNameIndex = reader.GetOrdinal("Emp_Name");// 2
+                    //string empName = reader.GetString(empNameIndex);
 
-                        //// Индекс столбца Mng_Id в команде SQL.
-                        //int mngIdIndex = reader.GetOrdinal("Mng_Id");
+                    //// Индекс столбца Mng_Id в команде SQL.
+                    //int mngIdIndex = reader.GetOrdinal("Mng_Id");
 
-                        //long? mngId = null;
+                    //long? mngId = null;
 
 
-                        //if (!reader.IsDBNull(mngIdIndex))
-                        //{
-                        //    mngId = Convert.ToInt64(reader.GetValue(mngIdIndex));
-                        //}
-                        //Console.WriteLine("--------------------");
-                        //Console.WriteLine("empIdIndex:" + empIdIndex);
-                        //Console.WriteLine("EmpId:" + empId);
-                        //Console.WriteLine("EmpNo:" + empNo);
-                        //Console.WriteLine("EmpName:" + empName);
-                        //Console.WriteLine("MngId:" + mngId);
+                    //if (!reader.IsDBNull(mngIdIndex))
+                    //{
+                    //    mngId = Convert.ToInt64(reader.GetValue(mngIdIndex));
+                    //}
+                    //Console.WriteLine("--------------------");
+                    //Console.WriteLine("empIdIndex:" + empIdIndex);
+                    //Console.WriteLine("EmpId:" + empId);
+                    //Console.WriteLine("EmpNo:" + empNo);
+                    //Console.WriteLine("EmpName:" + empName);
+                    //Console.WriteLine("MngId:" + mngId);
 
-                        // Индекс столбца Emp_ID в команде SQL.
-                       
-                    }
+                    // Индекс столбца Emp_ID в команде SQL.
                 }
             }
-
         }
     }
 }
