@@ -44,12 +44,16 @@ namespace SqlConnectTest
     {
         static void Main(string[] args)
         {
+            string sql = @"WAITFOR DELAY '00:00:01'; SELECT B.Name as 'Book Name', S.FirstName as 'Student Name',
+                          FORMAT(DateOut, 'D', 'ru-RU') as 'Date Out' ,FORMAT(DateIn, 'D', 'ru-RU') as 'Date In', Id_Lib FROM S_Cards
+                               JOIN Students as S ON S.Id = S_Cards.Id_Student
+                               JOIN Books as B ON B.Id = S_Cards.Id_Book ";
             // Получить объект Connection подключенный к DB.
             var conn = DBUtils.GetDBConnection();
-            conn.Open();
             try
             {
-                QueryEmployee(conn);
+                AsyncQueryEmployee(conn, sql);
+                Console.ReadKey();
             }
             catch (Exception e)
             {
@@ -64,58 +68,84 @@ namespace SqlConnectTest
                 conn.Dispose();
             }
 
+            
+
         }
 
-        private static void QueryEmployee(SqlConnection conn)
+        private static void QueryEmployee(SqlConnection conn, string sql)
         {
-            string sql = "SELECT * from Books order by pages desc";
+            conn.Open();
 
-            // Создать объект Command.
             SqlCommand cmd = conn.CreateCommand();
-
-            // Сочетать Command с Connection.
             cmd.CommandText = sql;
 
-            using (DbDataReader reader = cmd.ExecuteReader())
+            try
             {
-                if (!reader.HasRows) return;
-                Console.WriteLine($"{"Book Name:",-70} {"Pages:",-15} Comment:\n");
-                while (reader.Read())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    //Console.Write($"{reader.GetString(1), - 100}" + "salam" + Environment.NewLine);
-                    Console.WriteLine($"{reader.GetString(1),-70} {reader.GetInt32(2),-15} {reader.GetString(8)}");
-                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------");
+                    if (!reader.HasRows) return;
+                    //Console.WriteLine($"{"Book Name:",-70} {"Pages:",-15} Comment:\n");
+                    int cnt = 0;
+                    while (reader.Read())
+                    {
+                        //Console.WriteLine($"{reader.GetString(1),-70} {reader.GetInt32(2),-15} {reader.GetString(8)}");
+                        //Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------");
 
-                    //// Индекс столбца Emp_ID в команде SQL.
-                    //int empIdIndex = reader.GetOrdinal("Emp_Id"); // 0
-
-
-                    //long empId = Convert.ToInt64(reader.GetValue(0));
-
-                    //// Столбец Emp_No имеет index = 1.
-                    //string empNo = reader.GetString(1);
-                    //int empNameIndex = reader.GetOrdinal("Emp_Name");// 2
-                    //string empName = reader.GetString(empNameIndex);
-
-                    //// Индекс столбца Mng_Id в команде SQL.
-                    //int mngIdIndex = reader.GetOrdinal("Mng_Id");
-
-                    //long? mngId = null;
-
-
-                    //if (!reader.IsDBNull(mngIdIndex))
-                    //{
-                    //    mngId = Convert.ToInt64(reader.GetValue(mngIdIndex));
-                    //}
-                    //Console.WriteLine("--------------------");
-                    //Console.WriteLine("empIdIndex:" + empIdIndex);
-                    //Console.WriteLine("EmpId:" + empId);
-                    //Console.WriteLine("EmpNo:" + empNo);
-                    //Console.WriteLine("EmpName:" + empName);
-                    //Console.WriteLine("MngId:" + mngId);
-
-                    // Индекс столбца Emp_ID в команде SQL.
+                        Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
+                        Console.WriteLine($"Row {++cnt}");
+                        Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            string tmp = reader[i].ToString();
+                            if (string.IsNullOrEmpty(tmp)) tmp = "Not Returned!";
+                            Console.WriteLine($"{reader.GetName(i) + ":",-20}" + tmp);
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        async private static void AsyncQueryEmployee(SqlConnection conn, string sql)
+        {
+            await conn.OpenAsync();
+           
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = sql;
+
+            try
+            {
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    //Console.WriteLine($"{"Book Name:",-70} {"Pages:",-15} Comment:\n");
+                    int cnt = 0;
+                    while (reader.Read())
+                    {
+                        //Console.WriteLine($"{reader.GetString(1),-70} {reader.GetInt32(2),-15} {reader.GetString(8)}");
+                        //Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------");
+
+                        Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
+                        Console.WriteLine($"Row {++cnt}");
+                        Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            string tmp = reader[i].ToString();
+                            if (string.IsNullOrEmpty(tmp)) tmp = "Not Returned!";
+                            Console.WriteLine($"{reader.GetName(i) + ":",-20}" + tmp);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
             }
         }
     }
