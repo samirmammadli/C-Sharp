@@ -43,7 +43,6 @@ namespace WpfSqlTest
         {
             var author = new AuthorsTableAdapter();
             author.Insert(tbFirstName.Text, tbLastName.Text);
-            author.Insert()
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
