@@ -1,0 +1,42 @@
+﻿<Window x:Class="VulgarKilometraj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VulgarKilometraj"
+        mc:Ignorable="d"
+        Title="Kilometraj Hesablamasi" Height="750" Width="525">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="420"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <DatePicker 
+                HorizontalAlignment="Left"
+                Width="100"
+                SelectedDateChanged="DatePicker_SelectedDateChanged"
+                SelectedDate="{Binding vg.CurDate}"
+                FirstDayOfWeek="Monday"
+                Margin="10,0,0,0"></DatePicker>
+            <Label x:Name="lbDate" Content="{Binding vg.month}" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+            <DataGrid HorizontalAlignment="Left"
+                      Margin="10,0,0,0"
+                      Width="408" x:Name="DataTable"
+                      AutoGenerateColumns="False"
+                      EnableRowVirtualization="True"
+                      RowBackground="LightGray"
+                      AlternatingRowBackground="White"
+                      RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="date" Binding="{Binding date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Tarix:" IsReadOnly="True" Width="100"/>
+                    <DataGridTextColumn x:Name="kilometers" Binding="{Binding kilometers, StringFormat=N1}" Header="Kilometer:" Width="100"/>
+                    <DataGridTextColumn x:Name="sum" Binding="{Binding sum, StringFormat=N1}" Header="Summa" Width="100"/>
+                    <DataGridTextColumn x:Name="remain" Binding="{Binding remain, StringFormat=N1}" Header="Qaliq" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
