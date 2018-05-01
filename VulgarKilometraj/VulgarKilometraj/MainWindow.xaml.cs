@@ -149,13 +149,29 @@ namespace VulgarKilometraj
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new PrintDialog();
+            ExportToExcelAndCsv();
+            //var dialog = new PrintDialog();
 
-            if (dialog.ShowDialog() == true)
-            {
-                dialog.PrintVisual(this.DataTable, "Testim");
-            }
-            
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    dialog.PrintVisual(this.DataTable, "Testim");
+            //}
+
+        }
+
+        private void ExportToExcelAndCsv()
+        {
+            DataTable.SelectAllCells();
+            DataTable.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+            ApplicationCommands.Copy.Execute(null, DataTable);
+            String resultat = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+            String result = (string)Clipboard.GetData(DataFormats.Text);
+            DataTable.UnselectAllCells();
+            System.IO.StreamWriter file1 = new System.IO.StreamWriter(@"C:\Users\Somir\Desktop\somir.xls");
+            file1.WriteLine(result.Replace(',', ' '));
+            file1.Close();
+
+            MessageBox.Show(" Exporting DataGrid data to Excel file created.xls");
         }
     }
 
