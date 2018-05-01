@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VulgarKilometraj"
         mc:Ignorable="d"
+        Background="AntiqueWhite"
         Title="Kilometraj Hesablanmasi" Height="780" Width="700" ResizeMode="NoResize">
     <Window.Resources>
     </Window.Resources>
@@ -18,7 +19,9 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="0">
-            <DatePicker 
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="14" Margin="5,26,0,0">Tarixi seç: </Label>
+                <DatePicker 
                 DisplayDateStart="01.01.2018"
                 DisplayDateEnd="01.01.2040"
                 SelectedDateFormat="Short"
@@ -28,6 +31,20 @@
                 SelectedDate="{Binding vg.CurDate}"
                 FirstDayOfWeek="Monday"
                 Margin="10,29,0,0"></DatePicker>
+            </StackPanel>
+            <Label FontSize="14" Margin="5,0,0,0">Diapazonu seç:</Label>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="tbFrom" Width="50" Margin="10,5,5,5">75</TextBox>
+                <Label FontSize="14" Margin="-10,0,0,0">-dən</Label>
+                <TextBox x:Name="tbTo" Width="50" Margin="5">115</TextBox>
+                <Label FontSize="14" Margin="-10,0,0,0">-dək</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="14" Margin="5,0,0,0">Şənbə: </Label>
+                <CheckBox IsChecked="False" x:Name="cbSaturday" Margin="0,8,0,0"></CheckBox>
+                <Label FontSize="14" Margin="5,0,0,0">Bazar: </Label>
+                <CheckBox IsChecked="False" x:Name="cbSunday" Margin="0,8,0,0"></CheckBox>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Label x:Name="lbDate" Content="{Binding vg.month}" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>

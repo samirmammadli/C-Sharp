@@ -45,6 +45,7 @@ namespace VulgarKilometraj
     public partial class MainWindow : Window
     {
         public VulgarSheet vg { get; set; }
+        Random rnd = new Random();
         public MainWindow()
         {
             InitializeComponent();
@@ -60,6 +61,37 @@ namespace VulgarKilometraj
                 vg.SelectedItem = DataTable.SelectedItem as InfoTable;
                 vg.SelectedItem.PropertyChanged += OnKilometerChaged;
             }
+        }
+
+        private void SetValuesByDiapazon(short from, short to)
+        {
+            int i = 0;
+            InfoTable.totalSum = 200;
+            while ((InfoTable.totalSum < -20 || InfoTable.totalSum > 20) && i < 100)
+            {
+                InfoTable.totalSum = 200;
+                foreach (var item in vg.Tables)
+                {
+                    if (item.Date.CheckSaturday() && cbSaturday.IsChecked == false)
+                    {
+                        item.Kilometers = 0;
+                        item.Remains = InfoTable.totalSum;
+                    }
+                    else if (item.Date.CheckSunday() && cbSunday.IsChecked == false)
+                    {
+                        item.Kilometers = 0;
+                        item.Remains = InfoTable.totalSum;
+                    }
+                    else
+                    {
+                        item.Kilometers = (short)rnd.Next(from, to);
+                        InfoTable.totalSum -= item.Sum;
+                        item.Remains = InfoTable.totalSum;
+                    }
+                }
+                i++;
+            }
+            
         }
 
         private void OnKilometerChaged(object sender, PropertyChangedEventArgs e)
@@ -102,8 +134,17 @@ namespace VulgarKilometraj
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (vg.SelectedItem != null)
-            MessageBox.Show(vg.SelectedItem.Kilometers.ToString());
+            try
+            {
+                short.TryParse(tbFrom.Text, out short from);
+                short.TryParse(tbTo.Text, out short to);
+                SetValuesByDiapazon(from, to);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 
@@ -117,7 +158,7 @@ namespace VulgarKilometraj
         }
 
         public static double KmToLitreRate = 0.11;
-        private int kilometers;
+        private short kilometers;
         public DateTime Date { get; set; }
         private double remain;
         public double Remains
@@ -135,7 +176,7 @@ namespace VulgarKilometraj
                 OnPropertyChanged();
             }
         }
-        public int Kilometers
+        public short Kilometers
         {
             get { return kilometers; }
             set { kilometers = value; Sum = kilometers * KmToLitreRate;
@@ -154,9 +195,16 @@ namespace VulgarKilometraj
 
     static class CheckWeekends
     {
-        public static bool IsWeekEnd(this DateTime date)
+
+        public static bool CheckSaturday(this DateTime date)
         {
-            return (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday);
+            return (date.DayOfWeek == DayOfWeek.Saturday);
+        }
+
+        public static bool CheckSunday(this DateTime date)
+        {
+            
+            return (date.DayOfWeek == DayOfWeek.Sunday);
         }
     }
 
