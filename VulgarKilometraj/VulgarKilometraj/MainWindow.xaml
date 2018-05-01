@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VulgarKilometraj"
         mc:Ignorable="d"
-        Title="Kilometraj Hesablamasi" Height="750" Width="525">
+        Title="Kilometraj Hesablanmasi" Height="780" Width="700" ResizeMode="NoResize">
     <Window.Resources>
     </Window.Resources>
     <Grid>
@@ -13,14 +13,23 @@
             <ColumnDefinition Width="420"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="0">
             <DatePicker 
+                DisplayDateStart="01.01.2018"
+                DisplayDateEnd="01.01.2040"
+                SelectedDateFormat="Short"
                 HorizontalAlignment="Left"
                 Width="100"
                 SelectedDateChanged="DatePicker_SelectedDateChanged"
                 SelectedDate="{Binding vg.CurDate}"
                 FirstDayOfWeek="Monday"
-                Margin="10,0,0,0"></DatePicker>
+                Margin="10,29,0,0"></DatePicker>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="0">
             <Label x:Name="lbDate" Content="{Binding vg.month}" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
             <DataGrid HorizontalAlignment="Left"
                       Margin="10,0,0,0"
@@ -29,14 +38,18 @@
                       EnableRowVirtualization="True"
                       RowBackground="LightGray"
                       AlternatingRowBackground="White"
-                      RowDetailsVisibilityMode="VisibleWhenSelected">
+                      RowDetailsVisibilityMode="VisibleWhenSelected"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      >
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="date" Binding="{Binding date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Tarix:" IsReadOnly="True" Width="100"/>
-                    <DataGridTextColumn x:Name="kilometers" Binding="{Binding kilometers, StringFormat=N1}" Header="Kilometer:" Width="100"/>
-                    <DataGridTextColumn x:Name="sum" Binding="{Binding sum, StringFormat=N1}" Header="Summa" Width="100"/>
-                    <DataGridTextColumn x:Name="remain" Binding="{Binding remain, StringFormat=N1}" Header="Qaliq" Width="100"/>
+                    <DataGridTextColumn x:Name="date" Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Tarix:" IsReadOnly="True" Width="100"/>
+                    <DataGridTextColumn x:Name="kilometers" Binding="{Binding Kilometers, StringFormat=N0}" Header="Kilometer:" Width="100"/>
+                    <DataGridTextColumn x:Name="sum" Binding="{Binding Sum, StringFormat=N2}" Header="Summa" Width="100"/>
+                    <DataGridTextColumn x:Name="remain" Binding="{Binding Remains, StringFormat=N2}" Header="Qaliq" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
+        <Button Grid.Row="1" Grid.Column="0" Click="Button_Click">check data</Button>
     </Grid>
 </Window>
