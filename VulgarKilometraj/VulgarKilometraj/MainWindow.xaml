@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VulgarKilometraj"
         mc:Ignorable="d"
-        Background="AntiqueWhite"
+        Background="DarkGray"
         Title="Kilometraj Hesablanmasi" Height="780" Width="700" ResizeMode="NoResize">
     <Window.Resources>
     </Window.Resources>
@@ -45,6 +45,8 @@
                 <Label FontSize="14" Margin="5,0,0,0">Bazar: </Label>
                 <CheckBox IsChecked="False" x:Name="cbSunday" Margin="0,8,0,0"></CheckBox>
             </StackPanel>
+            <Button x:Name="btnCalculate" Click="btnCalculate_Click" Width="200" Margin="5">Hesabla</Button>
+            <Button x:Name="btnPrint" Click="btnPrint_Click" Width="200" Margin="5">Print</Button>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Label x:Name="lbDate" Content="{Binding vg.month}" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
@@ -62,11 +64,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="date" Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Tarix:" IsReadOnly="True" Width="100"/>
                     <DataGridTextColumn x:Name="kilometers" Binding="{Binding Kilometers, StringFormat=N0}" Header="Kilometer:" Width="100"/>
-                    <DataGridTextColumn x:Name="sum" Binding="{Binding Sum, StringFormat=N2}" Header="Summa" Width="100"/>
-                    <DataGridTextColumn x:Name="remain" Binding="{Binding Remains, StringFormat=N2}" Header="Qaliq" Width="100"/>
+                    <DataGridTextColumn IsReadOnly="True" x:Name="sum" Binding="{Binding Sum, StringFormat=N2}" Header="Summa" Width="100"/>
+                    <DataGridTextColumn IsReadOnly="True" x:Name="remain" Binding="{Binding Remains, StringFormat=N2}" Header="Qaliq" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Button Grid.Row="1" Grid.Column="0" Click="Button_Click">check data</Button>
     </Grid>
 </Window>

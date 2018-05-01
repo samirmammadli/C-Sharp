@@ -67,7 +67,7 @@ namespace VulgarKilometraj
         {
             int i = 0;
             InfoTable.totalSum = 200;
-            while ((InfoTable.totalSum < -20 || InfoTable.totalSum > 20) && i < 100)
+            while ((InfoTable.totalSum < -20 || InfoTable.totalSum > 20) && i < 1)
             {
                 InfoTable.totalSum = 200;
                 foreach (var item in vg.Tables)
@@ -124,7 +124,7 @@ namespace VulgarKilometraj
             var tmp = new DateTime(vg.CurDate.Year, vg.CurDate.Month, 1);
             for (int i = vg.CurDate.Month; i == vg.CurDate.Month;)
             {
-                tempList.Add(new InfoTable(tmp, 23));
+                tempList.Add(new InfoTable(tmp, 0));
                 tmp = tmp.AddDays(1);
                 i = tmp.Month;
             }
@@ -132,7 +132,7 @@ namespace VulgarKilometraj
             DataTable.ItemsSource = vg.Tables;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -145,6 +145,17 @@ namespace VulgarKilometraj
 
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new PrintDialog();
+
+            if (dialog.ShowDialog() == true)
+            {
+                dialog.PrintVisual(this.DataTable, "Testim");
+            }
+            
         }
     }
 
@@ -199,6 +210,7 @@ namespace VulgarKilometraj
         public static bool CheckSaturday(this DateTime date)
         {
             return (date.DayOfWeek == DayOfWeek.Saturday);
+
         }
 
         public static bool CheckSunday(this DateTime date)

@@ -44,7 +44,8 @@ namespace SqlConnectTest
     {
         static void Main(string[] args)
         {
-            string sql = @"WAITFOR DELAY '00:00:01'; SELECT B.Name as 'Book Name', S.FirstName as 'Student Name',
+            //WAITFOR DELAY '00:00:01';
+            string sql = @"SELECT B.Name as 'Book Name', S.FirstName as 'Student Name',
                           FORMAT(DateOut, 'D', 'ru-RU') as 'Date Out' ,FORMAT(DateIn, 'D', 'ru-RU') as 'Date In', Id_Lib FROM S_Cards
                                JOIN Students as S ON S.Id = S_Cards.Id_Student
                                JOIN Books as B ON B.Id = S_Cards.Id_Book ";
