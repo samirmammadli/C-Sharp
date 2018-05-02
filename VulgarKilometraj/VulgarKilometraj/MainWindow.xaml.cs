@@ -66,10 +66,10 @@ namespace VulgarKilometraj
         private void SetValuesByDiapazon(short from, short to)
         {
             int i = 0;
-            InfoTable.totalSum = 200;
+            double.TryParse(tbTotalSum.Text, out InfoTable.totalSum);
             while ((InfoTable.totalSum < -20 || InfoTable.totalSum > 20) && i < 1)
             {
-                InfoTable.totalSum = 200;
+                double.TryParse(tbTotalSum.Text, out InfoTable.totalSum);
                 foreach (var item in vg.Tables)
                 {
                     if (item.Date.CheckSaturday() && cbSaturday.IsChecked == false)
@@ -101,7 +101,7 @@ namespace VulgarKilometraj
                 if (e.PropertyName == "Kilometers")
                 {
                     vg.SelectedItem.PropertyChanged -= OnKilometerChaged;
-                    InfoTable.totalSum = 200;
+                    double.TryParse(tbTotalSum.Text, out InfoTable.totalSum);
                     foreach (var item in vg.Tables)
                     {
                         InfoTable.totalSum -= item.Sum;
@@ -119,7 +119,7 @@ namespace VulgarKilometraj
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             lbDate.Content = vg.month;
-            InfoTable.totalSum = 200;
+            double.TryParse(tbTotalSum.Text, out InfoTable.totalSum);
             var tempList = new List<InfoTable>();
             var tmp = new DateTime(vg.CurDate.Year, vg.CurDate.Month, 1);
             for (int i = vg.CurDate.Month; i == vg.CurDate.Month;)
@@ -149,9 +149,10 @@ namespace VulgarKilometraj
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog();
+            var printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
-            {   
+            {
+                printDialog.PrintVisual(testim, "Печать с помощью классов визуального уровня");
                 // Создать визуальный элемент для страницы
                 //DrawingVisual visual = new DrawingVisual();
 
@@ -178,16 +179,15 @@ namespace VulgarKilometraj
 
                 //    // Нарисовать содержимое, 
                 //    dc.DrawText(text, point);
-                    
+
 
                 //    // Добавить рамку (прямоугольник без фона). 
                 //    dc.DrawRectangle(null, new Pen(Brushes.Black, 1),
                 //        new Rect(margin, margin, printDialog.PrintableAreaWidth - margin * 2,
                 //            printDialog.PrintableAreaHeight - margin * 2));
                 //}
-                
+
                 // Напечатать визуальный элемент. 
-                printDialog.PrintVisual(testim, "Печать с помощью классов визуального уровня");
             }
 
         }
@@ -211,14 +211,13 @@ namespace VulgarKilometraj
     public class InfoTable : ObservableObject
     {
         private bool isWeekend;
-
         public bool IsWeekend
         {
             get { return isWeekend; }
             set { isWeekend = value; OnPropertyChanged(); }
         }
 
-        public static double totalSum = 200;
+        public static double totalSum;
         public double TotalSum
         {
             get { return totalSum; }
