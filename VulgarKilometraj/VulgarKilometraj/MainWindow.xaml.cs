@@ -177,6 +177,14 @@ namespace VulgarKilometraj
 
     public class InfoTable : ObservableObject
     {
+        private bool isWeekend;
+
+        public bool IsWeekend
+        {
+            get { return isWeekend; }
+            set { isWeekend = value; OnPropertyChanged(); }
+        }
+
         public static double totalSum = 200;
         public double TotalSum
         {
@@ -186,7 +194,17 @@ namespace VulgarKilometraj
 
         public static double KmToLitreRate = 0.11;
         private short kilometers;
-        public DateTime Date { get; set; }
+        private DateTime date;
+        public DateTime Date
+        {
+            get { return date; }
+            set
+            {
+                date = value;
+                if (date.CheckSaturday() || date.CheckSunday()) IsWeekend = true;
+                OnPropertyChanged();
+            }
+        }
         private double remain;
         public double Remains
         {
