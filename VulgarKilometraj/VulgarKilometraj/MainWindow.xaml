@@ -9,9 +9,10 @@
         Title="Kilometraj Hesablanmasi" Height="780" Width="700" ResizeMode="NoResize">
     <Window.Resources>
     </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="420"/>
+            <ColumnDefinition Width="420" x:Name="grdPrintable"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

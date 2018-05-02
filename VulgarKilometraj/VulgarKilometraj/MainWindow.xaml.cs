@@ -149,13 +149,46 @@ namespace VulgarKilometraj
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
-            ExportToExcelAndCsv();
-            //var dialog = new PrintDialog();
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {   
+                // Создать визуальный элемент для страницы
+                DrawingVisual visual = new DrawingVisual();
 
-            //if (dialog.ShowDialog() == true)
-            //{
-            //    dialog.PrintVisual(this.DataTable, "Testim");
-            //}
+                // Получить контекст рисования
+                using (DrawingContext dc = visual.RenderOpen())
+                {
+                    // Определить текст, который необходимо печатать
+                    FormattedText text = new FormattedText(lbDate.Content.ToString(),
+                        System.Globalization.CultureInfo.CurrentCulture,
+                        FlowDirection.LeftToRight,
+                        new Typeface("Calibri"), 20, Brushes.Black);
+
+                    // Указать максимальную ширину, в пределах которой выполнять перенос текста, 
+                    text.MaxTextWidth = printDialog.PrintableAreaWidth / 2;
+
+                    // Получить размер выводимого текста. 
+                    Size textSize = new Size(text.Width, text.Height);
+
+                    // Найти верхний левый угол, куда должен быть помещен текст. 
+                    double margin = 24;
+                    Point point = new Point(
+                        (printDialog.PrintableAreaWidth - textSize.Width) / 2 - margin,
+                        (printDialog.PrintableAreaHeight - textSize.Height) / 2 - margin);
+
+                    // Нарисовать содержимое, 
+                    dc.DrawText(text, point);
+                    
+
+                    // Добавить рамку (прямоугольник без фона). 
+                    dc.DrawRectangle(null, new Pen(Brushes.Black, 1),
+                        new Rect(margin, margin, printDialog.PrintableAreaWidth - margin * 2,
+                            printDialog.PrintableAreaHeight - margin * 2));
+                }
+                
+                // Напечатать визуальный элемент. 
+                printDialog.PrintVisual(visual, "Печать с помощью классов визуального уровня");
+            }
 
         }
 
