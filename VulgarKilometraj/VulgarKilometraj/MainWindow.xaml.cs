@@ -55,6 +55,7 @@ namespace VulgarKilometraj
 
             //this.Height = 1100;
             //grdColumn1.Width = new GridLength(750);
+            //grdColumn2.Width = new GridLength(10);
             //testim.Margin = new Thickness(160, 160, 160, 160);
         }
 
@@ -159,8 +160,9 @@ namespace VulgarKilometraj
                 this.Height = 1100;
                 grdColumn1.Width = new GridLength(750);
                 grdColumn2.Width = new GridLength(10);
-                testim.Margin = new Thickness(160, 160, 160, 160);
-                printDialog.PrintVisual(testim, "Печать с помощью классов визуального уровня");
+                testim.Margin = new Thickness(160, 30, 160, 160);
+                date
+                printDialog.PrintVisual(testim, "prnt");
 
                 grdColumn1.Width = new GridLength(420);
                 grdColumn2.Width = new GridLength();
