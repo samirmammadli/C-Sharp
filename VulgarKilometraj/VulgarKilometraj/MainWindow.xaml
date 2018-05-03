@@ -11,8 +11,8 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="420" x:Name="grdPrintable"/>
-            <ColumnDefinition/>
+            <ColumnDefinition x:Name="grdColumn1" Width="420"/>
+            <ColumnDefinition x:Name="grdColumn2"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>

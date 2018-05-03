@@ -52,6 +52,10 @@ namespace VulgarKilometraj
             vg = new VulgarSheet();
             this.DataContext = this;
             DataTable.SelectedCellsChanged += CellSelected;
+
+            //this.Height = 1100;
+            //grdColumn1.Width = new GridLength(750);
+            //testim.Margin = new Thickness(160, 160, 160, 160);
         }
 
         private void CellSelected(object sender, SelectedCellsChangedEventArgs e)
@@ -152,7 +156,16 @@ namespace VulgarKilometraj
             var printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
+                this.Height = 1100;
+                grdColumn1.Width = new GridLength(750);
+                grdColumn2.Width = new GridLength(10);
+                testim.Margin = new Thickness(160, 160, 160, 160);
                 printDialog.PrintVisual(testim, "Печать с помощью классов визуального уровня");
+
+                grdColumn1.Width = new GridLength(420);
+                grdColumn2.Width = new GridLength();
+                testim.Margin = new Thickness(0,0,0,0);
+                this.Height = 780;
                 // Создать визуальный элемент для страницы
                 //DrawingVisual visual = new DrawingVisual();
 
