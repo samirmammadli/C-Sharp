@@ -161,7 +161,6 @@ namespace VulgarKilometraj
                 grdColumn1.Width = new GridLength(750);
                 grdColumn2.Width = new GridLength(10);
                 testim.Margin = new Thickness(160, 30, 160, 160);
-                date
                 printDialog.PrintVisual(testim, "prnt");
 
                 grdColumn1.Width = new GridLength(420);

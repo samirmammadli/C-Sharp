@@ -24,7 +24,7 @@ namespace SqlConnectTest
 
     class DBSQLServerUtils
     {
-
+        
         public static SqlConnection
                  GetDBConnection(string datasource, string database, string username, string password)
         {
@@ -68,9 +68,6 @@ namespace SqlConnectTest
                 // Разрушить объект, освободить ресурс.
                 conn.Dispose();
             }
-
-            
-
         }
 
         private static void QueryEmployee(SqlConnection conn, string sql)
