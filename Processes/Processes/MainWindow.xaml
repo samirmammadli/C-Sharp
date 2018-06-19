@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Processes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DataGrid 
-            SelectionChanged="ProcGrid_OnSelectionChanged"
             SelectedItem="{Binding Currproc}" x:Name="ProcGrid"
             AutoGenerateColumns="False"
             EnableRowVirtualization="True"                      
@@ -23,11 +22,13 @@
                 <DataGridTextColumn x:Name="Name" Binding="{Binding ProcessName }" Header="Name" IsReadOnly="True" Width="100"/>
                 <DataGridTextColumn x:Name="Id" Binding="{Binding Id }" Header="ID" IsReadOnly="True" Width="100"/>
                 <DataGridTextColumn x:Name="Priority" Binding="{Binding PriorityClass }" Header="Priority" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn x:Name="NonpagedSystemMemorySize64" Binding="{Binding NonpagedSystemMemorySize64 }" Header="MemoryUsage" IsReadOnly="True" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1">
-            <Button Click="ButtonBase_OnClick">Kill</Button>
-            <Button x:Name="btnRefresh" Click="BtnRefresh_OnClick">Refresh</Button>
+        <StackPanel Orientation="Horizontal"  Grid.Row="1">
+            <Button Width="80" Margin="5" Click="ButtonBase_OnClick">Kill</Button>
+            <Button Width="80" Margin="5" x:Name="btnRefresh" Click="BtnRefresh_OnClick">Refresh</Button>
+            <Button Width="120" Margin="5" x:Name="btnStart" Click="BtnStart_OnClick">Start new Process</Button>
         </StackPanel>
     </Grid>
 
