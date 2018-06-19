@@ -27,6 +27,7 @@
         </DataGrid>
         <StackPanel Grid.Row="1">
             <Button Click="ButtonBase_OnClick">Kill</Button>
+            <Button x:Name="btnRefresh" Click="BtnRefresh_OnClick">Refresh</Button>
         </StackPanel>
     </Grid>
 
