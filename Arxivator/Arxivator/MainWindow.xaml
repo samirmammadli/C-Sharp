@@ -1,0 +1,17 @@
+﻿<Window x:Class="Arxivator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arxivator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="180" Width="325">
+    <Grid>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Label Margin="5" x:Name="lbFileName" Content="{Binding SelectedFile}"></Label>
+            <Button HorizontalAlignment="Left" Margin="5" x:Name="btnOpenFile" Width="80" Click="btnOpenFile_Click">Open File</Button>
+            <Button HorizontalAlignment="Left" Margin="5" x:Name="btCompress" Width="80">Compress</Button>
+            <Button HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>
+        </StackPanel>
+    </Grid>
+</Window>
