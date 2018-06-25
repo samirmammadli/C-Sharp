@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Win32;
@@ -36,7 +37,8 @@ namespace Arxivator
             for (int i = 0; i <= 100; i++)
             {
                 Dispatcher.CurrentDispatcher.Invoke(() => pbBar.Value = i, DispatcherPriority.Background);
-                Thread.Sleep(100);
+                Thread.Sleep(10);
+                
             }
 
         }
