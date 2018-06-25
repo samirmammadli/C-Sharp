@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arxivator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="180" Width="325">
+        Title="Archiver" Height="180" Width="325">
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Label Margin="5" x:Name="lbFileName" Content="{Binding SelectedFile}"></Label>
+            <Label Margin="5" x:Name="lbFileName" Content="{Binding SelectedFile}" ></Label>
             <Button HorizontalAlignment="Left" Margin="5" x:Name="btnOpenFile" Width="80" Click="btnOpenFile_Click">Open File</Button>
-            <Button HorizontalAlignment="Left" Margin="5" x:Name="btCompress" Width="80">Compress</Button>
-            <Button HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>
+            <Button Command="{Binding CompressCommand}" HorizontalAlignment="Left" Margin="5" x:Name="btnCompress" Width="80" >Compress</Button>
+            <Button Command="{Binding DecompressCommand}" Click="btnDecompress_Click" HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>
         </StackPanel>
     </Grid>
 </Window>

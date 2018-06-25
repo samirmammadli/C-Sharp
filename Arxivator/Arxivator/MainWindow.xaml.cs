@@ -38,5 +38,10 @@ namespace Arxivator
                 MainVM.SelectedFile = dialog.FileName;
             }
         }
+
+        private void btnDecompress_Click(object sender, RoutedEventArgs e)
+        {
+            MainVM.SelectedFile = null;
+        }
     }
 }

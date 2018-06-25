@@ -8,14 +8,27 @@ using System.IO;
 
 namespace Arxivator
 {
-    static class Archiver
+    class Archiver
     {
-        static public void Compress(string sourceFile, string outputPath)
+        public void Compress(string fileName)
         {
-            
+            var fileBytes = File.ReadAllBytes(fileName);
+            string extension = ".gz";
+            int i = 0;
+            while (File.Exists(fileName + extension))
+            {
+                extension = $"({i++}).gz";
+            }
+            using (FileStream fileStream = new FileStream(fileName + extension, FileMode.Create))
+            {
+                using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
+                {
+                    gZipStream.Write(fileBytes, 0, fileBytes.Length);
+                }
+            }
         }
 
-        static public void Decompress(string sourceFile, string outputPath)
+        public void Decompress(string fileName)
         {
 
         }
