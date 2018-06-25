@@ -12,6 +12,7 @@
             <Button HorizontalAlignment="Left" Margin="5" x:Name="btnOpenFile" Width="80" Click="btnOpenFile_Click">Open File</Button>
             <Button Command="{Binding CompressCommand}" HorizontalAlignment="Left" Margin="5" x:Name="btnCompress" Width="80" >Compress</Button>
             <Button Command="{Binding DecompressCommand}" Click="btnDecompress_Click" HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>
+            <ProgressBar HorizontalAlignment="Center" Height="10" Width="300" Name="pbBar" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
         </StackPanel>
     </Grid>
 </Window>

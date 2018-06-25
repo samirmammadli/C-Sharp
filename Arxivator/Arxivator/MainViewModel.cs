@@ -4,18 +4,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Arxivator
 {
     public class MainViewModel : ViewModelBase
     {
+        public MainViewModel()
+        {
+            Progress = 0;
+        }
+
         private string selectedFile;
         public string SelectedFile
         {
             get => selectedFile;
             set => Set(ref selectedFile, value);
+        }
+
+        private int progress;
+        public int Progress
+        {
+            get => progress;
+            set => Set(ref progress, value);
         }
 
         private RelayCommand compressCommand;
@@ -42,10 +56,11 @@ namespace Arxivator
 
         public void Compress(string fileName)
         {
+
             try
             {
                 var archiver = new Archiver();
-                archiver.Compress(fileName);
+                archiver.Compress2(fileName);
             }
             catch (Exception ex)
             {
