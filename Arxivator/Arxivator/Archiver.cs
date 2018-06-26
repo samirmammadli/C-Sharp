@@ -14,22 +14,34 @@ namespace Arxivator
     {
         static public int counter = 0;
 
-        public void Compress(string fileName)
+        public void Compress(string fileName, int cnt)
         {
-            var fileBytes = File.ReadAllBytes(fileName);
-            string extension = ".gz";
-            int i = 0;
-            while (File.Exists(fileName + extension))
+            var threadstart = new ThreadStart(() =>
             {
-                extension = $"({i++}).gz";
-            }
-            using (FileStream fileStream = new FileStream(fileName + extension, FileMode.Create))
-            {
-                using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
+                var fileBytes = File.ReadAllBytes(fileName);
+                string extension = ".gz";
+                int i = 0;
+                while (File.Exists(fileName + extension))
                 {
-                    gZipStream.Write(fileBytes, 0, fileBytes.Length);
+                    extension = $"({i++}).gz";
                 }
-            }
+                using (FileStream fileStream = new FileStream(fileName + extension, FileMode.Create))
+                {
+                    using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
+                    {
+                        int lenght = fileBytes.Length / 100;
+                        for (int j = 0; j < 100; j++)
+                        {
+                            gZipStream.Write(fileBytes, j * lenght, lenght);
+                            cnt++;
+                        }
+                        gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
+                    }
+                }
+            });
+            var thread = new Thread(threadstart);
+            thread.Start();
+            MessageBox.Show(cnt.ToString());
         }
 
         public void Test(object fileName)

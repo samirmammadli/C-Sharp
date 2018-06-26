@@ -34,12 +34,7 @@ namespace Arxivator
         {
             MainVM.SelectedFile = null;
 
-            for (int i = 0; i <= 100; i++)
-            {
-                Dispatcher.CurrentDispatcher.Invoke(() => pbBar.Value = i, DispatcherPriority.Background);
-                Thread.Sleep(10);
-                
-            }
+            
 
         }
     }

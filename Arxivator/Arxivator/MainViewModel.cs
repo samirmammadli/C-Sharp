@@ -60,7 +60,7 @@ namespace Arxivator
             try
             {
                 var archiver = new Archiver();
-                archiver.Compress2(fileName);
+                archiver.Compress(fileName, Progress);
             }
             catch (Exception ex)
             {
