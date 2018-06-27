@@ -34,7 +34,7 @@ namespace Arxivator
                         for (int j = 0; j < 100; j++)
                         {
                             gZipStream.Write(fileBytes, j * lenght, lenght);
-                            vm.Progress++;
+                            vm.Thread1Progress++;
                         }
                         gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
                     }

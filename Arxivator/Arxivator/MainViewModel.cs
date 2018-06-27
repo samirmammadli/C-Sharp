@@ -15,7 +15,7 @@ namespace Arxivator
     {
         public MainViewModel()
         {
-            Progress = 0;
+            Thread1Progress = 0;
 
         }
 
@@ -26,11 +26,32 @@ namespace Arxivator
             set => Set(ref selectedFile, value);
         }
 
-        private int progress;
-        public int Progress
+        private int thread1Progress;
+        public int Thread1Progress
         {
-            get => progress;
-            set => Set(ref progress, value);
+            get => thread1Progress;
+            set => Set(ref thread1Progress, value);
+        }
+
+        private int thread2Progress;
+        public int Thread2Progress
+        {
+            get => thread2Progress;
+            set => Set(ref thread2Progress, value);
+        }
+
+        private int thread3Progress;
+        public int Thread3Progress
+        {
+            get => thread3Progress;
+            set => Set(ref thread3Progress, value);
+        }
+
+        private int thread4Progress;
+        public int Thread4Progress
+        {
+            get => thread4Progress;
+            set => Set(ref thread4Progress, value);
         }
 
         private RelayCommand compressCommand;
