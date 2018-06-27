@@ -15,18 +15,18 @@ namespace Arxivator
     {
         static public int counter = 0;
 
-        public void Compress(string fileName, MainViewModel vm)
+        public void Compress(MainViewModel vm)
         {
             var threadstart = new ThreadStart(() =>
             {
-                var fileBytes = File.ReadAllBytes(fileName);
+                var fileBytes = File.ReadAllBytes(vm.SelectedFile);
                 string extension = ".gz";
                 int i = 0;
-                while (File.Exists(fileName + extension))
+                while (File.Exists(vm.SelectedFile + extension))
                 {
                     extension = $"({i++}).gz";
                 }
-                using (FileStream fileStream = new FileStream(fileName + extension, FileMode.Create))
+                using (FileStream fileStream = new FileStream(vm.SelectedFile + extension, FileMode.Create))
                 {
                     using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
                     {

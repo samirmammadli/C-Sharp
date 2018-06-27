@@ -5,14 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arxivator"
         mc:Ignorable="d"
-        Title="Archiver" Height="180" Width="325">
+        Title="Archiver" Height="280" Width="335">
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Label Margin="5" x:Name="lbFileName" Content="{Binding SelectedFile}" ></Label>
-            <Button HorizontalAlignment="Left" Margin="5" x:Name="btnOpenFile" Width="80" Click="btnOpenFile_Click">Open File</Button>
+            <Label Height="25" Margin="5" x:Name="lbFileName" Content="{Binding SelectedFile}" ></Label>
+            <Grid>
+                <Button HorizontalAlignment="Left" Margin="5" x:Name="btnOpenFile" Width="80" Click="btnOpenFile_Click">Open File</Button>
+                <Label HorizontalAlignment="Right" Margin="0,0,46,0">Threads count:</Label>
+                <ComboBox Margin="5" HorizontalAlignment="Right">1</ComboBox>
+            </Grid>
             <Button Command="{Binding CompressCommand}" HorizontalAlignment="Left" Margin="5" x:Name="btnCompress" Width="80" >Compress</Button>
             <Button Command="{Binding DecompressCommand}" Click="btnDecompress_Click" HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>
-            <ProgressBar HorizontalAlignment="Center" Height="10" Width="300" Name="pbBar" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+            <StackPanel Orientation="Horizontal">
+                <Label>Thread 1:</Label>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Thread 2:</Label>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Thread 3:</Label>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Thread 4:</Label>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

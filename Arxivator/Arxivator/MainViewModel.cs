@@ -57,11 +57,10 @@ namespace Arxivator
 
         public void Compress(string fileName)
         {
-
             try
             {
                 var archiver = new Archiver();
-                archiver.Compress(fileName, this);
+                archiver.Compress(this);
             }
             catch (Exception ex)
             {
