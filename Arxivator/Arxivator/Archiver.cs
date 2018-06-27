@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using GalaSoft.MvvmLight;
 
 namespace Arxivator
 {
@@ -14,7 +15,7 @@ namespace Arxivator
     {
         static public int counter = 0;
 
-        public void Compress(string fileName, int cnt)
+        public void Compress(string fileName, MainViewModel vm)
         {
             var threadstart = new ThreadStart(() =>
             {
@@ -33,7 +34,7 @@ namespace Arxivator
                         for (int j = 0; j < 100; j++)
                         {
                             gZipStream.Write(fileBytes, j * lenght, lenght);
-                            cnt++;
+                            vm.Progress++;
                         }
                         gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
                     }
@@ -41,7 +42,6 @@ namespace Arxivator
             });
             var thread = new Thread(threadstart);
             thread.Start();
-            MessageBox.Show(cnt.ToString());
         }
 
         public void Test(object fileName)

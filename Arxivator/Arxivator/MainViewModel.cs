@@ -16,6 +16,7 @@ namespace Arxivator
         public MainViewModel()
         {
             Progress = 0;
+
         }
 
         private string selectedFile;
@@ -60,7 +61,7 @@ namespace Arxivator
             try
             {
                 var archiver = new Archiver();
-                archiver.Compress(fileName, Progress);
+                archiver.Compress(fileName, this);
             }
             catch (Exception ex)
             {
