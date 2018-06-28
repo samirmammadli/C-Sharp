@@ -18,19 +18,19 @@
             <Button Command="{Binding DecompressCommand}" Click="btnDecompress_Click" HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>
             <StackPanel Orientation="Horizontal">
                 <Label>Thread 1:</Label>
-                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress[0]}"></ProgressBar>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Thread 2:</Label>
-                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress[1]}"></ProgressBar>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Thread 3:</Label>
-                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress[2]}"></ProgressBar>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Thread 4:</Label>
-                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress}"></ProgressBar>
+                <ProgressBar HorizontalAlignment="Center" Height="15" Width="250" Minimum="0" Maximum="100" Value="{Binding Progress[3]}"></ProgressBar>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,8 +16,11 @@ namespace Arxivator
     {
         public MainViewModel()
         {
-            Thread1Progress = 0;
-
+            Progress = new ObservableCollection<int>();
+            for (int i = 0; i < 4; i++)
+            {
+                Progress.Add(0);
+            }
         }
 
         private string selectedFile;
@@ -26,32 +30,11 @@ namespace Arxivator
             set => Set(ref selectedFile, value);
         }
 
-        private int thread1Progress;
-        public int Thread1Progress
+        private ObservableCollection<int> progress;
+        public ObservableCollection<int> Progress
         {
-            get => thread1Progress;
-            set => Set(ref thread1Progress, value);
-        }
-
-        private int thread2Progress;
-        public int Thread2Progress
-        {
-            get => thread2Progress;
-            set => Set(ref thread2Progress, value);
-        }
-
-        private int thread3Progress;
-        public int Thread3Progress
-        {
-            get => thread3Progress;
-            set => Set(ref thread3Progress, value);
-        }
-
-        private int thread4Progress;
-        public int Thread4Progress
-        {
-            get => thread4Progress;
-            set => Set(ref thread4Progress, value);
+            get => progress;
+            set => Set(ref progress, value);
         }
 
         private RelayCommand compressCommand;
@@ -81,7 +64,7 @@ namespace Arxivator
             try
             {
                 var archiver = new Archiver();
-                archiver.Compress(this);
+                archiver.Compress(SelectedFile, Progress);
             }
             catch (Exception ex)
             {

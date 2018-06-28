@@ -33,9 +33,6 @@ namespace Arxivator
         private void btnDecompress_Click(object sender, RoutedEventArgs e)
         {
             MainVM.SelectedFile = null;
-
-            
-
         }
     }
 }
