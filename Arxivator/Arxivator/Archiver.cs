@@ -14,20 +14,42 @@ namespace Arxivator
 {
     class Archiver
     {
-        static public int counter = 0;
+
+        public List<byte[]> ParseBytes(byte[] bytes, int count)
+        {
+            var list = new List<byte[]>();
+            int chunkSize = bytes.Length / count;
+            if (chunkSize < 2)
+            { list.Add(bytes);
+                return list;
+            }
+
+            for (int i = 0; i < count - 1; i++)
+            {
+                var chunk = new byte[chunkSize];
+                Buffer.BlockCopy(bytes, chunkSize * i, chunk, 0, chunkSize);
+                list.Add(chunk);
+            }
+
+            var rest = bytes.Length - chunkSize * count;
+            var chunk1 = new byte[rest];
+            Buffer.BlockCopy(bytes, chunkSize * count, chunk1, 0, rest);
+            list.Add(chunk1);
+            return list;
+        }
 
         public void Compress(string file, ObservableCollection<int> progress)
         {
+            var fileBytes = File.ReadAllBytes(file);
+            string extension = ".gz";
+            int i = 0;
+            while (File.Exists(file + extension))
+            {
+                extension = $"({i++}).gz";
+            }
             var task = new Task(() =>
             {
-                var fileBytes = File.ReadAllBytes(file);
-                string extension = ".gz";
-                int i = 0;
-                while (File.Exists(file + extension))
-                {
-                    extension = $"({i++}).gz";
-                }
-                using (FileStream fileStream = new FileStream(file + extension, FileMode.Create))
+                using (MemoryStream fileStream = new MemoryStream())
                 {
                     using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
                     {
@@ -37,12 +59,7 @@ namespace Arxivator
                             gZipStream.Write(fileBytes, j * lenght, lenght);
                             progress[0]++;
                         }
-                       
                         gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
-                        
-                        //File.WriteAllBytes(file + extension, fileStream.ToArray());
-                        //MessageBox.Show(fileStream.ToArray().Length.ToString());
-
 
                     }
                 }
