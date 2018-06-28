@@ -12,7 +12,7 @@
             <Grid>
                 <Button HorizontalAlignment="Left" Margin="5" x:Name="btnOpenFile" Width="80" Click="btnOpenFile_Click">Open File</Button>
                 <Label HorizontalAlignment="Right" Margin="0,0,46,0">Threads count:</Label>
-                <ComboBox Margin="5" HorizontalAlignment="Right">1</ComboBox>
+                <ComboBox Margin="5" HorizontalAlignment="Right" ItemsSource="{Binding ThreadsCount}" SelectedItem="{Binding SelectedCount}"></ComboBox>
             </Grid>
             <Button Command="{Binding CompressCommand}" HorizontalAlignment="Left" Margin="5" x:Name="btnCompress" Width="80" >Compress</Button>
             <Button Command="{Binding DecompressCommand}" Click="btnDecompress_Click" HorizontalAlignment="Left" Margin="5" x:Name="btnDecompress" Width="80">Decompress</Button>

@@ -14,24 +14,33 @@ namespace Arxivator
 {
     public class MainViewModel : ViewModelBase
     {
-        private ObservableCollection<int> selectedThreadsCount;
+        private ObservableCollection<int> threadsCount;
 
-        public ObservableCollection<int> SelectedThreadsCount
+        public ObservableCollection<int> ThreadsCount
         {
-            get { return selectedThreadsCount; }
-            set { Set(ref selectedThreadsCount, value); }
+            get { return threadsCount; }
+            set { Set(ref threadsCount, value); }
+        }
+
+        private int selectedCount;
+
+        public int SelectedCount
+        {
+            get { return selectedCount; }
+            set { Set(ref selectedCount, value); }
         }
 
 
         public MainViewModel()
         {
             Progress = new ObservableCollection<int>();
-            SelectedThreadsCount = new ObservableCollection<int>();
+            ThreadsCount = new ObservableCollection<int>();
             for (int i = 0; i < 4; i++)
             {
                 Progress.Add(0);
-                SelectedThreadsCount.Add(i + 1);
+                ThreadsCount.Add(i + 1);
             }
+            SelectedCount = threadsCount[0];
         }
 
         private string selectedFile;
