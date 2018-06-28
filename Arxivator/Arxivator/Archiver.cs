@@ -18,7 +18,7 @@ namespace Arxivator
 
         public void Compress(string file, ObservableCollection<int> threads)
         {
-            var threadstart = new ThreadStart(() =>
+            var task = new Task(() =>
             {
                 var fileBytes = File.ReadAllBytes(file);
                 string extension = ".gz";
@@ -41,27 +41,37 @@ namespace Arxivator
                     }
                 }
             });
-            var thread = new Thread(threadstart);
-            thread.Start();
+            task.Start();
+            var task2 = Task.WhenAll(task).ContinueWith(param => { MessageBox.Show("File Successfully compressed!"); });
         }
 
-        public void Test(object fileName)
+        public void CompressHazir(string file, ObservableCollection<int> threads)
         {
-            var fileBytes = File.ReadAllBytes(fileName.ToString());
-            string extension = ".gz";
-            int i = 0;
-            while (File.Exists(fileName + extension))
+            var task = new Task(() =>
             {
-                extension = $"({i++}).gz";
-            }
-            using (FileStream fileStream = new FileStream(fileName + extension, FileMode.Create))
-            {
-                using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
-                {   
-                    gZipStream.Write(fileBytes, 0, fileBytes.Length); 
-                    
+                var fileBytes = File.ReadAllBytes(file);
+                string extension = ".gz";
+                int i = 0;
+                while (File.Exists(file + extension))
+                {
+                    extension = $"({i++}).gz";
                 }
-            }
+                using (FileStream fileStream = new FileStream(file + extension, FileMode.Create))
+                {
+                    using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
+                    {
+                        int lenght = fileBytes.Length / 100;
+                        for (int j = 0; j < 100; j++)
+                        {
+                            gZipStream.Write(fileBytes, j * lenght, lenght);
+                            threads[0]++;
+                        }
+                        gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
+                    }
+                }
+            });
+            task.Start();
+            var task2 = Task.WhenAll(task).ContinueWith(param => { MessageBox.Show("File Successfully compressed!"); });
         }
 
         public void Compress2(string fileName)

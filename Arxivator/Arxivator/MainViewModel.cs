@@ -91,8 +91,6 @@ namespace Arxivator
 
                 MessageBox.Show(ex.Message);
             }
-
-            MessageBox.Show("File Successfully compressed!");
         }
 
         public bool CheckExstension()
