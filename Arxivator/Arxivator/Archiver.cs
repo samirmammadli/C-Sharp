@@ -49,9 +49,9 @@ namespace Arxivator
             }
             var task = new Task(() =>
             {
-                using (MemoryStream fileStream = new MemoryStream())
+                using (MemoryStream mStream = new MemoryStream())
                 {
-                    using (GZipStream gZipStream = new GZipStream(fileStream, CompressionMode.Compress))
+                    using (GZipStream gZipStream = new GZipStream(mStream, CompressionMode.Compress))
                     {
                         int lenght = fileBytes.Length / 100;
                         for (int j = 0; j < 100; j++)
@@ -60,7 +60,11 @@ namespace Arxivator
                             progress[0]++;
                         }
                         gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
+                    }
 
+                    using (FileStream fileStream = new FileStream(file +extension, FileMode.Create))
+                    {
+                        mStream.WriteTo(fileStream);
                     }
                 }
             });
