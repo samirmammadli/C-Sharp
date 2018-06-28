@@ -16,7 +16,7 @@ namespace Arxivator
     {
         static public int counter = 0;
 
-        public void Compress(string file, ObservableCollection<int> threads)
+        public void Compress(string file, ObservableCollection<int> progress)
         {
             var task = new Task(() =>
             {
@@ -35,9 +35,15 @@ namespace Arxivator
                         for (int j = 0; j < 100; j++)
                         {
                             gZipStream.Write(fileBytes, j * lenght, lenght);
-                            threads[0]++;
+                            progress[0]++;
                         }
+                       
                         gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
+                        
+                        //File.WriteAllBytes(file + extension, fileStream.ToArray());
+                        //MessageBox.Show(fileStream.ToArray().Length.ToString());
+
+
                     }
                 }
             });
@@ -72,12 +78,6 @@ namespace Arxivator
             });
             task.Start();
             var task2 = Task.WhenAll(task).ContinueWith(param => { MessageBox.Show("File Successfully compressed!"); });
-        }
-
-        public void Compress2(string fileName)
-        {
-            ThreadPool.QueueUserWorkItem(Test, fileName);
-
         }
 
         public void Decompress(string fileName)
