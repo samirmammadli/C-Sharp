@@ -39,12 +39,6 @@ namespace Arxivator
                 Buffer.BlockCopy(bytes, chunkSize * count, chunk1, 0, rest);
                 list.Add(chunk1);
             }
-
-            MessageBox.Show(bytes.Length.ToString());
-            foreach (var item in list)
-            {
-                MessageBox.Show(item.Length.ToString());
-            }
             return list;
         }
 
@@ -104,8 +98,10 @@ namespace Arxivator
                 var list = new List<byte>();
                 for (int i = 0; i < threads.Count; i++)
                 {
+                    MessageBox.Show(threads[i].Result.Length.ToString());
                     foreach (var item in threads[i].Result)
                     {
+                        
                         list.Add(item);
                     }
                 }
