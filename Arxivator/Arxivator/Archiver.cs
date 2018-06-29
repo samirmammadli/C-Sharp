@@ -61,11 +61,7 @@ namespace Arxivator
                         }
                         gZipStream.Write(fileBytes, lenght * 100, fileBytes.Length - lenght * 100);
                     }
-
-                    using (FileStream fileStream = new FileStream(file +extension, FileMode.Create))
-                    {
-                        mStream.WriteTo(fileStream);
-                    }
+                    File.WriteAllBytes(file + extension, mStream.ToArray());
                 }
             });
             task.Start();
