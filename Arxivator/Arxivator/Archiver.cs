@@ -33,9 +33,18 @@ namespace Arxivator
             }
 
             var rest = bytes.Length - chunkSize * count;
-            var chunk1 = new byte[rest];
-            Buffer.BlockCopy(bytes, chunkSize * count, chunk1, 0, rest);
-            list.Add(chunk1);
+            if (rest != 0 )
+            {
+                var chunk1 = new byte[rest];
+                Buffer.BlockCopy(bytes, chunkSize * count, chunk1, 0, rest);
+                list.Add(chunk1);
+            }
+
+            MessageBox.Show(bytes.Length.ToString());
+            foreach (var item in list)
+            {
+                MessageBox.Show(item.Length.ToString());
+            }
             return list;
         }
 
@@ -44,66 +53,93 @@ namespace Arxivator
 
             var fileBytes = File.ReadAllBytes(file);
             var inputChunks = ParseBytes(fileBytes, threadsCount);
-            var threads = new List<Task>();
+            var threads = new List<Task<byte[]>>();
             string extension = ".gz";
             var outputChunks = new List<byte[]>();
             for (int i = 0; i < progress.Count; i++)
             {
                 progress[i] = 0;
             }
-            
+            var obj = new object();
             for (int i = 0; i < inputChunks.Count; i++)
             {
                 int iter = i;
-                threads.Add(new Task(() =>
+                threads.Add(new Task<byte[]>(() =>
                 {
-                    try
+                    using (MemoryStream mStream = new MemoryStream())
                     {
-                        MessageBox.Show(inputChunks[iter].Length.ToString());
-                        using (MemoryStream mStream = new MemoryStream())
+                        using (GZipStream gZipStream = new GZipStream(mStream, CompressionMode.Compress))
                         {
-                            using (GZipStream gZipStream = new GZipStream(mStream, CompressionMode.Compress))
+                            int lenght = inputChunks[iter].Length / 100;
+                            if (lenght < 1)
                             {
-                                int lenght = inputChunks[iter].Length / 100;
-                                if (lenght < 1)
-                                {
-                                    gZipStream.Write(inputChunks[i], 0, inputChunks[iter].Length);
-                                    progress[iter] = 100;
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < 100; j++)
-                                    {
-                                        gZipStream.Write(inputChunks[iter], j * lenght, lenght);
-                                        progress[iter]++;
-                                    }
-                                    gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
-                                }
+                                gZipStream.Write(inputChunks[iter], 0, inputChunks[iter].Length);
+                                progress[iter] = 100;
                             }
-                            outputChunks.Add(mStream.ToArray());
+                            else
+                            {
+                                for (int j = 0; j < 100; j++)
+                                {
+                                    gZipStream.Write(inputChunks[iter], j * lenght, lenght);
+                                    progress[iter]++;
+                                }
+                                gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
+                            }
                         }
+                        return mStream.ToArray();
+                        //lock (obj)
+                        //{
+                        //    var arr = mStream.ToArray();
+                        //    MessageBox.Show(arr.Length.ToString());
+                        //    outputChunks.Add(arr);
+                        //    //MessageBox.Show(outputChunks[0].Length.ToString());
+                        //}
+
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    
                 }));
             }
             threads.ForEach(x => x.Start());
-            //var task2 = Task.WhenAll(threads).ContinueWith(param => { MessageBox.Show("File Successfully compressed!"); });
-
             var task2 = Task.WhenAll(threads).ContinueWith(param =>
             {
-                using (var fs = new FileStream(file + extension, FileMode.Create))
+                var list = new List<byte>();
+                for (int i = 0; i < threads.Count; i++)
                 {
-                    int offset = 0;
-                    foreach (var item in outputChunks)
+                    foreach (var item in threads[i].Result)
                     {
-                        fs.Write(item, offset, item.Length);
-                        offset = item.Length;
+                        list.Add(item);
                     }
                 }
+                
+                File.WriteAllBytes(file + extension, list.ToArray());
+                //using (var fs = new FileStream(file + extension, FileMode.Create))
+                //{
+                //    try
+                //    {
+                        
+                //        for (int i = 0; i < threads.Count; i++)
+                //        {
+                //            foreach (var item in threads[i].Result)
+                //            {
+                //                fs.WriteByte(item);
+                //            }
+                //        }
+
+                //        //int offset = 0;
+                //        //for (int i = 0; i < threads.Count; i++)
+                //        //{
+                //        //    //MessageBox.Show(item.Result.Length.ToString());
+                //        //    fs.Write(threads[i].Result, offset, threads[i].Result.Length);
+                //        //    offset += threads[i].Result.Length;
+
+                //        //    MessageBox.Show(fs.Length.ToString() + "     "  + offset.ToString());
+                //        //}
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        MessageBox.Show(ex.Message);
+                //    }
+                    
+                //}
                 MessageBox.Show("Success!");
             });
         }
