@@ -105,7 +105,6 @@ namespace Arxivator
                         list.Add(item);
                     }
                 }
-                
                 File.WriteAllBytes(file + extension, list.ToArray());
                 //using (var fs = new FileStream(file + extension, FileMode.Create))
                 //{
