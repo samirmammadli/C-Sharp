@@ -32,7 +32,8 @@ namespace Arxivator
                 list.Add(chunk);
             }
 
-            var rest = bytes.Length - chunkSize * count;
+            var rest = bytes.Length - chunkSize * (count - 1);
+            MessageBox.Show(rest.ToString());
             if (rest != 0 )
             {
                 var chunk1 = new byte[rest];
@@ -98,7 +99,6 @@ namespace Arxivator
                 var list = new List<byte>();
                 for (int i = 0; i < threads.Count; i++)
                 {
-                    MessageBox.Show(threads[i].Result.Length.ToString());
                     foreach (var item in threads[i].Result)
                     {
                         
