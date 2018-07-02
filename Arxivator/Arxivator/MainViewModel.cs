@@ -73,7 +73,7 @@ namespace Arxivator
             get
             {
                 return compressCommand ?? (compressCommand = new RelayCommand(
-                    () => { Compress(SelectedFile); IsCompleted = false; }, () => (SelectedFile != null && !CheckExstension() && IsCompleted)
+                    () => { Compress(SelectedFile); }, () => (SelectedFile != null && !CheckExstension() && IsCompleted)
                 ));
             }
         }

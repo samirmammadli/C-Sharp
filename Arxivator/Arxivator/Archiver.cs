@@ -24,7 +24,7 @@ namespace Arxivator
                 list.Add(bytes);
                 return list;
             }
-
+            var rest = bytes.Length - chunkSize * (count - 1);
             for (int i = 0; i < count - 1; i++)
             {
                 var chunk = new byte[chunkSize];
@@ -32,14 +32,10 @@ namespace Arxivator
                 list.Add(chunk);
             }
 
-            var rest = bytes.Length - chunkSize * (count - 1);
-            MessageBox.Show(rest.ToString());
-            if (rest != 0 )
-            {
-                var chunk1 = new byte[rest];
-                Buffer.BlockCopy(bytes, chunkSize * count, chunk1, 0, rest);
-                list.Add(chunk1);
-            }
+            var chunk1 = new byte[rest];
+            Buffer.BlockCopy(bytes, chunkSize * (count - 1), chunk1, 0, rest);
+            list.Add(chunk1);
+
             return list;
         }
 
