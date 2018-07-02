@@ -82,14 +82,6 @@ namespace Arxivator
                             }
                         }
                         return mStream.ToArray();
-                        //lock (obj)
-                        //{
-                        //    var arr = mStream.ToArray();
-                        //    MessageBox.Show(arr.Length.ToString());
-                        //    outputChunks.Add(arr);
-                        //    //MessageBox.Show(outputChunks[0].Length.ToString());
-                        //}
-
                     }
                 }));
             }
@@ -106,35 +98,6 @@ namespace Arxivator
                     }
                 }
                 File.WriteAllBytes(file + extension, list.ToArray());
-                //using (var fs = new FileStream(file + extension, FileMode.Create))
-                //{
-                //    try
-                //    {
-                        
-                //        for (int i = 0; i < threads.Count; i++)
-                //        {
-                //            foreach (var item in threads[i].Result)
-                //            {
-                //                fs.WriteByte(item);
-                //            }
-                //        }
-
-                //        //int offset = 0;
-                //        //for (int i = 0; i < threads.Count; i++)
-                //        //{
-                //        //    //MessageBox.Show(item.Result.Length.ToString());
-                //        //    fs.Write(threads[i].Result, offset, threads[i].Result.Length);
-                //        //    offset += threads[i].Result.Length;
-
-                //        //    MessageBox.Show(fs.Length.ToString() + "     "  + offset.ToString());
-                //        //}
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        MessageBox.Show(ex.Message);
-                //    }
-                    
-                //}
                 MessageBox.Show("Success!");
             });
         }
