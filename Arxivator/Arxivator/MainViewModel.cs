@@ -30,6 +30,15 @@ namespace Arxivator
             set { Set(ref selectedCount, value); }
         }
 
+        private bool isCompleted;
+
+        public bool IsCompleted
+        {
+            get { return isCompleted; }
+            set { Set(ref isCompleted, value); }
+        }
+
+
 
         public MainViewModel()
         {
@@ -41,6 +50,7 @@ namespace Arxivator
                 ThreadsCount.Add(i + 1);
             }
             SelectedCount = threadsCount[0];
+            IsCompleted = true;
         }
 
         private string selectedFile;
@@ -63,7 +73,7 @@ namespace Arxivator
             get
             {
                 return compressCommand ?? (compressCommand = new RelayCommand(
-                    () => Compress(SelectedFile), () => (SelectedFile != null && !CheckExstension())
+                    () => { Compress(SelectedFile); IsCompleted = false; }, () => (SelectedFile != null && !CheckExstension() && IsCompleted)
                 ));
             }
         }
@@ -74,7 +84,7 @@ namespace Arxivator
             get
             {
                 return decompressCommand ?? (decompressCommand = new RelayCommand(
-                    () => MessageBox.Show(SelectedFile), () => (SelectedFile != null && CheckExstension())
+                    () => MessageBox.Show(SelectedFile), () => (SelectedFile != null && CheckExstension() && IsCompleted)
                 ));
             }
         }
