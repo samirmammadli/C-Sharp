@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 
 namespace Arxivator
 {
+
     class Archiver
     {
 
@@ -82,6 +83,7 @@ namespace Arxivator
                     }
                 }));
             }
+
             threads.ForEach(x => x.Start());
             var task2 = Task.WhenAll(threads).ContinueWith(param =>
             {
@@ -96,10 +98,12 @@ namespace Arxivator
                     }
                 }
                 File.WriteAllBytes(file + extension, list);
-                MessageBox.Show($"Success! Elapsed time - {(DateTime.Now.Ticks - time) / 1000}");
+                MessageBox.Show($"Success!\nElapsed time - {(DateTime.Now.Ticks - time) / 1000}");
                 GC.Collect();
             });
         }
+
+
 
         public void Decompress(string fileName)
         {
