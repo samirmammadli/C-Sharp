@@ -13,26 +13,29 @@ using System.Collections.ObjectModel;
 namespace Arxivator
 {
 
-    interface IArchiver
+    public delegate void CompressionDoneDelegate(bool isDone, long ticks);
+
+    public interface IArchiver
     {
+        event CompressionDoneDelegate CompressionDoneEventHandler;
         List<byte[]> ParseBytes(byte[] bytes, int count);
-        void Compress(string file, ArchiverParam parameters);
+        void Compress(string file, int threadsCount, ArchiverParam parameters);
     }
 
-    class ArchiverParam
+    public class ArchiverParam
     {
-        public ArchiverParam(ObservableCollection<int> progress, int threadsCount)
+        public ArchiverParam(ObservableCollection<int> progress)
         {
             Progress = progress;
-            ThreadsCount = threadsCount;
         }
 
         public ObservableCollection<int> Progress { get; set; }
-        public int ThreadsCount { get; set; }
     }
 
-    class Archiver : IArchiver
+    class GzipArchiver : IArchiver
     {
+        public event CompressionDoneDelegate CompressionDoneEventHandler;
+
         public List<byte[]> ParseBytes(byte[] bytes, int count)
         {
             var list = new List<byte[]>();
@@ -57,11 +60,10 @@ namespace Arxivator
             return list;
         }
 
-        public void Compress(string file, ArchiverParam parameters)
+        public void Compress(string file, int threadsCount, ArchiverParam parameters)
         {
-
             var fileBytes = File.ReadAllBytes(file);
-            var inputChunks = ParseBytes(fileBytes, parameters.ThreadsCount);
+            var inputChunks = ParseBytes(fileBytes, threadsCount);
             var threads = new List<Task<byte[]>>();
             string extension = ".gz";
             var outputChunks = new List<byte[]>();
@@ -70,7 +72,7 @@ namespace Arxivator
                 parameters.Progress[i] = 0;
             }
             var obj = new object();
-            long time = DateTime.Now.Ticks;
+            long start = DateTime.Now.Ticks;
             for (int i = 0; i < inputChunks.Count; i++)
             {
                 int iter = i;
@@ -100,8 +102,12 @@ namespace Arxivator
                     }
                 }));
             }
-
             threads.ForEach(x => x.Start());
+            WhenCompressThreadsDone(file + extension, threads, start);
+        }
+
+        public void WhenCompressThreadsDone(string filename, List<Task<byte[]>> threads, long ticks)
+        {
             var task2 = Task.WhenAll(threads).ContinueWith(param =>
             {
                 var list = new byte[threads.Sum(x => x.Result.Length)];
@@ -113,14 +119,12 @@ namespace Arxivator
                         list[counter] = item2;
                         counter++;
                     }
-                }
-                File.WriteAllBytes(file + extension, list);
-                MessageBox.Show($"Success!\nElapsed time - {(DateTime.Now.Ticks - time) / 1000}");
+                } 
+                File.WriteAllBytes(filename, list);
+                CompressionDoneEventHandler?.Invoke(true, (DateTime.Now.Ticks - ticks) / 1000);
                 GC.Collect();
             });
         }
-
-
 
         public void Decompress(string fileName)
         {

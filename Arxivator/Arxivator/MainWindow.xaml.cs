@@ -17,17 +17,8 @@ namespace Arxivator
         public MainWindow()
         {
             InitializeComponent();
-            MainVM = new MainViewModel();
+            MainVM = new MainViewModel(new GzipArchiver());
             DataContext = MainVM;
-        }
-
-        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog();
-            if (dialog.ShowDialog() == true)
-            {
-                MainVM.SelectedFile = dialog.FileName;
-            }
         }
 
         private void btnDecompress_Click(object sender, RoutedEventArgs e)

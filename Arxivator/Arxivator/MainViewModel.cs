@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,6 @@ namespace Arxivator
     public class MainViewModel : ViewModelBase
     {
         private ObservableCollection<int> threadsCount;
-
         public ObservableCollection<int> ThreadsCount
         {
             get { return threadsCount; }
@@ -23,24 +23,22 @@ namespace Arxivator
         }
 
         private int selectedCount;
-
         public int SelectedCount
         {
             get { return selectedCount; }
             set { Set(ref selectedCount, value); }
         }
 
-        private bool isCompleted;
+        public IArchiver Archiver { get; set; }
 
+        private bool isCompleted;
         public bool IsCompleted
         {
             get { return isCompleted; }
             set { Set(ref isCompleted, value); }
         }
 
-
-
-        public MainViewModel()
+        public MainViewModel(IArchiver archiver)
         {
             Progress = new ObservableCollection<int>();
             ThreadsCount = new ObservableCollection<int>();
@@ -51,6 +49,8 @@ namespace Arxivator
             }
             SelectedCount = threadsCount[0];
             IsCompleted = true;
+            Archiver = archiver;
+            Archiver.CompressionDoneEventHandler += IsCompressiondone;
         }
 
         private string selectedFile;
@@ -73,10 +73,29 @@ namespace Arxivator
             get
             {
                 return compressCommand ?? (compressCommand = new RelayCommand(
-                    () => { Compress(SelectedFile); }, () => (SelectedFile != null && !CheckExstension() && IsCompleted)
+                    () => { Compress(SelectedFile); IsCompleted = false; }, () => (SelectedFile != null && !CheckExstension() && IsCompleted)
                 ));
             }
         }
+
+        private RelayCommand openFile;
+
+        public RelayCommand OpenFile
+        {
+            get
+            {
+                return openFile ?? (openFile = new RelayCommand(
+                    () => {
+                        var dialog = new OpenFileDialog();
+                        if (dialog.ShowDialog() == true)
+                        {
+                            SelectedFile = dialog.FileName;
+                        }
+                    }, () => isCompleted 
+                    ));
+            }
+        }
+
 
         private RelayCommand decompressCommand;
         public RelayCommand DecompressCommand
@@ -93,14 +112,18 @@ namespace Arxivator
         {
             try
             {
-                var archiver = new Archiver();
-                archiver.Compress(SelectedFile, new ArchiverParam(Progress, SelectedCount));
+                Archiver.Compress(SelectedFile, SelectedCount, new ArchiverParam(Progress));
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        public void IsCompressiondone(bool isDone, long ticks)
+        {
+            MessageBox.Show($"Success!\nElapsed time - {ticks}");
+            IsCompleted = isDone;
         }
 
         public bool CheckExstension()
