@@ -13,9 +13,26 @@ using System.Collections.ObjectModel;
 namespace Arxivator
 {
 
-    class Archiver
+    interface IArchiver
     {
+        List<byte[]> ParseBytes(byte[] bytes, int count);
+        void Compress(string file, ArchiverParam parameters);
+    }
 
+    class ArchiverParam
+    {
+        public ArchiverParam(ObservableCollection<int> progress, int threadsCount)
+        {
+            Progress = progress;
+            ThreadsCount = threadsCount;
+        }
+
+        public ObservableCollection<int> Progress { get; set; }
+        public int ThreadsCount { get; set; }
+    }
+
+    class Archiver : IArchiver
+    {
         public List<byte[]> ParseBytes(byte[] bytes, int count)
         {
             var list = new List<byte[]>();
@@ -40,17 +57,17 @@ namespace Arxivator
             return list;
         }
 
-        public void Compress(string file, ObservableCollection<int> progress, int threadsCount)
+        public void Compress(string file, ArchiverParam parameters)
         {
 
             var fileBytes = File.ReadAllBytes(file);
-            var inputChunks = ParseBytes(fileBytes, threadsCount);
+            var inputChunks = ParseBytes(fileBytes, parameters.ThreadsCount);
             var threads = new List<Task<byte[]>>();
             string extension = ".gz";
             var outputChunks = new List<byte[]>();
-            for (int i = 0; i < progress.Count; i++)
+            for (int i = 0; i < parameters.Progress.Count; i++)
             {
-                progress[i] = 0;
+                parameters.Progress[i] = 0;
             }
             var obj = new object();
             long time = DateTime.Now.Ticks;
@@ -67,14 +84,14 @@ namespace Arxivator
                             if (lenght < 1)
                             {
                                 gZipStream.Write(inputChunks[iter], 0, inputChunks[iter].Length);
-                                progress[iter] = 100;
+                                parameters.Progress[iter] = 100;
                             }
                             else
                             {
                                 for (int j = 0; j < 100; j++)
                                 {
                                     gZipStream.Write(inputChunks[iter], j * lenght, lenght);
-                                    progress[iter]++;
+                                    parameters.Progress[iter]++;
                                 }
                                 gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
                             }

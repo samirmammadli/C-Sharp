@@ -94,7 +94,7 @@ namespace Arxivator
             try
             {
                 var archiver = new Archiver();
-                archiver.Compress(SelectedFile, Progress, SelectedCount);
+                archiver.Compress(SelectedFile, new ArchiverParam(Progress, SelectedCount));
             }
             catch (Exception ex)
             {
