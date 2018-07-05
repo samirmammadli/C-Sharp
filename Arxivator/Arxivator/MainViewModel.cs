@@ -112,7 +112,7 @@ namespace Arxivator
         {
             try
             {
-                Archiver.Compress(SelectedFile, SelectedCount, new ArchiverParam(Progress));
+                Archiver.Compress(SelectedFile, selectedCount, new ArchiverParam(Progress));
             }
             catch (Exception ex)
             {
