@@ -99,6 +99,7 @@ namespace Arxivator
                             }
                         }
                         return mStream.ToArray();
+                        d
                     }
                 }));
             }
