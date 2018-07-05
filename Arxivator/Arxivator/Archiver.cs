@@ -67,7 +67,6 @@ namespace Arxivator
             var inputChunks = ParseBytes(fileBytes, threadsCount);
             var threads = new List<Task<byte[]>>();
             string extension = ".gz";
-            var outputChunks = new List<byte[]>();
             for (int i = 0; i < parameters.Progress.Count; i++)
             {
                 parameters.Progress[i] = 0;
