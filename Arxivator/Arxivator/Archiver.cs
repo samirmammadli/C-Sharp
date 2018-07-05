@@ -13,13 +13,14 @@ using System.Collections.ObjectModel;
 namespace Arxivator
 {
 
-    public delegate void CompressionDoneDelegate(bool isDone, long ticks);
+    public delegate void CompressionDoneDelegate(bool isDone, string message);
 
     public interface IArchiver
     {
         event CompressionDoneDelegate CompressionDoneEventHandler;
         List<byte[]> ParseBytes(byte[] bytes, int count);
         void Compress(string file, int threadsCount, ArchiverParam parameters);
+        void Decompress(string filename);
     }
 
     public class ArchiverParam
@@ -108,20 +109,39 @@ namespace Arxivator
 
         public void WhenCompressThreadsDone(string filename, List<Task<byte[]>> threads, long ticks)
         {
-            var task2 = Task.WhenAll(threads).ContinueWith(param =>
-            {
-                var list = new byte[threads.Sum(x => x.Result.Length)];
-                int offset = 0;
-                threads.ForEach(x => { Buffer.BlockCopy(x.Result, 0, list, offset, x.Result.Length); offset += x.Result.Length; });
-                File.WriteAllBytes(filename, list);
-                CompressionDoneEventHandler?.Invoke(true, (DateTime.Now.Ticks - ticks) / 1000);
-                GC.Collect();
-            });
+
+                var task2 = Task.WhenAll(threads).ContinueWith(param =>
+                {
+                    try
+                    {
+                        var list = new byte[threads.Sum(x => x.Result.Length)];
+                        int offset = 0;
+                        threads.ForEach(x => { Buffer.BlockCopy(x.Result, 0, list, offset, x.Result.Length); offset += x.Result.Length; });
+                        File.WriteAllBytes(filename, list);
+                        CompressionDoneEventHandler?.Invoke(true, $"Success!\nElapsed time - {(DateTime.Now.Ticks - ticks) / 1000}");
+                        GC.Collect();
+                    }
+                    catch (Exception ex)
+                    {
+                        CompressionDoneEventHandler?.Invoke(true, ex.Message);
+                    }
+                }); 
         }
 
         public void Decompress(string fileName)
         {
+            try
+            {
+                byte[] arr = new byte[10] { 31, 139, 8, 0, 0, 0, 0, 0, 4, 0 };
+                
+                File.WriteAllBytes(@"D:\k70\test", arr);
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message);
+            }
+            MessageBox.Show("hazir");
         }
     }
 }

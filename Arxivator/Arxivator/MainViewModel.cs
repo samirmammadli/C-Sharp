@@ -103,7 +103,7 @@ namespace Arxivator
             get
             {
                 return decompressCommand ?? (decompressCommand = new RelayCommand(
-                    () => MessageBox.Show(SelectedFile), () => (SelectedFile != null && CheckExstension() && IsCompleted)
+                    () => Archiver.Decompress(""), () => (SelectedFile != null && CheckExstension() && IsCompleted)
                 ));
             }
         }
@@ -120,9 +120,9 @@ namespace Arxivator
             }
         }
 
-        public void IsCompressiondone(bool isDone, long ticks)
+        public void IsCompressiondone(bool isDone, string message)
         {
-            MessageBox.Show($"Success!\nElapsed time - {ticks}");
+            MessageBox.Show(message);
             IsCompleted = isDone;
         }
 

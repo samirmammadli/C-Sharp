@@ -20,10 +20,5 @@ namespace Arxivator
             MainVM = new MainViewModel(new GzipArchiver());
             DataContext = MainVM;
         }
-
-        private void btnDecompress_Click(object sender, RoutedEventArgs e)
-        {
-            MainVM.SelectedFile = null;
-        }
     }
 }
