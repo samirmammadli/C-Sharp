@@ -99,7 +99,6 @@ namespace Arxivator
                             }
                         }
                         return mStream.ToArray();
-                        d
                     }
                 }));
             }
@@ -112,15 +111,8 @@ namespace Arxivator
             var task2 = Task.WhenAll(threads).ContinueWith(param =>
             {
                 var list = new byte[threads.Sum(x => x.Result.Length)];
-                int counter = 0;
-                foreach (var item in threads)
-                {
-                    foreach (var item2 in item.Result)
-                    {
-                        list[counter] = item2;
-                        counter++;
-                    }
-                } 
+                int offset = 0;
+                threads.ForEach(x => { Buffer.BlockCopy(x.Result, 0, list, offset, x.Result.Length); offset += x.Result.Length; });
                 File.WriteAllBytes(filename, list);
                 CompressionDoneEventHandler?.Invoke(true, (DateTime.Now.Ticks - ticks) / 1000);
                 GC.Collect();
