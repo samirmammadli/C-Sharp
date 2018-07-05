@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using System.IO;
-using System.Threading;
 using System.Windows;
-using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 
 namespace Arxivator
@@ -18,7 +15,6 @@ namespace Arxivator
     public interface IArchiver
     {
         event CompressionDoneDelegate CompressionDoneEventHandler;
-        List<byte[]> ParseBytes(byte[] bytes, int count);
         void Compress(string file, int threadsCount, ArchiverParam parameters);
         void Decompress(string filename);
     }
@@ -71,7 +67,6 @@ namespace Arxivator
             {
                 parameters.Progress[i] = 0;
             }
-            var obj = new object();
             long start = DateTime.Now.Ticks;
             for (int i = 0; i < inputChunks.Count; i++)
             {
@@ -109,7 +104,7 @@ namespace Arxivator
         public void WhenCompressThreadsDone(string filename, List<Task<byte[]>> threads, long ticks)
         {
 
-                var task2 = Task.WhenAll(threads).ContinueWith(param =>
+                Task.WhenAll(threads).ContinueWith(param =>
                 {
                     try
                     {
