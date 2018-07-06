@@ -18,15 +18,15 @@ namespace Arxivator
         private ObservableCollection<int> threadsCount;
         public ObservableCollection<int> ThreadsCount
         {
-            get { return threadsCount; }
-            set { Set(ref threadsCount, value); }
+            get => threadsCount;
+            set => Set(ref threadsCount, value);
         }
 
         private int selectedCount;
         public int SelectedCount
         {
-            get { return selectedCount; }
-            set { Set(ref selectedCount, value); }
+            get => selectedCount;
+            set => Set(ref selectedCount, value);
         }
 
         public IArchiver Archiver { get; set; }
@@ -34,15 +34,15 @@ namespace Arxivator
         private bool isCompleted;
         public bool IsCompleted
         {
-            get { return isCompleted; }
-            set { Set(ref isCompleted, value); }
+            get => isCompleted;
+            set => Set(ref isCompleted, value);
         }
 
         public MainViewModel(IArchiver archiver)
         {
             Progress = new ObservableCollection<int>();
             ThreadsCount = new ObservableCollection<int>();
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 Progress.Add(0);
                 ThreadsCount.Add(i + 1);
@@ -103,7 +103,7 @@ namespace Arxivator
             get
             {
                 return decompressCommand ?? (decompressCommand = new RelayCommand(
-                    () => Archiver.Decompress(""), () => (SelectedFile != null && CheckExstension() && IsCompleted)
+                    () => Archiver.Decompress(SelectedFile), () => (SelectedFile != null && CheckExstension() && IsCompleted)
                 ));
             }
         }
