@@ -9,10 +9,34 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Arxivator
 {
+    public class ProgressBarValues : ObservableObject
+    {
+        private string barName;
+        public string BarName
+        {
+            get => barName;
+            set => Set(ref barName, value);
+        }
+
+        private int barValue;
+        public int BarValue
+        {
+            get => barValue;
+            set => Set(ref barValue, value);
+        }
+
+        public ProgressBarValues(int number)
+        {
+            BarName = $"Thread {number + 1}:";
+            BarValue = 0;
+        }
+    }
+
     public class MainViewModel : ViewModelBase
     {
         private ObservableCollection<int> threadsCount;
@@ -40,17 +64,16 @@ namespace Arxivator
 
         public MainViewModel(IArchiver archiver)
         {
-            Progress = new ObservableCollection<int>();
             ThreadsCount = new ObservableCollection<int>();
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < Environment.ProcessorCount; i++)
             {
-                Progress.Add(0);
                 ThreadsCount.Add(i + 1);
             }
             SelectedCount = threadsCount[0];
             IsCompleted = true;
             Archiver = archiver;
             Archiver.CompressionDoneEventHandler += IsCompressiondone;
+            CountSelected();
         }
 
         private string selectedFile;
@@ -60,8 +83,8 @@ namespace Arxivator
             set => Set(ref selectedFile, value);
         }
 
-        private ObservableCollection<int> progress;
-        public ObservableCollection<int> Progress
+        private ObservableCollection<ProgressBarValues> progress;
+        public ObservableCollection<ProgressBarValues> Progress
         {
             get => progress;
             set => Set(ref progress, value);
@@ -108,6 +131,15 @@ namespace Arxivator
             }
         }
 
+        private RelayCommand addBarsCommand;
+        public RelayCommand AddBarsCommand
+        {
+            get
+            {
+                return addBarsCommand ?? (addBarsCommand = new RelayCommand(CountSelected));
+            }
+        }
+
         public void Compress(string fileName)
         {
             try
@@ -117,6 +149,15 @@ namespace Arxivator
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CountSelected()
+        {
+            Progress = new ObservableCollection<ProgressBarValues>();
+            for (int i = 0; i < selectedCount; i++)
+            {
+                Progress.Add(new ProgressBarValues(i));
             }
         }
 

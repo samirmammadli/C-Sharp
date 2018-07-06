@@ -21,12 +21,12 @@ namespace Arxivator
 
     public class ArchiverParam
     {
-        public ArchiverParam(ObservableCollection<int> progress)
+        public ArchiverParam(ObservableCollection<ProgressBarValues> progress)
         {
             Progress = progress;
         }
 
-        public ObservableCollection<int> Progress { get; set; }
+        public ObservableCollection<ProgressBarValues> Progress { get; set; }
     }
 
     public static class ByteArraySplitter
@@ -90,7 +90,7 @@ namespace Arxivator
             const string extension = ".gz";
             for (var i = 0; i < parameters.Progress.Count; i++)
             {
-                parameters.Progress[i] = 0;
+                parameters.Progress[i].BarValue = 0;
             }
             var start = DateTime.Now.Ticks;
             for (var i = 0; i < inputChunks.Count; i++)
@@ -106,14 +106,14 @@ namespace Arxivator
                             if (lenght < 1)
                             {
                                 gZipStream.Write(inputChunks[iter], 0, inputChunks[iter].Length);
-                                parameters.Progress[iter] = 100;
+                                parameters.Progress[iter].BarValue = 100;
                             }
                             else
                             {
                                 for (var j = 0; j < 100; j++)
                                 {
                                     gZipStream.Write(inputChunks[iter], j * lenght, lenght);
-                                    parameters.Progress[iter]++;
+                                    parameters.Progress[iter].BarValue++;
                                 }
                                 gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
                             }
@@ -166,7 +166,6 @@ namespace Arxivator
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
             MessageBox.Show("hazir");
