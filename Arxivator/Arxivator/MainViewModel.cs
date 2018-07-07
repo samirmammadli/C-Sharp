@@ -102,7 +102,6 @@ namespace Arxivator
         }
 
         private RelayCommand openFile;
-
         public RelayCommand OpenFile
         {
             get
