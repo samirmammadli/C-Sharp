@@ -137,8 +137,8 @@ namespace Arxivator
                         var offset = 0;
                         threads.ForEach(x => { Buffer.BlockCopy(x.Result, 0, list, offset, x.Result.Length); offset += x.Result.Length; });
                         File.WriteAllBytes(filename, list);
-                        CompressionDoneEventHandler?.Invoke(true, $"Success!\nElapsed time - {ElapsedTimeInSeconds(ticks, DateTime.Now.Ticks)} seconds.");
                         GC.Collect();
+                        CompressionDoneEventHandler?.Invoke(true, $"Success!\nElapsed time - {ElapsedTimeInSeconds(ticks, DateTime.Now.Ticks)} seconds.");
                     }
                     catch (Exception ex)
                     {
