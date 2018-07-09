@@ -208,6 +208,24 @@ namespace Arxivator
             }
         }
 
+        //private void DecompressThreadsAdd(List<Task<byte[]>> threads, int offset, int count, byte[] file)
+        //{
+        //    threads.Add(new Task<byte[]>(() =>
+        //    {
+        //        using (var source = new MemoryStream(file, offset, count))
+        //        {
+        //            using (var target = new MemoryStream())
+        //            {
+        //                using (var gZipStream = new GZipStream(source, CompressionMode.Decompress))
+        //                {
+        //                    gZipStream.CopyTo(target);
+        //                }
+        //                return target.ToArray();
+        //            }
+        //        }
+        //    }));
+        //}
+
         private void DecompressThreadsAdd(List<Task<byte[]>> threads, int offset, int count, byte[] file)
         {
             threads.Add(new Task<byte[]>(() =>
