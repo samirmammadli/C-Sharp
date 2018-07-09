@@ -212,7 +212,6 @@ namespace Arxivator
         {
             threads.Add(new Task<byte[]>(() =>
             {
-                byte[] ar4ik = new byte[count];
                 using (var source = new MemoryStream(file, offset, count))
                 {
                     using (var target = new MemoryStream())
