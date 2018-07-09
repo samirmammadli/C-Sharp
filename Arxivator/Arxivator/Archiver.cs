@@ -57,6 +57,7 @@ namespace Arxivator
     class GzipArchiver : IArchiver
     {
         public event CompressionDoneDelegate CompressionDoneEventHandler;
+        private static readonly byte[] gzipHeader = new byte[] { 31, 139, 8, 0, 0, 0, 0, 0, 4, 0 };
 
         public List<byte[]> ParseBytes(byte[] bytes, int count)
         {
@@ -98,27 +99,35 @@ namespace Arxivator
                 var iter = i;
                 threads.Add(new Task<byte[]>(() =>
                 {
-                    using (var mStream = new MemoryStream())
+                    try
                     {
-                        using (var gZipStream = new GZipStream(mStream, CompressionMode.Compress))
+                        using (var mStream = new MemoryStream())
                         {
-                            var lenght = inputChunks[iter].Length / 100;
-                            if (lenght < 1)
+                            using (var gZipStream = new GZipStream(mStream, CompressionMode.Compress))
                             {
-                                gZipStream.Write(inputChunks[iter], 0, inputChunks[iter].Length);
-                                parameters.Progress[iter].BarValue = 100;
-                            }
-                            else
-                            {
-                                for (var j = 0; j < 100; j++)
+                                var lenght = inputChunks[iter].Length / 100;
+                                if (lenght < 1)
                                 {
-                                    gZipStream.Write(inputChunks[iter], j * lenght, lenght);
-                                    parameters.Progress[iter].BarValue++;
+                                    gZipStream.Write(inputChunks[iter], 0, inputChunks[iter].Length);
+                                    parameters.Progress[iter].BarValue = 100;
                                 }
-                                gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
+                                else
+                                {
+                                    for (var j = 0; j < 100; j++)
+                                    {
+                                        gZipStream.Write(inputChunks[iter], j * lenght, lenght);
+                                        parameters.Progress[iter].BarValue++;
+                                    }
+                                    gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
+                                }
                             }
+                            return mStream.ToArray();
                         }
-                        return mStream.ToArray();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return null;
                     }
                 }));
             }
@@ -156,19 +165,66 @@ namespace Arxivator
         {
             try
             {
+                var start = DateTime.Now.Ticks;
                 var file = File.ReadAllBytes(fileName);
-                var arr = new byte[] { 31, 139, 8, 0, 0, 0, 0, 0, 4, 0 };
-                var splitted = file.SearchBytePattern(arr);
-                foreach (var item in splitted)
+                fileName = fileName.Remove(fileName.Length - 3, 3);
+                var count = file.SearchBytePattern(gzipHeader);
+                if (count.Count == 0 || count[0] != 0)
                 {
-                    MessageBox.Show(item.ToString());
+                    CompressionDoneEventHandler?.Invoke(true, "File is not an archive, or damaged!");
+                    return;
                 }
+
+                var threads = new List<Task<byte[]>>();
+                var offset = 0;
+                try
+                {
+                    if (count.Count == 1)
+                    {
+                        DecompressThreadsAdd(threads, 0, file.Length, file);
+                    }
+                    else
+                    {
+                        for (int i = 1; i < count.Count; i++)
+                        {
+                            var iter = i;
+                            offset = count[iter - 1];
+                            DecompressThreadsAdd(threads, offset, count[iter] - offset, file);
+                        }
+                        DecompressThreadsAdd(threads, count.LastOrDefault(), file.Length - count.LastOrDefault() - 1, file);
+                        threads.ForEach(x => x.Start());
+                        WhenCompressThreadsDone(fileName, threads, start);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CompressionDoneEventHandler?.Invoke(true, ex.Message);
+                }
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("hazir");
+        }
+
+        private void DecompressThreadsAdd(List<Task<byte[]>> threads, int offset, int count, byte[] file)
+        {
+            threads.Add(new Task<byte[]>(() =>
+            {
+                byte[] ar4ik = new byte[count];
+                using (var source = new MemoryStream(file, offset, count))
+                {
+                    using (var target = new MemoryStream())
+                    {
+                        using (var gZipStream = new GZipStream(source, CompressionMode.Decompress))
+                        {
+                            gZipStream.CopyTo(target);
+                        }
+                        return target.ToArray();
+                    }
+                }
+            }));
         }
     }
 }
