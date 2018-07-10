@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
-using Microsoft.Win32;
+﻿using System.Windows;
+using Arxivator.Services;
 
 namespace Arxivator
 {

@@ -5,58 +5,15 @@ using System.Threading.Tasks;
 using System.IO.Compression;
 using System.IO;
 using System.Windows;
-using System.Collections.ObjectModel;
+using Arxivator.Extensions;
 
-namespace Arxivator
+namespace Arxivator.Services
 {
-
-    public delegate void CompressionDoneDelegate(bool isDone, string message);
-
-    public interface IArchiver
-    {
-        event CompressionDoneDelegate CompressionDoneEventHandler;
-        void Compress(string file, int threadsCount, ArchiverParam parameters);
-        void Decompress(string filename);
-    }
-
-    public class ArchiverParam
-    {
-        public ArchiverParam(ObservableCollection<ProgressBarValues> progress)
-        {
-            Progress = progress;
-        }
-
-        public ObservableCollection<ProgressBarValues> Progress { get; set; }
-    }
-
-    public static class ByteArraySplitter
-    {
-        public static List<int> SearchBytePattern(this byte[] bytes, byte[] pattern)
-        {
-            List<int> positions = new List<int>();
-            int patternLength = pattern.Length;
-            int totalLength = bytes.Length;
-            byte firstMatchByte = pattern[0];
-            for (int i = 0; i < totalLength; i++)
-            {
-                if (firstMatchByte == bytes[i] && totalLength - i >= patternLength) 
-                {
-                    byte[] match = new byte[patternLength];
-                    Array.Copy(bytes, i, match, 0, patternLength);
-                    if (match.SequenceEqual<byte>(pattern))
-                    {
-                        positions.Add(i);
-                        i += patternLength - 1;
-                    }
-                }
-            }
-            return positions;
-        }
-    }
-
     class GzipArchiver : IArchiver
     {
-        public event CompressionDoneDelegate CompressionDoneEventHandler;
+        public event CompressionDone CompressionDoneEventHandler;
+        public event ThreadsCountChanged ThreadsChanged;
+        public event ProgressChanged ProgressValueChanged;
         private static readonly byte[] gzipHeader = new byte[] { 31, 139, 8, 0, 0, 0, 0, 0, 4, 0 };
 
         public List<byte[]> ParseBytes(byte[] bytes, int count)
@@ -83,16 +40,13 @@ namespace Arxivator
             return list;
         }
 
-        public void Compress(string file, int threadsCount, ArchiverParam parameters)
+        public void Compress(string file, int threadsCount)
         {
             var fileBytes = File.ReadAllBytes(file);
             var inputChunks = ParseBytes(fileBytes, threadsCount);
+            ThreadsChanged?.Invoke(inputChunks.Count);
             var threads = new List<Task<byte[]>>();
             const string extension = ".gz";
-            for (var i = 0; i < parameters.Progress.Count; i++)
-            {
-                parameters.Progress[i].BarValue = 0;
-            }
             var start = DateTime.Now.Ticks;
             for (var i = 0; i < inputChunks.Count; i++)
             {
@@ -109,14 +63,14 @@ namespace Arxivator
                                 if (lenght < 1)
                                 {
                                     gZipStream.Write(inputChunks[iter], 0, inputChunks[iter].Length);
-                                    parameters.Progress[iter].BarValue = 100;
+                                    ProgressValueChanged?.Invoke(iter, 100);
                                 }
                                 else
                                 {
                                     for (var j = 0; j < 100; j++)
                                     {
                                         gZipStream.Write(inputChunks[iter], j * lenght, lenght);
-                                        parameters.Progress[iter].BarValue++;
+                                        ProgressValueChanged?.Invoke(iter);
                                     }
                                     gZipStream.Write(inputChunks[iter], lenght * 100, inputChunks[iter].Length - lenght * 100);
                                 }
@@ -163,81 +117,63 @@ namespace Arxivator
 
         public void Decompress(string fileName)
         {
+            var start = DateTime.Now.Ticks;
+            var file = File.ReadAllBytes(fileName);
+            fileName = fileName.Remove(fileName.Length - 3, 3);
+            var chunks = file.SearchBytePattern(gzipHeader);
+            ThreadsChanged?.Invoke(chunks.Count);
+            if (chunks.Count == 0 || chunks[0] != 0)
+            {
+                CompressionDoneEventHandler?.Invoke(true, "File is not an archive, or damaged!");
+                return;
+            }
+            var threads = new List<Task<byte[]>>();
+            var offset = 0;
             try
             {
-                var start = DateTime.Now.Ticks;
-                var file = File.ReadAllBytes(fileName);
-                fileName = fileName.Remove(fileName.Length - 3, 3);
-                var count = file.SearchBytePattern(gzipHeader);
-                if (count.Count == 0 || count[0] != 0)
+                if (chunks.Count == 1)
                 {
-                    CompressionDoneEventHandler?.Invoke(true, "File is not an archive, or damaged!");
-                    return;
+                    DecompressThreadsAdd(threads, 0, file.Length, file);
                 }
-
-                var threads = new List<Task<byte[]>>();
-                var offset = 0;
-                try
+                else
                 {
-                    if (count.Count == 1)
+                    for (int i = 1; i < chunks.Count; i++)
                     {
-                        DecompressThreadsAdd(threads, 0, file.Length, file);
+                        var iter = i;
+                        offset = chunks[iter - 1];
+                        DecompressThreadsAdd(threads, offset, chunks[iter] - offset, file);
                     }
-                    else
-                    {
-                        for (int i = 1; i < count.Count; i++)
-                        {
-                            var iter = i;
-                            offset = count[iter - 1];
-                            DecompressThreadsAdd(threads, offset, count[iter] - offset, file);
-                        }
-                        DecompressThreadsAdd(threads, count.LastOrDefault(), file.Length - count.LastOrDefault() - 1, file);
-                        threads.ForEach(x => x.Start());
-                        WhenCompressThreadsDone(fileName, threads, start);
-                    }
+                    DecompressThreadsAdd(threads, chunks.LastOrDefault(), file.Length - chunks.LastOrDefault() - 1, file);
                 }
-                catch (Exception ex)
-                {
-                    CompressionDoneEventHandler?.Invoke(true, ex.Message);
-                }
-                
+                threads.ForEach(x => x.Start());
+                WhenCompressThreadsDone(fileName, threads, start);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                CompressionDoneEventHandler?.Invoke(true, ex.Message);
             }
         }
 
-        //private void DecompressThreadsAdd(List<Task<byte[]>> threads, int offset, int count, byte[] file)
-        //{
-        //    threads.Add(new Task<byte[]>(() =>
-        //    {
-        //        using (var source = new MemoryStream(file, offset, count))
-        //        {
-        //            using (var target = new MemoryStream())
-        //            {
-        //                using (var gZipStream = new GZipStream(source, CompressionMode.Decompress))
-        //                {
-        //                    gZipStream.CopyTo(target);
-        //                }
-        //                return target.ToArray();
-        //            }
-        //        }
-        //    }));
-        //}
-
         private void DecompressThreadsAdd(List<Task<byte[]>> threads, int offset, int count, byte[] file)
         {
+            int threadCnt = threads.Count;
             threads.Add(new Task<byte[]>(() =>
             {
-                byte[] buffer = new byte[count / 100];
-                using (var source = new MemoryStream())
+                using (var source = new MemoryStream(file, offset, count))
                 {
                     using (var target = new MemoryStream())
                     {
                         using (var gZipStream = new GZipStream(source, CompressionMode.Decompress))
                         {
-                            gZipStream.CopyTo(target);
+                            var readed = 1;
+                            var bufferSize = count / 100 < 0 ? 1 : count / 100;
+                            var buffer = new byte[bufferSize];
+                            while (readed  != 0)
+                            {
+                                readed = gZipStream.Read(buffer, 0, bufferSize);
+                                target.Write(buffer, 0, readed);
+                                ProgressValueChanged?.Invoke(threadCnt);
+                            }
                         }
                         return target.ToArray();
                     }
