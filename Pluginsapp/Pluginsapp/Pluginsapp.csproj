@@ -113,6 +113,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AppDll\PluginDLL.csproj">
+      <Project>{eac5caac-100c-4252-9b6c-847e7bdc8453}</Project>
+      <Name>PluginDLL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

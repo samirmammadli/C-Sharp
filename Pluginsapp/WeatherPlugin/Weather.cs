@@ -15,10 +15,24 @@ namespace WeatherPlugin
         {
             using (var client = new WebClient())
             {
-                var query = $@"http://api.openweathermap.org/data/2.5/weather?q={input}&units=metric&appid=bf39fad37848cac5e2f9d0106327cc98";
-                var answer = client.DownloadString(query);
-                return query;
-                //dynamic output = JsonConvert.DeserializeObject(answer);
+                try
+                {
+                    var query = $@"http://api.openweathermap.org/data/2.5/weather?q={input}&units=metric&appid=bf39fad37848cac5e2f9d0106327cc98";
+                    var answer = client.DownloadString(query);
+                    dynamic output = JsonConvert.DeserializeObject(answer);
+                    answer = $"City name: {output.name}\n" +
+                        $"Country: {output.sys.country}\n" +
+                        $"City id: {output.id}\n" +
+                        $"Tempirature: {output.main.temp}\n";
+                    return answer;
+                }
+                catch (Exception ex)
+                {
+
+                    return ex.Message;
+                }
+               
+                
             }
         }
     }
