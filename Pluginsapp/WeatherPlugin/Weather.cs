@@ -35,5 +35,10 @@ namespace WeatherPlugin
                 
             }
         }
+
+        public override string ToString()
+        {
+            return "Weather Plugin";
+        }
     }
 }

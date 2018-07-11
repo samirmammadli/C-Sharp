@@ -15,10 +15,14 @@ namespace Pluginsapp.ViewModel
     class MainViewModel : ViewModelBase
     {
         private List<Assembly> assemblies;
+        public  List<IPlugin> Plugins { get; set; }
+        public IPlugin CurrentPlugin { get; set; }
         public MainViewModel()
         {
             assemblies = new List<Assembly>();
+            Plugins = new List<IPlugin>();
             LoadAllPlugins();
+            if(Plugins.Count > 0) CurrentPlugin = Plugins[0];
         }
         private void LoadAllPlugins()
         {
@@ -26,7 +30,6 @@ namespace Pluginsapp.ViewModel
             var dlls = di.GetFiles();
             foreach (var item in dlls)
             {
-                MessageBox.Show(item.FullName);
                 assemblies.Add(Assembly.LoadFile(item.FullName));
             }
 
@@ -35,9 +38,21 @@ namespace Pluginsapp.ViewModel
                 if (item.GetInterface("IPlugin") != null)
                 {
                     IPlugin obj = Activator.CreateInstance(item) as IPlugin;
-                    MessageBox.Show(obj.Request("baku"));
+                    Plugins.Add(obj);
                 }
             }
         }
+
+        //TODO
+        //private RelayCommand goCommand;
+        //public RelayCommand GoCommand
+        //{
+        //    get
+        //    {
+        //        return goCommand ?? (goCommand = new RelayCommand(
+        //                   () => 
+        //               ));
+        //    }
+        //}
     }
 }

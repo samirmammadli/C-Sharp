@@ -9,7 +9,7 @@
     <StackPanel>
         <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
             <Label FontSize="15">Select plugin: </Label>
-            <ComboBox/>
+            <ComboBox Height="22" ItemsSource="{Binding Plugins}" SelectedItem="{Binding CurrentPlugin}"/>
         </StackPanel>
         <Label>Enter data:</Label>
         <TextBox Margin="5" Height="50"></TextBox>
