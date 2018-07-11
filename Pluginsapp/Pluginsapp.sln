@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pluginsapp", "Pluginsapp\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPlugin", "WeatherPlugin\WeatherPlugin.csproj", "{90920FEC-4DB7-4A11-B6E4-B6A593F2CE54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginDLL", "AppDll\PluginDLL.csproj", "{EAC5CAAC-100C-4252-9B6C-847E7BDC8453}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{90920FEC-4DB7-4A11-B6E4-B6A593F2CE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90920FEC-4DB7-4A11-B6E4-B6A593F2CE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90920FEC-4DB7-4A11-B6E4-B6A593F2CE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC5CAAC-100C-4252-9B6C-847E7BDC8453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC5CAAC-100C-4252-9B6C-847E7BDC8453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC5CAAC-100C-4252-9B6C-847E7BDC8453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC5CAAC-100C-4252-9B6C-847E7BDC8453}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

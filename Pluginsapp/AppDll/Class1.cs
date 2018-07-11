@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-namespace WeatherPlugin
+namespace AppDll
 {
-    public class Weather
+    public interface IPlugin
     {
+        string Request(string input);
     }
 }
