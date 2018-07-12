@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:RemoteTaskManager.View"
         mc:Ignorable="d"
         Title="AppView" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <TextBox Name="tbInput" Height="20" Margin="5"></TextBox>
+        <Button HorizontalAlignment="Center"
+                Margin="5"
+                Command="{Binding SendMessage}"
+                CommandParameter="{Binding ElementName=tbInput, Path=Text}">Send
+        </Button>
+    </StackPanel>
 </Window>
