@@ -41,7 +41,9 @@ namespace Pluginsapp.ViewModel
                 assemblies.Add(Assembly.LoadFile(item.FullName));
             }
 
-            foreach (var item in assemblies[0].GetTypes())
+
+            var classes = assemblies.SelectMany(x => x.GetTypes());
+            foreach (var item in classes)
             {
                 if (item.GetInterface("IPlugin") != null)
                 {

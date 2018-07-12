@@ -31,8 +31,6 @@ namespace WeatherPlugin
 
                     return ex.Message;
                 }
-               
-                
             }
         }
 
