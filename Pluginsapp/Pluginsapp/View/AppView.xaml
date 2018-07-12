@@ -12,9 +12,9 @@
             <ComboBox Height="22" ItemsSource="{Binding Plugins}" SelectedItem="{Binding CurrentPlugin}"/>
         </StackPanel>
         <Label>Enter data:</Label>
-        <TextBox Margin="5" Height="50"></TextBox>
-        <Button HorizontalAlignment="Center" Width="50">Go</Button>
-        <TextBox Margin="5" Height="50" IsReadOnly="True"></TextBox>
+        <TextBox x:Name="tbInput" Margin="5" Height="50"/>
+        <Button HorizontalAlignment="Center" Width="50" Command="{Binding GoCommand}" CommandParameter="{Binding ElementName=tbInput,Path=Text}">Go</Button>
+        <TextBox Margin="5" Height="100" Text="{Binding OutputText}" IsReadOnly="True"/>
     </StackPanel>
 </Window>
  

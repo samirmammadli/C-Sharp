@@ -17,6 +17,14 @@ namespace Pluginsapp.ViewModel
         private List<Assembly> assemblies;
         public  List<IPlugin> Plugins { get; set; }
         public IPlugin CurrentPlugin { get; set; }
+
+        private string outputText;
+        public string OutputText
+        {
+            get => outputText;
+            set => Set(ref outputText, value);
+        }
+
         public MainViewModel()
         {
             assemblies = new List<Assembly>();
@@ -43,16 +51,20 @@ namespace Pluginsapp.ViewModel
             }
         }
 
-        //TODO
-        //private RelayCommand goCommand;
-        //public RelayCommand GoCommand
-        //{
-        //    get
-        //    {
-        //        return goCommand ?? (goCommand = new RelayCommand(
-        //                   () => 
-        //               ));
-        //    }
-        //}
+         private RelayCommand<string> goCommand;
+         public RelayCommand<string> GoCommand
+        {
+            get
+            {
+                return goCommand ?? (goCommand = new RelayCommand<string>(
+                          param => GetData(param), param => !String.IsNullOrWhiteSpace(param)
+                       ));
+            }
+        }
+
+        async public void GetData(string input)
+        {
+            OutputText = await Task.Run( () => CurrentPlugin.Request(input));
+        }
     }
 }
