@@ -25,21 +25,28 @@ namespace TaskManagerServer
             Console.OutputEncoding = Encoding.UTF8;
             TcpListener server = new TcpListener(IPAddress.Parse(ip), port);
             server.Start();
-            
+            byte[] buffer = new byte[255];
+
             while (true)
             {
                 var listener = server.AcceptTcpClient();
                 string ip = listener.Client.RemoteEndPoint.ToString();
                 using (var stream = listener.GetStream())
                 {
-                    using (var reader = new StreamReader(stream, Encoding.Unicode))
+                    int count = 0;
+                    while ((count = stream.Read(buffer, 0, buffer.Length)) != 0)
                     {
-                        msg = reader.ReadLine();
+                        msg = Encoding.Unicode.GetString(buffer, 0, count);
                     }
+
+                    var msg2 = Encoding.Unicode.GetBytes("sam ti salam, suka");
+                    stream.Write(msg2, 0, msg2.Length);
+                    Console.WriteLine("Vode srabotalo");
+
                 }
                 Console.WriteLine(msg + "    " + ip);
             }
-            
+
         }
     }
 

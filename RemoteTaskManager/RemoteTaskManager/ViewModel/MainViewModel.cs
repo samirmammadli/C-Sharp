@@ -14,13 +14,6 @@ namespace RemoteTaskManager.ViewModel
     {
         static string ip = "127.0.0.1";
         static int port = 8005;
-        private TcpClient client;
-
-        public MainViewModel()
-        {
-            client = new TcpClient();
-            client.Connect(ip, port);
-        }
 
         private RelayCommand<string> sendMessage;
         public RelayCommand<string> SendMessage
@@ -34,6 +27,8 @@ namespace RemoteTaskManager.ViewModel
 
         public void SendMsg(string message)
         {
+            var client = new TcpClient();
+            client.Connect(ip, port);
             using (var stream = client.GetStream())
             {
                 using (var writer = new StreamWriter(stream, Encoding.Unicode))
@@ -42,6 +37,7 @@ namespace RemoteTaskManager.ViewModel
                     writer.Flush();
                 }
             }
+            
         }
 
     }
