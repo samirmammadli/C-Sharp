@@ -6,14 +6,34 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RemoteTaskManager.ViewModel
 {
     class MainViewModel : ViewModelBase
     {
+        public MainViewModel()
+        {
+            StartServer();
+        }
+
+
         static string ip = "127.0.0.1";
         static int port = 8005;
+
+        private TcpClient client;
+        private byte[] buffer;
+        private NetworkStream stream;
+
+        private string incomingMsg;
+        public string IncomingMsg
+        {
+            get => incomingMsg;
+            set => Set(ref incomingMsg, value);
+        }
+
 
         private RelayCommand<string> sendMessage;
         public RelayCommand<string> SendMessage
@@ -27,16 +47,17 @@ namespace RemoteTaskManager.ViewModel
 
         public void SendMsg(string message)
         {
-            var client = new TcpClient();
+            
+            var msg2 = Encoding.Unicode.GetBytes(message);
+                stream.Write(msg2, 0, msg2.Length);
+        }
+
+        private void StartServer()
+        {
+            client = new TcpClient();
             client.Connect(ip, port);
-            using (var stream = client.GetStream())
-            {
-                using (var writer = new StreamWriter(stream, Encoding.Unicode))
-                {
-                    writer.WriteLine(message);
-                    writer.Flush();
-                }
-            }
+            stream = client.GetStream();
+            buffer = new byte[256];
             
         }
 
