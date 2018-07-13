@@ -11,11 +11,26 @@ using System.Threading.Tasks;
 
 namespace TaskManagerServer
 {
-    public class Message
-    {
-        public string IP { get; set; }
-        public string Text { get; set; }
-    }
+    //public class ClientInfo
+    //{
+    //    public string IP { get; set; }
+    //    public string Port { get; set; }
+    //    public string Text { get; set; }
+    //    public TcpClient Client { get; set; }
+
+    //    public ClientInfo(string ip, string port, TcpClient client)
+    //    {
+    //        IP = ip;
+    //        Port = port;
+    //    }
+
+    //    public override string ToString()
+    //    {
+    //        return $"Client Ip: {IP}\n" +
+    //               $"Client Port: {Port}\n" +
+    //               $"Client Message: {Text}";
+    //    }
+    //}
 
     public class TasksServer
     {
@@ -42,7 +57,7 @@ namespace TaskManagerServer
                 Console.WriteLine($"Client {++i} connected!");
                 Task.Run(() =>
                 {
-                    string clientIP = client.Client.RemoteEndPoint.ToString();
+                    string clientIP = client.Client.RemoteEndPoint.ToString().Split(':')[0];
                     var stream = client.GetStream();
                     while (true)
                     {
@@ -56,47 +71,16 @@ namespace TaskManagerServer
                         }
                         catch (Exception)
                         {
+                            lock (this) { i--; }
                             Console.WriteLine("viwel");
+                            stream.Close();
                             client.Close();
                             break;
                         }
                     }
                 });
             }
-
         }
-
-
-
-
-        // public void StartServer()
-        //{
-        //    Console.OutputEncoding = Encoding.UTF8;
-        //    TcpListener server = new TcpListener(IPAddress.Parse(ip), port);
-        //    byte[] buffer = new byte[255];
-
-        //    while (true)
-        //    {
-        //        server.Start();
-        //        var listener = server.AcceptTcpClient();
-        //        string clientIP = listener.Client.RemoteEndPoint.ToString();
-        //        var stream = listener.GetStream();
-        //        while (listener.GetState() == TcpState.Established)
-        //        {
-        //            if (stream.DataAvailable)
-        //            {
-        //                msg = "";
-        //                byte[] buffer2 = new byte[listener.Available];
-        //                stream.Read(buffer2, 0, buffer2.Length);
-        //                msg += Encoding.Unicode.GetString(buffer2, 0, buffer2.Length);
-        //                Console.WriteLine(msg + "    " + clientIP);
-        //            }
-        //        }
-        //        Console.WriteLine("server stopped");
-        //        server.Stop();
-        //    }
-
-        //}
     }
 
 
@@ -108,20 +92,6 @@ namespace TaskManagerServer
         {
             var srv = new TasksServer();
             srv.StartServer();
-        }
-    }
-
-    static class ExtensionMethods
-    {
-        public static TcpState GetState(this TcpClient tcpClient)
-        {
-            var foo = IPGlobalProperties.GetIPGlobalProperties()
-              .GetActiveTcpConnections()
-              .SingleOrDefault(x => x.LocalEndPoint.Equals(tcpClient.Client.LocalEndPoint)
-                                 && x.RemoteEndPoint.Equals(tcpClient.Client.RemoteEndPoint)
-              );
-
-            return foo != null ? foo.State : TcpState.Unknown;
         }
     }
 }
