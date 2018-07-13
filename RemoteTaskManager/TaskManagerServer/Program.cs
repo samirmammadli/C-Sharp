@@ -20,7 +20,7 @@ namespace TaskManagerServer
     public class TasksServer
     {
         string msg = "";
-        static int port = 8005; // порт для приема входящих запросов
+        static int port = 8005;
         static string ip = "127.0.0.1";
         public List<TcpClient> Connections { get; set; }
 
