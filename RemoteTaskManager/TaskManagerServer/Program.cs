@@ -35,27 +35,33 @@ namespace TaskManagerServer
             Console.OutputEncoding = Encoding.UTF8;
             TcpListener listener = new TcpListener(IPAddress.Parse(ip), port);
             listener.Start();
+            int i = 0;
             while (true)
             {
                 var client = listener.AcceptTcpClient();
-                string clientIP = client.Client.RemoteEndPoint.AddressFamily.ToString();
-                var stream = client.GetStream();
-                while (true)
+                Console.WriteLine($"Client {++i} connected!");
+                Task.Run(() =>
                 {
-                    try
+                    string clientIP = client.Client.RemoteEndPoint.ToString();
+                    var stream = client.GetStream();
+                    while (true)
                     {
-                        msg = "";
-                        byte[] buffer = new byte[client.Available];
-                        stream.Read(buffer, 0, buffer.Length);
-                        msg = Encoding.Unicode.GetString(buffer, 0, buffer.Length);
-                        if (msg.Length > 0) Console.WriteLine(msg + "    " + clientIP);
+                        try
+                        {
+                            msg = "";
+                            byte[] buffer = new byte[client.Available];
+                            stream.Read(buffer, 0, buffer.Length);
+                            msg = Encoding.Unicode.GetString(buffer, 0, buffer.Length);
+                            if (msg.Length > 0) Console.WriteLine(msg + "    " + clientIP);
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("viwel");
+                            client.Close();
+                            break;
+                        }
                     }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("viwel");
-                        break;
-                    }
-                }
+                });
             }
 
         }
