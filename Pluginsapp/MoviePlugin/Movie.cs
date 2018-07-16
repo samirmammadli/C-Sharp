@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -46,9 +47,23 @@ namespace MoviePlugin
 
         }
     }
-
+    [Serializable]
     public class Movie : IPlugin
     {
+        private static AppDomain domain;
+
+        public Movie()
+        {
+            domain = AppDomain.CurrentDomain;
+            domain.AssemblyResolve += Domain_AssemblyResolve;
+            domain.Load(AssemblyName.GetAssemblyName(@"Plugins\Newtonsoft.Json.dll"));
+        }
+
+        private Assembly Domain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            return  Assembly.LoadFile(@"C:\Users\Samir\Source\repos\C-Sharp\Pluginsapp\Pluginsapp\bin\Debug\Plugins\Newtonsoft.Json.dll");
+        }
+
         public string Request(string input)
         {
             try
