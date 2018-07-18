@@ -14,8 +14,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <wpfTool:WatermarkTextBox Watermark="Enter IP Address.." Width="200" Margin="5"></wpfTool:WatermarkTextBox>
-            <Button Width="80" Margin="5">Connect</Button>
+            <wpfTool:WatermarkTextBox x:Name="tbIp" Watermark="Enter IP Address.." Width="200" Margin="5"></wpfTool:WatermarkTextBox>
+            <Button Command="{Binding SendMessage}" CommandParameter="{Binding ElementName=tbIp, Path=Text}"  Width="80" Margin="5">Connect</Button>
         </StackPanel>
         <DataGrid Grid.Row="1"
             SelectedItem="{Binding Currproc}" x:Name="ProcGrid"
