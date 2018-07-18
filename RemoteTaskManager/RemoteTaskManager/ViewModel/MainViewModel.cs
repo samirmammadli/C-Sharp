@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -64,8 +63,6 @@ namespace RemoteTaskManager.ViewModel
         {
             var msg2 = Encoding.UTF8.GetBytes(message);
                 stream.Write(msg2, 0, msg2.Length);
-
-
         }
 
         private void StartServer()
@@ -103,7 +100,6 @@ namespace RemoteTaskManager.ViewModel
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
         }

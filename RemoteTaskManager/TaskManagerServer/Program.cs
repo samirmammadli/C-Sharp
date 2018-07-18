@@ -14,28 +14,6 @@ using TasksInfo;
 
 namespace TaskManagerServer
 {
-    //public class ClientInfo
-    //{
-    //    public string IP { get; set; }
-    //    public string Port { get; set; }
-    //    public string Text { get; set; }
-    //    public TcpClient Client { get; set; }
-
-    //    public ClientInfo(string ip, string port, TcpClient client)
-    //    {
-    //        IP = ip;
-    //        Port = port;
-    //    }
-
-    //    public override string ToString()
-    //    {
-    //        return $"Client Ip: {IP}\n" +
-    //               $"Client Port: {Port}\n" +
-    //               $"Client Message: {Text}";
-    //    }
-    //}
-
-    
 
     public class TasksServer
     {
@@ -53,7 +31,6 @@ namespace TaskManagerServer
             var ProcessesInfo = new List<ProcessInfo>();
             foreach (var item in processes)
             {
-                
                 try
                 {
                     var info = new ProcessInfo(item.ProcessName, item.Id, item.NonpagedSystemMemorySize64);
