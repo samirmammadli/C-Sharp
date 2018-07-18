@@ -55,8 +55,8 @@ namespace MoviePlugin
         public Movie()
         {
             domain = AppDomain.CurrentDomain;
-            domain.AssemblyResolve += Domain_AssemblyResolve;
-            domain.Load(AssemblyName.GetAssemblyName(@"Plugins\Newtonsoft.Json.dll"));
+            domain.ExecuteAssembly(@"C:\Users\Samir\Source\repos\C-Sharp\Pluginsapp\Pluginsapp\bin\Debug\Plugins\Newtonsoft.Json.dll");
+            //domain.AssemblyResolve += Domain_AssemblyResolve;
         }
 
         private Assembly Domain_AssemblyResolve(object sender, ResolveEventArgs args)
