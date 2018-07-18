@@ -3,15 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:RemoteTaskManager.View"
         mc:Ignorable="d"
-        Title="AppView" Height="300" Width="300">
-    <StackPanel>
+        Title="Remote Task Manager" Height="600" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <wpfTool:WatermarkTextBox Watermark="Enter IP Address.." Width="200" Margin="5"></wpfTool:WatermarkTextBox>
+            <Button Width="80" Margin="5">Connect</Button>
+        </StackPanel>
+        <DataGrid Grid.Row="1"
+            SelectedItem="{Binding Currproc}" x:Name="ProcGrid"
+            AutoGenerateColumns="False"
+            EnableRowVirtualization="True"                      
+            RowDetailsVisibilityMode="VisibleWhenSelected"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Name" Binding="{Binding ProcessName }" Header="Name" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn x:Name="Id" Binding="{Binding Id }" Header="ID" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn x:Name="Priority" Binding="{Binding PriorityClass }" Header="Priority" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn x:Name="NonpagedSystemMemorySize64" Binding="{Binding NonpagedSystemMemorySize64 }" Header="MemoryUsage" IsReadOnly="True" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"  Grid.Row="2">
+            <Button Width="80" Margin="5">Kill</Button>
+            <Button Width="80" Margin="5">Refresh</Button>
+            <Button Width="120" Margin="5">Start new Process</Button>
+        </StackPanel>
+    </Grid>
+    <!--<StackPanel>
         <TextBox Name="tbInput" Height="20" Margin="5"></TextBox>
         <Button HorizontalAlignment="Center"
                 Margin="5"
                 Command="{Binding SendMessage}"
                 CommandParameter="{Binding ElementName=tbInput, Path=Text}">Send
         </Button>
-    </StackPanel>
+    </StackPanel>-->
 </Window>

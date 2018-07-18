@@ -47,19 +47,24 @@ namespace RemoteTaskManager.ViewModel
 
         public void SendMsg(string message)
         {
-            
             var msg2 = Encoding.Unicode.GetBytes(message);
                 stream.Write(msg2, 0, msg2.Length);
         }
 
         private void StartServer()
         {
-            client = new TcpClient();
-            client.Connect(ip, port);
-            stream = client.GetStream();
-            buffer = new byte[256];
-            
-        }
+            try
+            {
+                client = new TcpClient();
+                client.Connect(ip, port);
+                stream = client.GetStream();
+                buffer = new byte[256];
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
