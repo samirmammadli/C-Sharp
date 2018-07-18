@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
 
 namespace MoviePlugin
@@ -55,13 +56,13 @@ namespace MoviePlugin
         public Movie()
         {
             domain = AppDomain.CurrentDomain;
-            domain.ExecuteAssembly(@"C:\Users\Samir\Source\repos\C-Sharp\Pluginsapp\Pluginsapp\bin\Debug\Plugins\Newtonsoft.Json.dll");
-            //domain.AssemblyResolve += Domain_AssemblyResolve;
+            domain.AssemblyResolve += Domain_AssemblyResolve;
         }
 
         private Assembly Domain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            return  Assembly.LoadFile(@"C:\Users\Samir\Source\repos\C-Sharp\Pluginsapp\Pluginsapp\bin\Debug\Plugins\Newtonsoft.Json.dll");
+            MessageBox.Show(args.Name);
+            return domain.Load(args.Name);
         }
 
         public string Request(string input)
