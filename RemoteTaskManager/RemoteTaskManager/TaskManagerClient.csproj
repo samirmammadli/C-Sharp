@@ -130,5 +130,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TasksInfo\TasksInfo.csproj">
+      <Project>{5b1aad01-bfdd-4bff-a844-539e40291e81}</Project>
+      <Name>TasksInfo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

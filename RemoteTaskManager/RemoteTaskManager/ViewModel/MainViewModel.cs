@@ -11,25 +11,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using TasksInfo;
 
 namespace RemoteTaskManager.ViewModel
 {
-    [Serializable]
-    public class ProcessInfo
-    {
-        public string ProcessName { get; set; }
-        public int Id { get; set; }
-        public long NonpagedSystemMemorySize64 { get; set; }
-
-        public ProcessInfo(string processName, int id, long nonpagedSystemMemorySize64)
-        {
-            ProcessName = processName;
-            Id = id;
-            NonpagedSystemMemorySize64 = nonpagedSystemMemorySize64;
-        }
-    }
-
-
     class MainViewModel : ViewModelBase
     {
         public MainViewModel()
@@ -44,8 +29,8 @@ namespace RemoteTaskManager.ViewModel
         private byte[] buffer;
         private NetworkStream stream;
 
-        private List<Process> processes;
-        public List<Process> Processes
+        private List<ProcessInfo> processes;
+        public List<ProcessInfo> Processes
         {
             get => processes;
             set => Set(ref processes, value);
@@ -101,19 +86,10 @@ namespace RemoteTaskManager.ViewModel
                         {
                             if (client.Available > 0)
                             {
-                                //do
-                                //{
-                                //    byte[] buffer = new byte[255];
-                                //    int readed = stream.Read(buffer, 0, buffer.Length);
-                                    
-                                //}
-                                //while (stream.DataAvailable);
+
                                 var formatter = new BinaryFormatter();
                                 var obj = formatter.Deserialize(stream) as List<ProcessInfo>;
-                                if (obj != null) MessageBox.Show("Uraaa");
-
-                                //msg = Encoding.Unicode.GetString(buffer, 0, buffer.Length);
-                                //MessageBox.Show(msg.Length.ToString());
+                                if (obj != null) Processes = obj.OrderBy(x => x.ProcessName).ToList();
                             }
 
                         }

@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TasksInfo;
 
 namespace TaskManagerServer
 {
@@ -101,18 +102,12 @@ namespace TaskManagerServer
                                 var procsInfo = GetProcessesInfo(Process.GetProcesses());
                                 var formatter = new BinaryFormatter();
                                 formatter.Serialize(stream, procsInfo);
-                                //using (var mStream = new MemoryStream())
-                                //{
-                                //    formatter.Serialize(mStream, procsInfo);
-                                //    stream.Write(mStream.ToArray(), 0, mStream.ToArray().Length);
-                                //}
-
                             }
                         }
                         catch (Exception ex)
                         {
                             lock (this) { i--; }
-                            Console.WriteLine($"viwel  {ex.ToString()}");
+                            Console.WriteLine($"Disconnected");
                             stream.Close();
                             client.Close();
                             break;

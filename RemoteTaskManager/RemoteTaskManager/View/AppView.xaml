@@ -18,7 +18,8 @@
             <Button Command="{Binding SendMessage}" CommandParameter="{Binding ElementName=tbIp, Path=Text}"  Width="80" Margin="5">Connect</Button>
         </StackPanel>
         <DataGrid Grid.Row="1"
-            SelectedItem="{Binding Currproc}" x:Name="ProcGrid"
+            SelectedItem="{Binding CurrentProcess}" x:Name="ProcGrid"
+            ItemsSource="{Binding Processes}"
             AutoGenerateColumns="False"
             EnableRowVirtualization="True"                      
             RowDetailsVisibilityMode="VisibleWhenSelected"
@@ -27,7 +28,6 @@
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Name" Binding="{Binding ProcessName }" Header="Name" IsReadOnly="True" Width="100"/>
                 <DataGridTextColumn x:Name="Id" Binding="{Binding Id }" Header="ID" IsReadOnly="True" Width="100"/>
-                <DataGridTextColumn x:Name="Priority" Binding="{Binding PriorityClass }" Header="Priority" IsReadOnly="True" Width="100"/>
                 <DataGridTextColumn x:Name="NonpagedSystemMemorySize64" Binding="{Binding NonpagedSystemMemorySize64 }" Header="MemoryUsage" IsReadOnly="True" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
