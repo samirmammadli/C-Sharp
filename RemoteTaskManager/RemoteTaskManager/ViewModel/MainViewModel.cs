@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -19,13 +20,25 @@ namespace RemoteTaskManager.ViewModel
             StartServer();
         }
 
-
         static string ip = "127.0.0.1";
         static int port = 8005;
 
         private TcpClient client;
         private byte[] buffer;
         private NetworkStream stream;
+
+        private List<Process> processes;
+        public List<Process> Processes
+        {
+            get => processes;
+            set => Set(ref processes, value);
+        }
+        private Process currentProcess;
+        public Process CurrentProcess
+        {
+            get => currentProcess;
+            set => Set(ref currentProcess, value);
+        }
 
         private string incomingMsg;
         public string IncomingMsg
