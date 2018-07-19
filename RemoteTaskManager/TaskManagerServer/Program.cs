@@ -48,8 +48,15 @@ namespace TaskManagerServer
         private void GetMessage(NetworkStream stream)
         {
             var formatter = new BinaryFormatter();
-            var obj = formatter.Deserialize(stream) as IClientCommand;
-            if (obj != null) obj.ExecuteCommand(stream);
+            try
+            {
+                var obj = formatter.Deserialize(stream) as IClientCommand;
+                if (obj != null) obj.ExecuteCommand(stream);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         async public void StartServer()
