@@ -19,15 +19,12 @@ namespace RemoteTaskManager.ViewModel
     {
         public MainViewModel()
         {
-            StartServer();
+            //StartServer();
         }
+        static private int _port = 8005;
 
-        static string ip = "127.0.0.1";
-        static int port = 8005;
-
-        private TcpClient client;
-        private byte[] buffer;
-        private NetworkStream stream;
+        private TcpClient _client;
+        private NetworkStream _stream;
 
         private List<ProcessInfo> processes;
         public List<ProcessInfo> Processes
@@ -35,8 +32,10 @@ namespace RemoteTaskManager.ViewModel
             get => processes;
             set => Set(ref processes, value);
         }
-        private Process currentProcess;
-        public Process CurrentProcess
+
+
+        private ProcessInfo currentProcess;
+        public ProcessInfo CurrentProcess
         {
             get => currentProcess;
             set => Set(ref currentProcess, value);
@@ -49,35 +48,104 @@ namespace RemoteTaskManager.ViewModel
             set => Set(ref incomingMsg, value);
         }
 
+        private bool isConnected;
+        public bool IsConnected
+        {
+            get => isConnected;
+            set => Set(ref isConnected, value);
+        }
 
-        private RelayCommand<string> sendMessage;
-        public RelayCommand<string> SendMessage
+        private RelayCommand getProcesses;
+        public RelayCommand GetProcesses
         {
             get
             {
-                return sendMessage ?? (sendMessage = new RelayCommand<string>(message =>
-                SendMsg(message)));
+                return getProcesses ?? (getProcesses = new RelayCommand(() => {
+                    var cmd = new GetProcessesCommand();
+                    var formatter2 = new BinaryFormatter();
+                    formatter2.Serialize(_stream, cmd);
+                }));
+            }
+        }
+
+        private RelayCommand killCommand;
+        public RelayCommand KillCommand
+        {
+            get
+            {
+                return killCommand ?? (killCommand = new RelayCommand(() =>
+                {
+                    var cmd = new KillProcessCommand { CommandParameter = CurrentProcess.Id.ToString() };
+                    var formatter2 = new BinaryFormatter();
+                    formatter2.Serialize(_stream, cmd);
+                }));
+            }
+        }
+
+        private RelayCommand<string> connectToServer;
+        public RelayCommand<string> ConnectToServer
+        {
+            get
+            {
+                return connectToServer ?? (connectToServer = new RelayCommand<string>(param =>
+                Connect(param)));
             }
         }
 
         public void SendMsg(string message)
         {
             var msg2 = Encoding.UTF8.GetBytes(message);
-                stream.Write(msg2, 0, msg2.Length);
+                _stream.Write(msg2, 0, msg2.Length);
+        }
+
+        private void Connect(string ip)
+        {
+            try
+            {
+                if (_client != null && _client.Connected) _client.Close();
+                _client = new TcpClient();
+                _client.Connect(ip, _port);
+                _stream = _client.GetStream();
+
+                Task.Run(() =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (_client.Available > 0)
+                            {
+                                var formatter = new BinaryFormatter();
+                                var obj = formatter.Deserialize(_stream);
+                                if (obj as List<ProcessInfo> != null) (Processes = obj as List<ProcessInfo>).OrderBy(x => x.ProcessName).ToList();
+                                else if (obj as string != null) MessageBox.Show(obj.ToString());
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void StartServer()
         {
             try
             {
-                client = new TcpClient();
-                client.Connect(ip, port);
-                stream = client.GetStream();
-                buffer = new byte[256];
+                _client = new TcpClient();
+                _client.Connect("127.0.0.1", _port);
+                _stream = _client.GetStream();
 
-                var cmd = new GetProcessecCommand();
+                var cmd = new GetProcessesCommand();
                 var formatter2 = new BinaryFormatter();
-                formatter2.Serialize(stream, cmd);
+                formatter2.Serialize(_stream, cmd);
 
                 Task.Run(() =>
                 {
@@ -85,10 +153,10 @@ namespace RemoteTaskManager.ViewModel
                     {
                         try
                         {
-                            if (client.Available > 0)
+                            if (_client.Available > 0)
                             {
                                 var formatter = new BinaryFormatter();
-                                var obj = formatter.Deserialize(stream) as List<ProcessInfo>;
+                                var obj = formatter.Deserialize(_stream) as List<ProcessInfo>;
                                 if (obj != null) Processes = obj.OrderBy(x => x.ProcessName).ToList();
                             }
                         }

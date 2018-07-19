@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <wpfTool:WatermarkTextBox x:Name="tbIp" Watermark="Enter IP Address.." Width="200" Margin="5"></wpfTool:WatermarkTextBox>
-            <Button Command="{Binding SendMessage}" CommandParameter="{Binding ElementName=tbIp, Path=Text}"  Width="80" Margin="5">Connect</Button>
+            <Button Command="{Binding ConnectToServer}" CommandParameter="{Binding ElementName=tbIp, Path=Text}"  Width="80" Margin="5">Connect</Button>
         </StackPanel>
         <DataGrid Grid.Row="1"
             SelectedItem="{Binding CurrentProcess}" x:Name="ProcGrid"
@@ -32,8 +32,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal"  Grid.Row="2">
-            <Button Width="80" Margin="5">Kill</Button>
-            <Button Width="80" Margin="5">Refresh</Button>
+            <Button Command="{Binding KillCommand}" Width="80" Margin="5">Kill</Button>
+            <Button Width="80" Margin="5" Command="{Binding GetProcesses}">Refresh</Button>
             <Button Width="120" Margin="5">Start new Process</Button>
         </StackPanel>
     </Grid>

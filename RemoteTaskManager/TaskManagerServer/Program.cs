@@ -15,16 +15,29 @@ using TasksManagarCommands;
 
 namespace TaskManagerServer
 {
+    public class ClientInfo
+    {
+        public int Id { get; set; }
+        public string IP { get; set; }
+        public string Port { get; set; }
+
+        public ClientInfo(int id, string iP, string port)
+        {
+            Id = id;
+            IP = iP;
+            Port = port;
+        }
+    }
 
     public class TasksServer
     {
-        string msg = "";
-        static int port = 8005;
-        static string ip = "127.0.0.1";
-        public Dictionary<string, TcpClient> Connections { get; set; }
+        static private int idCounter = 0;
+        static private int port = 8005;
+        static private string ip = "127.0.0.1";
+        public Dictionary<ClientInfo, TcpClient> Connections { get; set; }
         public TasksServer()
         {
-            Connections = new Dictionary<string, TcpClient>();
+            Connections = new Dictionary<ClientInfo, TcpClient>();
         }
 
         private List<ProcessInfo> GetProcessesInfo(Process[] processes)
@@ -45,59 +58,52 @@ namespace TaskManagerServer
             return ProcessesInfo;
         }
 
-        private void GetMessage(NetworkStream stream)
+        private bool GetCommand(NetworkStream stream, TcpClient client)
         {
             var formatter = new BinaryFormatter();
             try
             {
-                var obj = formatter.Deserialize(stream) as IClientCommand;
-                if (obj != null) obj.ExecuteCommand(stream);
+                
+                var command = formatter.Deserialize(stream) as IClientCommand;
+                command?.ExecuteCommand(stream);
+                return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
+                var disconnectedClient = Connections.Where(x => x.Value == client).FirstOrDefault().Key;
+                Connections.Remove(disconnectedClient);
+                ConnectionStatusReport(disconnectedClient, false);
+                stream?.Close();
+                client?.Close();
+                return false;
             }
+        }
+
+        private void ConnectionStatusReport(ClientInfo clientInfo, bool isConnected)
+        {
+            string connectionStatus = isConnected ? "Connected" : "Disconnected";
+            Console.WriteLine($"{connectionStatus} {DateTime.Now}\n" +
+                    $"Id: {clientInfo.Id}\n" +
+                    $"IP: {clientInfo.IP}\n" +
+                    $"Port: {clientInfo.Port}\n\n"
+                    );
         }
 
         async public void StartServer()
         {
-            Console.OutputEncoding = Encoding.UTF8;
             TcpListener listener = new TcpListener(IPAddress.Parse(ip), port);
             listener.Start();
-            int i = 0;
             while (true)
             {
                 var client = await listener.AcceptTcpClientAsync();
-                lock (this) { i++; }
-                Connections.Add($"Client {i}", client);
-                Console.WriteLine($"Client {i} connected!");
-                string clientIP = client.Client.RemoteEndPoint.ToString().Split(':')[0];
+                idCounter++;
+                string[] clientInfo = client.Client.RemoteEndPoint.ToString().Split(':');
+                Connections.Add(new ClientInfo(idCounter, clientInfo[0], clientInfo[1]), client);
+                ConnectionStatusReport(Connections.LastOrDefault().Key, true);
                 var stream = client.GetStream();
-                while (true)
-                {
-                    try
-                    {
-                        GetMessage(stream);
-                        
-                        //if (msg.Length > 0)
-                        //{
-                        //    var procs = Process.GetProcesses();
-                        //    var procsInfo = GetProcessesInfo(Process.GetProcesses());
-                        //    var formatter = new BinaryFormatter();
-                        //    formatter.Serialize(stream, procsInfo);
-                        //}
-                    }
-                    catch (Exception ex)
-                    {
-                        var dwqd = Connections.Where(x => x.Value == client).FirstOrDefault().Key;
-                        Connections.Remove(dwqd);
-                        
-                        Console.WriteLine($"{dwqd} Disconnected!");
-                        stream.Close();
-                        client.Close();
-                        break;
-                    }
-                }
+            #pragma warning disable CS4014
+                Task.Run(() => {while (GetCommand(stream, client)) { } });
+            #pragma warning restore CS4014 
             }
         }
     }
