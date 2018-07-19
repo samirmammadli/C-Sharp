@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using TasksInfo;
+using TasksManagarCommands;
 
 namespace RemoteTaskManager.ViewModel
 {
@@ -73,6 +74,10 @@ namespace RemoteTaskManager.ViewModel
                 client.Connect(ip, port);
                 stream = client.GetStream();
                 buffer = new byte[256];
+
+                var cmd = new GetProcessecCommand();
+                var formatter2 = new BinaryFormatter();
+                formatter2.Serialize(stream, cmd);
 
                 Task.Run(() =>
                 {

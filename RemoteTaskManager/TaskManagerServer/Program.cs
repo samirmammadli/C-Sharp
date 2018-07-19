@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TasksInfo;
+using TasksManagarCommands;
 
 namespace TaskManagerServer
 {
@@ -44,18 +45,11 @@ namespace TaskManagerServer
             return ProcessesInfo;
         }
 
-        private string GetMessage(NetworkStream stream)
+        private void GetMessage(NetworkStream stream)
         {
-            byte[] buffer = new byte[255];
-            var message = "";
-            do
-            {
-                buffer = new byte[255];
-                int readed = stream.Read(buffer, 0, buffer.Length);
-                message += Encoding.UTF8.GetString(buffer, 0, readed);
-            }
-            while (stream.DataAvailable);
-            return message;
+            var formatter = new BinaryFormatter();
+            var obj = formatter.Deserialize(stream) as IClientCommand;
+            if (obj != null) obj.ExecuteCommand(stream);
         }
 
         async public void StartServer()
@@ -76,14 +70,15 @@ namespace TaskManagerServer
                 {
                     try
                     {
-                        msg = GetMessage(stream);
-                        if (msg.Length > 0)
-                        {
-                            var procs = Process.GetProcesses();
-                            var procsInfo = GetProcessesInfo(Process.GetProcesses());
-                            var formatter = new BinaryFormatter();
-                            formatter.Serialize(stream, procsInfo);
-                        }
+                        GetMessage(stream);
+                        
+                        //if (msg.Length > 0)
+                        //{
+                        //    var procs = Process.GetProcesses();
+                        //    var procsInfo = GetProcessesInfo(Process.GetProcesses());
+                        //    var formatter = new BinaryFormatter();
+                        //    formatter.Serialize(stream, procsInfo);
+                        //}
                     }
                     catch (Exception ex)
                     {

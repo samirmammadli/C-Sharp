@@ -135,6 +135,10 @@
       <Project>{5b1aad01-bfdd-4bff-a844-539e40291e81}</Project>
       <Name>TasksInfo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TasksManagarCommands\TasksManagarCommands.csproj">
+      <Project>{a1435d34-9ed5-4c8f-82d4-345a6fef8ef3}</Project>
+      <Name>TasksManagarCommands</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:RemoteTaskManager.View"
         mc:Ignorable="d"
-        Title="Remote Task Manager" Height="600" Width="400">
+        Title="Remote Task Manager" Height="600" Width="330">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
