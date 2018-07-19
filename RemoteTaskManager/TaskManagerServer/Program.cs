@@ -20,10 +20,10 @@ namespace TaskManagerServer
         string msg = "";
         static int port = 8005;
         static string ip = "127.0.0.1";
-        public List<TcpClient> Connections { get; set; }
+        public Dictionary<string, TcpClient> Connections { get; set; }
         public TasksServer()
         {
-            Connections = new List<TcpClient>();
+            Connections = new Dictionary<string, TcpClient>();
         }
 
         private List<ProcessInfo> GetProcessesInfo(Process[] processes)
@@ -44,7 +44,21 @@ namespace TaskManagerServer
             return ProcessesInfo;
         }
 
-        public void StartServer()
+        private string GetMessage(NetworkStream stream)
+        {
+            byte[] buffer = new byte[255];
+            var message = "";
+            do
+            {
+                buffer = new byte[255];
+                int readed = stream.Read(buffer, 0, buffer.Length);
+                message += Encoding.UTF8.GetString(buffer, 0, readed);
+            }
+            while (stream.DataAvailable);
+            return message;
+        }
+
+        async public void StartServer()
         {
             Console.OutputEncoding = Encoding.UTF8;
             TcpListener listener = new TcpListener(IPAddress.Parse(ip), port);
@@ -52,45 +66,36 @@ namespace TaskManagerServer
             int i = 0;
             while (true)
             {
-                var client = listener.AcceptTcpClient();
-                client.SendBufferSize = 4000000;
-                Console.WriteLine($"Client {++i} connected!");
-                Task.Run(() =>
+                var client = await listener.AcceptTcpClientAsync();
+                lock (this) { i++; }
+                Connections.Add($"Client {i}", client);
+                Console.WriteLine($"Client {i} connected!");
+                string clientIP = client.Client.RemoteEndPoint.ToString().Split(':')[0];
+                var stream = client.GetStream();
+                while (true)
                 {
-                    string clientIP = client.Client.RemoteEndPoint.ToString().Split(':')[0];
-                    var stream = client.GetStream();
-                    while (true)
+                    try
                     {
-                        try
+                        msg = GetMessage(stream);
+                        if (msg.Length > 0)
                         {
-                            byte[] buffer = new byte[255];
-                            msg = "";
-                            do
-                            {
-                                buffer = new byte[255];
-                                int readed = stream.Read(buffer, 0, buffer.Length);
-                                msg += Encoding.UTF8.GetString(buffer, 0, readed);
-                            }
-                            while (stream.DataAvailable);
-                            Console.WriteLine(msg);
-                            if (msg.Length > 0)
-                            {
-                                var procs = Process.GetProcesses();
-                                var procsInfo = GetProcessesInfo(Process.GetProcesses());
-                                var formatter = new BinaryFormatter();
-                                formatter.Serialize(stream, procsInfo);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            lock (this) { i--; }
-                            Console.WriteLine($"Disconnected");
-                            stream.Close();
-                            client.Close();
-                            break;
+                            var procs = Process.GetProcesses();
+                            var procsInfo = GetProcessesInfo(Process.GetProcesses());
+                            var formatter = new BinaryFormatter();
+                            formatter.Serialize(stream, procsInfo);
                         }
                     }
-                });
+                    catch (Exception ex)
+                    {
+                        var dwqd = Connections.Where(x => x.Value == client).FirstOrDefault().Key;
+                        Connections.Remove(dwqd);
+                        
+                        Console.WriteLine($"{dwqd} Disconnected!");
+                        stream.Close();
+                        client.Close();
+                        break;
+                    }
+                }
             }
         }
     }
@@ -104,6 +109,7 @@ namespace TaskManagerServer
         {
             var srv = new TasksServer();
             srv.StartServer();
+            Console.ReadKey();
         }
     }
 }

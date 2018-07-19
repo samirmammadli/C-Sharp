@@ -70,7 +70,6 @@ namespace RemoteTaskManager.ViewModel
             try
             {
                 client = new TcpClient();
-                client.ReceiveBufferSize = 4000000;
                 client.Connect(ip, port);
                 stream = client.GetStream();
                 buffer = new byte[256];
@@ -83,12 +82,10 @@ namespace RemoteTaskManager.ViewModel
                         {
                             if (client.Available > 0)
                             {
-
                                 var formatter = new BinaryFormatter();
                                 var obj = formatter.Deserialize(stream) as List<ProcessInfo>;
                                 if (obj != null) Processes = obj.OrderBy(x => x.ProcessName).ToList();
                             }
-
                         }
                         catch (Exception ex)
                         {
