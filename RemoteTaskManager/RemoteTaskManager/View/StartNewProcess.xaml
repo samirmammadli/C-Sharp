@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         x:Name="StartProcess"
         Title="StartProcess" Height="150" Width="300">
-    <StackPanel HorizontalAlignment="Center" Margin="0,0,0,-21">
+    <StackPanel HorizontalAlignment="Center">
         <Label Margin="5">Enter Process Name:</Label>
         <TextBox x:Name="tbName" Margin="5"></TextBox>
         <UniformGrid Rows="1" HorizontalAlignment="Stretch"

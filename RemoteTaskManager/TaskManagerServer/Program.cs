@@ -31,9 +31,8 @@ namespace TaskManagerServer
 
     public class TasksServer
     {
-        static private int idCounter = 0;
-        static private int port = 8005;
-        static private string ip = "127.0.0.1";
+        private static int _idCounter = 0;
+        private static int port = 8005;
         public Dictionary<ClientInfo, TcpClient> Connections { get; set; }
         public TasksServer()
         {
@@ -42,25 +41,25 @@ namespace TaskManagerServer
 
         private List<ProcessInfo> GetProcessesInfo(Process[] processes)
         {
-            var ProcessesInfo = new List<ProcessInfo>();
+            var processesInfo = new List<ProcessInfo>();
             foreach (var item in processes)
             {
                 try
                 {
                     var info = new ProcessInfo(item.ProcessName, item.Id, item.NonpagedSystemMemorySize64);
-                    ProcessesInfo.Add(info);
+                    processesInfo.Add(info);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
-            return ProcessesInfo;
+            return processesInfo;
         }
 
         private bool GetCommand(NetworkStream stream, TcpClient client)
         {
-            var clientInfo = Connections.Where(x => x.Value == client).FirstOrDefault().Key;
+            var clientInfo = Connections.FirstOrDefault(x => x.Value == client).Key;
             var formatter = new BinaryFormatter();
             try
             {
@@ -92,14 +91,14 @@ namespace TaskManagerServer
 
         public void StartServer()
         {
-            TcpListener listener = new TcpListener(IPAddress.Parse(ip), port);
+            TcpListener listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
             while (true)
             {
                 var client = listener.AcceptTcpClient();
-                idCounter++;
+                _idCounter++;
                 string[] clientInfo = client.Client.RemoteEndPoint.ToString().Split(':');
-                Connections.Add(new ClientInfo(idCounter, clientInfo[0], clientInfo[1]), client);
+                Connections.Add(new ClientInfo(_idCounter, clientInfo[0], clientInfo[1]), client);
                 ConnectionStatusReport(Connections.LastOrDefault().Key, true);
                 var stream = client.GetStream();
             #pragma warning disable CS4014
