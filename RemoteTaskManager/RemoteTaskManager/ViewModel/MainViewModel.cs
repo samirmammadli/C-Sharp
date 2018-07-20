@@ -20,6 +20,7 @@ namespace RemoteTaskManager.ViewModel
     {
         public MainViewModel()
         {
+            IsConnected = false;
             //StartServer();
         }
         static private int _port = 8005;
@@ -65,7 +66,7 @@ namespace RemoteTaskManager.ViewModel
                     var cmd = new GetProcessesCommand();
                     var formatter2 = new BinaryFormatter();
                     formatter2.Serialize(_stream, cmd);
-                }));
+                }, () => IsConnected));
             }
         }
 
@@ -79,7 +80,7 @@ namespace RemoteTaskManager.ViewModel
                     var cmd = new KillProcessCommand { CommandParameter = CurrentProcess.Id.ToString() };
                     var formatter2 = new BinaryFormatter();
                     formatter2.Serialize(_stream, cmd);
-                }));
+                }, () => IsConnected && CurrentProcess != null));
             }
         }
 
@@ -91,7 +92,7 @@ namespace RemoteTaskManager.ViewModel
                 return startNewProcessCommand ?? (startNewProcessCommand = new RelayCommand(() =>
                 {
                     StartNewProcess();
-                }));
+                }, () => IsConnected));
             }
         }
         private RelayCommand<string> startProcessCommand;
@@ -104,7 +105,7 @@ namespace RemoteTaskManager.ViewModel
                     var cmd = new StartProcess { CommandParameter = param };
                     var formatter2 = new BinaryFormatter();
                     formatter2.Serialize(_stream, cmd);
-                }));
+                }, param => IsConnected ));
             }
         }
 
@@ -116,7 +117,7 @@ namespace RemoteTaskManager.ViewModel
                 return cancelCommand ?? (cancelCommand = new RelayCommand<StartNewProcess>(param =>
                 {
                     param.Close();
-                }));
+                }, param => IsConnected));
             }
         }
 
@@ -147,10 +148,11 @@ namespace RemoteTaskManager.ViewModel
         {
             try
             {
-                if (_client != null && _client.Connected) _client.Close();
+                if (_client != null && _client.Client != null) _client.Close();
                 _client = new TcpClient();
                 _client.Connect(ip, _port);
                 _stream = _client.GetStream();
+                IsConnected = true;
 
                 Task.Run(() =>
                 {
@@ -172,7 +174,7 @@ namespace RemoteTaskManager.ViewModel
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
-
+                            break;
                         }
                     }
                 });

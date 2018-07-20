@@ -37,12 +37,4 @@
             <Button Width="120" Margin="5" Command="{Binding StartNewProcessCommand}">Start new Process</Button>
         </StackPanel>
     </Grid>
-    <!--<StackPanel>
-        <TextBox Name="tbInput" Height="20" Margin="5"></TextBox>
-        <Button HorizontalAlignment="Center"
-                Margin="5"
-                Command="{Binding SendMessage}"
-                CommandParameter="{Binding ElementName=tbInput, Path=Text}">Send
-        </Button>
-    </StackPanel>-->
 </Window>
