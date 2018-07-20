@@ -72,7 +72,6 @@ namespace TaskManagerServer
             }
             catch (Exception)
             {
-                
                 Connections.Remove(clientInfo);
                 ConnectionStatusReport(clientInfo, false);
                 stream?.Close();
@@ -91,13 +90,13 @@ namespace TaskManagerServer
                     );
         }
 
-        async public void StartServer()
+        public void StartServer()
         {
             TcpListener listener = new TcpListener(IPAddress.Parse(ip), port);
             listener.Start();
             while (true)
             {
-                var client = await listener.AcceptTcpClientAsync();
+                var client = listener.AcceptTcpClient();
                 idCounter++;
                 string[] clientInfo = client.Client.RemoteEndPoint.ToString().Split(':');
                 Connections.Add(new ClientInfo(idCounter, clientInfo[0], clientInfo[1]), client);
@@ -113,8 +112,6 @@ namespace TaskManagerServer
 
     class Program
     {
-        
-
         static void Main(string[] args)
         {
             var srv = new TasksServer();

@@ -21,7 +21,6 @@ namespace RemoteTaskManager.ViewModel
         public MainViewModel()
         {
             IsConnected = false;
-            //StartServer();
         }
         static private int _port = 8005;
 
@@ -57,17 +56,23 @@ namespace RemoteTaskManager.ViewModel
             set => Set(ref isConnected, value);
         }
 
+        
+
         private RelayCommand getProcesses;
         public RelayCommand GetProcesses
         {
             get
             {
-                return getProcesses ?? (getProcesses = new RelayCommand(() => {
-                    var cmd = new GetProcessesCommand();
-                    var formatter2 = new BinaryFormatter();
-                    formatter2.Serialize(_stream, cmd);
-                }, () => IsConnected));
+                return getProcesses ?? (getProcesses = new RelayCommand(() => GetProcessesFromServer(),
+                () => IsConnected));
             }
+        }
+
+        private void GetProcessesFromServer()
+        {
+            var cmd = new GetProcessesCommand();
+            var formatter2 = new BinaryFormatter();
+            formatter2.Serialize(_stream, cmd);
         }
 
         private RelayCommand killCommand;
@@ -95,6 +100,19 @@ namespace RemoteTaskManager.ViewModel
                 }, () => IsConnected));
             }
         }
+
+        private RelayCommand closeConnectionCommand;
+        public RelayCommand CloseConnectionCommand
+        {
+            get
+            {
+                return closeConnectionCommand ?? (closeConnectionCommand = new RelayCommand(() =>
+                {
+                    CloseConnection();
+                }, () => IsConnected));
+            }
+        }
+
         private RelayCommand<string> startProcessCommand;
         public RelayCommand<string> StartProcessCommand
         {
@@ -134,50 +152,28 @@ namespace RemoteTaskManager.ViewModel
             get
             {
                 return connectToServer ?? (connectToServer = new RelayCommand<string>(param =>
-                Connect(param)));
+                Connect(param), param => !IsConnected));
             }
         }
 
-        public void SendMsg(string message)
+        private void CloseConnection()
         {
-            var msg2 = Encoding.UTF8.GetBytes(message);
-                _stream.Write(msg2, 0, msg2.Length);
+            _client.Close();
+            isConnected = false;
+            Processes = null;
         }
 
         private void Connect(string ip)
         {
             try
             {
-                if (_client != null && _client.Client != null) _client.Close();
+                if (_client != null && _client.Client != null) CloseConnection();
                 _client = new TcpClient();
                 _client.Connect(ip, _port);
                 _stream = _client.GetStream();
                 IsConnected = true;
-
-                Task.Run(() =>
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            if (_client.Available > 0)
-                            {
-                                var formatter = new BinaryFormatter();
-                                var obj = formatter.Deserialize(_stream) as IClientCommand;
-                                if (obj != null)
-                                {
-                                    if (obj.ResponseObject is List<ProcessInfo>) Processes = (obj.ResponseObject as List<ProcessInfo>).OrderBy(x => x.ProcessName).ToList();
-                                    else if (obj.ResponseObject is string) MessageBox.Show(obj.ResponseObject.ToString());
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                            break;
-                        }
-                    }
-                });
+                StartListening();
+                GetProcessesFromServer();
             }
             catch (Exception ex)
             {
@@ -185,43 +181,32 @@ namespace RemoteTaskManager.ViewModel
             }
         }
 
-        private void StartServer()
+        private void StartListening()
         {
-            try
+            var formatter = new BinaryFormatter();
+            Task.Run(() =>
             {
-                _client = new TcpClient();
-                _client.Connect("127.0.0.1", _port);
-                _stream = _client.GetStream();
-
-                var cmd = new GetProcessesCommand();
-                var formatter2 = new BinaryFormatter();
-                formatter2.Serialize(_stream, cmd);
-
-                Task.Run(() =>
+                while (true)
                 {
-                    while(true)
+                    try
                     {
-                        try
-                        {
-                            if (_client.Available > 0)
-                            {
-                                var formatter = new BinaryFormatter();
-                                var obj = formatter.Deserialize(_stream) as List<ProcessInfo>;
-                                if (obj != null) Processes = obj.OrderBy(x => x.ProcessName).ToList();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
+                        var obj = formatter.Deserialize(_stream) as IClientCommand;
+                        if (obj != null)
 
+                        {
+                            if (obj.ResponseObject is List<ProcessInfo>) Processes = (obj.ResponseObject as List<ProcessInfo>).OrderBy(x => x.ProcessName).ToList();
+                            else if (obj.ResponseObject is string) MessageBox.Show(obj.ResponseObject.ToString());
                         }
                     }
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                    catch (Exception)
+                    {
+                        isConnected = false;
+                        Processes = null;
+                        MessageBox.Show("Disconnected!");
+                        break;
+                    }
+                }
+            });
         }
     }
 }
