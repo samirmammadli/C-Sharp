@@ -108,6 +108,18 @@ namespace RemoteTaskManager.ViewModel
             }
         }
 
+        private RelayCommand<StartNewProcess> cancelCommand;
+        public RelayCommand<StartNewProcess> CancelCommand
+        {
+            get
+            {
+                return cancelCommand ?? (cancelCommand = new RelayCommand<StartNewProcess>(param =>
+                {
+                    param.Close();
+                }));
+            }
+        }
+
         private void StartNewProcess()
         {
             var window = new StartNewProcess();
