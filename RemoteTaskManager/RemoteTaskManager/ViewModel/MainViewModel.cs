@@ -85,6 +85,7 @@ namespace RemoteTaskManager.ViewModel
                     var cmd = new KillProcessCommand { CommandParameter = CurrentProcess.Id.ToString() };
                     var formatter2 = new BinaryFormatter();
                     formatter2.Serialize(_stream, cmd);
+                    GetProcessesFromServer();
                 }, () => IsConnected && CurrentProcess != null));
             }
         }
@@ -96,7 +97,7 @@ namespace RemoteTaskManager.ViewModel
             {
                 return startNewProcessCommand ?? (startNewProcessCommand = new RelayCommand(() =>
                 {
-                    StartNewProcess();
+                { StartNewProcess(); GetProcessesFromServer(); }
                 }, () => IsConnected));
             }
         }
