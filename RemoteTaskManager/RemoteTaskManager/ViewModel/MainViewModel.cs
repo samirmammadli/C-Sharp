@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using RemoteTaskManager.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -82,6 +83,38 @@ namespace RemoteTaskManager.ViewModel
             }
         }
 
+        private RelayCommand startNewProcessCommand;
+        public RelayCommand StartNewProcessCommand
+        {
+            get
+            {
+                return startNewProcessCommand ?? (startNewProcessCommand = new RelayCommand(() =>
+                {
+                    StartNewProcess();
+                }));
+            }
+        }
+        private RelayCommand<string> startProcessCommand;
+        public RelayCommand<string> StartProcessCommand
+        {
+            get
+            {
+                return startProcessCommand ?? (startProcessCommand = new RelayCommand<string>(param =>
+                {
+                    var cmd = new StartProcess { CommandParameter = param };
+                    var formatter2 = new BinaryFormatter();
+                    formatter2.Serialize(_stream, cmd);
+                }));
+            }
+        }
+
+        private void StartNewProcess()
+        {
+            var window = new StartNewProcess();
+            window.DataContext = this;
+            window.ShowDialog();
+        }
+
         private RelayCommand<string> connectToServer;
         public RelayCommand<string> ConnectToServer
         {
@@ -116,9 +149,12 @@ namespace RemoteTaskManager.ViewModel
                             if (_client.Available > 0)
                             {
                                 var formatter = new BinaryFormatter();
-                                var obj = formatter.Deserialize(_stream);
-                                if (obj as List<ProcessInfo> != null) (Processes = obj as List<ProcessInfo>).OrderBy(x => x.ProcessName).ToList();
-                                else if (obj as string != null) MessageBox.Show(obj.ToString());
+                                var obj = formatter.Deserialize(_stream) as IClientCommand;
+                                if (obj != null)
+                                {
+                                    if (obj.ResponseObject is List<ProcessInfo>) Processes = (obj.ResponseObject as List<ProcessInfo>).OrderBy(x => x.ProcessName).ToList();
+                                    else if (obj.ResponseObject is string) MessageBox.Show(obj.ResponseObject.ToString());
+                                }
                             }
                         }
                         catch (Exception ex)

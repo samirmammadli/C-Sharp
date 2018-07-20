@@ -34,7 +34,7 @@
         <StackPanel Orientation="Horizontal"  Grid.Row="2">
             <Button Command="{Binding KillCommand}" Width="80" Margin="5">Kill</Button>
             <Button Width="80" Margin="5" Command="{Binding GetProcesses}">Refresh</Button>
-            <Button Width="120" Margin="5">Start new Process</Button>
+            <Button Width="120" Margin="5" Command="{Binding StartNewProcessCommand}">Start new Process</Button>
         </StackPanel>
     </Grid>
     <!--<StackPanel>

@@ -60,19 +60,21 @@ namespace TaskManagerServer
 
         private bool GetCommand(NetworkStream stream, TcpClient client)
         {
+            var clientInfo = Connections.Where(x => x.Value == client).FirstOrDefault().Key;
             var formatter = new BinaryFormatter();
             try
             {
                 
                 var command = formatter.Deserialize(stream) as IClientCommand;
                 command?.ExecuteCommand(stream);
+                Console.WriteLine($"Client {clientInfo.Id}: {command} Command executed");
                 return true;
             }
             catch (Exception)
             {
-                var disconnectedClient = Connections.Where(x => x.Value == client).FirstOrDefault().Key;
-                Connections.Remove(disconnectedClient);
-                ConnectionStatusReport(disconnectedClient, false);
+                
+                Connections.Remove(clientInfo);
+                ConnectionStatusReport(clientInfo, false);
                 stream?.Close();
                 client?.Close();
                 return false;

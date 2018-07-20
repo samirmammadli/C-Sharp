@@ -14,33 +14,77 @@ namespace TasksManagarCommands
     public interface IClientCommand
     {
         string CommandParameter { get; set; }
+        object ResponseObject { get; set; }
         void ExecuteCommand(NetworkStream stream);
+    }
+
+    [Serializable]
+    public class StartProcess : IClientCommand
+    {
+        public string CommandParameter { get; set; }
+        public object ResponseObject { get; set; }
+
+        public void ExecuteCommand(NetworkStream stream)
+        {
+            string result = null;
+            try
+            {
+                result = "Success!";
+                Process.Start(CommandParameter);
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+            finally
+            {
+                if (stream.CanRead && stream.CanWrite)
+                {
+                    var response = new KillProcessCommand() { ResponseObject = result };
+                    var formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, response);
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Start Process";
+        }
     }
 
     [Serializable]
     public class KillProcessCommand : IClientCommand
     {
         public string CommandParameter { get; set; }
+        public object ResponseObject { get; set; }
         public void ExecuteCommand(NetworkStream stream)
         {
+            string result = null;
             try
             {
+                result = "Success!";
                 var process = Process.GetProcessById(Int32.Parse(CommandParameter));
                 process?.Kill();
-                using (var writer = new StreamWriter(stream))
-                {
-                    writer.WriteLine("Success!");
-                }
             }
             catch (Exception ex)
             {
-
-                using (var writer = new StreamWriter(stream, Encoding.UTF8))
+                result = ex.Message;
+            }
+            finally
+            {
+                if (stream.CanRead && stream.CanWrite)
                 {
-                    writer.WriteLine(ex.Message);
+                    var response = new KillProcessCommand() { ResponseObject = result };
+                    var formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, response);
                 }
             }
-            
+        }
+
+        public override string ToString()
+        {
+            return "Kill Process";
         }
     }
 
@@ -48,6 +92,7 @@ namespace TasksManagarCommands
     public class GetProcessesCommand : IClientCommand
     {
         public string CommandParameter { get; set; }
+        public object ResponseObject { get; set; }
         private List<ProcessInfo> GetProcessesInfo(Process[] processes)
         {
             var ProcessesInfo = new List<ProcessInfo>();
@@ -68,10 +113,28 @@ namespace TasksManagarCommands
 
         public void ExecuteCommand(NetworkStream stream)
         {
-            var procs = Process.GetProcesses();
-            var procsInfo = GetProcessesInfo(Process.GetProcesses());
+            Process[] procs = null;
+            List<ProcessInfo> procsInfo = null;
             var formatter = new BinaryFormatter();
-            formatter.Serialize(stream, procsInfo);
+            try
+            {
+                procs = Process.GetProcesses();
+                procsInfo = GetProcessesInfo(Process.GetProcesses());
+                var response = new GetProcessesCommand() { ResponseObject = procsInfo };
+                formatter.Serialize(stream, response);
+            }
+            catch (Exception ex)
+            {
+                if (stream.CanRead && stream.CanWrite)
+                {
+                    var response = new GetProcessesCommand() { ResponseObject = ex.Message };
+                    formatter.Serialize(stream, response);
+                }
+            }
+        }
+        public override string ToString()
+        {
+            return "Get Processess";
         }
     }
 }
