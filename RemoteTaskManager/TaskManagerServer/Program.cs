@@ -101,9 +101,7 @@ namespace TaskManagerServer
                 Connections.Add(new ClientInfo(_idCounter, clientInfo[0], clientInfo[1]), client);
                 ConnectionStatusReport(Connections.LastOrDefault().Key, true);
                 var stream = client.GetStream();
-            #pragma warning disable CS4014
                 Task.Run(() => {while (GetCommand(stream, client)) { } });
-            #pragma warning restore CS4014 
             }
         }
     }
