@@ -27,6 +27,7 @@ namespace RemoteTaskManager.ViewModel
         private TcpClient _client;
         private NetworkStream _stream;
 
+
         private List<ProcessInfo> processes;
         public List<ProcessInfo> Processes
         {
@@ -42,21 +43,28 @@ namespace RemoteTaskManager.ViewModel
             set => Set(ref currentProcess, value);
         }
 
-        private string incomingMsg;
-        public string IncomingMsg
+        private string ipInput;
+        public string IpInput
         {
-            get => incomingMsg;
-            set => Set(ref incomingMsg, value);
+            get => ipInput;
+            set => Set(ref ipInput, value);
         }
 
         private bool isConnected;
         public bool IsConnected
         {
             get => isConnected;
-            set => Set(ref isConnected, value);
+            set { Set(ref isConnected, value); ConnectionAllowed = !value; }
         }
 
-        
+        private bool connectionAllowed;
+        public bool ConnectionAllowed
+        {
+            get => connectionAllowed;
+            set => Set(ref connectionAllowed, value);
+        }
+
+
 
         private RelayCommand getProcesses;
         public RelayCommand GetProcesses
@@ -160,8 +168,9 @@ namespace RemoteTaskManager.ViewModel
         private void CloseConnection()
         {
             _client.Close();
-            isConnected = false;
+            IsConnected = false;
             Processes = null;
+            IpInput = string.Empty;
         }
 
         private void Connect(string ip)
@@ -175,6 +184,7 @@ namespace RemoteTaskManager.ViewModel
                 IsConnected = true;
                 StartListening();
                 GetProcessesFromServer();
+                IpInput = "Connected: " + _client.Client.LocalEndPoint.ToString().Split(':')[0];
             }
             catch (Exception ex)
             {
@@ -201,8 +211,7 @@ namespace RemoteTaskManager.ViewModel
                     }
                     catch (Exception)
                     {
-                        isConnected = false;
-                        Processes = null;
+                        CloseConnection();
                         MessageBox.Show("Disconnected!");
                         break;
                     }
