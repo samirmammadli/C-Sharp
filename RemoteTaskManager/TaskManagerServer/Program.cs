@@ -7,7 +7,6 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using TasksInfo;
-using TasksManagarCommands;
 
 namespace TaskManagerServer
 {
@@ -59,14 +58,14 @@ namespace TaskManagerServer
             var formatter = new BinaryFormatter();
             try
             {
-                
-                var command = formatter.Deserialize(stream) as IClientCommand;
-                command?.ExecuteCommand(stream);
+                var command = formatter.Deserialize(stream) as TasksManagarCommands.IClientCommand;
+                lock (this) { command?.ExecuteCommand(stream); };
                 Console.WriteLine($"Client {clientInfo.Id}: {command} Command executed");
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 Connections.Remove(clientInfo);
                 ConnectionStatusReport(clientInfo, false);
                 stream?.Close();

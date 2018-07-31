@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel FocusManager.FocusedElement="{Binding ElementName=tbIp}" Orientation="Horizontal">
-            <wpfTool:WatermarkTextBox IsEnabled="{Binding ConnectionAllowed}" Text="{Binding IpInput, Mode=TwoWay}" Width="150" x:Name="tbIp" Watermark="Enter IP Address.." Margin="5"></wpfTool:WatermarkTextBox>
+            <wpfTool:WatermarkTextBox  IsEnabled="{Binding ConnectionAllowed}" Text="{Binding IpInput, Mode=TwoWay}" Width="150" x:Name="tbIp" Watermark="Enter IP Address.." Margin="5"></wpfTool:WatermarkTextBox>
             <Button Width="65" Command="{Binding ConnectToServer}" CommandParameter="{Binding ElementName=tbIp, Path=Text}" IsDefault="True" Margin="5">Connect</Button>
             <Button Width="65" Command="{Binding CloseConnectionCommand}" CommandParameter="{Binding ElementName=tbIp, Path=Text}" Margin="5">Disconnect</Button>
         </StackPanel>
