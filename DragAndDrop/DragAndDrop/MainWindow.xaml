@@ -4,9 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DragAndDrop"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <ListBox
+                Width="150"
+                ItemsSource="{Binding Persons1}" 
+                SelectedItem="{Binding Selected}"
+                SelectionMode="Extended"
+                
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.UseDefaultEffectDataTemplate="True"
+                dd:DragDrop.DragDropCopyKeyState="ControlKey"
+                dd:DragDrop.DropHandler="{Binding}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                            <TextBlock FontSize="16" Text="{Binding Path=Age}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox
+                Width="150"
+                ItemsSource="{Binding Persons2}" 
+                SelectedItem="{Binding Selected}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.UseDefaultEffectDataTemplate="True"
+                dd:DragDrop.DropHandler="{Binding}"/>
+            <ListBox
+                Width="150"
+                ItemsSource="{Binding Persons3}" 
+                SelectedItem="{Binding Selected}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.UseDefaultEffectDataTemplate="True"
+                dd:DragDrop.DropHandler="{Binding}"/>
+            <Button Command="{Binding DeletePerson}">Delete</Button>
+            <Button Command="{Binding ChangeName}">Change Name</Button>
+        </StackPanel>
     </Grid>
 </Window>
