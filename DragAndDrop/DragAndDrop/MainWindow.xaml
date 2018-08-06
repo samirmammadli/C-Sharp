@@ -3,11 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:DragAndDrop"
+        xmlns:model="clr-namespace:DragAndDrop.Model"
         xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type ListBoxItem}">
+                <Setter Property="dd:DragDrop.DragSourceIgnore" Value="True" />
+            </Style>
+            <DataTemplate x:Key="Adorner" DataType="{x:Type model:Person}">
+                <StackPanel Margin="5">
+                    <iconPacks:PackIconMaterial dd:DragDrop.DragSourceIgnore="False"
+                                                            Background="Transparent"
+                                                            Cursor="SizeAll"
+                                                            Kind="Drag" />
+                    <TextBlock FontSize="12" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                    <TextBlock FontSize="12" Text="{Binding Path=Age}" HorizontalAlignment="Center" />
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="80*"/>
             <RowDefinition/>
@@ -17,39 +35,34 @@
                 Width="150"
                 ItemsSource="{Binding Persons1}" 
                 SelectedItem="{Binding Selected}"
-                SelectionMode="Extended"
-                
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
-                dd:DragDrop.UseDefaultEffectDataTemplate="True"
                 dd:DragDrop.DragDropCopyKeyState="ControlKey"
-                dd:DragDrop.DropHandler="{Binding}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock FontSize="12" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
-                            <TextBlock FontSize="12" Text="{Binding Path=Age}" HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                </ListBox>
-                <ListBox
+                dd:DragDrop.UseDefaultEffectDataTemplate="True"
+                SelectionMode="Extended"
+                dd:DragDrop.DropHandler="{Binding}"
+                ItemTemplate="{StaticResource Adorner}"/>
+            <ListBox
                 Width="150"
                 ItemsSource="{Binding Persons2}" 
                 SelectedItem="{Binding Selected}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.DragDropCopyKeyState="ControlKey"
                 dd:DragDrop.UseDefaultEffectDataTemplate="True"
-                dd:DragDrop.DropHandler="{Binding}"/>
+                dd:DragDrop.DropHandler="{Binding}"
+                ItemTemplate="{StaticResource Adorner}"/>
             <ListBox
                 Width="150"
                 ItemsSource="{Binding Persons3}" 
                 SelectedItem="{Binding Selected}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.DragDropCopyKeyState="ControlKey"
                 dd:DragDrop.UseDefaultEffectDataTemplate="True"
-                dd:DragDrop.DropHandler="{Binding}"/>
-            <Button Command="{Binding DeletePerson}">Delete</Button>
+                dd:DragDrop.DropHandler="{Binding}"
+                ItemTemplate="{StaticResource Adorner}"/>
+                <Button Command="{Binding DeletePerson}">Delete</Button>
             <Button Command="{Binding ChangeName}">Change Name</Button>
         </StackPanel>
     </Grid>
