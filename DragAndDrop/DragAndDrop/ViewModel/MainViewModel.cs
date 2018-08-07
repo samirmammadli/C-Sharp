@@ -14,51 +14,51 @@ using System.Windows;
 
 namespace DragAndDrop.ViewModel
 {
-    public class ObservableCollectionEx<T> : ObservableCollection<T> where T : INotifyPropertyChanged
-    {
-        // this collection also reacts to changes in its components' properties
+    //public class ObservableCollectionEx<T> : ObservableCollection<T> where T : INotifyPropertyChanged
+    //{
+    //    // this collection also reacts to changes in its components' properties
 
-        public ObservableCollectionEx() : base()
-        {
-            this.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
-        }
+    //    public ObservableCollectionEx() : base()
+    //    {
+    //        this.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
+    //    }
 
-        void ObservableCollectionEx_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (T item in e.OldItems)
-                {
-                    //Removed items
-                    item.PropertyChanged -= EntityViewModelPropertyChanged;
-                }
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (T item in e.NewItems)
-                {
-                    //Added items
-                    item.PropertyChanged += EntityViewModelPropertyChanged;
-                }
-            }
-        }
+    //    void ObservableCollectionEx_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    //    {
+    //        if (e.Action == NotifyCollectionChangedAction.Remove)
+    //        {
+    //            foreach (T item in e.OldItems)
+    //            {
+    //                //Removed items
+    //                item.PropertyChanged -= EntityViewModelPropertyChanged;
+    //            }
+    //        }
+    //        else if (e.Action == NotifyCollectionChangedAction.Add)
+    //        {
+    //            foreach (T item in e.NewItems)
+    //            {
+    //                //Added items
+    //                item.PropertyChanged += EntityViewModelPropertyChanged;
+    //            }
+    //        }
+    //    }
 
-        public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //This will get called when the property of an object inside the collection changes - note you must make it a 'reset' - dunno why
-            NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            OnCollectionChanged(args);
-        }
-    }
+    //    public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    //    {
+    //        //This will get called when the property of an object inside the collection changes - note you must make it a 'reset' - dunno why
+    //        NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+    //        OnCollectionChanged(args);
+    //    }
+    //}
 
 
 
     class MainViewModel : ViewModelBase//, IDropTarget
     {
-        public ObservableCollectionEx<Person> Persons1 { get; set; }
-        public ObservableCollectionEx<Person> Persons2 { get; set; }
-        public ObservableCollectionEx<Person> Persons3 { get; set; }
-        public ObservableCollectionEx<Person> SelectedItems { get; set; }
+        public ObservableCollection<Person> Persons1 { get; set; }
+        public ObservableCollection<Person> Persons2 { get; set; }
+        public ObservableCollection<Person> Persons3 { get; set; }
+        public ObservableCollection<Person> SelectedItems { get; set; }
 
         private Person _selected;
 
@@ -91,9 +91,9 @@ namespace DragAndDrop.ViewModel
 
         public MainViewModel()
         {
-            Persons1 = new ObservableCollectionEx<Person>();
-            Persons2 = new ObservableCollectionEx<Person>();
-            Persons3 = new ObservableCollectionEx<Person>();
+            Persons1 = new ObservableCollection<Person>();
+            Persons2 = new ObservableCollection<Person>();
+            Persons3 = new ObservableCollection<Person>();
 
             var rnd = new Random();
 
