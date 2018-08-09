@@ -1,0 +1,24 @@
+﻿<Window x:Class="TrelTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrelTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="400"
+        Background="#545B6A">
+    <Grid>
+        <ToolBarPanel Width="330" Height="350" Background="#474E5C">
+            <StackPanel Margin="0,80,0,0"  Width="220" VerticalAlignment="Center">
+                <Label FontFamily="Arial" Foreground="White" FontWeight="Bold" FontSize="12" Margin="0,5,5,0">Login</Label>
+                <TextBox BorderBrush="#707070" Background="#474E5C" Foreground="White" Margin="5"></TextBox>
+                <Label Margin="0,20,0,0" FontFamily="Arial" Foreground="White" FontWeight="Bold" FontSize="12">Password</Label>
+                <PasswordBox BorderBrush="#707070" FontFamily="Arial" Background="#474E5C" Foreground="White" Margin="5"></PasswordBox>
+                <Button FontWeight="Bold" BorderBrush="Transparent" FontFamily="Arial" Foreground="White" Height="35" Background="#97C05B" Margin="5,20,5,5">SIGN IN</Button>
+            </StackPanel>
+            <Label FontFamily="Arial" Margin="12" HorizontalAlignment="Center" Foreground="Gray">
+                <Hyperlink FontFamily="Arial" Foreground="Gray">Forgot password?</Hyperlink></Label>
+        </ToolBarPanel>
+        
+    </Grid>
+</Window>

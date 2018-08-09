@@ -97,7 +97,7 @@ namespace DragAndDrop.ViewModel
 
             var rnd = new Random();
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Persons1.Add(new Person($"First", i+ 1));
                 Persons2.Add(new Person($"Second", i + 1));
