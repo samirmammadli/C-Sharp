@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace EratosthenesSieve
 {
@@ -9,15 +10,20 @@ namespace EratosthenesSieve
     {
         static void Main(string[] args)
         {
+
+            string a = "Samir";
+
+            Console.WriteLine(new string(a.Take(200 ).ToArray()) + "|||||");
+
             //int number = 5;
 
             //55
 
-            Console.WriteLine(1017 % 20); //17
+            //Console.WriteLine(1017 % 20); //17
 
-            //35 - 17 = 28
+            ////35 - 17 = 28
 
-            Console.WriteLine(28 / 20);
+            //Console.WriteLine(28 / 20);
 
 
             //var file = File.ReadAllLines(@"C:\Users\Samir\Desktop\corp.txt");
