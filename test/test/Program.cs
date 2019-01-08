@@ -11,9 +11,7 @@ namespace EratosthenesSieve
         static void Main(string[] args)
         {
 
-            string a = "Samir";
-
-            Console.WriteLine(new string(a.Take(200 ).ToArray()) + "|||||");
+            Console.WriteLine(typeof(BooleanSwitch).Name);
 
             //int number = 5;
 
